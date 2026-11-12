@@ -156,20 +156,47 @@ let activePhotoItem = null;
 // 4. Initialize Application
 // ========================================================
 document.addEventListener("DOMContentLoaded", async () => {
+  let userMedia = [];
   try {
-    const userMedia = await getAllUserMediaFromDB();
-    if (userMedia && userMedia.length > 0) {
-      // Convert Blobs to Object URLs for browser playback
-      userMedia.forEach(item => {
+    const stored = await getAllUserMediaFromDB();
+    if (stored && stored.length > 0) {
+      stored.forEach(item => {
         if (item.fileBlob) {
           item.mediaUrl = URL.createObjectURL(item.fileBlob);
           item.thumbnailUrl = item.type === "photo" ? item.mediaUrl : (item.customThumbUrl || item.mediaUrl);
         }
       });
-      allMediaItems = [...userMedia, ...INITIAL_MEDIA];
+      userMedia = stored;
     }
   } catch (err) {
     console.warn("Could not load user media from IndexedDB:", err);
+  }
+
+  // Check if Supabase is connected and fetch cloud media
+  try {
+    if (window.AeroSupabase && window.AeroSupabase.isSupabaseConfigured()) {
+      const supabaseItems = await window.AeroSupabase.fetchMediaFromSupabase();
+      if (supabaseItems && supabaseItems.length > 0) {
+        allMediaItems = [...supabaseItems, ...userMedia, ...INITIAL_MEDIA];
+
+        // Update hero featured video if available in Supabase
+        const featuredVid = supabaseItems.find(i => i.type === "video" && i.isFeatured);
+        if (featuredVid) {
+          const heroVid = document.getElementById("hero-featured-video");
+          if (heroVid) {
+            heroVid.src = featuredVid.mediaUrl;
+            if (featuredVid.thumbnailUrl) heroVid.poster = featuredVid.thumbnailUrl;
+          }
+        }
+      } else {
+        allMediaItems = [...userMedia, ...INITIAL_MEDIA];
+      }
+    } else {
+      allMediaItems = [...userMedia, ...INITIAL_MEDIA];
+    }
+  } catch (supabaseErr) {
+    console.warn("Could not fetch Supabase media:", supabaseErr);
+    allMediaItems = [...userMedia, ...INITIAL_MEDIA];
   }
 
   renderGallery();

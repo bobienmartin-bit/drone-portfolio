@@ -1,23 +1,25 @@
-# 🛸 AeroScope — Portofolio Drone Fotografi & Aerial Cinematography
+# 🛸 AeroScope — Portofolio Drone Fotografi & CMS Supabase
 
-Website portofolio modern dan profesional khusus untuk karya fotografi dan videografi drone (aerial visuals). Dibangun dengan teknologi **HTML5, Tailwind CSS, Lucide Icons, dan JavaScript murni**, siap langsung jalan tanpa instal tools tambahan, dan **100% siap disambungkan ke Vercel**.
+Website portofolio modern dan profesional khusus untuk karya fotografi dan videografi drone (aerial visuals), terintegrasi dengan **Supabase CMS (PostgreSQL Database & Cloud Storage)** dan siap dideploy ke **Vercel**.
 
 ---
 
 ## ✨ Fitur Utama
 
-1. **Cinematic Hero & Telemetry HUD**: Desain bertema cockpit & sensor telemetry drone futuristik dengan status GPS, resolusi rekaman, dan jam terbang pilot.
-2. **Featured Video Player 4K**: Pemutar video sinematik langsung di website dengan kontrol lengkap, audio, dan spesifikasi kamera drone.
+1. **Cinematic Hero & Telemetry HUD**: Desain cockpit & sensor telemetry drone dengan status satelit GPS, resolusi 5.1K/4K, dan indikator status database.
+2. **Featured Video Player 4K**: Pemutar video sinematik langsung di website dengan kontrol responsif, audio, dan spesifikasi kamera drone.
 3. **Interactive Photo & Video Gallery**:
    - Filter kategori: *Semua Karya, Foto Udara, Video Sinematik, Alam & Lanskap, Perkotaan (Urban), Upload Pribadi*.
-   - **Video Modal Player**: Putar video drone dengan kontrol lancar & responsif.
+   - **Video Modal Player**: Putar video drone dengan kontrol lancar.
    - **Photo Lightbox**: Tampilkan foto udara resolusi penuh dengan zoom, data telemetry (drone, ketinggian, shutter/aperture), dan tombol unduh.
-4. **Studio Uploader Mandiri (Upload Foto & Video Pribadi)**:
-   - Anda dapat mengunggah file foto (`.jpg`, `.png`, `.webp`) dan video (`.mp4`, `.webm`, `.mov`) langsung dari komputer Anda.
-   - Menggunakan teknologi browser **IndexedDB**, sehingga foto & video yang Anda upload akan tetap tersimpan di browser Anda meskipun halaman direfresh!
-5. **Gear & Services Fleet**: Menampilkan spesifikasi armada drone (DJI Mavic 3 Pro, DJI Mini 4 Pro, Custom 5" FPV Cinewhoop) dan jenis layanan komersial.
-6. **Formulir Inquiry & Integrasi WhatsApp Langsung**: Pengunjung dapat memesan jadwal terbang pilot langsung terhubung ke WhatsApp.
-7. **Zero-Config Vercel Support**: Sudah dilengkapi file `vercel.json` dengan caching & header optimasi.
+4. **🔥 Panel Admin CMS Supabase (`admin.html`)**:
+   - Mengelola seluruh data galeri foto dan video secara online tanpa menyentuh kode.
+   - Upload file foto & video resolusi tinggi langsung ke **Supabase Storage bucket `drone-media`**.
+   - Input metadata drone lengkap (model drone, ketinggian/altitude, FPS/resolusi, lokasi, deskripsi).
+   - Fitur toggle **Featured Showcase** untuk menentukan video/foto utama di halaman depan.
+   - Fitur Edit dan Hapus data realtime.
+5. **Formulir Inquiry & Booking WhatsApp Langsung**: Pengunjung dapat memesan jadwal terbang pilot langsung terhubung ke WhatsApp.
+6. **Zero-Config Vercel Support**: Sudah dilengkapi file `vercel.json` dengan caching & header optimasi.
 
 ---
 
@@ -26,69 +28,66 @@ Website portofolio modern dan profesional khusus untuk karya fotografi dan video
 ```
 drone-portfolio/
 │
-├── index.html            # Halaman utama portofolio
+├── index.html            # Halaman utama portofolio publik
+├── admin.html            # Panel Admin CMS Studio (Supabase Manager)
+├── admin.js              # Logika dashboard CMS (upload storage, CRUD table)
+├── supabase.js           # Client helper koneksi database & storage Supabase
+├── supabase_schema.sql   # Skrip SQL tabel portfolio_media & storage bucket
 ├── styles.css            # Desain kustom, animasi pulse radar, glassmorphism
-├── app.js                # Logika galeri, pemutar video, lightbox, dan IndexedDB uploader
+├── app.js                # Logika galeri publik & sinkronisasi Supabase
 ├── vercel.json           # Konfigurasi caching dan deployment Vercel
 ├── README.md             # Panduan lengkap
 │
 └── assets/
-    ├── images/           # Tempat menyimpan foto drone permanen Anda
-    └── videos/           # Tempat menyimpan video drone permanen Anda
+    ├── images/           # Tempat menyimpan foto lokal
+    └── videos/           # Tempat menyimpan video lokal
 ```
 
 ---
 
-## 🚀 Cara Menjalankan Secara Lokal di Komputer Anda
+## 🛠️ Panduan Menghubungkan ke Supabase (Database & Storage)
 
-Anda **tidak memerlukan Node.js atau server khusus**:
-1. Buka folder:
+CMS ini menggunakan **Supabase** (layanan PostgreSQL & Cloud Storage gratis dan cepat):
+
+### Langkah 1: Buat Proyek di Supabase
+1. Buka [https://supabase.com](https://supabase.com) dan buat akun (bisa login dengan akun GitHub Anda).
+2. Klik **"New Project"**, beri nama proyek (contoh: `drone-portfolio`), pilih lokasi server terdekat (contoh: *Singapore*), dan buat database password.
+3. Tunggu ~1 menit hingga proyek selesai dibuat.
+
+### Langkah 2: Jalankan Skrip SQL
+1. Di dashboard Supabase Anda, buka menu **SQL Editor** (ikon terminal di menu kiri).
+2. Klik **"New Query"**.
+3. Buka file `supabase_schema.sql` di proyek ini, salin seluruh isinya, dan tempelkan ke SQL Editor Supabase.
+4. Klik tombol **"Run"**.
+   - Skrip ini akan otomatis membuat tabel `portfolio_media`, mengaktifkan Row Level Security (RLS), dan membuat Storage Bucket bernama `drone-media`.
+
+### Langkah 3: Hubungkan ke CMS Admin
+1. Di Supabase, buka menu **Project Settings** (ikon gerigi) &rarr; **API**.
+2. Salin:
+   - **Project URL** (contoh: `https://xxxx.supabase.co`)
+   - **Project API Keys (`anon` / `public`)**
+3. Buka halaman **`admin.html`** di browser Anda:
+   - Klik tombol **"Konfigurasi Supabase"**.
+   - Masukkan Project URL dan Anon Key tadi.
+   - Klik **"Tes Koneksi"**, lalu klik **"Simpan Konfigurasi"**.
+4. Selesai! Sekarang Anda dapat mengunggah foto dan video langsung melalui panel CMS `admin.html`, dan hasilnya otomatis langsung muncul di website publik (`index.html`) Anda di Vercel!
+
+---
+
+## 🚀 Cara Menjalankan Secara Lokal
+
+1. Buka folder proyek:
    ```
    C:\Users\Bobien Martien\.gemini\antigravity\scratch\drone-portfolio
    ```
-2. Klik dua kali file `index.html` untuk langsung membukanya di browser (Google Chrome, Microsoft Edge, dll).
-3. Anda bisa langsung mencoba fitur tombol **"+ Upload Karya"** untuk memasukkan foto atau video drone pribadi dari laptop Anda.
+2. Klik dua kali **`index.html`** untuk melihat website portofolio publik.
+3. Klik dua kali **`admin.html`** untuk mengelola data via CMS Admin.
 
 ---
 
-## 🌐 Cara Menyambungkan dan Mendeploy ke Vercel
+## 🌐 Deploy ke Vercel
 
-Ada **2 cara mudah** untuk menghubungkan website ini ke Vercel:
+Repository GitHub Anda:
+👉 **[https://github.com/bobienmartin-bit/drone-portfolio](https://github.com/bobienmartin-bit/drone-portfolio)**
 
-### Cara 1: Menggunakan GitHub (Sangat Disarankan & Otomatis)
-1. Buat akun di [GitHub.com](https://github.com) jika belum punya.
-2. Buat repository baru, misalnya bernama `drone-portfolio`.
-3. Unggah seluruh file dari folder ini (`index.html`, `styles.css`, `app.js`, `vercel.json`, dan folder `assets`) ke repository GitHub tersebut.
-4. Buka [Vercel.com](https://vercel.com) dan masuk menggunakan akun GitHub Anda.
-5. Pada dashboard Vercel, klik tombol **"Add New..."** lalu pilih **"Project"**.
-6. Pilih repository `drone-portfolio` yang baru saja Anda buat.
-7. Klik **"Deploy"**.
-8. Dalam hitungan detik, Vercel akan memberikan link website aktif Anda (misalnya: `https://drone-portfolio-anda.vercel.app`) secara gratis! Setiap kali Anda memperbarui file di GitHub, Vercel akan otomatis meng-update website Anda.
-
-### Cara 2: Menambahkan Foto & Video Permanen untuk Pengunjung Publik di Vercel
-Jika Anda ingin foto dan video pribadi Anda selalu muncul untuk semua orang yang membuka website Anda di Vercel:
-1. Taruh file foto drone Anda ke dalam folder `assets/images/` (contoh: `pantai-bali.jpg`).
-2. Taruh file video drone Anda ke dalam folder `assets/videos/` (contoh: `showreel-bromo.mp4`).
-3. Buka file `app.js` dan tambahkan entri media ke dalam array `INITIAL_MEDIA`:
-   ```javascript
-   {
-     id: "karya-pribadi-1",
-     type: "video", // atau "photo"
-     title: "Penerbangan Sunset Gunung Bromo",
-     category: "landscape",
-     mediaUrl: "assets/videos/showreel-bromo.mp4",
-     thumbnailUrl: "assets/images/pantai-bali.jpg",
-     drone: "DJI Mavic 3 Pro",
-     altitude: "150m AGL",
-     specs: "4K 60fps • D-Log M",
-     location: "Gunung Bromo, Jawa Timur",
-     description: "Dokumentasi pribadi penerbangan senja.",
-     isUserUpload: false
-   }
-   ```
-4. Simpan file `app.js` dan upload kembali ke GitHub/Vercel.
-
----
-
-## 📞 Kustomisasi Kontak & WhatsApp Anda
-Buka `index.html` dan `app.js`, lalu cari nomor `6281234567890`. Ganti dengan nomor WhatsApp asli Anda agar pesan pengunjung langsung masuk ke WhatsApp Anda!
+Karena semua file sudah tersinkronisasi ke GitHub, setiap kali Anda melakukan `git push`, Vercel akan otomatis meng-update website Anda secara live!

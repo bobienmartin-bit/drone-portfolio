@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroScope CMS Studio — Panel Admin & Database Supabase</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              cyan: '#06b6d4',
+              accent: '#38bdf8',
+              gold: '#f59e0b',
+              dark: '#07090e',
+              card: '#0d131f'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- AeroScope Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#07090e] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
+      
+      <!-- Logo Brand & CMS Badge -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 p-0.5 shadow-md shadow-cyan-500/20">
+            <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+              <i data-lucide="crosshair" class="w-5 h-5 text-cyan-400"></i>
+            </div>
+          </div>
+          <div>
+            <span class="text-base font-bold tracking-wider font-mono text-white flex items-center gap-1.5">
+              AEROSCOPE <span class="text-cyan-400">// CMS</span>
+            </span>
+            <p class="text-[10px] tracking-widest uppercase font-mono text-slate-400">Supabase Media Studio</p>
+          </div>
+        </a>
+
+        <!-- Connection Status Pill -->
+        <div id="conn-status-pill" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono border bg-slate-900 border-slate-800 text-slate-400">
+          <span id="conn-dot" class="w-2 h-2 rounded-full bg-slate-500"></span>
+          <span id="conn-label">Memeriksa Supabase...</span>
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-3">
+        <button onclick="openConfigModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all">
+          <i data-lucide="database" class="w-4 h-4 text-cyan-400"></i>
+          <span class="hidden sm:inline">Konfigurasi Supabase</span>
+        </button>
+
+        <button onclick="openSqlModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all">
+          <i data-lucide="file-code" class="w-4 h-4 text-emerald-400"></i>
+          <span class="hidden sm:inline">Skrip SQL</span>
+        </button>
+
+        <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-all">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Web Publik</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- NOT CONFIGURED BANNER / ONBOARDING -->
+    <div id="setup-banner" class="hidden mb-10 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-2 border-dashed border-cyan-500/40 text-center">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/30">
+        <i data-lucide="database" class="w-8 h-8"></i>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-2">Sambungkan CMS ke Supabase Anda</h2>
+      <p class="text-sm text-slate-400 max-w-xl mx-auto mb-6 leading-relaxed">
+        CMS ini menggunakan database PostgreSQL dan Supabase Storage untuk menyimpan foto beresolusi tinggi dan video drone 4K. Cukup masukkan <strong>Project URL</strong> dan <strong>Anon Key</strong> Supabase Anda.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openConfigModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25">
+          <i data-lucide="key" class="w-4 h-4"></i> Masukkan Kunci Supabase
+        </button>
+        <button onclick="openSqlModal()" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2">
+          <i data-lucide="copy" class="w-4 h-4 text-emerald-400"></i> Salin Skrip Tabel SQL
+        </button>
+      </div>
+    </div>
+
+    <!-- STATS OVERVIEW CARDS -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+          <span>TOTAL MEDIA</span>
+          <i data-lucide="layers" class="w-4 h-4 text-cyan-400"></i>
+        </div>
+        <div id="stat-total" class="text-3xl font-extrabold font-mono text-white">0</div>
+        <div class="text-[11px] text-slate-500 mt-1">Tersimpan di Supabase DB</div>
+      </div>
+
+      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+          <span>VIDEO 4K / 5K</span>
+          <i data-lucide="video" class="w-4 h-4 text-cyan-400"></i>
+        </div>
+        <div id="stat-videos" class="text-3xl font-extrabold font-mono text-cyan-300">0</div>
+        <div class="text-[11px] text-slate-500 mt-1">Video Drone Aktif</div>
+      </div>
+
+      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+          <span>FOTO UDARA</span>
+          <i data-lucide="camera" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div id="stat-photos" class="text-3xl font-extrabold font-mono text-emerald-300">0</div>
+        <div class="text-[11px] text-slate-500 mt-1">Foto High-Res RAW/UHD</div>
+      </div>
+
+      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+          <span>STORAGE BUCKET</span>
+          <i data-lucide="hard-drive" class="w-4 h-4 text-amber-400"></i>
+        </div>
+        <div class="text-lg font-bold font-mono text-amber-300 truncate">drone-media</div>
+        <div class="text-[11px] text-slate-500 mt-1">Supabase Cloud Storage</div>
+      </div>
+    </div>
+
+    <!-- ACTION & FILTER BAR -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
+      
+      <!-- Filter Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1">
+        <button class="cms-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 font-bold flex items-center gap-1.5" data-filter="all">
+          Semua Media
+        </button>
+        <button class="cms-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 flex items-center gap-1.5" data-filter="video">
+          <i data-lucide="video" class="w-3.5 h-3.5 text-cyan-400"></i> Video
+        </button>
+        <button class="cms-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 flex items-center gap-1.5" data-filter="photo">
+          <i data-lucide="camera" class="w-3.5 h-3.5 text-emerald-400"></i> Foto
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="loadCmsMedia()" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition-colors" title="Muat Ulang Data">
+          <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+        </button>
+        <button onclick="openMediaModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25 transition-all">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Tambah Media Baru</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MEDIA CONTENT TABLE / GRID -->
+    <div class="bg-slate-950/80 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-900/90 text-xs font-mono text-slate-400 uppercase tracking-wider border-b border-slate-800">
+            <tr>
+              <th scope="col" class="py-4 px-6">Preview Media</th>
+              <th scope="col" class="py-4 px-6">Judul & Kategori</th>
+              <th scope="col" class="py-4 px-6">Drone & Telemetri</th>
+              <th scope="col" class="py-4 px-6">Tipe</th>
+              <th scope="col" class="py-4 px-6">Tanggal</th>
+              <th scope="col" class="py-4 px-6 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="media-table-body" class="divide-y divide-slate-800/60 font-sans">
+            <!-- Rows dynamically loaded by admin.js -->
+            <tr>
+              <td colspan="6" class="py-12 text-center text-slate-500 font-mono text-xs">
+                Memuat data dari Supabase...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="table-empty-state" class="hidden py-16 text-center">
+        <div class="w-14 h-14 mx-auto rounded-full bg-slate-900 flex items-center justify-center text-slate-500 mb-3">
+          <i data-lucide="inbox" class="w-6 h-6"></i>
+        </div>
+        <h4 class="text-base font-bold text-slate-300">Belum ada karya di database</h4>
+        <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Klik tombol "Tambah Media Baru" untuk mengunggah foto atau video pertama Anda ke Supabase.</p>
+        <button onclick="openMediaModal()" class="mt-4 px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs inline-flex items-center gap-1.5">
+          <i data-lucide="plus" class="w-4 h-4"></i> Tambah Media
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 1: ADD / EDIT MEDIA (SUPABASE STORAGE + DB) -->
+  <!-- ======================================================== -->
+  <div id="media-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-cyan-500/40 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+          </div>
+          <h3 id="media-modal-title" class="text-base font-bold text-white">Tambah Media ke Supabase</h3>
+        </div>
+        <button onclick="closeMediaModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Form Body -->
+      <form id="media-form" class="p-6 space-y-4 overflow-y-auto flex-1">
+        <input type="hidden" id="form-media-id">
+
+        <!-- File Upload to Supabase Storage -->
+        <div>
+          <label class="block text-xs font-mono text-cyan-400 mb-1.5">FILE FOTO ATAU VIDEO (UPLOAD KE SUPABASE STORAGE)</label>
+          <div id="form-dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-400 rounded-2xl p-5 text-center cursor-pointer transition-colors bg-slate-950/60">
+            <input type="file" id="form-file-input" accept="image/*,video/*" class="hidden">
+            
+            <div id="form-placeholder">
+              <i data-lucide="cloud-upload" class="w-8 h-8 mx-auto text-cyan-400 mb-2"></i>
+              <p class="text-xs font-semibold text-slate-200">Klik atau geser file foto/video ke sini</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Disimpan di Supabase Storage bucket <code>drone-media</code></p>
+            </div>
+
+            <div id="form-file-preview" class="hidden"></div>
+          </div>
+
+          <!-- Upload Progress Bar -->
+          <div id="upload-progress-box" class="hidden mt-3">
+            <div class="flex items-center justify-between text-xs font-mono text-cyan-300 mb-1">
+              <span id="upload-progress-text">Mengunggah ke Supabase...</span>
+              <span id="upload-progress-pct">0%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div id="upload-progress-bar" class="bg-cyan-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Or Media URL input -->
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">ATAU TAUTAN MEDIA LANGSUNG (URL EKSTERNAL / CDN)</label>
+          <input type="url" id="form-media-url" placeholder="https://..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+        </div>
+
+        <!-- Form Grid Fields -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">JUDUL KARYA *</label>
+            <input type="text" id="form-title" required placeholder="Contoh: Aerial Sunset Pantai Bali" class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">TIPE MEDIA *</label>
+            <select id="form-type" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+              <option value="video">Video Drone</option>
+              <option value="photo">Foto Udara</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">KATEGORI</label>
+            <select id="form-category" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+              <option value="landscape">Alam & Lanskap</option>
+              <option value="urban">Perkotaan (Urban)</option>
+              <option value="coastal">Pantai & Bahari</option>
+              <option value="event">Acara / Event</option>
+              <option value="fpv">FPV Action</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">TIPE DRONE</label>
+            <input type="text" id="form-drone" placeholder="DJI Mavic 3 Pro" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">LOKASI</label>
+            <input type="text" id="form-location" placeholder="Lokasi penerbangan" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">KETINGGIAN (ALTITUDE)</label>
+            <input type="text" id="form-altitude" placeholder="Contoh: 150m AGL" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">SPESIFIKASI KAMERA / FPS</label>
+            <input type="text" id="form-specs" placeholder="Contoh: 4K 60fps • D-Log M" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">DESKRIPSI / CATATAN KARYA</label>
+          <textarea id="form-description" rows="2" placeholder="Catatan sudut pengambilan gambar, filter ND, atau kondisi cuaca..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none"></textarea>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <input type="checkbox" id="form-featured" class="w-4 h-4 rounded text-cyan-500 focus:ring-0 bg-slate-950 border-slate-800">
+          <label for="form-featured" class="text-xs text-slate-300">Tampilkan sebagai <strong>Featured Showcase</strong> di halaman utama</label>
+        </div>
+
+        <!-- Form Submit Actions -->
+        <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeMediaModal()" class="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold">
+            Batal
+          </button>
+          <button type="submit" id="form-submit-btn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span id="form-submit-label">Simpan ke Supabase</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 2: CONFIGURATION MODAL (SUPABASE URL & ANON KEY) -->
+  <!-- ======================================================== -->
+  <div id="config-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-8">
+      
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+            <i data-lucide="settings" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Konfigurasi Supabase</h3>
+            <p class="text-xs text-slate-400">Hubungkan CMS ke database Supabase Anda</p>
+          </div>
+        </div>
+        <button onclick="closeConfigModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="config-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1.5">PROJECT URL SUPABASE *</label>
+          <input type="url" id="cfg-url" required placeholder="https://your-project.supabase.co" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
+          <p class="text-[11px] text-slate-500 mt-1">Ditemukan di Supabase Dashboard &rarr; Project Settings &rarr; API &rarr; Project URL</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1.5">ANON PUBLIC KEY *</label>
+          <input type="password" id="cfg-key" required placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
+          <p class="text-[11px] text-slate-500 mt-1">Ditemukan di Supabase Dashboard &rarr; Project Settings &rarr; API &rarr; Project API keys (anon public)</p>
+        </div>
+
+        <div id="cfg-test-result" class="hidden p-3 rounded-xl text-xs font-mono"></div>
+
+        <div class="pt-4 flex items-center justify-between gap-3">
+          <button type="button" onclick="testConnectionFromModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5">
+            <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i> Tes Koneksi
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs uppercase tracking-wide">
+            Simpan Konfigurasi
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 3: SUPABASE SQL SCRIPT VIEWER -->
+  <!-- ======================================================== -->
+  <div id="sql-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-8 flex flex-col max-h-[90vh]">
+      
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="terminal" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Skrip SQL Inisialisasi Supabase</h3>
+            <p class="text-xs text-slate-400">Jalankan di Supabase Dashboard &rarr; SQL Editor &rarr; New Query</p>
+          </div>
+        </div>
+        <button onclick="closeSqlModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="relative flex-1 overflow-hidden flex flex-col">
+        <pre class="bg-slate-950 p-4 rounded-xl text-[11px] font-mono text-cyan-300 overflow-y-auto flex-1 border border-slate-800 select-all leading-relaxed" id="sql-code-block">
+-- 1. Buat Tabel portfolio_media
+create table if not exists public.portfolio_media (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  type text not null check (type in ('photo', 'video')),
+  title text not null,
+  category text not null default 'landscape',
+  media_url text not null,
+  thumbnail_url text,
+  drone text default 'DJI Mavic 3 Pro',
+  altitude text default '120m AGL',
+  specs text default '4K UHD 60fps',
+  location text default 'Indonesia',
+  description text,
+  is_featured boolean default false,
+  display_order integer default 0
+);
+
+-- 2. Aktifkan RLS & Kebijakan Akses Publik
+alter table public.portfolio_media enable row level security;
+
+create policy "Allow public read access for all"
+  on public.portfolio_media for select using (true);
+
+create policy "Allow all insert"
+  on public.portfolio_media for insert with check (true);
+
+create policy "Allow all update"
+  on public.portfolio_media for update using (true);
+
+create policy "Allow all delete"
+  on public.portfolio_media for delete using (true);
+
+-- 3. Buat Bucket Storage 'drone-media'
+insert into storage.buckets (id, name, public)
+values ('drone-media', 'drone-media', true)
+on conflict (id) do update set public = true;
+
+create policy "Public Access to Drone Media"
+  on storage.objects for select using (bucket_id = 'drone-media');
+
+create policy "Public Upload to Drone Media"
+  on storage.objects for insert with check (bucket_id = 'drone-media');
+        </pre>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between">
+        <span class="text-xs text-slate-500">File tersedia di: <code>supabase_schema.sql</code></span>
+        <button onclick="copySqlCode()" id="copy-sql-btn" class="px-5 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs flex items-center gap-1.5">
+          <i data-lucide="copy" class="w-4 h-4"></i> Salin Skrip SQL
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm"></div>
+
+  <!-- CMS Engine Scripts -->
+  <script src="supabase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

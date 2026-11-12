@@ -39,6 +39,9 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -85,7 +88,7 @@
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
         <a href="#beranda" class="hover:text-cyan-400 transition-colors">Beranda</a>
         <a href="#showreel" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Video Reel
@@ -94,6 +97,9 @@
         <a href="#gear" class="hover:text-cyan-400 transition-colors">Gear & Layanan</a>
         <a href="#tentang" class="hover:text-cyan-400 transition-colors">Tentang Saya</a>
         <a href="#kontak" class="hover:text-cyan-400 transition-colors">Kontak</a>
+        <a href="admin.html" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 text-xs font-mono text-cyan-400 px-2.5 py-1 rounded-lg bg-cyan-950/60 border border-cyan-500/30">
+          <i data-lucide="database" class="w-3.5 h-3.5"></i> CMS Admin
+        </a>
       </nav>
 
       <!-- Action Buttons -->
@@ -125,6 +131,9 @@
         <a href="#gear" class="text-slate-200 hover:text-cyan-400">Gear & Layanan</a>
         <a href="#tentang" class="text-slate-200 hover:text-cyan-400">Tentang Saya</a>
         <a href="#kontak" class="text-slate-200 hover:text-cyan-400">Kontak</a>
+        <a href="admin.html" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 font-mono text-sm">
+          <i data-lucide="database" class="w-4 h-4"></i> CMS Admin Supabase
+        </a>
       </div>
       <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
         <button onclick="openUploadModal()" class="w-full py-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-medium text-sm flex items-center justify-center gap-2">
@@ -1044,7 +1053,8 @@
     </div>
   </div>
 
-  <!-- Application Script -->
+  <!-- Application Scripts -->
+  <script src="supabase.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
