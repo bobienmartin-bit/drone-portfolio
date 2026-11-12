@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroScope — Portofolio Drone Fotografi & Sinematografi Udara</title>
+  <meta name="description" content="Portofolio fotografi dan sinematografi drone profesional. Menampilkan karya foto udara resolusi tinggi, video reel 4K, dan studio upload karya mandiri yang siap dideploy ke Vercel.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              cyan: '#06b6d4',
+              accent: '#38bdf8',
+              gold: '#f59e0b',
+              dark: '#07090e',
+              card: '#0d131f'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#07090e] text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- TOP HUD TELEMETRY BAR -->
+  <div class="w-full bg-slate-950/80 border-b border-slate-800/80 px-4 py-1.5 text-[11px] font-mono text-slate-400 flex items-center justify-between z-50 relative">
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-1.5 text-cyan-400">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 pulse-radar"></span>
+        GPS LOCK • 18 SATELLITES
+      </span>
+      <span class="hidden sm:inline text-slate-500">|</span>
+      <span class="hidden sm:inline">MAX 4K/60FPS UHD</span>
+      <span class="hidden md:inline text-slate-500">|</span>
+      <span class="hidden md:inline">COLOR: 10-BIT D-LOG M</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> VERCEL READY
+      </span>
+      <span class="text-slate-500">|</span>
+      <span class="text-slate-300">INDONESIA</span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/85 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Brand -->
+      <a href="#beranda" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+            <i data-lucide="crosshair" class="w-6 h-6 text-cyan-400 group-hover:rotate-45 transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-wider font-mono text-white flex items-center gap-1.5">
+            AEROSCOPE <span class="text-cyan-400">//</span>
+          </span>
+          <p class="text-[10px] tracking-widest uppercase font-mono text-slate-400">Drone Visual Arts</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#beranda" class="hover:text-cyan-400 transition-colors">Beranda</a>
+        <a href="#showreel" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Video Reel
+        </a>
+        <a href="#galeri" class="hover:text-cyan-400 transition-colors">Galeri Karya</a>
+        <a href="#gear" class="hover:text-cyan-400 transition-colors">Gear & Layanan</a>
+        <a href="#tentang" class="hover:text-cyan-400 transition-colors">Tentang Saya</a>
+        <a href="#kontak" class="hover:text-cyan-400 transition-colors">Kontak</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="hidden sm:flex items-center gap-3">
+        <!-- Interactive Upload Button -->
+        <button onclick="openUploadModal()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 text-xs font-semibold flex items-center gap-2 transition-all shadow-sm">
+          <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+          <span>+ Upload Karya</span>
+        </button>
+
+        <a href="#kontak" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2">
+          <span>Booking Pilot</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Trigger -->
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 border border-slate-800">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 px-6 py-6 space-y-4">
+      <div class="flex flex-col gap-4 text-base font-medium">
+        <a href="#beranda" class="text-slate-200 hover:text-cyan-400">Beranda</a>
+        <a href="#showreel" class="text-slate-200 hover:text-cyan-400">Video Reel</a>
+        <a href="#galeri" class="text-slate-200 hover:text-cyan-400">Galeri Karya</a>
+        <a href="#gear" class="text-slate-200 hover:text-cyan-400">Gear & Layanan</a>
+        <a href="#tentang" class="text-slate-200 hover:text-cyan-400">Tentang Saya</a>
+        <a href="#kontak" class="text-slate-200 hover:text-cyan-400">Kontak</a>
+      </div>
+      <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
+        <button onclick="openUploadModal()" class="w-full py-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-medium text-sm flex items-center justify-center gap-2">
+          <i data-lucide="upload-cloud" class="w-4 h-4"></i> Upload Foto / Video
+        </button>
+        <a href="#kontak" class="w-full py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm text-center">
+          Booking Proyek Drone
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="beranda" class="relative min-h-[92vh] flex items-center justify-center overflow-hidden hud-grid py-20">
+    <!-- Ambient Glow & Video Background Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85" alt="Drone Background" class="w-full h-full object-cover opacity-25 filter brightness-50">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#07090e] via-[#07090e]/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-radial-gradient from-transparent via-[#07090e]/60 to-[#07090e]"></div>
+    </div>
+
+    <!-- Telemetry Crosshair Decorative Box -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div class="text-center max-w-4xl mx-auto">
+        
+        <!-- Drone Tag Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md mb-8 shadow-inner shadow-cyan-500/10">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 pulse-radar"></span>
+          <span class="text-xs font-mono font-semibold tracking-wider text-cyan-300 uppercase">
+            AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY
+          </span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+          Menangkap Keindahan Dunia dari <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">Sudut Pandang Langit</span>.
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-xl text-slate-300 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+          Koleksi visual lanskap alam, perkotaan, dan aksi FPV beresolusi tinggi hingga 5.1K. Siap untuk produksi komersial, dokumentasi acara, dan estetika visual sinematik.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button onclick="openMediaDetail('sample-vid-1')" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 transition-all flex items-center gap-3">
+            <i data-lucide="play-circle" class="w-5 h-5 fill-current"></i>
+            <span>Tonton Showreel 4K</span>
+          </button>
+
+          <a href="#galeri" class="px-7 py-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-cyan-500/50 font-semibold text-sm transition-all flex items-center gap-2">
+            <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
+            <span>Jelajahi Galeri</span>
+          </a>
+
+          <button onclick="openUploadModal()" class="px-6 py-3.5 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 font-semibold text-sm transition-all flex items-center gap-2">
+            <i data-lucide="upload" class="w-4 h-4"></i>
+            <span>Upload Foto / Video Anda</span>
+          </button>
+        </div>
+
+        <!-- Telemetry HUD Stats Bar -->
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
+            <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
+              <i data-lucide="video" class="w-3.5 h-3.5"></i> RESOLUSI
+            </div>
+            <div class="text-2xl font-bold font-mono text-white">5.1K / 4K</div>
+            <p class="text-[11px] text-slate-400">ProRes & D-Log M</p>
+          </div>
+
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
+            <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> SAFETY
+            </div>
+            <div class="text-2xl font-bold font-mono text-white">100%</div>
+            <p class="text-[11px] text-slate-400">Zero Incident Record</p>
+          </div>
+
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
+            <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i> FLIGHT TIME
+            </div>
+            <div class="text-2xl font-bold font-mono text-white">450+</div>
+            <p class="text-[11px] text-slate-400">Jam Terbang Pilot</p>
+          </div>
+
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
+            <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
+              <i data-lucide="layers" class="w-3.5 h-3.5"></i> TOTAL KARYA
+            </div>
+            <div class="text-2xl font-bold font-mono text-cyan-300" id="stat-total-media">6</div>
+            <p class="text-[11px] text-slate-400">Foto & Video Aktif</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SHOWREEL & VIDEO CINEMA SECTION -->
+  <section id="showreel" class="py-24 bg-slate-950 border-t border-b border-slate-900 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
+            <i data-lucide="clapperboard" class="w-4 h-4"></i> Featured Aerial Cinema
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Cinematic Video Showcase</h2>
+          <p class="text-slate-400 text-sm mt-2 max-w-xl">
+            Tonton kompilasi video rekaman drone dengan sinematografi mulus, pergerakan dinamis, dan grading warna profesional.
+          </p>
+        </div>
+
+        <div class="mt-4 md:mt-0 flex items-center gap-4">
+          <span class="text-xs font-mono text-slate-400">Format: 4K UHD 60FPS</span>
+        </div>
+      </div>
+
+      <!-- Cinema Screen Container -->
+      <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/90 shadow-2xl shadow-cyan-950/20 aspect-video max-w-5xl mx-auto group">
+        <!-- Interactive Video Player -->
+        <video 
+          id="hero-featured-video" 
+          poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80" 
+          controls 
+          playsinline 
+          preload="metadata"
+          class="w-full h-full object-cover"
+        >
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-mountain-landscape-during-sunset-41481-large.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video HTML5.
+        </video>
+
+        <!-- Drone Telemetry Overlay (Bottom Bar) -->
+        <div class="absolute bottom-4 left-4 right-4 pointer-events-none flex items-center justify-between text-xs font-mono text-white/90 bg-slate-950/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 hidden sm:flex">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1.5 text-cyan-400">
+              <i data-lucide="plane" class="w-4 h-4"></i> DJI MAVIC 3 PRO
+            </span>
+            <span class="text-slate-500">|</span>
+            <span>ALTITUDE: 340m AGL</span>
+            <span class="text-slate-500">|</span>
+            <span>HASSELBLAD 24MM</span>
+          </div>
+          <div class="flex items-center gap-2 text-emerald-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 5.1K D-LOG M
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Selector for Video Highlights -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <button onclick="openMediaDetail('sample-vid-1')" class="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Lanskap Tropis</h4>
+            <p class="text-xs text-slate-400">Pegunungan Bromo & Semeru</p>
+          </div>
+        </button>
+
+        <button onclick="openMediaDetail('sample-vid-2')" class="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Metropolis Glow</h4>
+            <p class="text-xs text-slate-400">City Hyperlapse SCBD</p>
+          </div>
+        </button>
+
+        <button onclick="openMediaDetail('sample-vid-3')" class="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">FPV Diving Canyon</h4>
+            <p class="text-xs text-slate-400">High-Speed Cliff Action</p>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE GALLERY & MEDIA MANAGER SECTION -->
+  <section id="galeri" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Title & Interactive Upload Trigger -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
+          <i data-lucide="image" class="w-4 h-4"></i> Galeri & Media Studio
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Koleksi Foto & Video Udara</h2>
+        <p class="text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed">
+          Semua foto dan video di bawah dapat Anda putar dan buka resolusi aslinya. Anda juga dapat menekan tombol <strong>+ Upload Karya Pribadi</strong> untuk memasukkan file foto dan video Anda sendiri langsung dari komputer.
+        </p>
+      </div>
+
+      <!-- Action Button for Upload -->
+      <div class="flex items-center gap-3">
+        <button onclick="openUploadModal()" class="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Upload Foto / Video Anda</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Buttons Bar -->
+    <div class="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-slate-800/80">
+      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 font-bold transition-all flex items-center gap-1.5" data-filter="all">
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> Semua Karya
+      </button>
+
+      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="photo">
+        <i data-lucide="camera" class="w-3.5 h-3.5"></i> Foto Udara
+      </button>
+
+      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="video">
+        <i data-lucide="video" class="w-3.5 h-3.5"></i> Video Sinematik
+      </button>
+
+      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="landscape">
+        <i data-lucide="mountain" class="w-3.5 h-3.5"></i> Alam & Lanskap
+      </button>
+
+      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="urban">
+        <i data-lucide="building-2" class="w-3.5 h-3.5"></i> Perkotaan & Arsitektur
+      </button>
+
+      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-amber-300 hover:bg-slate-800 transition-all flex items-center gap-1.5 border border-amber-500/30" data-filter="personal">
+        <i data-lucide="user" class="w-3.5 h-3.5"></i> Upload Pribadi Saya
+      </button>
+    </div>
+
+    <!-- Gallery Grid (Populated dynamically by app.js) -->
+    <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <!-- Media Cards are rendered via JavaScript -->
+    </div>
+
+    <!-- Empty State Container -->
+    <div id="gallery-empty" class="hidden text-center py-20 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800">
+      <div class="w-16 h-16 mx-auto rounded-full bg-slate-800 flex items-center justify-center text-slate-400 mb-4">
+        <i data-lucide="image-off" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-200">Belum ada karya pada kategori ini</h3>
+      <p class="text-sm text-slate-400 mt-1 max-w-sm mx-auto">
+        Jadilah yang pertama menambahkan foto atau video drone pribadi Anda ke dalam galeri ini.
+      </p>
+      <button onclick="openUploadModal()" class="mt-4 px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs inline-flex items-center gap-2">
+        <i data-lucide="upload" class="w-4 h-4"></i> Upload File Anda Sekarang
+      </button>
+    </div>
+
+  </section>
+
+  <!-- DRONE FLEET & CAPABILITIES SECTION -->
+  <section id="gear" class="py-24 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
+          <i data-lucide="cpu" class="w-4 h-4"></i> Armada & Peralatan
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Spesifikasi Drone & Layanan</h2>
+        <p class="text-slate-400 text-sm mt-3">
+          Didukung teknologi drone kelas industri dengan kemampuan rekam resolusi ultra tinggi dan manuver presisi.
+        </p>
+      </div>
+
+      <!-- Fleet Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        
+        <!-- Drone 1: Mavic 3 Pro -->
+        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold">
+                FLAGSHIP CINEMA
+              </span>
+              <i data-lucide="camera" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 3 Pro</h3>
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+              Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.
+            </p>
+
+            <ul class="space-y-3 text-xs text-slate-300 font-mono">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Video 5.1K / 50fps Apple ProRes
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Lensa 24mm + 70mm + 166mm Tele
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 10-Bit D-Log M & HLG Color
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 43 Menit
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500">
+            Ideal untuk: Film, Iklan Komersial, Video Profil Perusahaan
+          </div>
+        </div>
+
+        <!-- Drone 2: Mini 4 Pro -->
+        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold">
+                AGILE & COMPACT
+              </span>
+              <i data-lucide="zap" class="w-6 h-6 text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-2">DJI Mini 4 Pro</h3>
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+              Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.
+            </p>
+
+            <ul class="space-y-3 text-xs text-slate-300 font-mono">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 4K / 60fps HDR & 4K / 100fps Slow-mo
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> True Vertical Gimbal Rotation
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Omnidirectional Obstacle Sensing
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 48MP RAW Photo High Details
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500">
+            Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok
+          </div>
+        </div>
+
+        <!-- Drone 3: FPV Racing / Cinewhoop -->
+        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold">
+                DYNAMIC FPV
+              </span>
+              <i data-lucide="wind" class="w-6 h-6 text-slate-500 group-hover:text-amber-400 transition-colors"></i>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-2">Custom 5" Cinewhoop FPV</h3>
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+              Drone manual First-Person View dengan kecepatan hingga 140 km/jam untuk pergerakan akrobatik, diving tebing, dan aksi berkecepatan tinggi.
+            </p>
+
+            <ul class="space-y-3 text-xs text-slate-300 font-mono">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Kamera GoPro 12 Naked 4K 120fps
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Stabilisasi Gyroflow & ReelSteady
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Indoor & Outdoor Pro Racing Frame
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Manuver Roll, Flip, & Vertical Dive
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500">
+            Ideal untuk: Musik Video, Otomotif / Drift, Dokumentasi Proyek Olahraga Ekstrem
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4">
+            <i data-lucide="video" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-base mb-2">Aerial Cinematography</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+            <i data-lucide="home" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-base mb-2">Real Estate & Arsitektur</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
+            <i data-lucide="calendar" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-base mb-2">Dokumentasi Acara</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4">
+            <i data-lucide="map" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-base mb-2">Pemetaan & Inspeksi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Foto udara ortomosaik 2D/3D untuk inspeksi proyek konstruksi, lahan perkebunan, dan infrastruktur.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT ME SECTION -->
+  <section id="tentang" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Pilot Avatar & Badge Card -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 aspect-[4/5] shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80" alt="Drone Pilot" class="w-full h-full object-cover filter grayscale contrast-125 hover:grayscale-0 transition-all duration-700">
+          
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+          
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono border border-cyan-500/40 inline-flex items-center gap-1.5 mb-2">
+              <i data-lucide="award" class="w-3.5 h-3.5"></i> CERTIFIED DRONE PILOT
+            </span>
+            <h3 class="text-2xl font-bold text-white">Bobien Martien</h3>
+            <p class="text-xs text-slate-300 font-mono">Aerial Cinematographer & Remote Pilot</p>
+          </div>
+        </div>
+
+        <!-- Floating HUD Element -->
+        <div class="absolute -bottom-6 -right-6 glass-panel p-4 rounded-2xl border border-cyan-500/30 hidden sm:block shadow-xl">
+          <div class="text-[11px] font-mono text-cyan-400 mb-1">REGISTRASI RESMI</div>
+          <div class="text-sm font-bold text-white font-mono">APDI & DGCA DKPPU</div>
+          <div class="text-[10px] text-slate-400">Kementerian Perhubungan RI</div>
+        </div>
+      </div>
+
+      <!-- Bio & Story -->
+      <div class="lg:col-span-7">
+        <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
+          <i data-lucide="user-check" class="w-4 h-4"></i> Profil Pilot
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">
+          Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.
+        </h2>
+
+        <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p>
+            Saya adalah seorang pilot drone profesional dan kreator visual yang berfokus pada fotografi udara resolusi tinggi dan sinematografi dinamis. Melalui lensa drone, setiap kontur alam, garis simetri gedung, dan pergerakan cahaya matahari berubah menjadi karya visual yang bernyawa.
+          </p>
+          <p>
+            Dengan jam terbang lebih dari 450 jam melintasi berbagai medan di Indonesia—mulai dari puncak gunung berkabut, kepulauan tropis, hingga padatnya gedung perkotaan metropolitan—keselamatan terbang (safety compliance) dan kualitas estetika selalu menjadi prioritas utama saya.
+          </p>
+        </div>
+
+        <!-- Key Highlights -->
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-800">
+          <div>
+            <div class="text-2xl font-bold font-mono text-cyan-400">450+</div>
+            <div class="text-xs text-slate-400">Total Jam Terbang</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold font-mono text-cyan-400">120+</div>
+            <div class="text-xs text-slate-400">Proyek Terselesaikan</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold font-mono text-cyan-400">30+</div>
+            <div class="text-xs text-slate-400">Destinasi di Indonesia</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VERCEL DEPLOYMENT INFO BANNER -->
+  <section class="py-12 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-t border-b border-cyan-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-panel p-8 rounded-3xl border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div class="flex items-center gap-5">
+          <div class="w-14 h-14 rounded-2xl bg-white text-black flex items-center justify-center flex-shrink-0 shadow-lg">
+            <svg class="w-8 h-8 fill-current" viewBox="0 0 76 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              Siap Sambung ke Vercel (100% Zero-Config)
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+              File proyek ini sudah dilengkapi konfigurasi <code class="text-cyan-300 font-mono">vercel.json</code>. Anda bisa langsung deploy ke Vercel melalui GitHub atau drag-and-drop folder ini.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <a href="#panduan-vercel" onclick="document.getElementById('vercel-guide-modal').classList.remove('hidden')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-all flex items-center gap-2">
+            <i data-lucide="book-open" class="w-4 h-4 text-cyan-400"></i>
+            <span>Lihat Langkah Deploy</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & BOOKING SECTION -->
+  <section id="kontak" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Contact Info -->
+      <div class="lg:col-span-5">
+        <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
+          <i data-lucide="send" class="w-4 h-4"></i> Kolaborasi
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Mari Wujudkan Proyek Visual Anda</h2>
+        <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+          Punya rencana syuting film, promosi properti, dokumentasi event, atau kebutuhan visual udara khusus? Hubungi saya untuk diskusi penawaran dan jadwal terbang.
+        </p>
+
+        <!-- Direct Social / Messaging Buttons -->
+        <div class="space-y-4">
+          <a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20jasa%20drone%20Anda" target="_blank" class="p-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white group-hover:text-emerald-300">WhatsApp Langsung</h4>
+                <p class="text-xs text-slate-400">+62 812-3456-7890 (Respon Cepat)</p>
+              </div>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+
+          <a href="mailto:pilot@aeroscope.id" class="p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white group-hover:text-cyan-300">Email Resmi</h4>
+                <p class="text-xs text-slate-400">pilot@aeroscope.id</p>
+              </div>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Instagram</h4>
+                <p class="text-xs text-slate-400">@aeroscope.visuals</p>
+              </div>
+            </div>
+            <a href="https://instagram.com" target="_blank" class="text-xs font-semibold text-pink-400 hover:underline">Ikuti &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="lg:col-span-7">
+        <form id="contact-form" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-5">
+          <h3 class="text-xl font-bold text-white">Kirim Pesan Inquiry</h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-2">NAMA LENGKAP</label>
+              <input type="text" id="contact-name" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-2">EMAIL ATAU NO HP</label>
+              <input type="text" id="contact-email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-600">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-2">JENIS KEBUTUHAN LAYANAN</label>
+            <select id="contact-service" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white">
+              <option value="Aerial Cinematography">Aerial Cinematography (Video 4K / 5K)</option>
+              <option value="Drone Photography">Fotografi Udara Resolusi Tinggi</option>
+              <option value="FPV Action Shoot">FPV Action / Olahraga Ekstrem</option>
+              <option value="Real Estate Video">Dokumentasi Properti & Real Estate</option>
+              <option value="Event Documentation">Liputan Acara & Konser Outdoor</option>
+              <option value="Pemetaan & Survei">Pemetaan 2D/3D & Inspeksi Lahan</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-2">DETAIL PROYEK & LOKASI</label>
+            <textarea id="contact-message" rows="4" required placeholder="Ceritakan tentang rencana lokasi, tanggal pengambilan gambar, dan harapan visual Anda..." class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-600"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm tracking-wide uppercase transition-all shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Kirim Pesan ke WhatsApp</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-slate-900 bg-[#05070a] text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <i data-lucide="crosshair" class="w-5 h-5 text-cyan-400"></i>
+        <span>&copy; 2026 <strong>AeroScope</strong> — Portofolio Drone Fotografi & Videografi.</span>
+      </div>
+
+      <div class="flex items-center gap-6 font-mono text-[11px]">
+        <a href="#beranda" class="hover:text-cyan-400">Kembali ke Atas &uarr;</a>
+        <a href="#galeri" class="hover:text-cyan-400">Galeri</a>
+        <a href="https://vercel.com" target="_blank" class="hover:text-white flex items-center gap-1">
+          <span>Hosted on</span>
+          <svg class="w-3 h-3 fill-current" viewBox="0 0 76 65">
+            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
+          </svg>
+          <span class="text-white font-bold">Vercel</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 1: FULLSCREEN VIDEO PLAYER MODAL -->
+  <!-- ======================================================== -->
+  <div id="video-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-5xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 pulse-radar"></span>
+          <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">AERIAL VIDEO PLAYER</span>
+        </div>
+        <button data-close-video class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- HTML5 Video Player Frame -->
+      <div class="relative bg-black aspect-video w-full flex items-center justify-center overflow-hidden">
+        <video id="modal-video-player" controls playsinline class="w-full h-full object-contain"></video>
+      </div>
+
+      <!-- Video Details & Telemetry -->
+      <div class="p-6 bg-slate-900 border-t border-slate-800/80 overflow-y-auto">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
+          <h3 id="modal-video-title" class="text-xl font-bold text-white">Judul Video</h3>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+            <span class="px-3 py-1 rounded-full bg-slate-800 text-cyan-300 border border-cyan-500/30 flex items-center gap-1">
+              <i data-lucide="plane" class="w-3.5 h-3.5"></i> <span id="modal-video-drone">DJI Drone</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-slate-800 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+              <i data-lucide="sliders" class="w-3.5 h-3.5"></i> <span id="modal-video-specs">4K UHD</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i> <span id="modal-video-location">Indonesia</span>
+            </span>
+          </div>
+        </div>
+        <p id="modal-video-desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 2: HIGH-RES PHOTO LIGHTBOX MODAL -->
+  <!-- ======================================================== -->
+  <div id="photo-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-5xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider">AERIAL PHOTO VIEWER</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a id="modal-photo-download" href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh Foto
+          </a>
+          <button data-close-photo class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Image Area -->
+      <div class="relative bg-black w-full flex-1 min-h-[300px] flex items-center justify-center p-2 overflow-hidden">
+        <img id="modal-photo-img" src="" alt="Photo Lightbox" class="max-h-[62vh] w-auto max-w-full object-contain rounded-xl shadow-2xl">
+      </div>
+
+      <!-- Photo Telemetry -->
+      <div class="p-6 bg-slate-900 border-t border-slate-800/80">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
+          <h3 id="modal-photo-title" class="text-xl font-bold text-white">Judul Foto</h3>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+            <span class="px-3 py-1 rounded-full bg-slate-800 text-cyan-300 border border-cyan-500/30 flex items-center gap-1">
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i> <span id="modal-photo-drone">DJI Mavic 3 Pro</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-slate-800 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+              <i data-lucide="aperture" class="w-3.5 h-3.5"></i> <span id="modal-photo-specs">48MP RAW</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i> <span id="modal-photo-location">Indonesia</span>
+            </span>
+          </div>
+        </div>
+        <p id="modal-photo-desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 3: INTERACTIVE STUDIO UPLOADER (PERSONAL PHOTOS/VIDEOS) -->
+  <!-- ======================================================== -->
+  <div id="upload-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-cyan-500/40 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Upload Karya Foto / Video Pribadi</h3>
+            <p class="text-[11px] text-slate-400">File tersimpan langsung di browser Anda dan langsung tampil di galeri.</p>
+          </div>
+        </div>
+        <button data-close-upload class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Form Body with Scroll -->
+      <form id="upload-form" class="p-6 space-y-5 overflow-y-auto flex-1">
+        
+        <!-- Drag & Drop Zone -->
+        <div>
+          <label class="block text-xs font-mono text-cyan-400 mb-2">PILIH FILE FOTO ATAU VIDEO DARI LAPTOP/KOMPUTER</label>
+          <div id="upload-dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-400 rounded-2xl p-6 text-center cursor-pointer transition-colors bg-slate-950/50">
+            <input type="file" id="upload-file-input" accept="image/*,video/*" class="hidden">
+            
+            <div id="upload-placeholder" class="space-y-2">
+              <div class="w-12 h-12 mx-auto rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                <i data-lucide="folder-up" class="w-6 h-6"></i>
+              </div>
+              <p class="text-sm font-semibold text-slate-200">Klik untuk jelajahi file atau geser & taruh (drag and drop) di sini</p>
+              <p class="text-xs text-slate-400">Mendukung Foto (JPG, PNG, WebP) & Video (MP4, WebM, MOV)</p>
+            </div>
+
+            <div id="upload-preview-container" class="hidden"></div>
+          </div>
+        </div>
+
+        <!-- Metadata Form Fields -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">JUDUL KARYA</label>
+            <input type="text" id="upload-title" required placeholder="Contoh: Aerial Sunset Pantai Bali" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">TIPE MEDIA</label>
+            <select id="upload-type-select" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+              <option value="photo">Foto Udara</option>
+              <option value="video">Video Drone</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">KATEGORI</label>
+            <select id="upload-category" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+              <option value="landscape">Alam & Lanskap</option>
+              <option value="urban">Perkotaan (Urban)</option>
+              <option value="coastal">Pantai & Bahari</option>
+              <option value="event">Acara / Event</option>
+              <option value="fpv">FPV Action</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">TIPE DRONE</label>
+            <input type="text" id="upload-drone" placeholder="DJI Mini 4 / Mavic 3 / FPV" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">LOKASI</label>
+            <input type="text" id="upload-location" placeholder="Lokasi pengambilan" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">KETINGGIAN (ALTITUDE)</label>
+            <input type="text" id="upload-altitude" placeholder="Contoh: 120m AGL" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5">SPESIFIKASI KAMERA / FPS</label>
+            <input type="text" id="upload-specs" placeholder="Contoh: 4K 60fps • D-Log M" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1.5">DESKRIPSI / CATATAN KARYA</label>
+          <textarea id="upload-desc" rows="2" placeholder="Catatan singkat mengenai angle penerbangan atau kondisi cuaca..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" data-close-upload class="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold">
+            Batal
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Simpan ke Galeri</span>
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 4: VERCEL DEPLOYMENT STEP-BY-STEP MODAL -->
+  <!-- ======================================================== -->
+  <div id="vercel-guide-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-8 overflow-y-auto max-h-[90vh]">
+      
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center font-bold">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 76 65">
+              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Panduan Menghubungkan ke Vercel</h3>
+            <p class="text-xs text-slate-400">2 Cara termudah untuk menerbitkan website portofolio ini secara online</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('vercel-guide-modal').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-6 text-sm text-slate-300">
+        <!-- Metode 1 -->
+        <div class="p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/30">
+          <h4 class="font-bold text-cyan-300 flex items-center gap-2 mb-2">
+            <span class="w-5 h-5 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">1</span>
+            Metode GitHub (Sangat Disarankan & Otomatis)
+          </h4>
+          <ol class="list-decimal list-inside space-y-2 text-xs text-slate-300 pl-1 leading-relaxed">
+            <li>Buat repository baru di <a href="https://github.com" target="_blank" class="text-cyan-400 underline">GitHub.com</a> (misal: <code class="bg-slate-900 px-1 py-0.5 rounded text-white">drone-portfolio</code>).</li>
+            <li>Upload seluruh file di folder ini ke repository GitHub Anda.</li>
+            <li>Buka <a href="https://vercel.com" target="_blank" class="text-cyan-400 underline">Vercel.com</a>, login dengan akun GitHub Anda.</li>
+            <li>Klik tombol <strong>"Add New..." &rarr; "Project"</strong>, lalu pilih repository tadi.</li>
+            <li>Klik <strong>"Deploy"</strong>. Dalam 10 detik, website Anda langsung online dengan domain gratis seperti <code class="text-emerald-400">nama-anda.vercel.app</code>!</li>
+          </ol>
+        </div>
+
+        <!-- Metode 2 -->
+        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800">
+          <h4 class="font-bold text-white flex items-center gap-2 mb-2">
+            <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs">2</span>
+            Menyimpan File Foto/Video Permanen di Server
+          </h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-2">
+            Jika Anda ingin video dan foto pribadi Anda selalu tampil permanen untuk siapa saja yang membuka web di Vercel:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-xs text-slate-300 pl-1">
+            <li>Letakkan file foto Anda di folder <code class="text-cyan-300">assets/images/</code>.</li>
+            <li>Letakkan file video Anda di folder <code class="text-cyan-300">assets/videos/</code>.</li>
+            <li>Buka <code class="text-cyan-300">app.js</code>, dan tambahkan nama file Anda ke dalam daftar array <code class="text-emerald-300 font-mono">INITIAL_MEDIA</code>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+        <button onclick="document.getElementById('vercel-guide-modal').classList.add('hidden')" class="px-5 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs">
+          Mengerti & Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
