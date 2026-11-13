@@ -42,6 +42,9 @@
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- Internationalization (ID/EN) Script -->
+  <script src="i18n.js"></script>
+
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -52,19 +55,24 @@
     <div class="flex items-center gap-4">
       <span class="flex items-center gap-1.5 text-cyan-400">
         <span class="w-2 h-2 rounded-full bg-cyan-400 pulse-radar"></span>
-        GPS LOCK • 18 SATELLITES
+        <span data-i18n="hud.gps">GPS LOCK • 18 SATELIT</span>
       </span>
       <span class="hidden sm:inline text-slate-500">|</span>
-      <span class="hidden sm:inline">MAX 4K/60FPS UHD</span>
+      <span class="hidden sm:inline" data-i18n="hud.resolution">MAKS 4K/60FPS UHD</span>
       <span class="hidden md:inline text-slate-500">|</span>
-      <span class="hidden md:inline">COLOR: 10-BIT D-LOG M</span>
+      <span class="hidden md:inline" data-i18n="hud.color">WARNA: 10-BIT D-LOG M</span>
     </div>
     <div class="flex items-center gap-3">
       <span class="text-emerald-400 flex items-center gap-1">
-        <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> VERCEL READY
+        <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> <span data-i18n="hud.vercel">VERCEL READY</span>
       </span>
       <span class="text-slate-500">|</span>
-      <span class="text-slate-300">INDONESIA</span>
+      
+      <!-- Language Switcher Pill (Top Bar) -->
+      <div class="flex items-center rounded-lg bg-slate-900 border border-slate-800 p-0.5 text-[10px] font-mono">
+        <button id="lang-btn-id" onclick="AeroI18n.setLanguage('id')" class="px-2 py-0.5 rounded-md font-bold bg-cyan-500 text-slate-950 transition-all">ID</button>
+        <button id="lang-btn-en" onclick="AeroI18n.setLanguage('en')" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">EN</button>
+      </div>
     </div>
   </div>
 
@@ -89,20 +97,20 @@
 
       <!-- Desktop Navigation Menu -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
-        <a href="#beranda" class="hover:text-cyan-400 transition-colors">Beranda</a>
+        <a href="#beranda" class="hover:text-cyan-400 transition-colors" data-i18n="nav.home">Beranda</a>
         <a href="#showreel" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Video Reel
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> <span data-i18n="nav.reel">Video Reel</span>
         </a>
-        <a href="#galeri" class="hover:text-cyan-400 transition-colors">Galeri Karya</a>
-        <a href="#gear" class="hover:text-cyan-400 transition-colors">Gear & Layanan</a>
-        <a href="#tentang" class="hover:text-cyan-400 transition-colors">Tentang Saya</a>
-        <a href="#kontak" class="hover:text-cyan-400 transition-colors">Kontak</a>
+        <a href="#galeri" class="hover:text-cyan-400 transition-colors" data-i18n="nav.gallery">Galeri Karya</a>
+        <a href="#gear" class="hover:text-cyan-400 transition-colors" data-i18n="nav.gear">Gear & Layanan</a>
+        <a href="#tentang" class="hover:text-cyan-400 transition-colors" data-i18n="nav.about">Tentang Saya</a>
+        <a href="#kontak" class="hover:text-cyan-400 transition-colors" data-i18n="nav.contact">Kontak</a>
       </nav>
 
       <!-- Action Buttons -->
       <div class="hidden sm:flex items-center gap-3">
         <a href="#kontak" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2">
-          <span>Booking Pilot</span>
+          <span data-i18n="nav.booking">Booking Pilot</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
         </a>
       </div>
@@ -116,15 +124,25 @@
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 px-6 py-6 space-y-4">
       <div class="flex flex-col gap-4 text-base font-medium">
-        <a href="#beranda" class="text-slate-200 hover:text-cyan-400">Beranda</a>
-        <a href="#showreel" class="text-slate-200 hover:text-cyan-400">Video Reel</a>
-        <a href="#galeri" class="text-slate-200 hover:text-cyan-400">Galeri Karya</a>
-        <a href="#gear" class="text-slate-200 hover:text-cyan-400">Gear & Layanan</a>
-        <a href="#tentang" class="text-slate-200 hover:text-cyan-400">Tentang Saya</a>
-        <a href="#kontak" class="text-slate-200 hover:text-cyan-400">Kontak</a>
+        <a href="#beranda" class="text-slate-200 hover:text-cyan-400" data-i18n="nav.home">Beranda</a>
+        <a href="#showreel" class="text-slate-200 hover:text-cyan-400" data-i18n="nav.reel">Video Reel</a>
+        <a href="#galeri" class="text-slate-200 hover:text-cyan-400" data-i18n="nav.gallery">Galeri Karya</a>
+        <a href="#gear" class="text-slate-200 hover:text-cyan-400" data-i18n="nav.gear">Gear & Layanan</a>
+        <a href="#tentang" class="text-slate-200 hover:text-cyan-400" data-i18n="nav.about">Tentang Saya</a>
+        <a href="#kontak" class="text-slate-200 hover:text-cyan-400" data-i18n="nav.contact">Kontak</a>
       </div>
-      <div class="pt-4 border-t border-slate-800">
-        <a href="#kontak" class="w-full py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm text-center block">
+
+      <!-- Mobile Language Switcher -->
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs">
+        <span class="text-slate-400 font-mono">Bahasa / Language:</span>
+        <div class="flex items-center rounded-lg bg-slate-900 border border-slate-800 p-0.5 text-xs font-mono">
+          <button id="mobile-lang-btn-id" onclick="AeroI18n.setLanguage('id')" class="px-3 py-1 rounded-md font-bold bg-cyan-500 text-slate-950 transition-all">ID</button>
+          <button id="mobile-lang-btn-en" onclick="AeroI18n.setLanguage('en')" class="px-3 py-1 rounded-md text-slate-400 hover:text-white transition-all">EN</button>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <a href="#kontak" class="w-full py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm text-center block" data-i18n="nav.booking">
           Booking Proyek Drone
         </a>
       </div>
@@ -153,12 +171,12 @@
         </div>
 
         <!-- Main Headline -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6" data-i18n="hero.title">
           Menangkap Keindahan Dunia dari <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">Sudut Pandang Langit</span>.
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-base sm:text-xl text-slate-300 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p class="text-base sm:text-xl text-slate-300 font-light max-w-2xl mx-auto mb-10 leading-relaxed" data-i18n="hero.subtitle">
           Koleksi visual lanskap alam, perkotaan, dan aksi FPV beresolusi tinggi hingga 5.1K. Siap untuk produksi komersial, dokumentasi acara, dan estetika visual sinematik.
         </p>
 
@@ -166,12 +184,12 @@
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button onclick="openMediaDetail('sample-vid-1')" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 transition-all flex items-center gap-3">
             <i data-lucide="play-circle" class="w-5 h-5 fill-current"></i>
-            <span>Tonton Showreel 4K</span>
+            <span data-i18n="hero.btn_showreel">Tonton Showreel 4K</span>
           </button>
 
           <a href="#galeri" class="px-7 py-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-cyan-500/50 font-semibold text-sm transition-all flex items-center gap-2">
             <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
-            <span>Jelajahi Galeri</span>
+            <span data-i18n="hero.btn_gallery">Jelajahi Galeri</span>
           </a>
         </div>
 
@@ -179,34 +197,34 @@
         <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
           <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
             <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
-              <i data-lucide="video" class="w-3.5 h-3.5"></i> RESOLUSI
+              <i data-lucide="video" class="w-3.5 h-3.5"></i> <span data-i18n="hero.stat_res">RESOLUSI</span>
             </div>
             <div class="text-2xl font-bold font-mono text-white">5.1K / 4K</div>
-            <p class="text-[11px] text-slate-400">ProRes & D-Log M</p>
+            <p class="text-[11px] text-slate-400" data-i18n="hero.stat_res_sub">ProRes & D-Log M</p>
           </div>
 
           <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
             <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
-              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> SAFETY
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> <span data-i18n="hero.stat_safety">KESELAMATAN</span>
             </div>
             <div class="text-2xl font-bold font-mono text-white">100%</div>
-            <p class="text-[11px] text-slate-400">Zero Incident Record</p>
+            <p class="text-[11px] text-slate-400" data-i18n="hero.stat_safety_sub">Zero Incident Record</p>
           </div>
 
           <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
             <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i> FLIGHT TIME
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i> <span data-i18n="hero.stat_flight">JAM TERBANG</span>
             </div>
             <div class="text-2xl font-bold font-mono text-white">450+</div>
-            <p class="text-[11px] text-slate-400">Jam Terbang Pilot</p>
+            <p class="text-[11px] text-slate-400" data-i18n="hero.stat_flight_sub">Jam Terbang Pilot</p>
           </div>
 
           <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left">
             <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
-              <i data-lucide="layers" class="w-3.5 h-3.5"></i> TOTAL KARYA
+              <i data-lucide="layers" class="w-3.5 h-3.5"></i> <span data-i18n="hero.stat_total">TOTAL KARYA</span>
             </div>
             <div class="text-2xl font-bold font-mono text-cyan-300" id="stat-total-media">6</div>
-            <p class="text-[11px] text-slate-400">Foto & Video Aktif</p>
+            <p class="text-[11px] text-slate-400" data-i18n="hero.stat_total_sub">Foto & Video Aktif</p>
           </div>
         </div>
 
@@ -222,10 +240,10 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
         <div>
           <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-            <i data-lucide="clapperboard" class="w-4 h-4"></i> Featured Aerial Cinema
+            <i data-lucide="clapperboard" class="w-4 h-4"></i> <span data-i18n="reel.badge">Featured Aerial Cinema</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Cinematic Video Showcase</h2>
-          <p class="text-slate-400 text-sm mt-2 max-w-xl">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="reel.title">Cinematic Video Showcase</h2>
+          <p class="text-slate-400 text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
             Tonton kompilasi video rekaman drone dengan sinematografi mulus, pergerakan dinamis, dan grading warna profesional.
           </p>
         </div>
@@ -274,8 +292,8 @@
             <i data-lucide="play" class="w-5 h-5"></i>
           </div>
           <div>
-            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Lanskap Tropis</h4>
-            <p class="text-xs text-slate-400">Pegunungan Bromo & Semeru</p>
+            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300" data-i18n="reel.quick1_title">Lanskap Tropis</h4>
+            <p class="text-xs text-slate-400" data-i18n="reel.quick1_sub">Pegunungan Bromo & Semeru</p>
           </div>
         </button>
 
@@ -284,8 +302,8 @@
             <i data-lucide="play" class="w-5 h-5"></i>
           </div>
           <div>
-            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Metropolis Glow</h4>
-            <p class="text-xs text-slate-400">City Hyperlapse SCBD</p>
+            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300" data-i18n="reel.quick2_title">Metropolis Glow</h4>
+            <p class="text-xs text-slate-400" data-i18n="reel.quick2_sub">City Hyperlapse SCBD</p>
           </div>
         </button>
 
@@ -294,8 +312,8 @@
             <i data-lucide="play" class="w-5 h-5"></i>
           </div>
           <div>
-            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">FPV Diving Canyon</h4>
-            <p class="text-xs text-slate-400">High-Speed Cliff Action</p>
+            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300" data-i18n="reel.quick3_title">FPV Diving Canyon</h4>
+            <p class="text-xs text-slate-400" data-i18n="reel.quick3_sub">High-Speed Cliff Action</p>
           </div>
         </button>
       </div>
@@ -309,10 +327,10 @@
     <!-- Section Title -->
     <div class="mb-10">
       <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-        <i data-lucide="image" class="w-4 h-4"></i> Galeri & Portofolio
+        <i data-lucide="image" class="w-4 h-4"></i> <span data-i18n="gallery.badge">Galeri & Portofolio</span>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Koleksi Foto & Video Udara</h2>
-      <p class="text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="gallery.title">Koleksi Foto & Video Udara</h2>
+      <p class="text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed" data-i18n="gallery.subtitle">
         Koleksi rekaman visual lanskap alam, perkotaan, dan aksi FPV sinematik beresolusi tinggi yang terhubung langsung ke database Supabase.
       </p>
     </div>
@@ -320,23 +338,23 @@
     <!-- Filter Buttons Bar -->
     <div class="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-slate-800/80">
       <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 font-bold transition-all flex items-center gap-1.5" data-filter="all">
-        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> Semua Karya
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_all">Semua Karya</span>
       </button>
 
       <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="photo">
-        <i data-lucide="camera" class="w-3.5 h-3.5"></i> Foto Udara
+        <i data-lucide="camera" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_photo">Foto Udara</span>
       </button>
 
       <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="video">
-        <i data-lucide="video" class="w-3.5 h-3.5"></i> Video Sinematik
+        <i data-lucide="video" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_video">Video Sinematik</span>
       </button>
 
       <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="landscape">
-        <i data-lucide="mountain" class="w-3.5 h-3.5"></i> Alam & Lanskap
+        <i data-lucide="mountain" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_landscape">Alam & Lanskap</span>
       </button>
 
       <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="urban">
-        <i data-lucide="building-2" class="w-3.5 h-3.5"></i> Perkotaan & Arsitektur
+        <i data-lucide="building-2" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_urban">Perkotaan & Arsitektur</span>
       </button>
     </div>
 
@@ -350,8 +368,8 @@
       <div class="w-16 h-16 mx-auto rounded-full bg-slate-800 flex items-center justify-center text-slate-400 mb-4">
         <i data-lucide="image-off" class="w-8 h-8"></i>
       </div>
-      <h3 class="text-lg font-bold text-slate-200">Belum ada karya pada kategori ini</h3>
-      <p class="text-sm text-slate-400 mt-1 max-w-sm mx-auto">
+      <h3 class="text-lg font-bold text-slate-200" data-i18n="gallery.empty_title">Belum ada karya pada kategori ini</h3>
+      <p class="text-sm text-slate-400 mt-1 max-w-sm mx-auto" data-i18n="gallery.empty_desc">
         Karya foto dan video dapat ditambahkan melalui database Supabase SQL.
       </p>
     </div>
@@ -365,10 +383,10 @@
       <!-- Section Title -->
       <div class="text-center max-w-3xl mx-auto mb-16">
         <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-          <i data-lucide="cpu" class="w-4 h-4"></i> Armada & Peralatan
+          <i data-lucide="cpu" class="w-4 h-4"></i> <span data-i18n="gear.badge">Armada & Peralatan</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Spesifikasi Drone & Layanan</h2>
-        <p class="text-slate-400 text-sm mt-3">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="gear.title">Spesifikasi Drone & Layanan</h2>
+        <p class="text-slate-400 text-sm mt-3" data-i18n="gear.subtitle">
           Didukung teknologi drone kelas industri dengan kemampuan rekam resolusi ultra tinggi dan manuver presisi.
         </p>
       </div>
@@ -380,14 +398,14 @@
         <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold">
+              <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d1_tag">
                 FLAGSHIP CINEMA
               </span>
               <i data-lucide="camera" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
             </div>
 
             <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 3 Pro</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d1_desc">
               Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.
             </p>
 
@@ -406,7 +424,7 @@
               </li>
             </ul>
           </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500">
+          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d1_ideal">
             Ideal untuk: Film, Iklan Komersial, Video Profil Perusahaan
           </div>
         </div>
@@ -415,14 +433,14 @@
         <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold" data-i18n="gear.d2_tag">
                 AGILE & COMPACT
               </span>
               <i data-lucide="zap" class="w-6 h-6 text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
             </div>
 
             <h3 class="text-2xl font-bold text-white mb-2">DJI Mini 4 Pro</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d2_desc">
               Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.
             </p>
 
@@ -441,7 +459,7 @@
               </li>
             </ul>
           </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500">
+          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d2_ideal">
             Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok
           </div>
         </div>
@@ -450,14 +468,14 @@
         <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold">
+              <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold" data-i18n="gear.d3_tag">
                 DYNAMIC FPV
               </span>
               <i data-lucide="wind" class="w-6 h-6 text-slate-500 group-hover:text-amber-400 transition-colors"></i>
             </div>
 
             <h3 class="text-2xl font-bold text-white mb-2">Custom 5" Cinewhoop FPV</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d3_desc">
               Drone manual First-Person View dengan kecepatan hingga 140 km/jam untuk pergerakan akrobatik, diving tebing, dan aksi berkecepatan tinggi.
             </p>
 
@@ -476,7 +494,7 @@
               </li>
             </ul>
           </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500">
+          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d3_ideal">
             Ideal untuk: Musik Video, Otomotif / Drift, Dokumentasi Proyek Olahraga Ekstrem
           </div>
         </div>
@@ -489,32 +507,32 @@
           <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4">
             <i data-lucide="video" class="w-5 h-5"></i>
           </div>
-          <h4 class="font-bold text-white text-base mb-2">Aerial Cinematography</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan.</p>
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s1_title">Aerial Cinematography</h4>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s1_desc">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan.</p>
         </div>
 
         <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
           <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
             <i data-lucide="home" class="w-5 h-5"></i>
           </div>
-          <h4 class="font-bold text-white text-base mb-2">Real Estate & Arsitektur</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s2_title">Real Estate & Arsitektur</h4>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s2_desc">Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
         </div>
 
         <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
           <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
             <i data-lucide="calendar" class="w-5 h-5"></i>
           </div>
-          <h4 class="font-bold text-white text-base mb-2">Dokumentasi Acara</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s3_title">Dokumentasi Acara</h4>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s3_desc">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
         </div>
 
         <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
           <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4">
             <i data-lucide="map" class="w-5 h-5"></i>
           </div>
-          <h4 class="font-bold text-white text-base mb-2">Pemetaan & Inspeksi</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">Foto udara ortomosaik 2D/3D untuk inspeksi proyek konstruksi, lahan perkebunan, dan infrastruktur.</p>
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s4_title">Pemetaan & Inspeksi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s4_desc">Foto udara ortomosaik 2D/3D untuk inspeksi proyek konstruksi, lahan perkebunan, dan infrastruktur.</p>
         </div>
       </div>
 
@@ -534,35 +552,35 @@
           
           <div class="absolute bottom-6 left-6 right-6">
             <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono border border-cyan-500/40 inline-flex items-center gap-1.5 mb-2">
-              <i data-lucide="award" class="w-3.5 h-3.5"></i> CERTIFIED DRONE PILOT
+              <i data-lucide="award" class="w-3.5 h-3.5"></i> <span data-i18n="about.pilot_badge">CERTIFIED DRONE PILOT</span>
             </span>
             <h3 class="text-2xl font-bold text-white">Bobien Martien</h3>
-            <p class="text-xs text-slate-300 font-mono">Aerial Cinematographer & Remote Pilot</p>
+            <p class="text-xs text-slate-300 font-mono" data-i18n="about.pilot_role">Aerial Cinematographer & Remote Pilot</p>
           </div>
         </div>
 
         <!-- Floating HUD Element -->
         <div class="absolute -bottom-6 -right-6 glass-panel p-4 rounded-2xl border border-cyan-500/30 hidden sm:block shadow-xl">
-          <div class="text-[11px] font-mono text-cyan-400 mb-1">REGISTRASI RESMI</div>
+          <div class="text-[11px] font-mono text-cyan-400 mb-1" data-i18n="about.reg_title">REGISTRASI RESMI</div>
           <div class="text-sm font-bold text-white font-mono">APDI & DGCA DKPPU</div>
-          <div class="text-[10px] text-slate-400">Kementerian Perhubungan RI</div>
+          <div class="text-[10px] text-slate-400" data-i18n="about.reg_desc">Kementerian Perhubungan RI</div>
         </div>
       </div>
 
       <!-- Bio & Story -->
       <div class="lg:col-span-7">
         <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-          <i data-lucide="user-check" class="w-4 h-4"></i> Profil Pilot
+          <i data-lucide="user-check" class="w-4 h-4"></i> <span data-i18n="about.badge">Profil Pilot</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6" data-i18n="about.title">
           Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.
         </h2>
 
         <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-          <p>
+          <p data-i18n="about.p1">
             Saya adalah seorang pilot drone profesional dan kreator visual yang berfokus pada fotografi udara resolusi tinggi dan sinematografi dinamis. Melalui lensa drone, setiap kontur alam, garis simetri gedung, dan pergerakan cahaya matahari berubah menjadi karya visual yang bernyawa.
           </p>
-          <p>
+          <p data-i18n="about.p2">
             Dengan jam terbang lebih dari 450 jam melintasi berbagai medan di Indonesia—mulai dari puncak gunung berkabut, kepulauan tropis, hingga padatnya gedung perkotaan metropolitan—keselamatan terbang (safety compliance) dan kualitas estetika selalu menjadi prioritas utama saya.
           </p>
         </div>
@@ -571,50 +589,20 @@
         <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-800">
           <div>
             <div class="text-2xl font-bold font-mono text-cyan-400">450+</div>
-            <div class="text-xs text-slate-400">Total Jam Terbang</div>
+            <div class="text-xs text-slate-400" data-i18n="about.stat1_label">Total Jam Terbang</div>
           </div>
           <div>
             <div class="text-2xl font-bold font-mono text-cyan-400">120+</div>
-            <div class="text-xs text-slate-400">Proyek Terselesaikan</div>
+            <div class="text-xs text-slate-400" data-i18n="about.stat2_label">Proyek Terselesaikan</div>
           </div>
           <div>
             <div class="text-2xl font-bold font-mono text-cyan-400">30+</div>
-            <div class="text-xs text-slate-400">Destinasi di Indonesia</div>
+            <div class="text-xs text-slate-400" data-i18n="about.stat3_label">Destinasi di Indonesia</div>
           </div>
         </div>
 
       </div>
 
-    </div>
-  </section>
-
-  <!-- VERCEL DEPLOYMENT INFO BANNER -->
-  <section class="py-12 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-t border-b border-cyan-500/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="glass-panel p-8 rounded-3xl border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-        <div class="flex items-center gap-5">
-          <div class="w-14 h-14 rounded-2xl bg-white text-black flex items-center justify-center flex-shrink-0 shadow-lg">
-            <svg class="w-8 h-8 fill-current" viewBox="0 0 76 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white flex items-center gap-2">
-              Siap Sambung ke Vercel (100% Zero-Config)
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-400 mt-1">
-              File proyek ini sudah dilengkapi konfigurasi <code class="text-cyan-300 font-mono">vercel.json</code>. Anda bisa langsung deploy ke Vercel melalui GitHub atau drag-and-drop folder ini.
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 flex-shrink-0">
-          <a href="#panduan-vercel" onclick="document.getElementById('vercel-guide-modal').classList.remove('hidden')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-all flex items-center gap-2">
-            <i data-lucide="book-open" class="w-4 h-4 text-cyan-400"></i>
-            <span>Lihat Langkah Deploy</span>
-          </a>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -625,10 +613,10 @@
       <!-- Contact Info -->
       <div class="lg:col-span-5">
         <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-          <i data-lucide="send" class="w-4 h-4"></i> Kolaborasi
+          <i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="contact.badge">Kolaborasi</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Mari Wujudkan Proyek Visual Anda</h2>
-        <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4" data-i18n="contact.title">Mari Wujudkan Proyek Visual Anda</h2>
+        <p class="text-slate-400 text-sm mb-8 leading-relaxed" data-i18n="contact.desc">
           Punya rencana syuting film, promosi properti, dokumentasi event, atau kebutuhan visual udara khusus? Hubungi saya untuk diskusi penawaran dan jadwal terbang.
         </p>
 
@@ -640,8 +628,8 @@
                 <i data-lucide="message-circle" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-white group-hover:text-emerald-300">WhatsApp Langsung</h4>
-                <p class="text-xs text-slate-400">+62 813-8145-3598 (Respon Cepat)</p>
+                <h4 class="text-sm font-bold text-white group-hover:text-emerald-300" data-i18n="contact.wa_label">WhatsApp Langsung</h4>
+                <p class="text-xs text-slate-400" data-i18n="contact.wa_sub">+62 813-8145-3598 (Respon Cepat)</p>
               </div>
             </div>
             <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform"></i>
@@ -653,7 +641,7 @@
                 <i data-lucide="mail" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-white group-hover:text-cyan-300">Email Resmi</h4>
+                <h4 class="text-sm font-bold text-white group-hover:text-cyan-300" data-i18n="contact.email_label">Email Resmi</h4>
                 <p class="text-xs text-slate-400">bobienfly@gmail.com</p>
               </div>
             </div>
@@ -670,7 +658,7 @@
                 <p class="text-xs text-slate-400">@bobienmartien</p>
               </div>
             </div>
-            <a href="https://instagram.com/bobienmartien" target="_blank" class="text-xs font-semibold text-pink-400 hover:underline">Ikuti &rarr;</a>
+            <a href="https://instagram.com/bobienmartien" target="_blank" class="text-xs font-semibold text-pink-400 hover:underline" data-i18n="contact.ig_follow">Ikuti &rarr;</a>
           </div>
         </div>
       </div>
@@ -678,25 +666,25 @@
       <!-- Contact Form -->
       <div class="lg:col-span-7">
         <form id="contact-form" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-5">
-          <h3 class="text-xl font-bold text-white">Kirim Pesan Inquiry</h3>
+          <h3 class="text-xl font-bold text-white" data-i18n="contact.form_title">Kirim Pesan Inquiry</h3>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-mono text-slate-300 mb-2">NAMA LENGKAP</label>
+              <label class="block text-xs font-mono text-slate-300 mb-2" data-i18n="contact.name_label">NAMA LENGKAP</label>
               <input type="text" id="contact-name" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-600">
             </div>
 
             <div>
-              <label class="block text-xs font-mono text-slate-300 mb-2">EMAIL ATAU NO HP</label>
+              <label class="block text-xs font-mono text-slate-300 mb-2" data-i18n="contact.email_label_field">EMAIL ATAU NO HP</label>
               <input type="text" id="contact-email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-600">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-slate-300 mb-2">JENIS KEBUTUHAN LAYANAN</label>
+            <label class="block text-xs font-mono text-slate-300 mb-2" data-i18n="contact.service_label">JENIS KEBUTUHAN LAYANAN</label>
             <select id="contact-service" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white">
               <option value="Aerial Cinematography">Aerial Cinematography (Video 4K / 5K)</option>
-              <option value="Drone Photography">Fotografi Udara Resolusi Tinggi</option>
+              <option value="Drone Photography">Fotografi Udara Resolusi Tinggi / High-Res Aerial Photo</option>
               <option value="FPV Action Shoot">FPV Action / Olahraga Ekstrem</option>
               <option value="Real Estate Video">Dokumentasi Properti & Real Estate</option>
               <option value="Event Documentation">Liputan Acara & Konser Outdoor</option>
@@ -705,13 +693,13 @@
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-slate-300 mb-2">DETAIL PROYEK & LOKASI</label>
+            <label class="block text-xs font-mono text-slate-300 mb-2" data-i18n="contact.msg_label">DETAIL PROYEK & LOKASI</label>
             <textarea id="contact-message" rows="4" required placeholder="Ceritakan tentang rencana lokasi, tanggal pengambilan gambar, dan harapan visual Anda..." class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-600"></textarea>
           </div>
 
           <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm tracking-wide uppercase transition-all shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2">
             <i data-lucide="send" class="w-4 h-4"></i>
-            <span>Kirim Pesan ke WhatsApp</span>
+            <span data-i18n="contact.submit_btn">Kirim Pesan ke WhatsApp</span>
           </button>
         </form>
       </div>
@@ -725,12 +713,12 @@
       
       <div class="flex items-center gap-3">
         <i data-lucide="crosshair" class="w-5 h-5 text-cyan-400"></i>
-        <span>&copy; 2026 <strong>AeroScope</strong> — Portofolio Drone Fotografi & Videografi.</span>
+        <span>&copy; 2026 <strong>AeroScope</strong> — <span data-i18n="footer.rights">Portofolio Drone Fotografi & Videografi.</span></span>
       </div>
 
       <div class="flex items-center gap-6 font-mono text-[11px]">
-        <a href="#beranda" class="hover:text-cyan-400">Kembali ke Atas &uarr;</a>
-        <a href="#galeri" class="hover:text-cyan-400">Galeri</a>
+        <a href="#beranda" class="hover:text-cyan-400" data-i18n="footer.top">Kembali ke Atas &uarr;</a>
+        <a href="#galeri" class="hover:text-cyan-400" data-i18n="nav.gallery">Galeri</a>
         <a href="https://vercel.com" target="_blank" class="hover:text-white flex items-center gap-1">
           <span>Hosted on</span>
           <svg class="w-3 h-3 fill-current" viewBox="0 0 76 65">

@@ -233,6 +233,12 @@ function renderGallery() {
 
   if (emptyState) emptyState.classList.add("hidden");
 
+  const lang = window.AeroI18n ? window.AeroI18n.getCurrentLanguage() : 'id';
+  const isEn = lang === 'en';
+  const labelWatch = isEn ? 'Watch' : 'Tonton';
+  const labelView = isEn ? 'View' : 'Lihat';
+  const labelPhoto = isEn ? 'AERIAL PHOTO' : 'FOTO UDARA';
+
   container.innerHTML = filtered.map(item => {
     const isVideo = item.type === "video";
     return `
@@ -261,7 +267,7 @@ function renderGallery() {
             </div>
             <!-- Photo badge -->
             <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur text-xs font-mono text-emerald-400 flex items-center gap-1.5 border border-emerald-500/20">
-              <i data-lucide="camera" class="w-3.5 h-3.5"></i> FOTO UDARA
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i> ${labelPhoto}
             </span>
           `}
 
@@ -318,7 +324,7 @@ function renderGallery() {
                 </button>
               ` : ''}
               <button onclick="openMediaDetail('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-xs font-semibold text-slate-200 transition-all flex items-center gap-1">
-                ${isVideo ? 'Tonton' : 'Lihat'} <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                ${isVideo ? labelWatch : labelView} <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </div>
           </div>
@@ -741,3 +747,4 @@ window.closeVideoModal = closeVideoModal;
 window.openPhotoModal = openPhotoModal;
 window.closePhotoModal = closePhotoModal;
 window.handleDeleteUserMedia = handleDeleteUserMedia;
+window.renderGallery = renderGallery;
