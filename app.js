@@ -688,7 +688,7 @@ function handleContactSubmit(e) {
   const service = document.getElementById("contact-service").value;
   const message = document.getElementById("contact-message").value.trim();
 
-  const phone = "6281234567890"; // Ganti dengan nomor WhatsApp pemilik
+  const phone = "6281381453598"; // WhatsApp pemilik
   const waText = encodeURIComponent(
     `Halo, saya ${name} (${email}). Ingin mendiskusikan proyek drone untuk: ${service}.\n\nPesan:\n${message}`
   );
