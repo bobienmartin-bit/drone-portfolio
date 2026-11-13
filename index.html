@@ -88,7 +88,7 @@
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
         <a href="#beranda" class="hover:text-cyan-400 transition-colors">Beranda</a>
         <a href="#showreel" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Video Reel
@@ -97,19 +97,10 @@
         <a href="#gear" class="hover:text-cyan-400 transition-colors">Gear & Layanan</a>
         <a href="#tentang" class="hover:text-cyan-400 transition-colors">Tentang Saya</a>
         <a href="#kontak" class="hover:text-cyan-400 transition-colors">Kontak</a>
-        <a href="admin.html" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 text-xs font-mono text-cyan-400 px-2.5 py-1 rounded-lg bg-cyan-950/60 border border-cyan-500/30">
-          <i data-lucide="database" class="w-3.5 h-3.5"></i> CMS Admin
-        </a>
       </nav>
 
       <!-- Action Buttons -->
       <div class="hidden sm:flex items-center gap-3">
-        <!-- Interactive Upload Button -->
-        <button onclick="openUploadModal()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 text-xs font-semibold flex items-center gap-2 transition-all shadow-sm">
-          <i data-lucide="upload-cloud" class="w-4 h-4"></i>
-          <span>+ Upload Karya</span>
-        </button>
-
         <a href="#kontak" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2">
           <span>Booking Pilot</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
@@ -131,15 +122,9 @@
         <a href="#gear" class="text-slate-200 hover:text-cyan-400">Gear & Layanan</a>
         <a href="#tentang" class="text-slate-200 hover:text-cyan-400">Tentang Saya</a>
         <a href="#kontak" class="text-slate-200 hover:text-cyan-400">Kontak</a>
-        <a href="admin.html" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 font-mono text-sm">
-          <i data-lucide="database" class="w-4 h-4"></i> CMS Admin Supabase
-        </a>
       </div>
-      <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
-        <button onclick="openUploadModal()" class="w-full py-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-medium text-sm flex items-center justify-center gap-2">
-          <i data-lucide="upload-cloud" class="w-4 h-4"></i> Upload Foto / Video
-        </button>
-        <a href="#kontak" class="w-full py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm text-center">
+      <div class="pt-4 border-t border-slate-800">
+        <a href="#kontak" class="w-full py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm text-center block">
           Booking Proyek Drone
         </a>
       </div>
@@ -188,11 +173,6 @@
             <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
             <span>Jelajahi Galeri</span>
           </a>
-
-          <button onclick="openUploadModal()" class="px-6 py-3.5 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 font-semibold text-sm transition-all flex items-center gap-2">
-            <i data-lucide="upload" class="w-4 h-4"></i>
-            <span>Upload Foto / Video Anda</span>
-          </button>
         </div>
 
         <!-- Telemetry HUD Stats Bar -->
@@ -326,25 +306,15 @@
   <!-- INTERACTIVE GALLERY & MEDIA MANAGER SECTION -->
   <section id="galeri" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- Section Title & Interactive Upload Trigger -->
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
-      <div>
-        <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-          <i data-lucide="image" class="w-4 h-4"></i> Galeri & Media Studio
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Koleksi Foto & Video Udara</h2>
-        <p class="text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed">
-          Semua foto dan video di bawah dapat Anda putar dan buka resolusi aslinya. Anda juga dapat menekan tombol <strong>+ Upload Karya Pribadi</strong> untuk memasukkan file foto dan video Anda sendiri langsung dari komputer.
-        </p>
+    <!-- Section Title -->
+    <div class="mb-10">
+      <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
+        <i data-lucide="image" class="w-4 h-4"></i> Galeri & Portofolio
       </div>
-
-      <!-- Action Button for Upload -->
-      <div class="flex items-center gap-3">
-        <button onclick="openUploadModal()" class="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Upload Foto / Video Anda</span>
-        </button>
-      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Koleksi Foto & Video Udara</h2>
+      <p class="text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed">
+        Koleksi rekaman visual lanskap alam, perkotaan, dan aksi FPV sinematik beresolusi tinggi yang terhubung langsung ke database Supabase.
+      </p>
     </div>
 
     <!-- Filter Buttons Bar -->
@@ -368,10 +338,6 @@
       <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 hover:bg-slate-800 transition-all flex items-center gap-1.5" data-filter="urban">
         <i data-lucide="building-2" class="w-3.5 h-3.5"></i> Perkotaan & Arsitektur
       </button>
-
-      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/80 text-amber-300 hover:bg-slate-800 transition-all flex items-center gap-1.5 border border-amber-500/30" data-filter="personal">
-        <i data-lucide="user" class="w-3.5 h-3.5"></i> Upload Pribadi Saya
-      </button>
     </div>
 
     <!-- Gallery Grid (Populated dynamically by app.js) -->
@@ -386,11 +352,8 @@
       </div>
       <h3 class="text-lg font-bold text-slate-200">Belum ada karya pada kategori ini</h3>
       <p class="text-sm text-slate-400 mt-1 max-w-sm mx-auto">
-        Jadilah yang pertama menambahkan foto atau video drone pribadi Anda ke dalam galeri ini.
+        Karya foto dan video dapat ditambahkan melalui database Supabase SQL.
       </p>
-      <button onclick="openUploadModal()" class="mt-4 px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs inline-flex items-center gap-2">
-        <i data-lucide="upload" class="w-4 h-4"></i> Upload File Anda Sekarang
-      </button>
     </div>
 
   </section>
@@ -873,120 +836,7 @@
     </div>
   </div>
 
-  <!-- ======================================================== -->
-  <!-- MODAL 3: INTERACTIVE STUDIO UPLOADER (PERSONAL PHOTOS/VIDEOS) -->
-  <!-- ======================================================== -->
-  <div id="upload-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-cyan-500/40 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
-      
-      <!-- Modal Header -->
-      <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white">Upload Karya Foto / Video Pribadi</h3>
-            <p class="text-[11px] text-slate-400">File tersimpan langsung di browser Anda dan langsung tampil di galeri.</p>
-          </div>
-        </div>
-        <button data-close-upload class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
 
-      <!-- Form Body with Scroll -->
-      <form id="upload-form" class="p-6 space-y-5 overflow-y-auto flex-1">
-        
-        <!-- Drag & Drop Zone -->
-        <div>
-          <label class="block text-xs font-mono text-cyan-400 mb-2">PILIH FILE FOTO ATAU VIDEO DARI LAPTOP/KOMPUTER</label>
-          <div id="upload-dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-400 rounded-2xl p-6 text-center cursor-pointer transition-colors bg-slate-950/50">
-            <input type="file" id="upload-file-input" accept="image/*,video/*" class="hidden">
-            
-            <div id="upload-placeholder" class="space-y-2">
-              <div class="w-12 h-12 mx-auto rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-                <i data-lucide="folder-up" class="w-6 h-6"></i>
-              </div>
-              <p class="text-sm font-semibold text-slate-200">Klik untuk jelajahi file atau geser & taruh (drag and drop) di sini</p>
-              <p class="text-xs text-slate-400">Mendukung Foto (JPG, PNG, WebP) & Video (MP4, WebM, MOV)</p>
-            </div>
-
-            <div id="upload-preview-container" class="hidden"></div>
-          </div>
-        </div>
-
-        <!-- Metadata Form Fields -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">JUDUL KARYA</label>
-            <input type="text" id="upload-title" required placeholder="Contoh: Aerial Sunset Pantai Bali" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">TIPE MEDIA</label>
-            <select id="upload-type-select" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-              <option value="photo">Foto Udara</option>
-              <option value="video">Video Drone</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">KATEGORI</label>
-            <select id="upload-category" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-              <option value="landscape">Alam & Lanskap</option>
-              <option value="urban">Perkotaan (Urban)</option>
-              <option value="coastal">Pantai & Bahari</option>
-              <option value="event">Acara / Event</option>
-              <option value="fpv">FPV Action</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">TIPE DRONE</label>
-            <input type="text" id="upload-drone" placeholder="DJI Mini 4 / Mavic 3 / FPV" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">LOKASI</label>
-            <input type="text" id="upload-location" placeholder="Lokasi pengambilan" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">KETINGGIAN (ALTITUDE)</label>
-            <input type="text" id="upload-altitude" placeholder="Contoh: 120m AGL" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1.5">SPESIFIKASI KAMERA / FPS</label>
-            <input type="text" id="upload-specs" placeholder="Contoh: 4K 60fps • D-Log M" class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1.5">DESKRIPSI / CATATAN KARYA</label>
-          <textarea id="upload-desc" rows="2" placeholder="Catatan singkat mengenai angle penerbangan atau kondisi cuaca..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none"></textarea>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="pt-2 flex items-center justify-end gap-3">
-          <button type="button" data-close-upload class="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold">
-            Batal
-          </button>
-          <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25">
-            <i data-lucide="check" class="w-4 h-4"></i>
-            <span>Simpan ke Galeri</span>
-          </button>
-        </div>
-
-      </form>
-
-    </div>
-  </div>
 
   <!-- ======================================================== -->
   <!-- MODAL 4: VERCEL DEPLOYMENT STEP-BY-STEP MODAL -->
