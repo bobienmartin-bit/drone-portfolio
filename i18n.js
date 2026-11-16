@@ -78,6 +78,9 @@ const translations = {
     "gear.d5_tag": "PALM TAKEOFF & AI TRACKING",
     "gear.d5_desc": "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
     "gear.d5_ideal": "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)",
+    "gear.d6_tag": "DUAL CAMERA & NIGHTSCAPE",
+    "gear.d6_desc": "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
+    "gear.d6_ideal": "Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel & Wisata, Komersial Kreatif",
     
     // Services
     "service.s1_title": "Aerial Cinematography",
@@ -123,7 +126,7 @@ const translations = {
     "modal.photo_badge": "AERIAL PHOTO VIEWER",
 
     // Footer
-    "footer.rights": "Portofolio Drone Fotografi & Videografi.",
+    "footer.rights": "All Rights Reserved.",
     "footer.top": "Kembali ke Atas ↑"
   },
 
@@ -202,6 +205,9 @@ const translations = {
     "gear.d5_tag": "PALM TAKEOFF & AI TRACKING",
     "gear.d5_desc": "Ultra-compact 135g palm-takeoff drone featuring smart AI subject tracking, RockSteady stabilization, and dynamic close-proximity shots.",
     "gear.d5_ideal": "Ideal for: Personal Vlogs, Intimate Events, Safe Indoor Fly-throughs",
+    "gear.d6_tag": "DUAL CAMERA & NIGHTSCAPE",
+    "gear.d6_desc": "Advanced dual-camera drone featuring a 1-inch CMOS 50MP primary sensor and 70mm medium telephoto lens, equipped with forward LiDAR nightscape sensing.",
+    "gear.d6_ideal": "Ideal for: Nightscape Photography, Travel & Tourism Content, Creative Commercials",
 
     // Services
     "service.s1_title": "Aerial Cinematography",
@@ -247,7 +253,7 @@ const translations = {
     "modal.photo_badge": "AERIAL PHOTO VIEWER",
 
     // Footer
-    "footer.rights": "Drone Photography & Cinematography Portfolio.",
+    "footer.rights": "All Rights Reserved.",
     "footer.top": "Back to Top ↑"
   }
 };
