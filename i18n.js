@@ -126,7 +126,7 @@ const translations = {
     "modal.photo_badge": "AERIAL PHOTO VIEWER",
 
     // Footer
-    "footer.rights": "All Rights Reserved.",
+    "footer.copyright": "Copyright &copy; 2026 <strong>AeroScope</strong> All Right Reserved Powered By <a href=\"https://www.instagram.com/bobienmartien/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors\">Bobien Martien</a>",
     "footer.top": "Kembali ke Atas ↑"
   },
 
@@ -253,7 +253,7 @@ const translations = {
     "modal.photo_badge": "AERIAL PHOTO VIEWER",
 
     // Footer
-    "footer.rights": "All Rights Reserved.",
+    "footer.copyright": "Copyright &copy; 2026 <strong>AeroScope</strong> All Right Reserved Powered By <a href=\"https://www.instagram.com/bobienmartien/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors\">Bobien Martien</a>",
     "footer.top": "Back to Top ↑"
   }
 };
