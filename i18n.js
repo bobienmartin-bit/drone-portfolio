@@ -99,11 +99,10 @@ const translations = {
     "about.reg_title": "REGISTRASI RESMI",
     "about.reg_desc": "Kementerian Perhubungan RI",
     "about.title": "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.",
-    "about.p1": "Saya adalah seorang pilot drone profesional dan kreator visual yang berfokus pada fotografi udara resolusi tinggi dan sinematografi dinamis. Melalui lensa drone, setiap kontur alam, garis simetri gedung, dan pergerakan cahaya matahari berubah menjadi karya visual yang bernyawa.",
-    "about.p2": "Dengan jam terbang lebih dari 450 jam melintasi berbagai medan di Indonesia—mulai dari puncak gunung berkabut, kepulauan tropis, hingga padatnya gedung perkotaan metropolitan—keselamatan terbang (safety compliance) dan kualitas estetika selalu menjadi prioritas utama saya.",
-    "about.stat1_label": "Total Jam Terbang",
-    "about.stat2_label": "Proyek Terselesaikan",
-    "about.stat3_label": "Destinasi di Indonesia",
+    "about.p1": "Saya adalah seorang <strong class=\"text-white\">Certified Remote Pilot dan Aerial Visual Creator</strong> yang berfokus pada fotografi udara, videografi sinematik, serta produksi visual berbasis drone.",
+    "about.p2": "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam di berbagai wilayah Indonesia</strong>, saya telah mengabadikan beragam perspektif visual, mulai dari lanskap alam, kawasan pesisir, hingga arsitektur dan kawasan metropolitan.",
+    "about.p3": "Saya menggabungkan keterampilan pilot, ketelitian dalam pengambilan gambar, serta pemahaman teknis penerbangan untuk menghasilkan karya visual yang memiliki nilai estetika, komposisi kuat, dan standar produksi berkualitas.",
+    "about.p4": "Dalam setiap proyek, saya mengutamakan <strong class=\"text-white\">keselamatan penerbangan, kepatuhan terhadap regulasi, dan kualitas hasil visual</strong> sebagai bagian dari komitmen profesional.",
 
     // Contact
     "contact.badge": "Kolaborasi",
@@ -226,11 +225,10 @@ const translations = {
     "about.reg_title": "OFFICIAL CERTIFICATION",
     "about.reg_desc": "Ministry of Transportation RI",
     "about.title": "Discovering Perspectives Never Reached from the Ground.",
-    "about.p1": "I am a certified drone pilot and visual storyteller specializing in ultra-high resolution aerial photography and dynamic cinematography. Through the drone lens, natural contours, architectural geometry, and sunlight transitions become compelling visual narratives.",
-    "about.p2": "With over 450 flight hours across Indonesia's diverse terrains—from misty mountain summits and tropical archipelagos to bustling urban centers—flight safety compliance and artistic excellence are always my top priorities.",
-    "about.stat1_label": "Total Flight Hours",
-    "about.stat2_label": "Completed Projects",
-    "about.stat3_label": "Destinations in Indonesia",
+    "about.p1": "I am a <strong class=\"text-white\">Certified Remote Pilot and Aerial Visual Creator</strong> focused on aerial photography, cinematic videography, and drone-based visual production.",
+    "about.p2": "With over <strong class=\"text-white\">450 flight hours across various regions of Indonesia</strong>, I have captured diverse visual perspectives, from natural landscapes and coastal areas to architecture and metropolitan areas.",
+    "about.p3": "I combine piloting skills, precision framing, and aeronautical technical expertise to produce visual works with high aesthetic value, compelling composition, and professional production standards.",
+    "about.p4": "In every project, I prioritize <strong class=\"text-white\">flight safety, regulatory compliance, and visual excellence</strong> as part of my professional commitment.",
 
     // Contact
     "contact.badge": "Collaboration",
