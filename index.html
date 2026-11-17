@@ -391,220 +391,209 @@
         </p>
       </div>
 
-      <!-- Fleet Grid (6 Modern Drones) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-        
-        <!-- Drone 1: Mavic 4 Pro -->
-        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d1_tag">
-                NEXT-GEN FLAGSHIP
-              </span>
-              <i data-lucide="crown" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
-            </div>
+      <!-- Fleet Carousel (3 per slide, auto-slide + manual nav) -->
+      <div class="relative mb-20" id="fleet-carousel">
 
-            <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 4 Pro</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d1_desc">
-              Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.
-            </p>
+        <!-- Slide Wrapper -->
+        <div class="overflow-hidden rounded-3xl" id="fleet-track-wrap">
+          <div class="flex transition-transform duration-700 ease-in-out" id="fleet-track" style="will-change:transform">
 
-            <ul class="space-y-3 text-xs text-slate-300 font-mono">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Video 8K/60fps & 4K/120fps HDR
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Sistem Multi-Kamera Hasselblad
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 10-Bit D-Log M & D-Log Cinema
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 45 Menit
-              </li>
-            </ul>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d1_ideal">
-            Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik
-          </div>
+            <!-- ===== SLIDE 1: Mavic 4 Pro · Mavic 3 Pro · Air 3S ===== -->
+            <div class="fleet-slide min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+              <!-- Drone 1: Mavic 4 Pro -->
+              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d1_tag">NEXT-GEN FLAGSHIP</span>
+                    <i data-lucide="crown" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 4 Pro</h3>
+                  <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d1_desc">Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.</p>
+                  <ul class="space-y-3 text-xs text-slate-300 font-mono">
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Video 8K/60fps &amp; 4K/120fps HDR</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Sistem Multi-Kamera Hasselblad</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 10-Bit D-Log M &amp; D-Log Cinema</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 45 Menit</li>
+                  </ul>
+                </div>
+                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d1_ideal">Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik</div>
+              </div>
+
+              <!-- Drone 2: Mavic 3 Pro -->
+              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d2_tag">TRIPLE CAMERA CINEMA</span>
+                    <i data-lucide="camera" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 3 Pro</h3>
+                  <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d2_desc">Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.</p>
+                  <ul class="space-y-3 text-xs text-slate-300 font-mono">
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Video 5.1K / 50fps Apple ProRes</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Lensa 24mm + 70mm + 166mm Tele</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 10-Bit D-Log M &amp; HLG Color</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 43 Menit</li>
+                  </ul>
+                </div>
+                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d2_ideal">Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi</div>
+              </div>
+
+              <!-- Drone 3: Air 3S -->
+              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold" data-i18n="gear.d6_tag">DUAL CAMERA &amp; NIGHTSCAPE</span>
+                    <i data-lucide="layers" class="w-6 h-6 text-slate-500 group-hover:text-sky-400 transition-colors"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white mb-2">DJI Air 3S</h3>
+                  <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d6_desc">Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.</p>
+                  <ul class="space-y-3 text-xs text-slate-300 font-mono">
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-sky-400"></i> Sensor 1&quot; CMOS 50MP + 70mm Medium Tele</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-sky-400"></i> Video 4K/60fps HDR &amp; 4K/120fps Slow-mo</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-sky-400"></i> LiDAR Malam Hari &amp; Sensor Omnidirectional</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-sky-400"></i> 10-Bit D-Log M &amp; Waktu Terbang 45 Menit</li>
+                  </ul>
+                </div>
+                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d6_ideal">Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel &amp; Wisata, Komersial Kreatif</div>
+              </div>
+            </div><!-- /SLIDE 1 -->
+
+            <!-- ===== SLIDE 2: Avata 2 · Mini 4 Pro · Neo 2 ===== -->
+            <div class="fleet-slide min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+              <!-- Drone 4: Avata 2 -->
+              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-amber-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold" data-i18n="gear.d3_tag">IMMERSIVE FPV CINEMA</span>
+                    <i data-lucide="wind" class="w-6 h-6 text-slate-500 group-hover:text-amber-400 transition-colors"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white mb-2">DJI Avata 2</h3>
+                  <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d3_desc">Drone FPV lincah dengan sensor 1/1.3&quot; CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.</p>
+                  <ul class="space-y-3 text-xs text-slate-300 font-mono">
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Video 4K / 60fps HDR &amp; RockSteady 3.0+</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Lensa 155° Ultra-Wide Angle FOV</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Stabilisasi Gyroflow &amp; HorizonSteady</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> One-Push ACRO (Flip, Roll, 180° Drift)</li>
+                  </ul>
+                </div>
+                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d3_ideal">Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor &amp; Olahraga Ekstrem</div>
+              </div>
+
+              <!-- Drone 5: Mini 4 Pro -->
+              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold" data-i18n="gear.d4_tag">AGILE &amp; SUB-249G</span>
+                    <i data-lucide="zap" class="w-6 h-6 text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white mb-2">DJI Mini 4 Pro</h3>
+                  <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d4_desc">Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok &amp; Reels.</p>
+                  <ul class="space-y-3 text-xs text-slate-300 font-mono">
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 4K / 60fps HDR &amp; 4K / 100fps Slow-mo</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> True Vertical Gimbal Rotation</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Omnidirectional Obstacle Sensing</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 48MP RAW Photo High Details</li>
+                  </ul>
+                </div>
+                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d4_ideal">Ideal untuk: Wisata, Real Estate, Konten Instagram Reels &amp; TikTok</div>
+              </div>
+
+              <!-- Drone 6: Neo 2 -->
+              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-purple-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-mono font-bold" data-i18n="gear.d5_tag">PALM TAKEOFF &amp; AI TRACKING</span>
+                    <i data-lucide="sparkles" class="w-6 h-6 text-slate-500 group-hover:text-purple-400 transition-colors"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white mb-2">DJI Neo 2</h3>
+                  <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d5_desc">Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.</p>
+                  <ul class="space-y-3 text-xs text-slate-300 font-mono">
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Video 4K Ultra-Stabilized &amp; QuickShots</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Palm Takeoff &amp; Landing Tanpa Remote</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Pelacakan Subjek Berbasis AI Cerdas</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Full Propeller Guard (Sangat Aman)</li>
+                  </ul>
+                </div>
+                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d5_ideal">Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)</div>
+              </div>
+            </div><!-- /SLIDE 2 -->
+
+          </div><!-- /fleet-track -->
+        </div><!-- /fleet-track-wrap -->
+
+        <!-- Navigation Buttons -->
+        <button id="fleet-prev" aria-label="Previous" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-11 h-11 rounded-full bg-slate-900 border border-slate-700 hover:border-cyan-500 hover:bg-slate-800 text-white flex items-center justify-center shadow-xl transition-all group">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button id="fleet-next" aria-label="Next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-11 h-11 rounded-full bg-slate-900 border border-slate-700 hover:border-cyan-500 hover:bg-slate-800 text-white flex items-center justify-center shadow-xl transition-all group">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <!-- Dot Indicators -->
+        <div class="flex items-center justify-center gap-3 mt-8" id="fleet-dots">
+          <button class="fleet-dot w-8 h-1.5 rounded-full bg-cyan-400 transition-all duration-300" data-slide="0"></button>
+          <button class="fleet-dot w-4 h-1.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" data-slide="1"></button>
         </div>
 
-        <!-- Drone 2: Mavic 3 Pro -->
-        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d2_tag">
-                TRIPLE CAMERA CINEMA
-              </span>
-              <i data-lucide="camera" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
-            </div>
+        <!-- Slide Label -->
+        <p class="text-center text-xs font-mono text-slate-500 mt-3" id="fleet-label">SLIDE 1 / 2 — ARMADA DRONE</p>
 
-            <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 3 Pro</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d2_desc">
-              Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.
-            </p>
+      </div><!-- /fleet-carousel -->
 
-            <ul class="space-y-3 text-xs text-slate-300 font-mono">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Video 5.1K / 50fps Apple ProRes
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Lensa 24mm + 70mm + 166mm Tele
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 10-Bit D-Log M & HLG Color
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 43 Menit
-              </li>
-            </ul>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d2_ideal">
-            Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi
-          </div>
-        </div>
+      <!-- Fleet Carousel JS -->
+      <script>
+      (function(){
+        const track   = document.getElementById('fleet-track');
+        const dots    = document.querySelectorAll('.fleet-dot');
+        const label   = document.getElementById('fleet-label');
+        const btnPrev = document.getElementById('fleet-prev');
+        const btnNext = document.getElementById('fleet-next');
+        const TOTAL   = 2;
+        let current   = 0;
+        let timer;
 
-        <!-- Drone 3: DJI Air 3S -->
-        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold" data-i18n="gear.d6_tag">
-                DUAL CAMERA & NIGHTSCAPE
-              </span>
-              <i data-lucide="layers" class="w-6 h-6 text-slate-500 group-hover:text-sky-400 transition-colors"></i>
-            </div>
+        function goTo(idx, restart){
+          current = (idx + TOTAL) % TOTAL;
+          track.style.transform = `translateX(-${current * 100}%)`;
+          dots.forEach((d, i) => {
+            d.classList.toggle('bg-cyan-400', i === current);
+            d.classList.toggle('w-8',        i === current);
+            d.classList.toggle('bg-slate-700', i !== current);
+            d.classList.toggle('w-4',        i !== current);
+          });
+          const lang = window.AeroI18n ? window.AeroI18n.getCurrentLanguage() : 'id';
+          label.textContent = lang === 'en'
+            ? `SLIDE ${current+1} / ${TOTAL} — DRONE FLEET`
+            : `SLIDE ${current+1} / ${TOTAL} — ARMADA DRONE`;
+          if(restart !== false){ clearInterval(timer); startAuto(); }
+        }
 
-            <h3 class="text-2xl font-bold text-white mb-2">DJI Air 3S</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d6_desc">
-              Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.
-            </p>
+        function startAuto(){
+          timer = setInterval(() => goTo(current + 1, false), 5000);
+        }
 
-            <ul class="space-y-3 text-xs text-slate-300 font-mono">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-sky-400"></i> Sensor 1" CMOS 50MP + 70mm Medium Tele
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-sky-400"></i> Video 4K/60fps HDR & 4K/120fps Slow-mo
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-sky-400"></i> LiDAR Malam Hari & Sensor Omnidirectional
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-sky-400"></i> 10-Bit D-Log M & Waktu Terbang 45 Menit
-              </li>
-            </ul>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d6_ideal">
-            Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel & Wisata, Komersial Kreatif
-          </div>
-        </div>
+        btnPrev.addEventListener('click', () => goTo(current - 1));
+        btnNext.addEventListener('click', () => goTo(current + 1));
+        dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.slide)));
 
-        <!-- Drone 4: DJI Avata 2 -->
-        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold" data-i18n="gear.d3_tag">
-                IMMERSIVE FPV CINEMA
-              </span>
-              <i data-lucide="wind" class="w-6 h-6 text-slate-500 group-hover:text-amber-400 transition-colors"></i>
-            </div>
+        // Touch / Swipe
+        let startX = 0;
+        track.parentElement.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+        track.parentElement.addEventListener('touchend',   e => {
+          const dx = e.changedTouches[0].clientX - startX;
+          if(Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
+        }, {passive:true});
 
-            <h3 class="text-2xl font-bold text-white mb-2">DJI Avata 2</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d3_desc">
-              Drone FPV lincah dengan sensor 1/1.3" CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.
-            </p>
+        // Pause on hover
+        document.getElementById('fleet-carousel').addEventListener('mouseenter', () => clearInterval(timer));
+        document.getElementById('fleet-carousel').addEventListener('mouseleave', startAuto);
 
-            <ul class="space-y-3 text-xs text-slate-300 font-mono">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Video 4K / 60fps HDR & RockSteady 3.0+
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Lensa 155° Ultra-Wide Angle FOV
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Stabilisasi Gyroflow & HorizonSteady
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> One-Push ACRO (Flip, Roll, 180° Drift)
-              </li>
-            </ul>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d3_ideal">
-            Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor & Olahraga Ekstrem
-          </div>
-        </div>
-
-        <!-- Drone 5: Mini 4 Pro -->
-        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold" data-i18n="gear.d4_tag">
-                AGILE & SUB-249G
-              </span>
-              <i data-lucide="zap" class="w-6 h-6 text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
-            </div>
-
-            <h3 class="text-2xl font-bold text-white mb-2">DJI Mini 4 Pro</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d4_desc">
-              Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.
-            </p>
-
-            <ul class="space-y-3 text-xs text-slate-300 font-mono">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 4K / 60fps HDR & 4K / 100fps Slow-mo
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> True Vertical Gimbal Rotation
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Omnidirectional Obstacle Sensing
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 48MP RAW Photo High Details
-              </li>
-            </ul>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d4_ideal">
-            Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok
-          </div>
-        </div>
-
-        <!-- Drone 6: DJI Neo 2 -->
-        <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-mono font-bold" data-i18n="gear.d5_tag">
-                PALM TAKEOFF & AI TRACKING
-              </span>
-              <i data-lucide="sparkles" class="w-6 h-6 text-slate-500 group-hover:text-purple-400 transition-colors"></i>
-            </div>
-
-            <h3 class="text-2xl font-bold text-white mb-2">DJI Neo 2</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d5_desc">
-              Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.
-            </p>
-
-            <ul class="space-y-3 text-xs text-slate-300 font-mono">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Video 4K Ultra-Stabilized & QuickShots
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Palm Takeoff & Landing Tanpa Remote
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Pelacakan Subjek Berbasis AI Cerdas
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Full Propeller Guard (Sangat Aman)
-              </li>
-            </ul>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d5_ideal">
-            Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)
-          </div>
-        </div>
-
-      </div>
+        goTo(0, false);
+        startAuto();
+      })();
+      </script>
 
       <!-- Services Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -667,7 +656,7 @@
         <!-- Floating HUD Element -->
         <div class="absolute -bottom-6 -right-6 glass-panel p-4 rounded-2xl border border-cyan-500/30 hidden sm:block shadow-xl">
           <div class="text-[11px] font-mono text-cyan-400 mb-1" data-i18n="about.reg_title">REGISTRASI RESMI</div>
-          <div class="text-sm font-bold text-white font-mono">Nusadrone & DGCA DKPPU</div>
+          <div class="text-sm font-bold text-white font-mono">SIDOPI GO & DGCA DKPPU</div>
           <div class="text-[10px] text-slate-400" data-i18n="about.reg_desc">Kementerian Perhubungan RI</div>
         </div>
       </div>
