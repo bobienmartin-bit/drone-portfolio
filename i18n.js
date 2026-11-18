@@ -89,8 +89,8 @@ const translations = {
     "service.s2_desc": "Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.",
     "service.s3_title": "Dokumentasi Acara",
     "service.s3_desc": "Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.",
-    "service.s4_title": "Pemetaan & Inspeksi",
-    "service.s4_desc": "Foto udara ortomosaik 2D/3D untuk inspeksi proyek konstruksi, lahan perkebunan, dan infrastruktur.",
+    "service.s4_title": "Company Profile",
+    "service.s4_desc": "Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.",
 
     // About Me
     "about.badge": "Profil Pilot",
@@ -215,8 +215,8 @@ const translations = {
     "service.s2_desc": "Wide-angle aerial photography and cinematic fly-throughs showcasing architectural lines and surroundings.",
     "service.s3_title": "Event Documentation",
     "service.s3_desc": "Aerial coverage for festivals, outdoor concerts, sports events, weddings, and grand gatherings.",
-    "service.s4_title": "Mapping & Inspection",
-    "service.s4_desc": "2D/3D orthomosaic aerial imaging for construction monitoring, plantation land, and infrastructure inspection.",
+    "service.s4_title": "Company Profile",
+    "service.s4_desc": "Cinematic aerial video and photo production for corporate facilities, industrial plants, and company showcase.",
 
     // About Me
     "about.badge": "Pilot Profile",

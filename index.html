@@ -103,17 +103,15 @@
       <!-- Action Buttons + Language Switcher (Navbar) -->
       <div class="hidden sm:flex items-center gap-3">
 
-        <!-- Language Switcher — flag + label pill -->
+        <!-- Language Switcher — ID / EN Pill -->
         <div class="flex items-center bg-slate-900/80 border border-slate-700 rounded-xl p-1 gap-0.5 shadow-md" role="group" aria-label="Language Switcher">
           <button id="lang-btn-id" onclick="AeroI18n.setLanguage('id')"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono bg-cyan-500 text-slate-950 shadow transition-all duration-200 hover:bg-cyan-400">
-            <span class="text-base leading-none">🇮🇩</span>
-            <span class="tracking-wider">ID</span>
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono bg-cyan-500 text-slate-950 shadow transition-all duration-200 hover:bg-cyan-400">
+            ID
           </button>
           <button id="lang-btn-en" onclick="AeroI18n.setLanguage('en')"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200">
-            <span class="text-base leading-none">🇬🇧</span>
-            <span class="tracking-wider">EN</span>
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200">
+            EN
           </button>
         </div>
 
@@ -146,14 +144,12 @@
         <span class="text-slate-400 font-mono text-xs">Bahasa / Language:</span>
         <div class="flex items-center bg-slate-800 border border-slate-700 rounded-xl p-1 gap-0.5">
           <button id="mobile-lang-btn-id" onclick="AeroI18n.setLanguage('id')"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono bg-cyan-500 text-slate-950 transition-all">
-            <span class="text-base leading-none">🇮🇩</span>
-            <span>ID</span>
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono bg-cyan-500 text-slate-950 transition-all">
+            ID
           </button>
           <button id="mobile-lang-btn-en" onclick="AeroI18n.setLanguage('en')"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono text-slate-400 hover:text-white hover:bg-slate-700 transition-all">
-            <span class="text-base leading-none">🇬🇧</span>
-            <span>EN</span>
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono text-slate-400 hover:text-white hover:bg-slate-700 transition-all">
+            EN
           </button>
         </div>
       </div>
@@ -653,10 +649,10 @@
 
         <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
           <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4">
-            <i data-lucide="map" class="w-5 h-5"></i>
+            <i data-lucide="building-2" class="w-5 h-5"></i>
           </div>
-          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s4_title">Pemetaan & Inspeksi</h4>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s4_desc">Foto udara ortomosaik 2D/3D untuk inspeksi proyek konstruksi, lahan perkebunan, dan infrastruktur.</p>
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s4_title">Company Profile</h4>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s4_desc">Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.</p>
         </div>
       </div>
 
@@ -806,6 +802,7 @@
               <option value="FPV Action Shoot">FPV Action / Olahraga Ekstrem</option>
               <option value="Real Estate Video">Dokumentasi Properti & Real Estate</option>
               <option value="Event Documentation">Liputan Acara & Konser Outdoor</option>
+              <option value="Company Profile">Video & Foto Profil Perusahaan (Company Profile)</option>
             </select>
           </div>
 
