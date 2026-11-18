@@ -66,13 +66,6 @@
       <span class="text-emerald-400 flex items-center gap-1">
         <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> <span data-i18n="hud.vercel">VERCEL READY</span>
       </span>
-      <span class="text-slate-500">|</span>
-      
-      <!-- Language Switcher Pill (Top Bar) -->
-      <div class="flex items-center rounded-lg bg-slate-900 border border-slate-800 p-0.5 text-[10px] font-mono">
-        <button id="lang-btn-id" onclick="AeroI18n.setLanguage('id')" class="px-2 py-0.5 rounded-md font-bold bg-cyan-500 text-slate-950 transition-all">ID</button>
-        <button id="lang-btn-en" onclick="AeroI18n.setLanguage('en')" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">EN</button>
-      </div>
     </div>
   </div>
 
@@ -107,8 +100,24 @@
         <a href="#kontak" class="hover:text-cyan-400 transition-colors" data-i18n="nav.contact">Kontak</a>
       </nav>
 
-      <!-- Action Buttons -->
+      <!-- Action Buttons + Language Switcher (Navbar) -->
       <div class="hidden sm:flex items-center gap-3">
+
+        <!-- Language Switcher — flag + label pill -->
+        <div class="flex items-center bg-slate-900/80 border border-slate-700 rounded-xl p-1 gap-0.5 shadow-md" role="group" aria-label="Language Switcher">
+          <button id="lang-btn-id" onclick="AeroI18n.setLanguage('id')"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono bg-cyan-500 text-slate-950 shadow transition-all duration-200 hover:bg-cyan-400">
+            <span class="text-base leading-none">🇮🇩</span>
+            <span class="tracking-wider">ID</span>
+          </button>
+          <button id="lang-btn-en" onclick="AeroI18n.setLanguage('en')"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200">
+            <span class="text-base leading-none">🇬🇧</span>
+            <span class="tracking-wider">EN</span>
+          </button>
+        </div>
+
+        <!-- Booking Button -->
         <a href="#kontak" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2">
           <span data-i18n="nav.booking">Booking Pilot</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
@@ -133,11 +142,19 @@
       </div>
 
       <!-- Mobile Language Switcher -->
-      <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs">
-        <span class="text-slate-400 font-mono">Bahasa / Language:</span>
-        <div class="flex items-center rounded-lg bg-slate-900 border border-slate-800 p-0.5 text-xs font-mono">
-          <button id="mobile-lang-btn-id" onclick="AeroI18n.setLanguage('id')" class="px-3 py-1 rounded-md font-bold bg-cyan-500 text-slate-950 transition-all">ID</button>
-          <button id="mobile-lang-btn-en" onclick="AeroI18n.setLanguage('en')" class="px-3 py-1 rounded-md text-slate-400 hover:text-white transition-all">EN</button>
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+        <span class="text-slate-400 font-mono text-xs">Bahasa / Language:</span>
+        <div class="flex items-center bg-slate-800 border border-slate-700 rounded-xl p-1 gap-0.5">
+          <button id="mobile-lang-btn-id" onclick="AeroI18n.setLanguage('id')"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono bg-cyan-500 text-slate-950 transition-all">
+            <span class="text-base leading-none">🇮🇩</span>
+            <span>ID</span>
+          </button>
+          <button id="mobile-lang-btn-en" onclick="AeroI18n.setLanguage('en')"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono text-slate-400 hover:text-white hover:bg-slate-700 transition-all">
+            <span class="text-base leading-none">🇬🇧</span>
+            <span>EN</span>
+          </button>
         </div>
       </div>
 
@@ -537,8 +554,13 @@
           <button class="fleet-dot w-4 h-1.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" data-slide="1"></button>
         </div>
 
-        <!-- Slide Label -->
-        <p class="text-center text-xs font-mono text-slate-500 mt-3" id="fleet-label">SLIDE 1 / 2 — ARMADA DRONE</p>
+        <!-- Slide Label (Bilingual HUD) -->
+        <div class="flex items-center justify-center mt-4">
+          <span id="fleet-label" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-cyan-400 shadow-md">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>SLIDE 1 / 2 — ARMADA DRONE</span>
+          </span>
+        </div>
 
       </div><!-- /fleet-carousel -->
 
@@ -554,6 +576,17 @@
         let current   = 0;
         let timer;
 
+        function updateLabel(){
+          const lang = window.AeroI18n ? window.AeroI18n.getCurrentLanguage() : 'id';
+          const text = lang === 'en'
+            ? `SLIDE ${current+1} / ${TOTAL} — DRONE FLEET`
+            : `SLIDE ${current+1} / ${TOTAL} — ARMADA DRONE`;
+          if (label) {
+            label.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span>${text}</span>`;
+          }
+        }
+        window.updateFleetLabel = updateLabel;
+
         function goTo(idx, restart){
           current = (idx + TOTAL) % TOTAL;
           track.style.transform = `translateX(-${current * 100}%)`;
@@ -563,10 +596,7 @@
             d.classList.toggle('bg-slate-700', i !== current);
             d.classList.toggle('w-4',        i !== current);
           });
-          const lang = window.AeroI18n ? window.AeroI18n.getCurrentLanguage() : 'id';
-          label.textContent = lang === 'en'
-            ? `SLIDE ${current+1} / ${TOTAL} — DRONE FLEET`
-            : `SLIDE ${current+1} / ${TOTAL} — ARMADA DRONE`;
+          updateLabel();
           if(restart !== false){ clearInterval(timer); startAuto(); }
         }
 

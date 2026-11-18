@@ -324,6 +324,10 @@ function updateLangToggleUI(activeLang) {
       item.id.classList.add(...inactiveClasses);
     }
   });
+
+  if (typeof window.updateFleetLabel === "function") {
+    window.updateFleetLabel();
+  }
 }
 
 // Auto init on DOM ready
