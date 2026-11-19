@@ -130,12 +130,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("Could not load user media from IndexedDB:", err);
   }
 
+  // Load customized gallery items if saved in CMS
+  let baseMedia = INITIAL_MEDIA;
+  const cmsGallery = localStorage.getItem("AEROSCOPE_GALLERY_ITEMS");
+  if (cmsGallery) {
+    try {
+      const parsed = JSON.parse(cmsGallery);
+      if (Array.isArray(parsed) && parsed.length > 0) baseMedia = parsed;
+    } catch (e) {}
+  }
+
   // Check if Supabase is connected and fetch cloud media
   try {
     if (window.AeroSupabase && window.AeroSupabase.isSupabaseConfigured()) {
       const supabaseItems = await window.AeroSupabase.fetchMediaFromSupabase();
       if (supabaseItems && supabaseItems.length > 0) {
-        allMediaItems = [...supabaseItems, ...userMedia, ...INITIAL_MEDIA];
+        allMediaItems = [...supabaseItems, ...userMedia, ...baseMedia];
 
         // Update hero featured video if available in Supabase
         const featuredVid = supabaseItems.find(i => i.type === "video" && i.isFeatured);
@@ -147,14 +157,24 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
       } else {
-        allMediaItems = [...userMedia, ...INITIAL_MEDIA];
+        allMediaItems = [...userMedia, ...baseMedia];
       }
     } else {
-      allMediaItems = [...userMedia, ...INITIAL_MEDIA];
+      allMediaItems = [...userMedia, ...baseMedia];
     }
   } catch (supabaseErr) {
     console.warn("Could not fetch Supabase media:", supabaseErr);
-    allMediaItems = [...userMedia, ...INITIAL_MEDIA];
+    allMediaItems = [...userMedia, ...baseMedia];
+  }
+
+  // Sync CMS Site Configuration if available
+  if (window.AeroSiteConfig) {
+    const siteCfg = window.AeroSiteConfig.getSiteConfig();
+    if (siteCfg && Array.isArray(siteCfg.featuredReel) && siteCfg.featuredReel.length > 0) {
+      FEATURED_VIDEOS_PLAYLIST = siteCfg.featuredReel;
+      window.FEATURED_VIDEOS_PLAYLIST = siteCfg.featuredReel;
+    }
+    window.AeroSiteConfig.applySiteConfigToDOM(siteCfg);
   }
 
   renderGallery();
@@ -263,7 +283,7 @@ function toggleHeroVideoSound() {
 // ========================================================
 // 4c. Featured Showcase Carousel & Next/Prev Video Engine
 // ========================================================
-const FEATURED_VIDEOS_PLAYLIST = [
+let FEATURED_VIDEOS_PLAYLIST = [
   {
     id: "sample-vid-2",
     badge_id: "EVENT AERIAL HIGHLIGHT",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AeroScope CMS Studio — Panel Admin & Database Supabase</title>
+  <title>AeroScope Studio — Panel Admin & CMS Konten</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,252 +46,553 @@
 </head>
 <body class="bg-[#07090e] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- TOP NAVIGATION BAR -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
+  <!-- ======================================================== -->
+  <!-- 0. LOGIN / PIN SECURITY GATE -->
+  <!-- ======================================================== -->
+  <div id="admin-login-gate" class="fixed inset-0 z-50 bg-[#07090e] flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center">
+      <div class="absolute -top-12 -right-12 w-36 h-36 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
       
-      <!-- Logo Brand & CMS Badge -->
-      <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-2.5 group">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 p-0.5 shadow-md shadow-cyan-500/20">
-            <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <i data-lucide="crosshair" class="w-5 h-5 text-cyan-400"></i>
-            </div>
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-5 border border-cyan-500/30">
+        <i data-lucide="lock" class="w-8 h-8"></i>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-white mb-1">AeroScope CMS Studio</h2>
+      <p class="text-xs text-slate-400 mb-6">Panel Pengaturan & Pengelola Konten Website</p>
+
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1.5">KATA SANDI / PIN ADMIN</label>
+          <div class="relative">
+            <input type="password" id="admin-pin-input" placeholder="Masukkan PIN (default: admin123)" required
+              class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-sm text-white focus:outline-none font-mono">
+            <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+              <i data-lucide="eye" id="pin-eye-icon" class="w-4 h-4"></i>
+            </button>
           </div>
-          <div>
-            <span class="text-base font-bold tracking-wider font-mono text-white flex items-center gap-1.5">
-              AEROSCOPE <span class="text-cyan-400">// CMS</span>
-            </span>
-            <p class="text-[10px] tracking-widest uppercase font-mono text-slate-400">Supabase Media Studio</p>
-          </div>
-        </a>
-
-        <!-- Connection Status Pill -->
-        <div id="conn-status-pill" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono border bg-slate-900 border-slate-800 text-slate-400">
-          <span id="conn-dot" class="w-2 h-2 rounded-full bg-slate-500"></span>
-          <span id="conn-label">Memeriksa Supabase...</span>
+          <p class="text-[11px] text-slate-500 mt-1">Default PIN: <code class="text-cyan-400 font-mono">admin123</code></p>
         </div>
-      </div>
 
-      <!-- Header Actions -->
-      <div class="flex items-center gap-3">
-        <button onclick="openConfigModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all">
-          <i data-lucide="database" class="w-4 h-4 text-cyan-400"></i>
-          <span class="hidden sm:inline">Konfigurasi Supabase</span>
+        <div id="login-error-msg" class="hidden text-xs text-rose-400 font-mono py-1">
+          PIN salah. Silakan coba lagi.
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all">
+          <i data-lucide="key" class="w-4 h-4"></i>
+          <span>Buka Panel Admin</span>
         </button>
 
-        <button onclick="openSqlModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all">
-          <i data-lucide="file-code" class="w-4 h-4 text-emerald-400"></i>
-          <span class="hidden sm:inline">Skrip SQL</span>
-        </button>
-
-        <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-all">
-          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-          <span>Web Publik</span>
-        </a>
-      </div>
-
+        <div class="pt-3 text-center">
+          <a href="index.html" class="text-xs text-slate-400 hover:text-cyan-400 transition-colors inline-flex items-center gap-1">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Website Publik
+          </a>
+        </div>
+      </form>
     </div>
-  </header>
-
-  <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    
-    <!-- NOT CONFIGURED BANNER / ONBOARDING -->
-    <div id="setup-banner" class="hidden mb-10 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-2 border-dashed border-cyan-500/40 text-center">
-      <div class="w-16 h-16 mx-auto rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/30">
-        <i data-lucide="database" class="w-8 h-8"></i>
-      </div>
-      <h2 class="text-2xl font-bold text-white mb-2">Sambungkan CMS ke Supabase Anda</h2>
-      <p class="text-sm text-slate-400 max-w-xl mx-auto mb-6 leading-relaxed">
-        CMS ini menggunakan database PostgreSQL dan Supabase Storage untuk menyimpan foto beresolusi tinggi dan video drone 4K. Cukup masukkan <strong>Project URL</strong> dan <strong>Anon Key</strong> Supabase Anda.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3">
-        <button onclick="openConfigModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25">
-          <i data-lucide="key" class="w-4 h-4"></i> Masukkan Kunci Supabase
-        </button>
-        <button onclick="openSqlModal()" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2">
-          <i data-lucide="copy" class="w-4 h-4 text-emerald-400"></i> Salin Skrip Tabel SQL
-        </button>
-      </div>
-    </div>
-
-    <!-- STATS OVERVIEW CARDS -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
-          <span>TOTAL MEDIA</span>
-          <i data-lucide="layers" class="w-4 h-4 text-cyan-400"></i>
-        </div>
-        <div id="stat-total" class="text-3xl font-extrabold font-mono text-white">0</div>
-        <div class="text-[11px] text-slate-500 mt-1">Tersimpan di Supabase DB</div>
-      </div>
-
-      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
-          <span>VIDEO 4K / 5K</span>
-          <i data-lucide="video" class="w-4 h-4 text-cyan-400"></i>
-        </div>
-        <div id="stat-videos" class="text-3xl font-extrabold font-mono text-cyan-300">0</div>
-        <div class="text-[11px] text-slate-500 mt-1">Video Drone Aktif</div>
-      </div>
-
-      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
-          <span>FOTO UDARA</span>
-          <i data-lucide="camera" class="w-4 h-4 text-emerald-400"></i>
-        </div>
-        <div id="stat-photos" class="text-3xl font-extrabold font-mono text-emerald-300">0</div>
-        <div class="text-[11px] text-slate-500 mt-1">Foto High-Res RAW/UHD</div>
-      </div>
-
-      <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-        <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
-          <span>STORAGE BUCKET</span>
-          <i data-lucide="hard-drive" class="w-4 h-4 text-amber-400"></i>
-        </div>
-        <div class="text-lg font-bold font-mono text-amber-300 truncate">drone-media</div>
-        <div class="text-[11px] text-slate-500 mt-1">Supabase Cloud Storage</div>
-      </div>
-    </div>
-
-    <!-- ACTION & FILTER BAR -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
-      
-      <!-- Filter Tabs -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-1">
-        <button class="cms-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 font-bold flex items-center gap-1.5" data-filter="all">
-          Semua Media
-        </button>
-        <button class="cms-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 flex items-center gap-1.5" data-filter="video">
-          <i data-lucide="video" class="w-3.5 h-3.5 text-cyan-400"></i> Video
-        </button>
-        <button class="cms-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 flex items-center gap-1.5" data-filter="photo">
-          <i data-lucide="camera" class="w-3.5 h-3.5 text-emerald-400"></i> Foto
-        </button>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-3">
-        <button onclick="loadCmsMedia()" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition-colors" title="Muat Ulang Data">
-          <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-        </button>
-        <button onclick="openMediaModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25 transition-all">
-          <i data-lucide="plus" class="w-4 h-4"></i>
-          <span>Tambah Media Baru</span>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- MEDIA CONTENT TABLE / GRID -->
-    <div class="bg-slate-950/80 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-slate-300">
-          <thead class="bg-slate-900/90 text-xs font-mono text-slate-400 uppercase tracking-wider border-b border-slate-800">
-            <tr>
-              <th scope="col" class="py-4 px-6">Preview Media</th>
-              <th scope="col" class="py-4 px-6">Judul & Kategori</th>
-              <th scope="col" class="py-4 px-6">Drone & Telemetri</th>
-              <th scope="col" class="py-4 px-6">Tipe</th>
-              <th scope="col" class="py-4 px-6">Tanggal</th>
-              <th scope="col" class="py-4 px-6 text-right">Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="media-table-body" class="divide-y divide-slate-800/60 font-sans">
-            <!-- Rows dynamically loaded by admin.js -->
-            <tr>
-              <td colspan="6" class="py-12 text-center text-slate-500 font-mono text-xs">
-                Memuat data dari Supabase...
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Empty State -->
-      <div id="table-empty-state" class="hidden py-16 text-center">
-        <div class="w-14 h-14 mx-auto rounded-full bg-slate-900 flex items-center justify-center text-slate-500 mb-3">
-          <i data-lucide="inbox" class="w-6 h-6"></i>
-        </div>
-        <h4 class="text-base font-bold text-slate-300">Belum ada karya di database</h4>
-        <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Klik tombol "Tambah Media Baru" untuk mengunggah foto atau video pertama Anda ke Supabase.</p>
-        <button onclick="openMediaModal()" class="mt-4 px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs inline-flex items-center gap-1.5">
-          <i data-lucide="plus" class="w-4 h-4"></i> Tambah Media
-        </button>
-      </div>
-    </div>
-
-  </main>
+  </div>
 
   <!-- ======================================================== -->
-  <!-- MODAL 1: ADD / EDIT MEDIA (SUPABASE STORAGE + DB) -->
+  <!-- 1. MAIN CMS DASHBOARD WRAPPER -->
+  <!-- ======================================================== -->
+  <div id="admin-dashboard-app" class="hidden min-h-screen flex flex-col md:flex-row">
+
+    <!-- LEFT SIDEBAR (WordPress Style) -->
+    <aside class="w-full md:w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between shrink-0">
+      <div>
+        <!-- Sidebar Brand -->
+        <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+          <a href="index.html" target="_blank" class="flex items-center gap-2.5 group">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 p-0.5 shadow-md shadow-cyan-500/20">
+              <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                <i data-lucide="crosshair" class="w-4 h-4 text-cyan-400"></i>
+              </div>
+            </div>
+            <div>
+              <span class="text-sm font-bold tracking-wider font-mono text-white flex items-center gap-1">
+                AEROSCOPE <span class="text-cyan-400">// CMS</span>
+              </span>
+              <p class="text-[9px] tracking-widest uppercase font-mono text-slate-400">WordPress Edition</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Navigation Menu Tabs -->
+        <nav class="p-3 space-y-1">
+          <button onclick="switchTab('overview')" id="nav-tab-overview" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="layout-dashboard" class="w-4 h-4 text-cyan-400"></i>
+            <span>Ringkasan Dashboard</span>
+          </button>
+
+          <button onclick="switchTab('hero')" id="nav-tab-hero" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="home" class="w-4 h-4 text-sky-400"></i>
+            <span>Beranda &amp; Hero</span>
+          </button>
+
+          <button onclick="switchTab('reel')" id="nav-tab-reel" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="clapperboard" class="w-4 h-4 text-amber-400"></i>
+            <span>Video Reel Carousel (3)</span>
+          </button>
+
+          <button onclick="switchTab('gallery')" id="nav-tab-gallery" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="image" class="w-4 h-4 text-emerald-400"></i>
+            <span>Galeri Karya (Foto &amp; Video)</span>
+          </button>
+
+          <button onclick="switchTab('gear')" id="nav-tab-gear" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="cpu" class="w-4 h-4 text-purple-400"></i>
+            <span>Armada Drone (6)</span>
+          </button>
+
+          <button onclick="switchTab('services')" id="nav-tab-services" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="briefcase" class="w-4 h-4 text-blue-400"></i>
+            <span>Layanan Jasa Drone (4)</span>
+          </button>
+
+          <button onclick="switchTab('about')" id="nav-tab-about" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="user" class="w-4 h-4 text-pink-400"></i>
+            <span>Profil Pilot &amp; Lisensi</span>
+          </button>
+
+          <button onclick="switchTab('contact')" id="nav-tab-contact" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
+            <span>Kontak &amp; WhatsApp</span>
+          </button>
+
+          <button onclick="switchTab('backup')" id="nav-tab-backup" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="database" class="w-4 h-4 text-slate-400"></i>
+            <span>Cloud &amp; Backup JSON</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Sidebar Footer (Quick Links & Logout) -->
+      <div class="p-4 border-t border-slate-800 space-y-2">
+        <a href="index.html" target="_blank" class="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-cyan-300 text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Buka Website Publik</span>
+        </a>
+        <button onclick="handleAdminLogout()" class="w-full py-1.5 px-3 rounded-xl hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 text-xs font-mono flex items-center justify-center gap-1.5 transition-all">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          <span>Kunci Panel</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT CONTENT AREA -->
+    <div class="flex-1 flex flex-col min-w-0 bg-[#07090e]">
+
+      <!-- STICKY TOPBAR -->
+      <header class="sticky top-0 z-30 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-6 py-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <h1 id="topbar-section-title" class="text-base font-bold text-white font-mono flex items-center gap-2">
+            <i data-lucide="layout-dashboard" class="w-4 h-4 text-cyan-400"></i>
+            <span>Ringkasan Dashboard</span>
+          </h1>
+          <span id="save-status-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Tersimpan
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="saveAllSettings()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer">
+            <i data-lucide="save" class="w-4 h-4"></i>
+            <span>Simpan Perubahan</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- MAIN TAB CONTENT CONTAINER -->
+      <main class="flex-1 p-6 sm:p-8 max-w-6xl w-full mx-auto space-y-8">
+
+        <!-- ============================================== -->
+        <!-- TAB 1: OVERVIEW & DASHBOARD -->
+        <!-- ============================================== -->
+        <section id="pane-overview" class="tab-pane space-y-6">
+          <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border border-slate-800">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono border border-cyan-500/20">AeroScope CMS v2.0</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">Selamat Datang di Panel Pengaturan</h2>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
+                  Edit semua teks headline, 3 video reel utama, foto/video galeri, spesifikasi armada drone, profil pilot, hingga nomor WhatsApp langsung dari dasbor ini.
+                </p>
+              </div>
+              <a href="index.html" target="_blank" class="px-5 py-3 rounded-2xl bg-cyan-500 text-slate-950 font-bold text-xs flex items-center gap-2 shrink-0 shadow-lg shadow-cyan-500/30">
+                <i data-lucide="eye" class="w-4 h-4"></i> Pratinjau Website
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div onclick="switchTab('reel')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+                <i data-lucide="clapperboard" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-amber-300">Video Reel Utama</h3>
+              <p class="text-xs text-slate-400 mt-1">Ubah judul, format, file video, dan telemetri 3 slot carousel.</p>
+            </div>
+
+            <div onclick="switchTab('hero')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-3">
+                <i data-lucide="home" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-sky-300">Teks Beranda &amp; HUD</h3>
+              <p class="text-xs text-slate-400 mt-1">Atur headline, subjudul, dan 5 indikator telemetri resmi.</p>
+            </div>
+
+            <div onclick="switchTab('gallery')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+                <i data-lucide="image" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-emerald-300">Galeri Media Karya</h3>
+              <p class="text-xs text-slate-400 mt-1">Upload atau tambah karya video 4K dan foto udara resolusi tinggi.</p>
+            </div>
+
+            <div onclick="switchTab('gear')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-3">
+                <i data-lucide="cpu" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-purple-300">Armada Drone</h3>
+              <p class="text-xs text-slate-400 mt-1">Edit 6 armada drone (Mavic 4 Pro, Mavic 3 Pro, Air 3S, dll).</p>
+            </div>
+
+            <div onclick="switchTab('about')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-pink-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center mb-3">
+                <i data-lucide="user" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-pink-300">Profil Pilot &amp; Lisensi</h3>
+              <p class="text-xs text-slate-400 mt-1">Ubah nama, sertifikasi SIDOPI, jam terbang, dan bio pilot.</p>
+            </div>
+
+            <div onclick="switchTab('contact')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3">
+                <i data-lucide="phone" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-cyan-300">WhatsApp &amp; Kontak</h3>
+              <p class="text-xs text-slate-400 mt-1">Ganti nomor WhatsApp booking, email, dan akun Instagram.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: BERANDA & HERO SECTION -->
+        <!-- ============================================== -->
+        <section id="pane-hero" class="tab-pane hidden space-y-6">
+          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-5">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="home" class="w-4 h-4 text-sky-400"></i> Konten Utama Hero Section
+            </h3>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">LABEL ATAS (EYEBROW BADGE)</label>
+              <input type="text" id="cfg-hero-badge" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">JUDUL UTAMA (HEADLINE) — MENDUKUNG HTML / SPAN GRADIENT</label>
+              <textarea id="cfg-hero-title" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">SUBJUDUL (DESKRIPSI HERO)</label>
+              <textarea id="cfg-hero-subtitle" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none"></textarea>
+            </div>
+          </div>
+
+          <!-- 5 Stats HUD Telemetry -->
+          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-cyan-400"></i> 5 Indikator Telemetri HUD (Hero)
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="hero-stats-form-grid">
+              <!-- Dynamically populated by admin.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: FEATURED VIDEO REEL (3 SLOTS) -->
+        <!-- ============================================== -->
+        <section id="pane-reel" class="tab-pane hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="clapperboard" class="w-5 h-5 text-amber-400"></i> 3 Video Carousel Showcase
+              </h3>
+              <p class="text-xs text-slate-400">Atur video yang diputar di carousel utama halaman beranda.</p>
+            </div>
+          </div>
+
+          <div id="reel-slots-container" class="space-y-6">
+            <!-- 3 Video Form Cards dynamically loaded by admin.js -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 4: GALERI KARYA (FOTO & VIDEO) -->
+        <!-- ============================================== -->
+        <section id="pane-gallery" class="tab-pane hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="image" class="w-5 h-5 text-emerald-400"></i> Koleksi Foto &amp; Video Galeri
+              </h3>
+              <p class="text-xs text-slate-400">Kelola daftar karya yang tampil di galeri publik.</p>
+            </div>
+            <button onclick="openMediaModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/20">
+              <i data-lucide="plus" class="w-4 h-4"></i> Tambah Karya Baru
+            </button>
+          </div>
+
+          <!-- Media Table / Card View -->
+          <div class="bg-slate-950/80 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm text-slate-300">
+                <thead class="bg-slate-900/90 text-xs font-mono text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                  <tr>
+                    <th scope="col" class="py-4 px-6">Preview</th>
+                    <th scope="col" class="py-4 px-6">Judul &amp; Kategori</th>
+                    <th scope="col" class="py-4 px-6">Drone &amp; Telemetri</th>
+                    <th scope="col" class="py-4 px-6">Tipe</th>
+                    <th scope="col" class="py-4 px-6 text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="media-table-body" class="divide-y divide-slate-800/60 font-sans">
+                  <!-- Populated by admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <div id="table-empty-state" class="hidden py-16 text-center">
+              <div class="w-14 h-14 mx-auto rounded-full bg-slate-900 flex items-center justify-center text-slate-500 mb-3">
+                <i data-lucide="inbox" class="w-6 h-6"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-300">Belum ada karya tambahan</h4>
+              <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Klik tombol "Tambah Karya Baru" untuk mengunggah foto atau video ke portofolio Anda.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 5: ARMADA DRONE (6) -->
+        <!-- ============================================== -->
+        <section id="pane-gear" class="tab-pane hidden space-y-6">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i data-lucide="cpu" class="w-5 h-5 text-purple-400"></i> 6 Armada Drone &amp; Spesifikasi
+            </h3>
+            <p class="text-xs text-slate-400">Atur kartu armada yang tampil di carousel slide armada.</p>
+          </div>
+
+          <div id="gear-form-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Populated by admin.js -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 6: LAYANAN JASA (4) -->
+        <!-- ============================================== -->
+        <section id="pane-services" class="tab-pane hidden space-y-6">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i data-lucide="briefcase" class="w-5 h-5 text-blue-400"></i> 4 Layanan Jasa Drone
+            </h3>
+            <p class="text-xs text-slate-400">Ubah judul dan deskripsi paket layanan profesional.</p>
+          </div>
+
+          <div id="services-form-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Populated by admin.js -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 7: PROFIL PILOT & LISENSI -->
+        <!-- ============================================== -->
+        <section id="pane-about" class="tab-pane hidden space-y-6">
+          <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-5">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="user" class="w-4 h-4 text-pink-400"></i> Identitas &amp; Sertifikasi Pilot
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">NAMA LENGKAP PILOT</label>
+                <input type="text" id="cfg-about-name" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">ROLE / PROFESI</label>
+                <input type="text" id="cfg-about-role" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">URL FOTO PROFIL PILOT</label>
+              <input type="url" id="cfg-about-avatar" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">JUDUL BESAR SECTION TENTANG SAYA</label>
+              <input type="text" id="cfg-about-title" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">BIO PARAGRAF 1</label>
+              <textarea id="cfg-about-p1" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">BIO PARAGRAF 2 (JAM TERBANG &amp; PENGALAMAN)</label>
+              <textarea id="cfg-about-p2" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 8: KONTAK & WHATSAPP -->
+        <!-- ============================================== -->
+        <section id="pane-contact" class="tab-pane hidden space-y-6">
+          <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-5">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i> Kontak Langsung &amp; Sosial Media
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">NOMOR WHATSAPP TAMPILAN</label>
+                <input type="text" id="cfg-contact-wa" placeholder="+62 813-8145-3598" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">NOMOR WHATSAPP BERSIH (HANYA ANGKA, MISAL 6281381453598)</label>
+                <input type="text" id="cfg-contact-wa-clean" placeholder="6281381453598" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1.5">TEMPLATE PESAN AWAL WHATSAPP</label>
+              <input type="text" id="cfg-contact-wa-text" placeholder="Halo saya tertarik dengan jasa drone Anda" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">EMAIL RESMI</label>
+                <input type="email" id="cfg-contact-email" placeholder="bobienfly@gmail.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">USERNAME INSTAGRAM</label>
+                <input type="text" id="cfg-contact-ig" placeholder="@bobienmartien" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 9: CLOUD & BACKUP CONFIGURATION -->
+        <!-- ============================================== -->
+        <section id="pane-backup" class="tab-pane hidden space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Export / Backup JSON -->
+            <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                <i data-lucide="download" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-base font-bold text-white">Cadangkan Konfigurasi (JSON)</h3>
+              <p class="text-xs text-slate-400">Unduh seluruh pengaturan teks, playlist, dan armada sebagai file backup.</p>
+              <button onclick="downloadConfigBackup()" class="px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs flex items-center gap-2">
+                <i data-lucide="file-down" class="w-4 h-4"></i> Unduh File JSON
+              </button>
+            </div>
+
+            <!-- Import / Restore JSON -->
+            <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                <i data-lucide="upload" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-base font-bold text-white">Pulihkan Konfigurasi</h3>
+              <p class="text-xs text-slate-400">Unggah file backup JSON untuk mengembalikan pengaturan sebelumnya.</p>
+              <input type="file" id="backup-file-input" accept=".json" onchange="handleImportBackup(event)" class="hidden">
+              <button onclick="document.getElementById('backup-file-input').click()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs flex items-center gap-2">
+                <i data-lucide="folder-up" class="w-4 h-4 text-emerald-400"></i> Pilih File JSON
+              </button>
+            </div>
+          </div>
+
+          <!-- Supabase Cloud Sync -->
+          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <i data-lucide="cloud" class="w-4 h-4 text-sky-400"></i> Database Cloud Supabase
+                </h3>
+                <p class="text-xs text-slate-400">Hubungkan ke Supabase agar perubahan otomatis tersimpan di cloud.</p>
+              </div>
+              <button onclick="openConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200">
+                Atur Kunci Supabase
+              </button>
+            </div>
+          </div>
+
+          <!-- Reset to Defaults -->
+          <div class="p-6 rounded-3xl bg-rose-950/20 border border-rose-500/20 space-y-3">
+            <h3 class="text-sm font-bold text-rose-300 flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i> Reset ke Pengaturan Standar Pabrik
+            </h3>
+            <p class="text-xs text-slate-400">Tindakan ini akan mengembalikan seluruh teks dan playlist ke pengaturan awal.</p>
+            <button onclick="confirmResetDefaults()" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-semibold">
+              Kembalikan ke Default
+            </button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT GALLERY MEDIA -->
   <!-- ======================================================== -->
   <div id="media-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
     <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-cyan-500/40 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
-      
-      <!-- Modal Header -->
       <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
             <i data-lucide="upload-cloud" class="w-4 h-4"></i>
           </div>
-          <h3 id="media-modal-title" class="text-base font-bold text-white">Tambah Media ke Supabase</h3>
+          <h3 id="media-modal-title" class="text-base font-bold text-white">Tambah Karya Media</h3>
         </div>
         <button onclick="closeMediaModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Form Body -->
-      <form id="media-form" class="p-6 space-y-4 overflow-y-auto flex-1">
+      <form id="media-form" onsubmit="handleMediaFormSubmit(event)" class="p-6 space-y-4 overflow-y-auto flex-1">
         <input type="hidden" id="form-media-id">
 
-        <!-- File Upload to Supabase Storage -->
         <div>
-          <label class="block text-xs font-mono text-cyan-400 mb-1.5">FILE FOTO ATAU VIDEO (UPLOAD KE SUPABASE STORAGE)</label>
-          <div id="form-dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-400 rounded-2xl p-5 text-center cursor-pointer transition-colors bg-slate-950/60">
-            <input type="file" id="form-file-input" accept="image/*,video/*" class="hidden">
-            
-            <div id="form-placeholder">
-              <i data-lucide="cloud-upload" class="w-8 h-8 mx-auto text-cyan-400 mb-2"></i>
-              <p class="text-xs font-semibold text-slate-200">Klik atau geser file foto/video ke sini</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">Disimpan di Supabase Storage bucket <code>drone-media</code></p>
-            </div>
-
-            <div id="form-file-preview" class="hidden"></div>
-          </div>
-
-          <!-- Upload Progress Bar -->
-          <div id="upload-progress-box" class="hidden mt-3">
-            <div class="flex items-center justify-between text-xs font-mono text-cyan-300 mb-1">
-              <span id="upload-progress-text">Mengunggah ke Supabase...</span>
-              <span id="upload-progress-pct">0%</span>
-            </div>
-            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-              <div id="upload-progress-bar" class="bg-cyan-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-            </div>
-          </div>
+          <label class="block text-xs font-mono text-cyan-400 mb-1.5">TAUTAN MEDIA / FILE URL (LOKAL ATAU ONLINE) *</label>
+          <input type="text" id="form-media-url" required placeholder="assets/videos/... atau https://..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
         </div>
 
-        <!-- Or Media URL input -->
         <div>
-          <label class="block text-xs font-mono text-slate-400 mb-1">ATAU TAUTAN MEDIA LANGSUNG (URL EKSTERNAL / CDN)</label>
-          <input type="url" id="form-media-url" placeholder="https://..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+          <label class="block text-xs font-mono text-slate-400 mb-1.5">THUMBNAIL URL (FOTO COVER)</label>
+          <input type="text" id="form-thumb-url" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
         </div>
 
-        <!-- Form Grid Fields -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-mono text-slate-300 mb-1">JUDUL KARYA *</label>
-            <input type="text" id="form-title" required placeholder="Contoh: Aerial Sunset Pantai Bali" class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            <input type="text" id="form-title" required placeholder="Judul video atau foto" class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
           </div>
 
           <div>
             <label class="block text-xs font-mono text-slate-300 mb-1">TIPE MEDIA *</label>
             <select id="form-type" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
-              <option value="video">Video Drone</option>
-              <option value="photo">Foto Udara</option>
+              <option value="video">Video Drone (4K/5K)</option>
+              <option value="photo">Foto Udara (RAW/UHD)</option>
             </select>
           </div>
         </div>
@@ -300,194 +601,64 @@
           <div>
             <label class="block text-xs font-mono text-slate-300 mb-1">KATEGORI</label>
             <select id="form-category" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
-              <option value="landscape">Alam & Lanskap</option>
+              <option value="commercial">Commercial / Acara</option>
+              <option value="landscape">Alam &amp; Lanskap</option>
               <option value="urban">Perkotaan (Urban)</option>
-              <option value="coastal">Pantai & Bahari</option>
-              <option value="event">Acara / Event</option>
+              <option value="coastal">Pantai &amp; Bahari</option>
               <option value="fpv">FPV Action</option>
             </select>
           </div>
 
           <div>
             <label class="block text-xs font-mono text-slate-300 mb-1">TIPE DRONE</label>
-            <input type="text" id="form-drone" placeholder="DJI Mavic 3 Pro" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            <input type="text" id="form-drone" placeholder="DJI Mini 4 Pro" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
           </div>
 
           <div>
             <label class="block text-xs font-mono text-slate-300 mb-1">LOKASI</label>
-            <input type="text" id="form-location" placeholder="Lokasi penerbangan" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            <input type="text" id="form-location" placeholder="Lokasi pengambilan" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-mono text-slate-300 mb-1">KETINGGIAN (ALTITUDE)</label>
-            <input type="text" id="form-altitude" placeholder="Contoh: 150m AGL" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            <input type="text" id="form-altitude" placeholder="150m AGL" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-slate-300 mb-1">SPESIFIKASI KAMERA / FPS</label>
-            <input type="text" id="form-specs" placeholder="Contoh: 4K 60fps • D-Log M" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+            <label class="block text-xs font-mono text-slate-300 mb-1">SPESIFIKASI REKAMAN</label>
+            <input type="text" id="form-specs" placeholder="4K UHD • D-Log M • 24mm" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1">DESKRIPSI / CATATAN KARYA</label>
-          <textarea id="form-description" rows="2" placeholder="Catatan sudut pengambilan gambar, filter ND, atau kondisi cuaca..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none"></textarea>
+          <label class="block text-xs font-mono text-slate-300 mb-1">DESKRIPSI</label>
+          <textarea id="form-description" rows="2" placeholder="Deskripsi karya visual..." class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none"></textarea>
         </div>
 
-        <div class="flex items-center gap-2 pt-1">
-          <input type="checkbox" id="form-featured" class="w-4 h-4 rounded text-cyan-500 focus:ring-0 bg-slate-950 border-slate-800">
-          <label for="form-featured" class="text-xs text-slate-300">Tampilkan sebagai <strong>Featured Showcase</strong> di halaman utama</label>
-        </div>
-
-        <!-- Form Submit Actions -->
         <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
           <button type="button" onclick="closeMediaModal()" class="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold">
             Batal
           </button>
-          <button type="submit" id="form-submit-btn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25">
-            <i data-lucide="check" class="w-4 h-4"></i>
-            <span id="form-submit-label">Simpan ke Supabase</span>
-          </button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- MODAL 2: CONFIGURATION MODAL (SUPABASE URL & ANON KEY) -->
-  <!-- ======================================================== -->
-  <div id="config-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="relative w-full max-w-lg bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-8">
-      
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-            <i data-lucide="settings" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white">Konfigurasi Supabase</h3>
-            <p class="text-xs text-slate-400">Hubungkan CMS ke database Supabase Anda</p>
-          </div>
-        </div>
-        <button onclick="closeConfigModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <form id="config-form" class="space-y-4">
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1.5">PROJECT URL SUPABASE *</label>
-          <input type="url" id="cfg-url" required placeholder="https://your-project.supabase.co" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
-          <p class="text-[11px] text-slate-500 mt-1">Ditemukan di Supabase Dashboard &rarr; Project Settings &rarr; API &rarr; Project URL</p>
-        </div>
-
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1.5">ANON PUBLIC KEY *</label>
-          <input type="password" id="cfg-key" required placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
-          <p class="text-[11px] text-slate-500 mt-1">Ditemukan di Supabase Dashboard &rarr; Project Settings &rarr; API &rarr; Project API keys (anon public)</p>
-        </div>
-
-        <div id="cfg-test-result" class="hidden p-3 rounded-xl text-xs font-mono"></div>
-
-        <div class="pt-4 flex items-center justify-between gap-3">
-          <button type="button" onclick="testConnectionFromModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5">
-            <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i> Tes Koneksi
-          </button>
           <button type="submit" class="px-6 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs uppercase tracking-wide">
-            Simpan Konfigurasi
+            Simpan Karya
           </button>
         </div>
       </form>
-
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- MODAL 3: SUPABASE SQL SCRIPT VIEWER -->
-  <!-- ======================================================== -->
-  <div id="sql-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-8 flex flex-col max-h-[90vh]">
-      
-      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-            <i data-lucide="terminal" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white">Skrip SQL Inisialisasi Supabase</h3>
-            <p class="text-xs text-slate-400">Jalankan di Supabase Dashboard &rarr; SQL Editor &rarr; New Query</p>
-          </div>
-        </div>
-        <button onclick="closeSqlModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="relative flex-1 overflow-hidden flex flex-col">
-        <pre class="bg-slate-950 p-4 rounded-xl text-[11px] font-mono text-cyan-300 overflow-y-auto flex-1 border border-slate-800 select-all leading-relaxed" id="sql-code-block">
--- 1. Buat Tabel portfolio_media
-create table if not exists public.portfolio_media (
-  id uuid primary key default gen_random_uuid(),
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  type text not null check (type in ('photo', 'video')),
-  title text not null,
-  category text not null default 'landscape',
-  media_url text not null,
-  thumbnail_url text,
-  drone text default 'DJI Mavic 3 Pro',
-  altitude text default '120m AGL',
-  specs text default '4K UHD 60fps',
-  location text default 'Indonesia',
-  description text,
-  is_featured boolean default false,
-  display_order integer default 0
-);
-
--- 2. Aktifkan RLS & Kebijakan Akses Publik
-alter table public.portfolio_media enable row level security;
-
-create policy "Allow public read access for all"
-  on public.portfolio_media for select using (true);
-
-create policy "Allow all insert"
-  on public.portfolio_media for insert with check (true);
-
-create policy "Allow all update"
-  on public.portfolio_media for update using (true);
-
-create policy "Allow all delete"
-  on public.portfolio_media for delete using (true);
-
--- 3. Buat Bucket Storage 'drone-media'
-insert into storage.buckets (id, name, public)
-values ('drone-media', 'drone-media', true)
-on conflict (id) do update set public = true;
-
-create policy "Public Access to Drone Media"
-  on storage.objects for select using (bucket_id = 'drone-media');
-
-create policy "Public Upload to Drone Media"
-  on storage.objects for insert with check (bucket_id = 'drone-media');
-        </pre>
-      </div>
-
-      <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between">
-        <span class="text-xs text-slate-500">File tersedia di: <code>supabase_schema.sql</code></span>
-        <button onclick="copySqlCode()" id="copy-sql-btn" class="px-5 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs flex items-center gap-1.5">
-          <i data-lucide="copy" class="w-4 h-4"></i> Salin Skrip SQL
-        </button>
-      </div>
-
     </div>
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm"></div>
+  <div id="admin-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900 border border-cyan-500/40 text-white shadow-2xl shadow-cyan-950/80">
+      <i data-lucide="check-circle" class="w-5 h-5 text-cyan-400"></i>
+      <span id="toast-message" class="text-xs font-semibold">Perubahan berhasil disimpan!</span>
+    </div>
+  </div>
 
-  <!-- CMS Engine Scripts -->
+  <!-- Scripts -->
+  <script src="site-config.js"></script>
   <script src="supabase.js"></script>
   <script src="admin.js"></script>
 </body>

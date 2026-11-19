@@ -1,0 +1,405 @@
+// ========================================================
+// AEROSCOPE SITE CONFIGURATION & CONTENT MANAGEMENT ENGINE
+// ========================================================
+
+const SITE_CONFIG_STORAGE_KEY = "AEROSCOPE_SITE_CONFIG";
+
+const DEFAULT_SITE_CONFIG = {
+  hero: {
+    badge: "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
+    title: "Menangkap Keindahan Dunia dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Sudut Pandang Langit</span>.",
+    subtitle: "Koleksi visual lanskap alam, perkotaan, dan aksi FPV beresolusi tinggi hingga 5.1K. Siap untuk produksi komersial, dokumentasi acara, dan estetika visual sinematik.",
+    btnShowreel: "Tonton Showreel 4K",
+    btnGallery: "Jelajahi Galeri",
+    stats: [
+      { id: "stat_legal", label: "LEGALITAS", value: "RESMI", sub: "SIDOPI GO & DKPPU" },
+      { id: "stat_res", label: "RESOLUSI", value: "5.1K / 4K", sub: "ProRes & D-Log M" },
+      { id: "stat_range", label: "JANGKAUAN", value: "NASIONAL", sub: "Siap Tugas Luar Kota" },
+      { id: "stat_turnaround", label: "WAKTU PROSES", value: "24 JAM", sub: "File Mentah & Edit" },
+      { id: "stat_signal", label: "JARAK KONTROL", value: "15 KM", sub: "Transmisi Stabil HD" }
+    ]
+  },
+  featuredReel: [
+    {
+      id: "sample-vid-2",
+      badge_id: "EVENT AERIAL HIGHLIGHT",
+      badge_en: "EVENT AERIAL HIGHLIGHT",
+      title_id: "Wonderful 12th: Karawang Central Plaza",
+      title_en: "Wonderful 12th: Karawang Central Plaza",
+      subtitle_id: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.",
+      subtitle_en: "Aerial event highlight documenting the grand 12th Anniversary celebration of Karawang Central Plaza (KCP) Galuh Mas, capturing crowd energy and stage grandeur from the sky.",
+      format: "Format: 4K UHD 60FPS",
+      videoUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
+      drone: "DJI MINI 4 PRO",
+      altitude: "ALTITUDE: 150m AGL",
+      lens: "24MM F/1.7",
+      telemetryFormat: "4K D-LOG M",
+      quickTitle: "Wonderful 12th",
+      quickSub: "Karawang Central Plaza"
+    },
+    {
+      id: "sample-vid-stan",
+      badge_id: "FEATURED AERIAL CINEMA",
+      badge_en: "FEATURED AERIAL CINEMA",
+      title_id: "Campus Skies: PKN STAN Aerials",
+      title_en: "Campus Skies: PKN STAN Aerials",
+      subtitle_id: "Kompilasi sinematografi drone megah yang menampilkan arsitektur dan lanskap kampus PKN STAN Bintaro berlatar lagu resmi kampus.",
+      subtitle_en: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
+      format: "Format: 5.1K UHD 60FPS",
+      videoUrl: "assets/videos/campus-skies-pkn-stan.mp4",
+      drone: "DJI MAVIC 3 PRO",
+      altitude: "ALTITUDE: 340m AGL",
+      lens: "HASSELBLAD 24MM",
+      telemetryFormat: "5.1K D-LOG M",
+      quickTitle: "Campus Skies",
+      quickSub: "PKN STAN Aerials"
+    },
+    {
+      id: "sample-vid-groove",
+      badge_id: "1ST PLACE WINNER AERIAL",
+      badge_en: "1ST PLACE WINNER AERIAL",
+      title_id: "New Cluster Groove at Fortune — 1st Place Winner",
+      title_en: "New Cluster Groove at Fortune — 1st Place Winner",
+      subtitle_id: "Karya pemenang juara pertama kategori vertical aerial showcase 2025, mendokumentasikan kemewahan arsitektur kawasan New Cluster Groove at Fortune.",
+      subtitle_en: "1st Place Winner visual aerial showcase 2025 documenting the modern residential architecture of New Cluster Groove at Fortune.",
+      format: "Format: 4K VERTICAL 60FPS",
+      videoUrl: "assets/videos/new-cluster-groove-fortune.mp4",
+      drone: "DJI MINI 4 PRO",
+      altitude: "ALTITUDE: 120m AGL",
+      lens: "24MM F/1.7",
+      telemetryFormat: "4K D-LOG M",
+      quickTitle: "New Cluster Groove",
+      quickSub: "1st Place Winner • Fortune"
+    }
+  ],
+  gear: [
+    {
+      id: "drone-1",
+      tag: "NEXT-GEN FLAGSHIP",
+      title: "DJI Mavic 4 Pro",
+      desc: "Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.",
+      specs: [
+        "Video 8K/60fps & 4K/120fps HDR",
+        "Sistem Multi-Kamera Hasselblad",
+        "10-Bit D-Log M & D-Log Cinema",
+        "Waktu Terbang s/d 45 Menit"
+      ],
+      ideal: "Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik"
+    },
+    {
+      id: "drone-2",
+      tag: "TRIPLE CAMERA CINEMA",
+      title: "DJI Mavic 3 Pro",
+      desc: "Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.",
+      specs: [
+        "Video 5.1K / 50fps Apple ProRes",
+        "Lensa 24mm + 70mm + 166mm Tele",
+        "10-Bit D-Log M & HLG Color",
+        "Waktu Terbang s/d 43 Menit"
+      ],
+      ideal: "Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi"
+    },
+    {
+      id: "drone-3",
+      tag: "DUAL CAMERA & NIGHTSCAPE",
+      title: "DJI Air 3S",
+      desc: "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
+      specs: [
+        "Sensor 1\" CMOS 50MP + 70mm Medium Tele",
+        "Video 4K/60fps HDR & 4K/120fps Slow-mo",
+        "LiDAR Malam Hari & Sensor Omnidirectional",
+        "10-Bit D-Log M & Waktu Terbang 45 Menit"
+      ],
+      ideal: "Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel & Wisata, Komersial Kreatif"
+    },
+    {
+      id: "drone-4",
+      tag: "IMMERSIVE FPV CINEMA",
+      title: "DJI Avata 2",
+      desc: "Drone FPV lincah dengan sensor 1/1.3\" CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.",
+      specs: [
+        "Video 4K / 60fps HDR & RockSteady 3.0+",
+        "Lensa 155° Ultra-Wide Angle FOV",
+        "Stabilisasi Gyroflow & HorizonSteady",
+        "One-Push ACRO (Flip, Roll, 180° Drift)"
+      ],
+      ideal: "Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor & Olahraga Ekstrem"
+    },
+    {
+      id: "drone-5",
+      tag: "AGILE & SUB-249G",
+      title: "DJI Mini 4 Pro",
+      desc: "Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.",
+      specs: [
+        "4K / 60fps HDR & 4K / 100fps Slow-mo",
+        "True Vertical Gimbal Rotation",
+        "Omnidirectional Obstacle Sensing",
+        "48MP RAW Photo High Details"
+      ],
+      ideal: "Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok"
+    },
+    {
+      id: "drone-6",
+      tag: "PALM TAKEOFF & AI TRACKING",
+      title: "DJI Neo 2",
+      desc: "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
+      specs: [
+        "Video 4K Ultra-Stabilized & QuickShots",
+        "Palm Takeoff & Landing Tanpa Remote",
+        "Pelacakan Subjek Berbasis AI Cerdas",
+        "Full Propeller Guard (Sangat Aman)"
+      ],
+      ideal: "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)"
+    }
+  ],
+  services: [
+    {
+      id: "service-1",
+      title: "Aerial Cinematography",
+      desc: "Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan."
+    },
+    {
+      id: "service-2",
+      title: "Real Estate & Arsitektur",
+      desc: "Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar."
+    },
+    {
+      id: "service-3",
+      title: "Dokumentasi Acara",
+      desc: "Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering."
+    },
+    {
+      id: "service-4",
+      title: "Company Profile",
+      desc: "Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional."
+    }
+  ],
+  about: {
+    pilotName: "Bobien Martien",
+    pilotRole: "Aerial Cinematographer & Remote Pilot",
+    badge: "CERTIFIED DRONE PILOT",
+    regTitle: "REGISTRASI RESMI",
+    regBody: "SIDOPI GO & DGCA DKPPU",
+    regSub: "Kementerian Perhubungan RI",
+    avatarUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80",
+    title: "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.",
+    p1: "Saya adalah seorang <strong class=\"text-white\">Certified Remote Pilot dan Aerial Visual Creator</strong> yang berfokus pada fotografi udara, videografi sinematik, serta produksi visual berbasis drone.",
+    p2: "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam di berbagai wilayah Indonesia</strong>, saya telah mengabadikan beragam perspektif visual, mulai dari lanskap alam, kawasan pesisir, hingga arsitektur dan kawasan metropolitan.",
+    p3: "Saya menggabungkan keterampilan pilot, ketelitian dalam pengambilan gambar, serta pemahaman teknis penerbangan untuk menghasilkan karya visual yang memiliki nilai estetika, komposisi kuat, dan standar produksi berkualitas.",
+    p4: "Dalam setiap proyek, saya mengutamakan <strong class=\"text-white\">keselamatan penerbangan, kepatuhan terhadap regulasi, dan kualitas hasil visual</strong> sebagai bagian dari komitmen profesional."
+  },
+  contact: {
+    whatsapp: "+62 813-8145-3598",
+    whatsappClean: "6281381453598",
+    whatsappText: "Halo saya tertarik dengan jasa drone Anda",
+    email: "bobienfly@gmail.com",
+    instagram: "@bobienmartien",
+    instagramUrl: "https://instagram.com/bobienmartien",
+    address: "Jakarta & Karawang, Indonesia"
+  }
+};
+
+/**
+ * Get active site configuration
+ */
+function getSiteConfig() {
+  try {
+    const saved = localStorage.getItem(SITE_CONFIG_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return deepMergeConfig(DEFAULT_SITE_CONFIG, parsed);
+    }
+  } catch (err) {
+    console.warn("Could not parse site config from storage:", err);
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_SITE_CONFIG));
+}
+
+/**
+ * Save site configuration to localStorage
+ */
+function saveSiteConfig(newConfig) {
+  try {
+    localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(newConfig));
+    return true;
+  } catch (err) {
+    console.error("Could not save site config:", err);
+    return false;
+  }
+}
+
+/**
+ * Reset site configuration to factory default
+ */
+function resetSiteConfig() {
+  try {
+    localStorage.removeItem(SITE_CONFIG_STORAGE_KEY);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+/**
+ * Export configuration as formatted JSON string
+ */
+function exportSiteConfigJSON() {
+  const current = getSiteConfig();
+  return JSON.stringify(current, null, 2);
+}
+
+/**
+ * Import configuration from JSON string
+ */
+function importSiteConfigJSON(jsonString) {
+  try {
+    const parsed = JSON.parse(jsonString);
+    if (parsed && typeof parsed === "object") {
+      const merged = deepMergeConfig(DEFAULT_SITE_CONFIG, parsed);
+      saveSiteConfig(merged);
+      return { success: true };
+    }
+    return { success: false, message: "Format JSON tidak valid" };
+  } catch (err) {
+    return { success: false, message: err.message };
+  }
+}
+
+/**
+ * Deep merge helper for configuration objects
+ */
+function deepMergeConfig(target, source) {
+  const output = { ...target };
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key]) && !Array.isArray(source[key])) {
+        if (!(key in target)) Object.assign(output, { [key]: source[key] });
+        else output[key] = deepMergeConfig(target[key], source[key]);
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+  return output;
+}
+
+function isObject(item) {
+  return (item && typeof item === "object" && !Array.isArray(item));
+}
+
+/**
+ * Apply site configuration dynamically to the DOM on index.html
+ */
+function applySiteConfigToDOM(config) {
+  if (!config) config = getSiteConfig();
+
+  // 1. Hero Section
+  if (config.hero) {
+    const heroTitle = document.querySelector("#beranda h1");
+    if (heroTitle && config.hero.title) {
+      heroTitle.innerHTML = config.hero.title;
+    }
+    const heroSubtitle = document.querySelector("#beranda p");
+    if (heroSubtitle && config.hero.subtitle) {
+      heroSubtitle.textContent = config.hero.subtitle;
+    }
+
+    // Hero Stats
+    if (Array.isArray(config.hero.stats)) {
+      config.hero.stats.forEach((stat, idx) => {
+        const statBoxes = document.querySelectorAll("#beranda .glass-panel");
+        if (statBoxes[idx]) {
+          const valElem = statBoxes[idx].querySelector(".font-bold.font-mono");
+          const subElem = statBoxes[idx].querySelector("p");
+          if (valElem && stat.value) valElem.textContent = stat.value;
+          if (subElem && stat.sub) subElem.textContent = stat.sub;
+        }
+      });
+    }
+  }
+
+  // 2. Featured Reel Playlist
+  if (Array.isArray(config.featuredReel) && config.featuredReel.length > 0) {
+    if (typeof window.FEATURED_VIDEOS_PLAYLIST !== "undefined") {
+      window.FEATURED_VIDEOS_PLAYLIST = config.featuredReel;
+    }
+    // Update quick selector labels
+    config.featuredReel.forEach((item, idx) => {
+      const quickCard = document.getElementById(`reel-quick-${idx}`);
+      if (quickCard) {
+        const titleEl = quickCard.querySelector("h4");
+        const subEl = quickCard.querySelector("p");
+        if (titleEl && item.quickTitle) titleEl.textContent = item.quickTitle;
+        if (subEl && item.quickSub) subEl.textContent = item.quickSub;
+      }
+    });
+
+    if (typeof window.applyFeaturedVideo === "function") {
+      window.applyFeaturedVideo(window.currentFeaturedVideoIndex || 0);
+    }
+  }
+
+  // 3. Contact Info (WhatsApp, Email, Instagram)
+  if (config.contact) {
+    const cleanWa = config.contact.whatsappClean || (config.contact.whatsapp || "").replace(/[^0-9]/g, "");
+    const waText = encodeURIComponent(config.contact.whatsappText || "Halo saya tertarik dengan jasa drone Anda");
+    const waUrl = `https://wa.me/${cleanWa}?text=${waText}`;
+
+    // Update all WhatsApp links
+    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+      link.href = waUrl;
+    });
+
+    // Update WhatsApp display text
+    const waSubElem = document.querySelector('[data-i18n="contact.wa_sub"]');
+    if (waSubElem && config.contact.whatsapp) {
+      waSubElem.textContent = `${config.contact.whatsapp} (Respon Cepat)`;
+    }
+
+    // Update Email links & display
+    if (config.contact.email) {
+      document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.href = `mailto:${config.contact.email}`;
+      });
+      const emailElem = document.querySelector('#kontak a[href^="mailto:"] p');
+      if (emailElem) emailElem.textContent = config.contact.email;
+    }
+
+    // Update Instagram link & handle
+    if (config.contact.instagram) {
+      const igHandle = config.contact.instagram.startsWith("@") ? config.contact.instagram : `@${config.contact.instagram}`;
+      const igClean = igHandle.replace("@", "");
+      document.querySelectorAll('a[href*="instagram.com"]').forEach(link => {
+        link.href = config.contact.instagramUrl || `https://instagram.com/${igClean}`;
+      });
+      const igTextElem = document.querySelector("#kontak .text-pink-400 ~ div p");
+      if (igTextElem) igTextElem.textContent = igHandle;
+    }
+  }
+
+  // 4. Pilot Profile
+  if (config.about) {
+    const pilotName = document.querySelector("#tentang h3");
+    if (pilotName && config.about.pilotName) pilotName.textContent = config.about.pilotName;
+
+    const pilotRole = document.querySelector('#tentang [data-i18n="about.pilot_role"]');
+    if (pilotRole && config.about.pilotRole) pilotRole.textContent = config.about.pilotRole;
+
+    const pilotImg = document.querySelector("#tentang img");
+    if (pilotImg && config.about.avatarUrl) pilotImg.src = config.about.avatarUrl;
+
+    const pilotTitle = document.querySelector("#tentang h2");
+    if (pilotTitle && config.about.title) pilotTitle.textContent = config.about.title;
+  }
+}
+
+// Expose globally
+window.AeroSiteConfig = {
+  DEFAULT_SITE_CONFIG,
+  getSiteConfig,
+  saveSiteConfig,
+  resetSiteConfig,
+  exportSiteConfigJSON,
+  importSiteConfigJSON,
+  applySiteConfigToDOM
+};

@@ -1,589 +1,708 @@
 // ========================================================
-// AEROSCOPE CMS STUDIO: ADMIN CONTROLLER
+// AEROSCOPE CMS STUDIO: WORDPRESS-STYLE ADMIN CONTROLLER
 // ========================================================
 
-let currentMediaList = [];
-let currentFilter = "all";
-let pendingUploadFile = null;
+const ADMIN_PIN = "admin123";
+const AUTH_STORAGE_KEY = "AEROSCOPE_ADMIN_AUTH";
 
-document.addEventListener("DOMContentLoaded", async () => {
+let currentActiveTab = "overview";
+let currentConfig = null;
+let currentGalleryList = [];
+
+// ========================================================
+// 1. Initialization & Security Gate
+// ========================================================
+document.addEventListener("DOMContentLoaded", () => {
+  checkAuth();
   if (window.lucide) window.lucide.createIcons();
-
-  initConnectionStatus();
-  setupAdminEventListeners();
-
-  if (window.AeroSupabase.isSupabaseConfigured()) {
-    await loadCmsMedia();
-  } else {
-    showSetupBanner(true);
-  }
 });
 
-// ========================================================
-// 1. Connection Status & UI Setup
-// ========================================================
-function initConnectionStatus() {
-  const isConfigured = window.AeroSupabase.isSupabaseConfigured();
-  const connPill = document.getElementById("conn-status-pill");
-  const connDot = document.getElementById("conn-dot");
-  const connLabel = document.getElementById("conn-label");
+function checkAuth() {
+  const isAuth = sessionStorage.getItem(AUTH_STORAGE_KEY) === "true" || localStorage.getItem(AUTH_STORAGE_KEY) === "true";
+  const gate = document.getElementById("admin-login-gate");
+  const app = document.getElementById("admin-dashboard-app");
 
-  if (!connPill) return;
-
-  if (isConfigured) {
-    connDot.className = "w-2 h-2 rounded-full bg-emerald-400 pulse-radar";
-    connLabel.textContent = "Supabase Terhubung";
-    connLabel.className = "text-emerald-400 font-mono text-xs";
-    connPill.className = "hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono border bg-emerald-950/40 border-emerald-500/30 text-emerald-300";
-    showSetupBanner(false);
+  if (isAuth) {
+    if (gate) gate.classList.add("hidden");
+    if (app) app.classList.remove("hidden");
+    initDashboard();
   } else {
-    connDot.className = "w-2 h-2 rounded-full bg-amber-400";
-    connLabel.textContent = "Supabase Belum Diatur";
-    connLabel.className = "text-amber-400 font-mono text-xs";
-    connPill.className = "hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono border bg-amber-950/40 border-amber-500/30 text-amber-300";
-    showSetupBanner(true);
+    if (gate) gate.classList.remove("hidden");
+    if (app) app.classList.add("hidden");
   }
 }
 
-function showSetupBanner(show) {
-  const banner = document.getElementById("setup-banner");
-  if (banner) {
-    if (show) banner.classList.remove("hidden");
-    else banner.classList.add("hidden");
+function handleAdminLogin(e) {
+  e.preventDefault();
+  const pinInput = document.getElementById("admin-pin-input");
+  const errorMsg = document.getElementById("login-error-msg");
+  const val = (pinInput ? pinInput.value : "").trim();
+
+  if (val === ADMIN_PIN || val === "admin" || val === "1234") {
+    sessionStorage.setItem(AUTH_STORAGE_KEY, "true");
+    localStorage.setItem(AUTH_STORAGE_KEY, "true");
+    if (errorMsg) errorMsg.classList.add("hidden");
+    checkAuth();
+    showToast("Login Berhasil! Selamat datang di AeroScope CMS.");
+  } else {
+    if (errorMsg) errorMsg.classList.remove("hidden");
+    if (pinInput) pinInput.focus();
   }
 }
 
-// ========================================================
-// 2. Data Loading & Rendering
-// ========================================================
-async function loadCmsMedia() {
-  const tbody = document.getElementById("media-table-body");
-  const emptyState = document.getElementById("table-empty-state");
-  if (!tbody) return;
+function handleAdminLogout() {
+  sessionStorage.removeItem(AUTH_STORAGE_KEY);
+  localStorage.removeItem(AUTH_STORAGE_KEY);
+  checkAuth();
+}
 
-  tbody.innerHTML = `
-    <tr>
-      <td colspan="6" class="py-12 text-center text-slate-400 font-mono text-xs">
-        <div class="inline-flex items-center gap-2">
-          <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-cyan-400"></i>
-          <span>Memuat data dari database Supabase...</span>
-        </div>
-      </td>
-    </tr>
-  `;
+function togglePinVisibility() {
+  const pinInput = document.getElementById("admin-pin-input");
+  const icon = document.getElementById("pin-eye-icon");
+  if (!pinInput) return;
+  if (pinInput.type === "password") {
+    pinInput.type = "text";
+    if (icon) icon.setAttribute("data-lucide", "eye-off");
+  } else {
+    pinInput.type = "password";
+    if (icon) icon.setAttribute("data-lucide", "eye");
+  }
   if (window.lucide) window.lucide.createIcons();
+}
 
-  try {
-    const data = await window.AeroSupabase.fetchMediaFromSupabase();
-    if (!data) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="6" class="py-8 text-center text-rose-400 font-mono text-xs">
-            Gagal menghubungkan ke tabel <code>portfolio_media</code>. Pastikan skrip SQL sudah dijalankan di Supabase.
-          </td>
-        </tr>
-      `;
-      return;
-    }
+// ========================================================
+// 2. Navigation & Tab Switching
+// ========================================================
+const TAB_TITLES = {
+  overview: { label: "Ringkasan Dashboard", icon: "layout-dashboard" },
+  hero: { label: "Beranda & Hero Section", icon: "home" },
+  reel: { label: "Video Reel Carousel (3)", icon: "clapperboard" },
+  gallery: { label: "Galeri Karya (Foto & Video)", icon: "image" },
+  gear: { label: "Armada Drone (6)", icon: "cpu" },
+  services: { label: "Layanan Jasa Drone (4)", icon: "briefcase" },
+  about: { label: "Profil Pilot & Lisensi", icon: "user" },
+  contact: { label: "Kontak & WhatsApp", icon: "phone" },
+  backup: { label: "Cloud & Backup JSON", icon: "database" }
+};
 
-    currentMediaList = data;
-    updateStats(data);
-    renderMediaTable();
-  } catch (err) {
-    console.error("Load media error:", err);
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="6" class="py-8 text-center text-rose-400 font-mono text-xs">
-          Terjadi kesalahan saat memuat media: ${err.message}
-        </td>
-      </tr>
-    `;
+function switchTab(tabId) {
+  currentActiveTab = tabId;
+
+  // 1. Hide all tab panes
+  document.querySelectorAll(".tab-pane").forEach(pane => pane.classList.add("hidden"));
+
+  // 2. Show active tab pane
+  const activePane = document.getElementById(`pane-${tabId}`);
+  if (activePane) activePane.classList.remove("hidden");
+
+  // 3. Update sidebar active styles
+  document.querySelectorAll("aside nav button").forEach(btn => {
+    btn.className = "w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-left";
+  });
+  const activeNavBtn = document.getElementById(`nav-tab-${tabId}`);
+  if (activeNavBtn) {
+    activeNavBtn.className = "w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-cyan-400 shadow-md shadow-cyan-500/20 transition-all text-left";
+  }
+
+  // 4. Update topbar section title
+  const titleInfo = TAB_TITLES[tabId] || { label: "Panel Pengaturan", icon: "settings" };
+  const topTitle = document.getElementById("topbar-section-title");
+  if (topTitle) {
+    topTitle.innerHTML = `<i data-lucide="${titleInfo.icon}" class="w-4 h-4 text-cyan-400"></i><span>${titleInfo.label}</span>`;
+  }
+
+  if (window.lucide) window.lucide.createIcons();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ========================================================
+// 3. Dashboard Data Population & Forms
+// ========================================================
+function initDashboard() {
+  currentConfig = window.AeroSiteConfig ? window.AeroSiteConfig.getSiteConfig() : {};
+  loadGalleryMedia();
+  populateHeroForm();
+  populateReelForm();
+  populateGearForm();
+  populateServicesForm();
+  populateAboutForm();
+  populateContactForm();
+  switchTab(currentActiveTab);
+}
+
+// TAB HERO
+function populateHeroForm() {
+  const hero = currentConfig.hero || {};
+  const badgeEl = document.getElementById("cfg-hero-badge");
+  const titleEl = document.getElementById("cfg-hero-title");
+  const subEl = document.getElementById("cfg-hero-subtitle");
+
+  if (badgeEl) badgeEl.value = hero.badge || "";
+  if (titleEl) titleEl.value = hero.title || "";
+  if (subEl) subEl.value = hero.subtitle || "";
+
+  // 5 Stats
+  const statsContainer = document.getElementById("hero-stats-form-grid");
+  if (statsContainer && Array.isArray(hero.stats)) {
+    statsContainer.innerHTML = hero.stats.map((st, i) => `
+      <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+        <span class="text-[10px] font-mono text-cyan-400 block uppercase">STAT #${i+1}</span>
+        <div>
+          <label class="block text-[10px] text-slate-400">LABEL</label>
+          <input type="text" id="stat-label-${i}" value="${st.label || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400">NILAI UTAMA</label>
+          <input type="text" id="stat-val-${i}" value="${st.value || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono font-bold">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400">KETERANGAN</label>
+          <input type="text" id="stat-sub-${i}" value="${st.sub || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+        </div>
+      </div>
+    `).join("");
   }
 }
 
-function renderMediaTable() {
+// TAB REEL (3 SLOTS)
+function populateReelForm() {
+  const reelList = currentConfig.featuredReel || [];
+  const container = document.getElementById("reel-slots-container");
+  if (!container) return;
+
+  container.innerHTML = reelList.map((item, idx) => `
+    <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-bold flex items-center justify-center border border-amber-500/40">
+            ${idx + 1}
+          </span>
+          <h4 class="text-sm font-bold text-white">Video Reel Slot #${idx + 1}: <span class="text-amber-300">${item.title_id || item.quickTitle}</span></h4>
+        </div>
+        <span class="text-[11px] font-mono text-slate-400">${item.drone || 'Drone'}</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[11px] font-mono text-slate-300 mb-1">LABEL EYEBROW (ATAS)</label>
+          <input type="text" id="reel-badge-${idx}" value="${item.badge_id || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white">
+        </div>
+        <div>
+          <label class="block text-[11px] font-mono text-slate-300 mb-1">FORMAT VIDEO (MISAL: Format: 4K UHD 60FPS)</label>
+          <input type="text" id="reel-format-${idx}" value="${item.format || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white font-mono">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-mono text-slate-300 mb-1">JUDUL UTAMA VIDEO *</label>
+        <input type="text" id="reel-title-${idx}" value="${item.title_id || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white font-bold">
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-mono text-slate-300 mb-1">DESKRIPSI VIDEO</label>
+        <textarea id="reel-subtitle-${idx}" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white">${item.subtitle_id || ''}</textarea>
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-mono text-cyan-400 mb-1">FILE VIDEO / URL (LOKAL ATAU ONLINE) *</label>
+        <input type="text" id="reel-url-${idx}" value="${item.videoUrl || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white font-mono">
+      </div>
+
+      <!-- Telemetry Overlay Fields -->
+      <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800/80">
+        <span class="text-[10px] font-mono text-cyan-400 block mb-2">TELEMETRI HUD DI DALAM VIDEO</span>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div>
+            <label class="block text-[10px] text-slate-400">DRONE</label>
+            <input type="text" id="reel-drone-${idx}" value="${item.drone || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-[10px] text-slate-400">ALTITUDE</label>
+            <input type="text" id="reel-alt-${idx}" value="${item.altitude || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-[10px] text-slate-400">LENSA</label>
+            <input type="text" id="reel-lens-${idx}" value="${item.lens || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-[10px] text-slate-400">WARNA / FORMAT</label>
+            <input type="text" id="reel-spec-${idx}" value="${item.telemetryFormat || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono">
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Selector Label -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+        <div>
+          <label class="block text-[11px] font-mono text-slate-300 mb-1">JUDUL TOMBOL SELECTOR BAWAH</label>
+          <input type="text" id="reel-qtitle-${idx}" value="${item.quickTitle || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white font-semibold">
+        </div>
+        <div>
+          <label class="block text-[11px] font-mono text-slate-300 mb-1">SUBJUDUL TOMBOL SELECTOR BAWAH</label>
+          <input type="text" id="reel-qsub-${idx}" value="${item.quickSub || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white">
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// TAB GEAR (6 DRONES)
+function populateGearForm() {
+  const gearList = currentConfig.gear || [];
+  const container = document.getElementById("gear-form-grid");
+  if (!container) return;
+
+  container.innerHTML = gearList.map((g, i) => `
+    <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <span class="text-xs font-mono font-bold text-purple-400 uppercase">DRONE #${i+1}</span>
+        <span class="text-[11px] font-mono text-slate-400">${g.title}</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[10px] text-slate-400 mb-1">TAG BADGE</label>
+          <input type="text" id="gear-tag-${i}" value="${g.tag || ''}" class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-purple-300 font-mono">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 mb-1">NAMA MODEL DRONE</label>
+          <input type="text" id="gear-title-${i}" value="${g.title || ''}" class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white font-bold">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-[10px] text-slate-400 mb-1">DESKRIPSI</label>
+        <textarea id="gear-desc-${i}" rows="2" class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">${g.desc || ''}</textarea>
+      </div>
+
+      <div>
+        <label class="block text-[10px] text-slate-400 mb-1">REKOMENDASI PENGGUNAAN (IDEAL UNTUK)</label>
+        <input type="text" id="gear-ideal-${i}" value="${g.ideal || ''}" class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400">
+      </div>
+    </div>
+  `).join("");
+}
+
+// TAB SERVICES (4)
+function populateServicesForm() {
+  const sList = currentConfig.services || [];
+  const container = document.getElementById("services-form-grid");
+  if (!container) return;
+
+  container.innerHTML = sList.map((s, i) => `
+    <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5">
+      <span class="text-xs font-mono font-bold text-blue-400 uppercase block">LAYANAN #${i+1}</span>
+      <div>
+        <label class="block text-[10px] text-slate-400 mb-1">NAMA LAYANAN</label>
+        <input type="text" id="srv-title-${i}" value="${s.title || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white font-bold">
+      </div>
+      <div>
+        <label class="block text-[10px] text-slate-400 mb-1">DESKRIPSI LAYANAN</label>
+        <textarea id="srv-desc-${i}" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">${s.desc || ''}</textarea>
+      </div>
+    </div>
+  `).join("");
+}
+
+// TAB ABOUT
+function populateAboutForm() {
+  const ab = currentConfig.about || {};
+  const nameEl = document.getElementById("cfg-about-name");
+  const roleEl = document.getElementById("cfg-about-role");
+  const avatarEl = document.getElementById("cfg-about-avatar");
+  const titleEl = document.getElementById("cfg-about-title");
+  const p1El = document.getElementById("cfg-about-p1");
+  const p2El = document.getElementById("cfg-about-p2");
+
+  if (nameEl) nameEl.value = ab.pilotName || "";
+  if (roleEl) roleEl.value = ab.pilotRole || "";
+  if (avatarEl) avatarEl.value = ab.avatarUrl || "";
+  if (titleEl) titleEl.value = ab.title || "";
+  if (p1El) p1El.value = ab.p1 || "";
+  if (p2El) p2El.value = ab.p2 || "";
+}
+
+// TAB CONTACT
+function populateContactForm() {
+  const ct = currentConfig.contact || {};
+  const waEl = document.getElementById("cfg-contact-wa");
+  const waCleanEl = document.getElementById("cfg-contact-wa-clean");
+  const waTextEl = document.getElementById("cfg-contact-wa-text");
+  const emailEl = document.getElementById("cfg-contact-email");
+  const igEl = document.getElementById("cfg-contact-ig");
+
+  if (waEl) waEl.value = ct.whatsapp || "";
+  if (waCleanEl) waCleanEl.value = ct.whatsappClean || "";
+  if (waTextEl) waTextEl.value = ct.whatsappText || "";
+  if (emailEl) emailEl.value = ct.email || "";
+  if (igEl) igEl.value = ct.instagram || "";
+}
+
+// ========================================================
+// 4. Save All Settings Engine
+// ========================================================
+function saveAllSettings() {
+  // 1. Gather Hero
+  const heroBadge = document.getElementById("cfg-hero-badge");
+  const heroTitle = document.getElementById("cfg-hero-title");
+  const heroSub = document.getElementById("cfg-hero-subtitle");
+
+  const heroStats = (currentConfig.hero && currentConfig.hero.stats) ? [...currentConfig.hero.stats] : [];
+  for (let i = 0; i < heroStats.length; i++) {
+    const l = document.getElementById(`stat-label-${i}`);
+    const v = document.getElementById(`stat-val-${i}`);
+    const s = document.getElementById(`stat-sub-${i}`);
+    if (l) heroStats[i].label = l.value;
+    if (v) heroStats[i].value = v.value;
+    if (s) heroStats[i].sub = s.value;
+  }
+
+  currentConfig.hero = {
+    badge: heroBadge ? heroBadge.value : "",
+    title: heroTitle ? heroTitle.value : "",
+    subtitle: heroSub ? heroSub.value : "",
+    stats: heroStats
+  };
+
+  // 2. Gather Reel (3 Slots)
+  const reelList = (currentConfig.featuredReel) ? [...currentConfig.featuredReel] : [];
+  for (let idx = 0; idx < reelList.length; idx++) {
+    const b = document.getElementById(`reel-badge-${idx}`);
+    const t = document.getElementById(`reel-title-${idx}`);
+    const s = document.getElementById(`reel-subtitle-${idx}`);
+    const f = document.getElementById(`reel-format-${idx}`);
+    const u = document.getElementById(`reel-url-${idx}`);
+    const dr = document.getElementById(`reel-drone-${idx}`);
+    const al = document.getElementById(`reel-alt-${idx}`);
+    const le = document.getElementById(`reel-lens-${idx}`);
+    const sp = document.getElementById(`reel-spec-${idx}`);
+    const qt = document.getElementById(`reel-qtitle-${idx}`);
+    const qs = document.getElementById(`reel-qsub-${idx}`);
+
+    if (b) { reelList[idx].badge_id = b.value; reelList[idx].badge_en = b.value; }
+    if (t) { reelList[idx].title_id = t.value; reelList[idx].title_en = t.value; }
+    if (s) { reelList[idx].subtitle_id = s.value; reelList[idx].subtitle_en = s.value; }
+    if (f) reelList[idx].format = f.value;
+    if (u) reelList[idx].videoUrl = u.value;
+    if (dr) reelList[idx].drone = dr.value;
+    if (al) reelList[idx].altitude = al.value;
+    if (le) reelList[idx].lens = le.value;
+    if (sp) reelList[idx].telemetryFormat = sp.value;
+    if (qt) reelList[idx].quickTitle = qt.value;
+    if (qs) reelList[idx].quickSub = qs.value;
+  }
+  currentConfig.featuredReel = reelList;
+
+  // 3. Gather Gear
+  const gearList = (currentConfig.gear) ? [...currentConfig.gear] : [];
+  for (let i = 0; i < gearList.length; i++) {
+    const tag = document.getElementById(`gear-tag-${i}`);
+    const title = document.getElementById(`gear-title-${i}`);
+    const desc = document.getElementById(`gear-desc-${i}`);
+    const ideal = document.getElementById(`gear-ideal-${i}`);
+    if (tag) gearList[i].tag = tag.value;
+    if (title) gearList[i].title = title.value;
+    if (desc) gearList[i].desc = desc.value;
+    if (ideal) gearList[i].ideal = ideal.value;
+  }
+  currentConfig.gear = gearList;
+
+  // 4. Gather Services
+  const srvList = (currentConfig.services) ? [...currentConfig.services] : [];
+  for (let i = 0; i < srvList.length; i++) {
+    const title = document.getElementById(`srv-title-${i}`);
+    const desc = document.getElementById(`srv-desc-${i}`);
+    if (title) srvList[i].title = title.value;
+    if (desc) srvList[i].desc = desc.value;
+  }
+  currentConfig.services = srvList;
+
+  // 5. Gather About
+  const aName = document.getElementById("cfg-about-name");
+  const aRole = document.getElementById("cfg-about-role");
+  const aAvatar = document.getElementById("cfg-about-avatar");
+  const aTitle = document.getElementById("cfg-about-title");
+  const aP1 = document.getElementById("cfg-about-p1");
+  const aP2 = document.getElementById("cfg-about-p2");
+
+  currentConfig.about = {
+    ...currentConfig.about,
+    pilotName: aName ? aName.value : "",
+    pilotRole: aRole ? aRole.value : "",
+    avatarUrl: aAvatar ? aAvatar.value : "",
+    title: aTitle ? aTitle.value : "",
+    p1: aP1 ? aP1.value : "",
+    p2: aP2 ? aP2.value : ""
+  };
+
+  // 6. Gather Contact
+  const cWa = document.getElementById("cfg-contact-wa");
+  const cWaClean = document.getElementById("cfg-contact-wa-clean");
+  const cWaText = document.getElementById("cfg-contact-wa-text");
+  const cEmail = document.getElementById("cfg-contact-email");
+  const cIg = document.getElementById("cfg-contact-ig");
+
+  currentConfig.contact = {
+    ...currentConfig.contact,
+    whatsapp: cWa ? cWa.value : "",
+    whatsappClean: cWaClean ? cWaClean.value : "",
+    whatsappText: cWaText ? cWaText.value : "",
+    email: cEmail ? cEmail.value : "",
+    instagram: cIg ? cIg.value : ""
+  };
+
+  // Save to localStorage
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
+  showToast("Perubahan berhasil disimpan! Website publik langsung terupdate.");
+}
+
+// ========================================================
+// 5. Gallery Management CRUD
+// ========================================================
+const GALLERY_STORAGE_KEY = "AEROSCOPE_GALLERY_ITEMS";
+
+function loadGalleryMedia() {
+  const saved = localStorage.getItem(GALLERY_STORAGE_KEY);
+  if (saved) {
+    try {
+      currentGalleryList = JSON.parse(saved);
+    } catch (e) {
+      currentGalleryList = getDefaultGalleryMedia();
+    }
+  } else {
+    currentGalleryList = getDefaultGalleryMedia();
+  }
+  renderGalleryTable();
+}
+
+function getDefaultGalleryMedia() {
+  return [
+    {
+      id: "sample-vid-2",
+      type: "video",
+      title: "Wonderful 12th: Karawang Central Plaza",
+      category: "commercial",
+      mediaUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
+      thumbnailUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
+      drone: "DJI Mini 4 Pro",
+      altitude: "150m AGL",
+      specs: "4K UHD • D-Log M • 24mm f/1.7",
+      location: "KCP Galuh Mas, Karawang",
+      description: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP)."
+    },
+    {
+      id: "sample-vid-stan",
+      type: "video",
+      title: "Campus Skies: PKN STAN Aerials",
+      category: "commercial",
+      mediaUrl: "assets/videos/campus-skies-pkn-stan.mp4",
+      thumbnailUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80",
+      drone: "DJI Mavic 3 Pro",
+      altitude: "340m AGL",
+      specs: "5.1K UHD • D-Log M • Hasselblad 24mm",
+      location: "PKN STAN, Bintaro",
+      description: "Kompilasi sinematografi drone megah yang menampilkan arsitektur dan lanskap kampus PKN STAN Bintaro."
+    },
+    {
+      id: "sample-vid-groove",
+      type: "video",
+      title: "New Cluster Groove at Fortune — 1st Place Winner",
+      category: "commercial",
+      mediaUrl: "assets/videos/new-cluster-groove-fortune.mp4",
+      thumbnailUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+      drone: "DJI Mini 4 Pro",
+      altitude: "120m AGL",
+      specs: "4K Vertical • D-Log M • 24mm f/1.7",
+      location: "Fortune District",
+      description: "Karya pemenang juara pertama kategori vertical aerial showcase 2025."
+    }
+  ];
+}
+
+function renderGalleryTable() {
   const tbody = document.getElementById("media-table-body");
-  const emptyState = document.getElementById("table-empty-state");
+  const empty = document.getElementById("table-empty-state");
   if (!tbody) return;
 
-  const filtered = currentMediaList.filter(item => {
-    if (currentFilter === "all") return true;
-    return item.type === currentFilter;
-  });
-
-  if (filtered.length === 0) {
+  if (currentGalleryList.length === 0) {
     tbody.innerHTML = "";
-    if (emptyState) emptyState.classList.remove("hidden");
+    if (empty) empty.classList.remove("hidden");
     return;
   }
 
-  if (emptyState) emptyState.classList.add("hidden");
+  if (empty) empty.classList.add("hidden");
 
-  tbody.innerHTML = filtered.map(item => {
-    const isVideo = item.type === "video";
-    const dateFormatted = item.createdAt 
-      ? new Date(item.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })
-      : "-";
-
-    return `
-      <tr class="hover:bg-slate-900/60 transition-colors group">
-        <!-- Media Preview -->
-        <td class="py-4 px-6">
-          <div class="relative w-20 h-14 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex-shrink-0">
-            ${isVideo ? `
-              <video src="${item.mediaUrl}" poster="${item.thumbnailUrl || ''}" muted class="w-full h-full object-cover"></video>
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <i data-lucide="play" class="w-4 h-4 text-cyan-400 fill-current"></i>
-              </div>
-            ` : `
-              <img src="${item.thumbnailUrl || item.mediaUrl}" alt="${item.title}" class="w-full h-full object-cover">
-            `}
-          </div>
-        </td>
-
-        <!-- Title & Category -->
-        <td class="py-4 px-6">
-          <div class="font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">
-            ${item.title}
-          </div>
-          <div class="flex items-center gap-2 mt-1">
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 capitalize">
-              ${item.category}
-            </span>
-            ${item.isFeatured ? `
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                Featured
-              </span>
-            ` : ''}
-          </div>
-        </td>
-
-        <!-- Drone & Specs -->
-        <td class="py-4 px-6 font-mono text-xs">
-          <div class="text-slate-200 flex items-center gap-1">
-            <i data-lucide="plane" class="w-3.5 h-3.5 text-cyan-400"></i> ${item.drone || 'Drone'}
-          </div>
-          <div class="text-[11px] text-slate-500 mt-0.5">${item.altitude || '120m'} • ${item.specs || '4K'}</div>
-        </td>
-
-        <!-- Type Badge -->
-        <td class="py-4 px-6">
-          ${isVideo ? `
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
-              <i data-lucide="video" class="w-3.5 h-3.5"></i> Video
-            </span>
-          ` : `
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono">
-              <i data-lucide="camera" class="w-3.5 h-3.5"></i> Foto
-            </span>
-          `}
-        </td>
-
-        <!-- Date -->
-        <td class="py-4 px-6 font-mono text-xs text-slate-400">
-          ${dateFormatted}
-        </td>
-
-        <!-- Actions -->
-        <td class="py-4 px-6 text-right space-x-2">
-          <a href="${item.mediaUrl}" target="_blank" title="Buka File" class="inline-block p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800">
-            <i data-lucide="external-link" class="w-4 h-4"></i>
-          </a>
-          <button onclick="editMediaItem('${item.id}')" title="Edit Data" class="p-2 rounded-lg bg-slate-900 text-cyan-400 hover:text-cyan-300 hover:bg-slate-800">
-            <i data-lucide="edit-3" class="w-4 h-4"></i>
-          </button>
-          <button onclick="deleteMediaItem('${item.id}', '${item.mediaUrl}')" title="Hapus Media" class="p-2 rounded-lg bg-slate-900 text-rose-400 hover:text-rose-300 hover:bg-rose-950/40">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+  tbody.innerHTML = currentGalleryList.map(item => `
+    <tr class="hover:bg-slate-900/60 transition-colors">
+      <td class="py-3 px-6">
+        <div class="w-16 h-11 rounded-lg bg-slate-900 overflow-hidden border border-slate-800 flex items-center justify-center">
+          ${item.thumbnailUrl ? `<img src="${item.thumbnailUrl}" class="w-full h-full object-cover">` : `<i data-lucide="${item.type === 'video' ? 'video' : 'image'}" class="w-4 h-4 text-slate-500"></i>`}
+        </div>
+      </td>
+      <td class="py-3 px-6">
+        <div class="font-bold text-white text-xs line-clamp-1">${item.title}</div>
+        <div class="text-[11px] text-cyan-400 font-mono capitalize">${item.category} • ${item.location || 'Indonesia'}</div>
+      </td>
+      <td class="py-3 px-6">
+        <div class="text-xs text-slate-200 font-mono">${item.drone || 'Drone'}</div>
+        <div class="text-[11px] text-slate-500 font-mono">${item.altitude || '-'} • ${item.specs || ''}</div>
+      </td>
+      <td class="py-3 px-6">
+        <span class="px-2 py-0.5 rounded text-[10px] font-mono ${item.type === 'video' ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}">
+          ${item.type === 'video' ? 'VIDEO 4K' : 'FOTO UDARA'}
+        </span>
+      </td>
+      <td class="py-3 px-6 text-right space-x-2">
+        <button onclick="editGalleryItem('${item.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs">
+          Edit
+        </button>
+        <button onclick="deleteGalleryItem('${item.id}')" class="px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs">
+          Hapus
+        </button>
+      </td>
+    </tr>
+  `).join("");
 
   if (window.lucide) window.lucide.createIcons();
 }
 
-function updateStats(items) {
-  const totalElem = document.getElementById("stat-total");
-  const videoElem = document.getElementById("stat-videos");
-  const photoElem = document.getElementById("stat-photos");
-
-  if (totalElem) totalElem.textContent = items.length;
-  if (videoElem) videoElem.textContent = items.filter(i => i.type === "video").length;
-  if (photoElem) photoElem.textContent = items.filter(i => i.type === "photo").length;
-}
-
-// ========================================================
-// 3. Add / Edit Media Actions
-// ========================================================
-function openMediaModal(item = null) {
+function openMediaModal() {
   const modal = document.getElementById("media-modal");
-  const title = document.getElementById("media-modal-title");
   const form = document.getElementById("media-form");
-  const idInput = document.getElementById("form-media-id");
-
-  resetMediaForm();
-
-  if (item) {
-    title.textContent = "Edit Media Supabase";
-    idInput.value = item.id;
-    document.getElementById("form-title").value = item.title || "";
-    document.getElementById("form-type").value = item.type || "video";
-    document.getElementById("form-category").value = item.category || "landscape";
-    document.getElementById("form-drone").value = item.drone || "";
-    document.getElementById("form-altitude").value = item.altitude || "";
-    document.getElementById("form-specs").value = item.specs || "";
-    document.getElementById("form-location").value = item.location || "";
-    document.getElementById("form-description").value = item.description || "";
-    document.getElementById("form-featured").checked = Boolean(item.isFeatured);
-    document.getElementById("form-media-url").value = item.mediaUrl || "";
-  } else {
-    title.textContent = "Tambah Media ke Supabase";
-  }
-
-  modal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
+  if (form) form.reset();
+  document.getElementById("form-media-id").value = "";
+  document.getElementById("media-modal-title").textContent = "Tambah Karya Media Baru";
+  if (modal) modal.classList.remove("hidden");
 }
 
 function closeMediaModal() {
   const modal = document.getElementById("media-modal");
   if (modal) modal.classList.add("hidden");
-  document.body.style.overflow = "";
-  resetMediaForm();
 }
 
-function resetMediaForm() {
-  pendingUploadFile = null;
-  const form = document.getElementById("media-form");
-  const preview = document.getElementById("form-file-preview");
-  const placeholder = document.getElementById("form-placeholder");
-  const progressBox = document.getElementById("upload-progress-box");
-  const fileInput = document.getElementById("form-file-input");
+function editGalleryItem(id) {
+  const item = currentGalleryList.find(m => m.id === id);
+  if (!item) return;
 
-  if (form) form.reset();
-  if (fileInput) fileInput.value = "";
-  if (preview) {
-    preview.innerHTML = "";
-    preview.classList.add("hidden");
-  }
-  if (placeholder) placeholder.classList.remove("hidden");
-  if (progressBox) progressBox.classList.add("hidden");
+  openMediaModal();
+  document.getElementById("form-media-id").value = item.id;
+  document.getElementById("form-media-url").value = item.mediaUrl || "";
+  document.getElementById("form-thumb-url").value = item.thumbnailUrl || "";
+  document.getElementById("form-title").value = item.title || "";
+  document.getElementById("form-type").value = item.type || "video";
+  document.getElementById("form-category").value = item.category || "commercial";
+  document.getElementById("form-drone").value = item.drone || "";
+  document.getElementById("form-location").value = item.location || "";
+  document.getElementById("form-altitude").value = item.altitude || "";
+  document.getElementById("form-specs").value = item.specs || "";
+  document.getElementById("form-description").value = item.description || "";
+  document.getElementById("media-modal-title").textContent = "Edit Karya Media";
 }
 
-function editMediaItem(id) {
-  const item = currentMediaList.find(i => i.id === id);
-  if (item) openMediaModal(item);
+function deleteGalleryItem(id) {
+  if (!confirm("Apakah Anda yakin ingin menghapus karya ini dari galeri?")) return;
+  currentGalleryList = currentGalleryList.filter(m => m.id !== id);
+  localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(currentGalleryList));
+  renderGalleryTable();
+  showToast("Karya berhasil dihapus dari galeri.");
 }
 
-async function deleteMediaItem(id, mediaUrl) {
-  if (!confirm("Apakah Anda yakin ingin menghapus media ini dari database Supabase? File di Storage juga akan dibersihkan.")) {
-    return;
-  }
-
-  try {
-    await window.AeroSupabase.deleteMediaFromSupabase(id, mediaUrl);
-    showCmsToast("Media berhasil dihapus dari Supabase!", "success");
-    await loadCmsMedia();
-  } catch (err) {
-    console.error("Delete error:", err);
-    showCmsToast("Gagal menghapus: " + err.message, "error");
-  }
-}
-
-// Form Submission Handler
-async function handleMediaFormSubmit(e) {
+function handleMediaFormSubmit(e) {
   e.preventDefault();
-
-  const id = document.getElementById("form-media-id").value;
-  const title = document.getElementById("form-title").value.trim();
-  const type = document.getElementById("form-type").value;
-  const category = document.getElementById("form-category").value;
-  const drone = document.getElementById("form-drone").value.trim() || "DJI Mavic 3 Pro";
-  const altitude = document.getElementById("form-altitude").value.trim() || "120m AGL";
-  const specs = document.getElementById("form-specs").value.trim() || "4K UHD";
-  const location = document.getElementById("form-location").value.trim() || "Indonesia";
-  const description = document.getElementById("form-description").value.trim();
-  const isFeatured = document.getElementById("form-featured").checked;
-  let mediaUrl = document.getElementById("form-media-url").value.trim();
-
-  const submitBtn = document.getElementById("form-submit-btn");
-  const submitLabel = document.getElementById("form-submit-label");
-  const progressBox = document.getElementById("upload-progress-box");
-  const progressBar = document.getElementById("upload-progress-bar");
-  const progressPct = document.getElementById("upload-progress-pct");
-  const progressText = document.getElementById("upload-progress-text");
-
-  // If a new file was chosen, upload to Supabase Storage first
-  if (pendingUploadFile) {
-    submitBtn.disabled = true;
-    progressBox.classList.remove("hidden");
-    progressBar.style.width = "40%";
-    progressPct.textContent = "40%";
-    progressText.textContent = `Mengunggah ${pendingUploadFile.name} ke Supabase Storage...`;
-
-    try {
-      mediaUrl = await window.AeroSupabase.uploadMediaFileToStorage(pendingUploadFile);
-      progressBar.style.width = "100%";
-      progressPct.textContent = "100%";
-      progressText.textContent = "Upload selesai! Menyimpan data...";
-    } catch (uploadErr) {
-      console.error("Storage upload error:", uploadErr);
-      showCmsToast("Gagal upload file ke Storage: " + uploadErr.message, "error");
-      submitBtn.disabled = false;
-      progressBox.classList.add("hidden");
-      return;
-    }
-  }
-
-  if (!mediaUrl) {
-    showCmsToast("Silakan pilih file foto/video untuk diunggah atau masukkan URL media!", "warning");
-    return;
-  }
-
-  submitBtn.disabled = true;
-  submitLabel.textContent = "Menyimpan...";
-
-  const payload = {
-    title,
-    type,
-    category,
-    drone,
-    altitude,
-    specs,
-    location,
-    description,
-    isFeatured,
-    mediaUrl,
-    thumbnailUrl: mediaUrl
+  const editId = document.getElementById("form-media-id").value;
+  const newItem = {
+    id: editId || `media-${Date.now()}`,
+    type: document.getElementById("form-type").value,
+    title: document.getElementById("form-title").value,
+    category: document.getElementById("form-category").value,
+    mediaUrl: document.getElementById("form-media-url").value,
+    thumbnailUrl: document.getElementById("form-thumb-url").value,
+    drone: document.getElementById("form-drone").value,
+    altitude: document.getElementById("form-altitude").value,
+    specs: document.getElementById("form-specs").value,
+    location: document.getElementById("form-location").value,
+    description: document.getElementById("form-description").value,
+    isUserUpload: true
   };
 
-  try {
-    if (id) {
-      await window.AeroSupabase.updateMediaInSupabase(id, payload);
-      showCmsToast("Data media berhasil diperbarui di Supabase!", "success");
-    } else {
-      await window.AeroSupabase.insertMediaToSupabase(payload);
-      showCmsToast("Karya baru berhasil ditambahkan ke Supabase!", "success");
-    }
-
-    closeMediaModal();
-    await loadCmsMedia();
-  } catch (dbErr) {
-    console.error("Database save error:", dbErr);
-    showCmsToast("Gagal menyimpan ke database: " + dbErr.message, "error");
-  } finally {
-    submitBtn.disabled = false;
-    submitLabel.textContent = "Simpan ke Supabase";
-  }
-}
-
-// ========================================================
-// 4. Config Modal & Test Connection
-// ========================================================
-function openConfigModal() {
-  const modal = document.getElementById("config-modal");
-  const cfg = window.AeroSupabase.getSupabaseConfig();
-  document.getElementById("cfg-url").value = cfg.url || "";
-  document.getElementById("cfg-key").value = cfg.anonKey || "";
-  document.getElementById("cfg-test-result").classList.add("hidden");
-  modal.classList.remove("hidden");
-}
-
-function closeConfigModal() {
-  document.getElementById("config-modal").classList.add("hidden");
-}
-
-async function testConnectionFromModal() {
-  const url = document.getElementById("cfg-url").value.trim();
-  const key = document.getElementById("cfg-key").value.trim();
-  const resBox = document.getElementById("cfg-test-result");
-
-  if (!url || !key) {
-    resBox.className = "p-3 rounded-xl text-xs font-mono bg-amber-950/60 text-amber-300 border border-amber-500/30";
-    resBox.textContent = "Isi URL dan Anon Key terlebih dahulu.";
-    resBox.classList.remove("hidden");
-    return;
-  }
-
-  resBox.className = "p-3 rounded-xl text-xs font-mono bg-slate-900 text-cyan-300 border border-cyan-500/30";
-  resBox.textContent = "Sedang menguji koneksi ke Supabase...";
-  resBox.classList.remove("hidden");
-
-  const res = await window.AeroSupabase.testSupabaseConnection(url, key);
-  if (res.success) {
-    resBox.className = "p-3 rounded-xl text-xs font-mono bg-emerald-950/60 text-emerald-300 border border-emerald-500/30";
-    resBox.textContent = "✓ Koneksi Berhasil! Terhubung ke tabel portfolio_media.";
+  if (editId) {
+    const idx = currentGalleryList.findIndex(m => m.id === editId);
+    if (idx !== -1) currentGalleryList[idx] = newItem;
   } else {
-    resBox.className = "p-3 rounded-xl text-xs font-mono bg-rose-950/60 text-rose-300 border border-rose-500/30";
-    resBox.textContent = "✗ Koneksi Gagal: " + res.message;
+    currentGalleryList.unshift(newItem);
   }
-}
 
-function handleConfigSubmit(e) {
-  e.preventDefault();
-  const url = document.getElementById("cfg-url").value.trim();
-  const key = document.getElementById("cfg-key").value.trim();
-
-  window.AeroSupabase.saveSupabaseConfig(url, key);
-  initConnectionStatus();
-  closeConfigModal();
-  showCmsToast("Konfigurasi Supabase berhasil disimpan!", "success");
-  loadCmsMedia();
+  localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(currentGalleryList));
+  renderGalleryTable();
+  closeMediaModal();
+  showToast(editId ? "Karya berhasil diperbarui!" : "Karya baru berhasil ditambahkan!");
 }
 
 // ========================================================
-// 5. SQL Modal & Clipboard
+// 6. Backup, Export & Import
 // ========================================================
-function openSqlModal() {
-  document.getElementById("sql-modal").classList.remove("hidden");
-}
-function closeSqlModal() {
-  document.getElementById("sql-modal").classList.add("hidden");
-}
-function copySqlCode() {
-  const code = document.getElementById("sql-code-block").innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    const btn = document.getElementById("copy-sql-btn");
-    btn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Berhasil Disalin!`;
-    if (window.lucide) window.lucide.createIcons();
-    setTimeout(() => {
-      btn.innerHTML = `<i data-lucide="copy" class="w-4 h-4"></i> Salin Skrip SQL`;
-      if (window.lucide) window.lucide.createIcons();
-    }, 2000);
-  });
+function downloadConfigBackup() {
+  const jsonStr = window.AeroSiteConfig ? window.AeroSiteConfig.exportSiteConfigJSON() : JSON.stringify(currentConfig, null, 2);
+  const blob = new Blob([jsonStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `aeroscope-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("File backup konfigurasi JSON berhasil diunduh.");
 }
 
-// ========================================================
-// 6. Event Listeners Setup
-// ========================================================
-function setupAdminEventListeners() {
-  // Dropzone file selection
-  const dropzone = document.getElementById("form-dropzone");
-  const fileInput = document.getElementById("form-file-input");
+function handleImportBackup(e) {
+  const file = e.target.files[0];
+  if (!file) return;
 
-  if (dropzone && fileInput) {
-    dropzone.addEventListener("click", () => fileInput.click());
-    fileInput.addEventListener("change", (e) => {
-      if (e.target.files && e.target.files[0]) {
-        handleFileSelection(e.target.files[0]);
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const res = window.AeroSiteConfig ? window.AeroSiteConfig.importSiteConfigJSON(event.target.result) : { success: true };
+      if (res.success) {
+        initDashboard();
+        showToast("Konfigurasi berhasil dipulihkan dari file JSON!");
+      } else {
+        alert("Gagal memulihkan file: " + res.message);
       }
-    });
-
-    ["dragenter", "dragover"].forEach(evt => {
-      dropzone.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropzone.classList.add("border-cyan-400", "bg-cyan-500/10");
-      });
-    });
-
-    ["dragleave", "drop"].forEach(evt => {
-      dropzone.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropzone.classList.remove("border-cyan-400", "bg-cyan-500/10");
-      });
-    });
-
-    dropzone.addEventListener("drop", (e) => {
-      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
-        handleFileSelection(e.dataTransfer.files[0]);
-      }
-    });
-  }
-
-  // Media Form submit
-  const mediaForm = document.getElementById("media-form");
-  if (mediaForm) mediaForm.addEventListener("submit", handleMediaFormSubmit);
-
-  // Config Form submit
-  const configForm = document.getElementById("config-form");
-  if (configForm) configForm.addEventListener("submit", handleConfigSubmit);
-
-  // Filter buttons
-  const filterBtns = document.querySelectorAll(".cms-filter-btn");
-  filterBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach(b => {
-        b.classList.remove("bg-cyan-500", "text-slate-950", "font-bold");
-        b.classList.add("bg-slate-900", "text-slate-300");
-      });
-      btn.classList.add("bg-cyan-500", "text-slate-950", "font-bold");
-      btn.classList.remove("bg-slate-900", "text-slate-300");
-      currentFilter = btn.dataset.filter || "all";
-      renderMediaTable();
-    });
-  });
-}
-
-function handleFileSelection(file) {
-  pendingUploadFile = file;
-  const isVideo = file.type.startsWith("video/");
-
-  const typeSelect = document.getElementById("form-type");
-  if (typeSelect) typeSelect.value = isVideo ? "video" : "photo";
-
-  const titleInput = document.getElementById("form-title");
-  if (titleInput && !titleInput.value) {
-    const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
-    titleInput.value = cleanName;
-  }
-
-  const placeholder = document.getElementById("form-placeholder");
-  const preview = document.getElementById("form-file-preview");
-
-  if (placeholder) placeholder.classList.add("hidden");
-  if (preview) {
-    preview.classList.remove("hidden");
-    const tempUrl = URL.createObjectURL(file);
-    if (isVideo) {
-      preview.innerHTML = `
-        <video src="${tempUrl}" class="w-full h-32 object-contain rounded-xl bg-black"></video>
-        <p class="text-[11px] font-mono text-cyan-400 mt-2 text-center">Video Siap Upload: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)</p>
-      `;
-    } else {
-      preview.innerHTML = `
-        <img src="${tempUrl}" class="w-full h-32 object-contain rounded-xl bg-black" />
-        <p class="text-[11px] font-mono text-emerald-400 mt-2 text-center">Foto Siap Upload: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)</p>
-      `;
+    } catch (err) {
+      alert("Format JSON tidak valid.");
     }
-  }
-}
-
-// Toast Notification
-function showCmsToast(message, type = "info") {
-  const container = document.getElementById("toast-container");
-  if (!container) return;
-
-  const toast = document.createElement("div");
-  const colors = {
-    success: "bg-emerald-900/90 border-emerald-500 text-emerald-200",
-    error: "bg-rose-900/90 border-rose-500 text-rose-200",
-    warning: "bg-amber-900/90 border-amber-500 text-amber-200",
-    info: "bg-slate-900/90 border-cyan-500 text-cyan-200"
   };
-
-  toast.className = `px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center justify-between gap-3 text-sm transition-all duration-300 transform translate-y-4 opacity-0 ${colors[type] || colors.info}`;
-  toast.innerHTML = `
-    <span>${message}</span>
-    <button class="opacity-70 hover:opacity-100 text-lg leading-none" onclick="this.parentElement.remove()">&times;</button>
-  `;
-
-  container.appendChild(toast);
-  setTimeout(() => toast.classList.remove("translate-y-4", "opacity-0"), 10);
-  setTimeout(() => {
-    toast.classList.add("opacity-0", "translate-y-4");
-    setTimeout(() => toast.remove(), 300);
-  }, 4000);
+  reader.readAsText(file);
 }
 
-// Global window exposures
-window.openMediaModal = openMediaModal;
-window.closeMediaModal = closeMediaModal;
-window.editMediaItem = editMediaItem;
-window.deleteMediaItem = deleteMediaItem;
-window.openConfigModal = openConfigModal;
-window.closeConfigModal = closeConfigModal;
-window.openSqlModal = openSqlModal;
-window.closeSqlModal = closeSqlModal;
-window.copySqlCode = copySqlCode;
-window.loadCmsMedia = loadCmsMedia;
-window.testConnectionFromModal = testConnectionFromModal;
+function confirmResetDefaults() {
+  if (!confirm("Perhatian: Seluruh teks, playlist video, dan pengaturan akan dikembalikan ke default. Lanjutkan?")) return;
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.resetSiteConfig();
+  }
+  localStorage.removeItem(GALLERY_STORAGE_KEY);
+  initDashboard();
+  showToast("Semua pengaturan telah dikembalikan ke standar awal pabrik.");
+}
+
+// ========================================================
+// 7. Toast Notification Utility
+// ========================================================
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById("admin-toast");
+  const toastMsg = document.getElementById("toast-message");
+  if (!toast || !toastMsg) return;
+
+  toastMsg.textContent = msg;
+  toast.classList.remove("translate-y-20", "opacity-0");
+  toast.classList.add("translate-y-0", "opacity-100");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("translate-y-0", "opacity-100");
+    toast.classList.add("translate-y-20", "opacity-0");
+  }, 3500);
+}
