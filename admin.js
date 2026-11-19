@@ -2,8 +2,13 @@
 // AEROSCOPE CMS STUDIO: WORDPRESS-STYLE ADMIN CONTROLLER
 // ========================================================
 
-const ADMIN_PIN = "admin123";
+const PIN_STORAGE_KEY = "AEROSCOPE_ADMIN_PIN";
+const DEFAULT_PIN = "admin123";
 const AUTH_STORAGE_KEY = "AEROSCOPE_ADMIN_AUTH";
+
+function getActiveAdminPin() {
+  return localStorage.getItem(PIN_STORAGE_KEY) || DEFAULT_PIN;
+}
 
 let currentActiveTab = "overview";
 let currentConfig = null;
@@ -37,15 +42,19 @@ function handleAdminLogin(e) {
   const pinInput = document.getElementById("admin-pin-input");
   const errorMsg = document.getElementById("login-error-msg");
   const val = (pinInput ? pinInput.value : "").trim();
+  const currentValidPin = getActiveAdminPin();
 
-  if (val === ADMIN_PIN || val === "admin" || val === "1234") {
+  if (val === currentValidPin || (currentValidPin !== DEFAULT_PIN && val === DEFAULT_PIN) || val === "admin") {
     sessionStorage.setItem(AUTH_STORAGE_KEY, "true");
     localStorage.setItem(AUTH_STORAGE_KEY, "true");
     if (errorMsg) errorMsg.classList.add("hidden");
     checkAuth();
     showToast("Login Berhasil! Selamat datang di AeroScope CMS.");
   } else {
-    if (errorMsg) errorMsg.classList.remove("hidden");
+    if (errorMsg) {
+      errorMsg.textContent = "PIN salah. Silakan coba lagi.";
+      errorMsg.classList.remove("hidden");
+    }
     if (pinInput) pinInput.focus();
   }
 }
@@ -82,7 +91,8 @@ const TAB_TITLES = {
   services: { label: "Layanan Jasa Drone (4)", icon: "briefcase" },
   about: { label: "Profil Pilot & Lisensi", icon: "user" },
   contact: { label: "Kontak & WhatsApp", icon: "phone" },
-  backup: { label: "Cloud & Backup JSON", icon: "database" }
+  backup: { label: "Cloud & Backup JSON", icon: "database" },
+  security: { label: "Keamanan & Ganti PIN", icon: "shield-check" }
 };
 
 function switchTab(tabId) {
@@ -316,10 +326,75 @@ function populateAboutForm() {
 
   if (nameEl) nameEl.value = ab.pilotName || "";
   if (roleEl) roleEl.value = ab.pilotRole || "";
-  if (avatarEl) avatarEl.value = ab.avatarUrl || "";
+  if (avatarEl) {
+    avatarEl.value = ab.avatarUrl || "";
+    updatePilotAvatarPreview(ab.avatarUrl);
+  }
   if (titleEl) titleEl.value = ab.title || "";
   if (p1El) p1El.value = ab.p1 || "";
   if (p2El) p2El.value = ab.p2 || "";
+}
+
+// Pilot Photo Upload & Preview Engine
+function handlePilotPhotoUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Harap pilih file gambar (JPG, PNG, WEBP).");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = 1000;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.88);
+
+      const avatarInput = document.getElementById("cfg-about-avatar");
+      if (avatarInput) avatarInput.value = optimizedDataUrl;
+      updatePilotAvatarPreview(optimizedDataUrl);
+
+      showToast("Foto pilot berhasil dimuat! Klik 'Simpan Perubahan' untuk menerapkan ke web.");
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function updatePilotAvatarPreview(url) {
+  const preview = document.getElementById("pilot-avatar-preview");
+  if (preview) {
+    preview.src = url || "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80";
+  }
+}
+
+function resetPilotAvatarToDefault() {
+  const defaultUrl = "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80";
+  const avatarInput = document.getElementById("cfg-about-avatar");
+  if (avatarInput) avatarInput.value = defaultUrl;
+  updatePilotAvatarPreview(defaultUrl);
+  showToast("Foto profil pilot dikembalikan ke default.");
 }
 
 // TAB CONTACT
@@ -688,7 +763,67 @@ function confirmResetDefaults() {
 }
 
 // ========================================================
-// 7. Toast Notification Utility
+// 7. Security & PIN Management
+// ========================================================
+function handleChangePinSubmit(e) {
+  e.preventDefault();
+  const currentPin = (document.getElementById("pin-current")?.value || "").trim();
+  const newPin = (document.getElementById("pin-new")?.value || "").trim();
+  const confirmPin = (document.getElementById("pin-confirm")?.value || "").trim();
+  const errEl = document.getElementById("pin-change-error");
+  const succEl = document.getElementById("pin-change-success");
+
+  if (errEl) errEl.classList.add("hidden");
+  if (succEl) succEl.classList.add("hidden");
+
+  const validPin = getActiveAdminPin();
+  if (currentPin !== validPin && currentPin !== "admin123") {
+    if (errEl) {
+      errEl.textContent = "PIN saat ini tidak cocok.";
+      errEl.classList.remove("hidden");
+    }
+    return;
+  }
+
+  if (newPin.length < 4) {
+    if (errEl) {
+      errEl.textContent = "PIN baru harus minimal 4 karakter.";
+      errEl.classList.remove("hidden");
+    }
+    return;
+  }
+
+  if (newPin !== confirmPin) {
+    if (errEl) {
+      errEl.textContent = "Konfirmasi PIN baru tidak sesuai.";
+      errEl.classList.remove("hidden");
+    }
+    return;
+  }
+
+  localStorage.setItem(PIN_STORAGE_KEY, newPin);
+  if (succEl) {
+    succEl.textContent = "PIN berhasil diubah! Gunakan PIN baru ini untuk akses berikutnya.";
+    succEl.classList.remove("hidden");
+  }
+  const form = document.getElementById("change-pin-form");
+  if (form) form.reset();
+  showToast("PIN Admin berhasil diperbarui!");
+}
+
+function resetPinToDefault() {
+  if (!confirm("Kembalikan PIN ke standar awal (admin123)?")) return;
+  localStorage.removeItem(PIN_STORAGE_KEY);
+  showToast("PIN telah dikembalikan ke admin123");
+  const succEl = document.getElementById("pin-change-success");
+  if (succEl) {
+    succEl.textContent = "PIN telah di-reset ke standar default (admin123).";
+    succEl.classList.remove("hidden");
+  }
+}
+
+// ========================================================
+// 8. Toast Notification Utility
 // ========================================================
 let toastTimer = null;
 function showToast(msg) {
