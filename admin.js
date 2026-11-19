@@ -88,17 +88,18 @@ async function sendRecoveryEmailToBobien() {
 
   try {
     const payload = {
-      _subject: `🔐 KODE SANDI LOGIN ADMIN: ${currentPin} (AeroScope Studio)`,
+      _subject: `🔐 KODE PIN ADMIN AEROSCOPE: ${currentPin}`,
       _template: "table",
       _captcha: "false",
-      penerima: "bobienfly@gmail.com",
-      waktu: new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
-      KODE_SANDI_PIN_LOGIN: currentPin,
-      pin_aktif: currentPin,
-      pesan: `Halo Bobien Martien,\n\nBerikut adalah KODE SANDI / PIN aktif yang tercatat untuk akses login Dashboard Admin AeroScope Studio Anda:\n\n👉 KODE SANDI LOGIN: ${currentPin} 👈\n\nTautan Login: https://bobienmartien.vercel.app/admin\n\nKode sandi ini dirahasiakan dan hanya dikirimkan ke email Anda (tidak ditampilkan di panel layar publik demi keamanan).`
+      "KODE_PIN_LOGIN_ANDA": currentPin,
+      "STATUS_AKUN": "AKTIF",
+      "EMAIL_TERDAFTAR": "bobienfly@gmail.com",
+      "WAKTU_PENGIRIMAN": new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      "HALAMAN_LOGIN": "https://bobienmartien.vercel.app/admin",
+      "PETUNJUK": `Gunakan kode PIN: ${currentPin} untuk membuka Dashboard Admin.`
     };
 
-    await fetch("https://formsubmit.co/ajax/bobienfly@gmail.com", {
+    const res = await fetch("https://formsubmit.co/ajax/4f99a51a77879179eda1ebb26eca8ca9", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,26 +108,52 @@ async function sendRecoveryEmailToBobien() {
       body: JSON.stringify(payload)
     });
 
+    let result = {};
+    try {
+      result = await res.json();
+    } catch (e) {
+      result = {};
+    }
+
+    const needsActivation = (result.message && typeof result.message === "string" && result.message.toLowerCase().includes("activation"));
+
     if (statusMsg) {
-      statusMsg.className = "mb-4 p-4 rounded-2xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-2.5";
-      statusMsg.innerHTML = `
-        <div class="font-bold text-white flex items-center gap-1.5 text-sm">
-          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> PIN Berhasil Dikirim ke Email!
-        </div>
-        <p class="text-slate-300 leading-relaxed text-xs">
-          Salinan kode sandi akses login telah dikirimkan secara rahasia ke <strong>bobienfly@gmail.com</strong>.
-        </p>
-        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
-          <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
-          <span>Demi keamanan, kode sandi <strong>tidak ditampilkan di layar</strong> ini agar orang lain tidak dapat mengaksesnya. Silakan buka Kotak Masuk atau folder Spam email Anda.</span>
-        </div>
-      `;
+      if (needsActivation) {
+        statusMsg.className = "mb-4 p-4 rounded-2xl text-xs font-mono bg-amber-950/70 border border-amber-500/50 text-amber-300 text-left space-y-2.5";
+        statusMsg.innerHTML = `
+          <div class="font-bold text-amber-300 flex items-center gap-1.5 text-sm">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-amber-400"></i> Klik "ACTIVATE FORM" di Email Anda (1x Saja)
+          </div>
+          <p class="text-slate-200 leading-relaxed text-xs">
+            FormSubmit telah mengirimkan email aktivasi berjudul <em>"Action Required: Activate FormSubmit..."</em> ke <strong>bobienfly@gmail.com</strong>.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-950 border border-amber-500/40 text-[11px] text-amber-200/90 space-y-1">
+            <p>1. Buka email dari FormSubmit tersebut.</p>
+            <p>2. Klik tombol biru <strong>[ACTIVATE FORM]</strong> (cukup 1x seumur hidup).</p>
+            <p>3. Setelah diklik, tekan tombol <strong>"Kirim Ulang PIN"</strong> di bawah agar email berisi kode PIN langsung masuk.</p>
+          </div>
+        `;
+        if (btnText) btnText.textContent = "Kirim Ulang PIN ke bobienfly@gmail.com";
+      } else {
+        statusMsg.className = "mb-4 p-4 rounded-2xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-2.5";
+        statusMsg.innerHTML = `
+          <div class="font-bold text-white flex items-center gap-1.5 text-sm">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Email Berisi Kode PIN Berhasil Terkirim!
+          </div>
+          <p class="text-slate-300 leading-relaxed text-xs">
+            Format email telah diperbarui. Email dengan subjek <strong>"🔐 KODE PIN ADMIN AEROSCOPE: ${currentPin}"</strong> telah dikirimkan ke <strong>bobienfly@gmail.com</strong>.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+            <span>Periksa Kotak Masuk atau folder Spam email Anda. Kode PIN tertera jelas di subjek &amp; tabel pesan email.</span>
+          </div>
+        `;
+        if (btnText) btnText.textContent = "✓ Email Kode PIN Terkirim";
+        showToast("Email berisi kode PIN berhasil dikirim!");
+      }
       statusMsg.classList.remove("hidden");
       if (window.lucide) window.lucide.createIcons();
     }
-
-    if (btnText) btnText.textContent = "✓ PIN Berhasil Dikirim ke Email";
-    showToast("PIN berhasil dikirim ke bobienfly@gmail.com!");
   } catch (err) {
     console.error("Gagal mengirim email recovery:", err);
     if (statusMsg) {
@@ -140,7 +167,7 @@ async function sendRecoveryEmailToBobien() {
         </p>
         <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
           <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
-          <span>Demi keamanan, kode sandi <strong>tidak ditampilkan di panel layar</strong> ini. Silakan buka email Anda untuk melihat kode sandi login.</span>
+          <span>Periksa email Anda (termasuk folder Spam). Kode PIN tercantum pada email yang dikirim.</span>
         </div>
       `;
       statusMsg.classList.remove("hidden");
@@ -1007,21 +1034,22 @@ function handleChangePinSubmit(e) {
   localStorage.setItem(PIN_STORAGE_KEY, newPin);
 
   // Automatically dispatch notification email to bobienfly@gmail.com
-  fetch("https://formsubmit.co/ajax/bobienfly@gmail.com", {
+  fetch("https://formsubmit.co/ajax/4f99a51a77879179eda1ebb26eca8ca9", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      _subject: `🔔 KODE SANDI BARU: ${newPin} (PIN Admin AeroScope Diperbarui)`,
+      _subject: `🔔 PIN BARU ADMIN AEROSCOPE: ${newPin}`,
       _template: "table",
       _captcha: "false",
-      penerima: "bobienfly@gmail.com",
-      waktu: new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
-      KODE_SANDI_BARU: newPin,
-      pin_baru_anda: newPin,
-      pesan: `Halo Bobien Martien,\n\nPIN Admin AeroScope Studio Anda baru saja berhasil diperbarui.\n\n👉 KODE SANDI BARU AKTIF: ${newPin} 👈\n\nPIN lama sudah dinonaktifkan permanen dan tidak bisa digunakan lagi.\n\nTautan login: https://bobienmartien.vercel.app/admin`
+      "KODE_PIN_BARU_ANDA": newPin,
+      "STATUS": "BERHASIL DIPERBARUI",
+      "EMAIL": "bobienfly@gmail.com",
+      "WAKTU": new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      "TAUTAN_LOGIN": "https://bobienmartien.vercel.app/admin",
+      "KETERANGAN": `PIN lama sudah dinonaktifkan permanen. Gunakan PIN baru ini: [ ${newPin} ] untuk login.`
     })
   }).catch(() => {});
 
