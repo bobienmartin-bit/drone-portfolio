@@ -356,20 +356,35 @@
       </div>
 
       <!-- Quick Selector for Video Highlights (Synced with Carousel) -->
-      <div class="mt-6 sm:mt-8 max-w-3xl mx-auto">
-        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="w-full p-4 rounded-2xl border text-left transition-all flex items-center justify-between group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer shadow-lg shadow-cyan-950/30">
-          <div class="flex items-center gap-3.5 min-w-0">
-            <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-              <i data-lucide="play" class="w-5 h-5 fill-current"></i>
-            </div>
-            <div class="min-w-0">
-              <h4 class="text-sm sm:text-base font-semibold text-slate-100 group-hover:text-cyan-300 truncate">Wonderful 12th: Karawang Central Plaza</h4>
-              <p class="text-xs text-slate-400 truncate">Dokumentasi Acara & Commercial • KCP Galuh Mas, Karawang</p>
-            </div>
+      <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer shadow-lg shadow-cyan-950/30">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           </div>
-          <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
-            <i data-lucide="crosshair" class="w-3.5 h-3.5"></i> DJI Mini 4 Pro
-          </span>
+          <div class="min-w-0">
+            <h4 class="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-cyan-300 truncate" data-i18n="reel.quick1_title">Wonderful 12th</h4>
+            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick1_sub">Karawang Central Plaza</p>
+          </div>
+        </button>
+
+        <button id="reel-quick-1" onclick="selectFeaturedVideo(1)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+          </div>
+          <div class="min-w-0">
+            <h4 class="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-cyan-300 truncate" data-i18n="reel.quick2_title">Campus Skies</h4>
+            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick2_sub">PKN STAN Aerials</p>
+          </div>
+        </button>
+
+        <button id="reel-quick-2" onclick="selectFeaturedVideo(2)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+          </div>
+          <div class="min-w-0">
+            <h4 class="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-cyan-300 truncate" data-i18n="reel.quick3_title">New Cluster Groove</h4>
+            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick3_sub">1st Place Winner • Fortune</p>
+          </div>
         </button>
       </div>
 

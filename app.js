@@ -17,6 +17,34 @@ const INITIAL_MEDIA = [
     location: "KCP Galuh Mas, Karawang",
     description: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.",
     isUserUpload: false
+  },
+  {
+    id: "sample-vid-stan",
+    type: "video",
+    title: "Campus Skies: PKN STAN Aerials",
+    category: "commercial",
+    mediaUrl: "assets/videos/campus-skies-pkn-stan.mp4",
+    thumbnailUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80",
+    drone: "DJI Mavic 3 Pro",
+    altitude: "340m AGL",
+    specs: "5.1K UHD • D-Log M • Hasselblad 24mm",
+    location: "PKN STAN, Bintaro",
+    description: "Kompilasi sinematografi drone megah yang menampilkan arsitektur dan lanskap kampus PKN STAN Bintaro berlatar lagu resmi kampus.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-vid-groove",
+    type: "video",
+    title: "New Cluster Groove at Fortune — 1st Place Winner",
+    category: "commercial",
+    mediaUrl: "assets/videos/new-cluster-groove-fortune.mp4",
+    thumbnailUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+    drone: "DJI Mini 4 Pro",
+    altitude: "120m AGL",
+    specs: "4K Vertical • D-Log M • 24mm f/1.7",
+    location: "Fortune District",
+    description: "Karya pemenang juara pertama kategori vertical aerial showcase 2025, mendokumentasikan kemewahan arsitektur kawasan New Cluster Groove at Fortune.",
+    isUserUpload: false
   }
 ];
 
@@ -250,20 +278,53 @@ const FEATURED_VIDEOS_PLAYLIST = [
     altitude: "ALTITUDE: 150m AGL",
     lens: "24MM F/1.7",
     telemetryFormat: "4K D-LOG M"
+  },
+  {
+    id: "sample-vid-stan",
+    badge_id: "FEATURED AERIAL CINEMA",
+    badge_en: "FEATURED AERIAL CINEMA",
+    title_id: "Campus Skies: PKN STAN Aerials",
+    title_en: "Campus Skies: PKN STAN Aerials",
+    subtitle_id: "Kompilasi sinematografi drone megah yang menampilkan arsitektur dan lanskap kampus PKN STAN Bintaro berlatar lagu resmi kampus.",
+    subtitle_en: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
+    format: "Format: 5.1K UHD 60FPS",
+    videoUrl: "assets/videos/campus-skies-pkn-stan.mp4",
+    drone: "DJI MAVIC 3 PRO",
+    altitude: "ALTITUDE: 340m AGL",
+    lens: "HASSELBLAD 24MM",
+    telemetryFormat: "5.1K D-LOG M"
+  },
+  {
+    id: "sample-vid-groove",
+    badge_id: "1ST PLACE WINNER AERIAL",
+    badge_en: "1ST PLACE WINNER AERIAL",
+    title_id: "New Cluster Groove at Fortune — 1st Place Winner",
+    title_en: "New Cluster Groove at Fortune — 1st Place Winner",
+    subtitle_id: "Karya pemenang juara pertama kategori vertical aerial showcase 2025, mendokumentasikan kemewahan arsitektur kawasan New Cluster Groove at Fortune.",
+    subtitle_en: "1st Place Winner visual aerial showcase 2025 documenting the modern residential architecture of New Cluster Groove at Fortune.",
+    format: "Format: 4K VERTICAL 60FPS",
+    videoUrl: "assets/videos/new-cluster-groove-fortune.mp4",
+    drone: "DJI MINI 4 PRO",
+    altitude: "ALTITUDE: 120m AGL",
+    lens: "24MM F/1.7",
+    telemetryFormat: "4K D-LOG M"
   }
 ];
 
 let currentFeaturedVideoIndex = 0;
+window.currentFeaturedVideoIndex = 0;
 
 function changeFeaturedVideo(direction) {
   const total = FEATURED_VIDEOS_PLAYLIST.length;
   currentFeaturedVideoIndex = (currentFeaturedVideoIndex + direction + total) % total;
+  window.currentFeaturedVideoIndex = currentFeaturedVideoIndex;
   applyFeaturedVideo(currentFeaturedVideoIndex);
 }
 
 function selectFeaturedVideo(index) {
   if (index < 0 || index >= FEATURED_VIDEOS_PLAYLIST.length) return;
   currentFeaturedVideoIndex = index;
+  window.currentFeaturedVideoIndex = currentFeaturedVideoIndex;
   applyFeaturedVideo(currentFeaturedVideoIndex);
 }
 
@@ -326,10 +387,17 @@ function applyFeaturedVideo(index) {
   for (let i = 0; i < FEATURED_VIDEOS_PLAYLIST.length; i++) {
     const card = document.getElementById(`reel-quick-${i}`);
     if (card) {
+      const iconBox = card.querySelector(".w-10");
       if (i === index) {
         card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer shadow-lg shadow-cyan-950/30";
+        if (iconBox) {
+          iconBox.className = "w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0";
+        }
       } else {
         card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer";
+        if (iconBox) {
+          iconBox.className = "w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0";
+        }
       }
     }
   }
@@ -353,6 +421,10 @@ function applyFeaturedVideo(index) {
     }
   }
 }
+
+window.applyFeaturedVideo = applyFeaturedVideo;
+window.changeFeaturedVideo = changeFeaturedVideo;
+window.selectFeaturedVideo = selectFeaturedVideo;
 
 // ========================================================
 // 5. Gallery Rendering

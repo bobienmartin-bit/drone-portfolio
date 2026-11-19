@@ -44,10 +44,10 @@ const translations = {
     "reel.sound_unmuted": "Audio Aktif",
     "reel.quick1_title": "Wonderful 12th",
     "reel.quick1_sub": "Karawang Central Plaza",
-    "reel.quick2_title": "Wonderful 12th",
-    "reel.quick2_sub": "Karawang Central Plaza",
-    "reel.quick3_title": "FPV Diving Canyon",
-    "reel.quick3_sub": "High-Speed Cliff Action",
+    "reel.quick2_title": "Campus Skies",
+    "reel.quick2_sub": "PKN STAN Aerials",
+    "reel.quick3_title": "New Cluster Groove",
+    "reel.quick3_sub": "1st Place Winner • Fortune",
 
     // Gallery
     "gallery.badge": "Galeri & Portofolio",
@@ -174,10 +174,10 @@ const translations = {
     "reel.sound_unmuted": "Audio On",
     "reel.quick1_title": "Wonderful 12th",
     "reel.quick1_sub": "Karawang Central Plaza",
-    "reel.quick2_title": "Wonderful 12th",
-    "reel.quick2_sub": "Karawang Central Plaza",
-    "reel.quick3_title": "FPV Diving Canyon",
-    "reel.quick3_sub": "High-Speed Cliff Action",
+    "reel.quick2_title": "Campus Skies",
+    "reel.quick2_sub": "PKN STAN Aerials",
+    "reel.quick3_title": "New Cluster Groove",
+    "reel.quick3_sub": "1st Place Winner • Fortune",
 
     // Gallery
     "gallery.badge": "Portfolio & Gallery",
