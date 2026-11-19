@@ -9,7 +9,7 @@ const INITIAL_MEDIA = [
     type: "video",
     title: "Campus Skies: PKN STAN Aerials",
     category: "urban",
-    mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-mountain-landscape-during-sunset-41481-large.mp4",
+    mediaUrl: "assets/videos/campus-skies-pkn-stan.mp4",
     thumbnailUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
     drone: "DJI Mavic 3 Pro",
     altitude: "340m AGL",
