@@ -234,28 +234,120 @@ function populateHeroForm() {
   if (titleEl) titleEl.value = hero.title || "";
   if (subEl) subEl.value = hero.subtitle || "";
 
-  // 5 Stats
+  renderHeroStatsForm();
+}
+
+function escapeAttr(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function renderHeroStatsForm() {
   const statsContainer = document.getElementById("hero-stats-form-grid");
-  if (statsContainer && Array.isArray(hero.stats)) {
-    statsContainer.innerHTML = hero.stats.map((st, i) => `
-      <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-        <span class="text-[10px] font-mono text-cyan-400 block uppercase">STAT #${i+1}</span>
-        <div>
-          <label class="block text-[10px] text-slate-400">LABEL</label>
-          <input type="text" id="stat-label-${i}" value="${st.label || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white">
+  if (!statsContainer) return;
+  if (!currentConfig.hero) currentConfig.hero = {};
+  if (!Array.isArray(currentConfig.hero.stats)) {
+    currentConfig.hero.stats = [
+      { id: "stat_legal", label: "LEGALITAS", value: "RESMI", sub: "SIDOPI GO & DKPPU", icon: "award" },
+      { id: "stat_res", label: "RESOLUSI", value: "5.1K / 4K", sub: "ProRes & D-Log M", icon: "video" },
+      { id: "stat_range", label: "JANGKAUAN", value: "NASIONAL", sub: "Siap Tugas Luar Kota", icon: "map-pin" },
+      { id: "stat_turnaround", label: "WAKTU PROSES", value: "24 JAM", sub: "File Mentah & Edit", icon: "clock" },
+      { id: "stat_signal", label: "JARAK KONTROL", value: "15 KM", sub: "Transmisi Stabil HD", icon: "radio" }
+    ];
+  }
+
+  const defaultIcons = ["award", "video", "map-pin", "clock", "radio", "zap", "shield", "activity"];
+  const stats = currentConfig.hero.stats;
+  statsContainer.innerHTML = stats.map((st, i) => {
+    const iconName = st.icon || defaultIcons[i % defaultIcons.length] || "bar-chart-2";
+    return `
+      <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3 relative group hover:border-slate-700 transition-all">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="${iconName}" class="w-3.5 h-3.5 text-cyan-400"></i>
+            STAT #${i+1}
+          </span>
+          <button type="button" onclick="deleteHeroStatItem(${i})" class="px-2 py-1 rounded-lg text-rose-400 hover:text-white hover:bg-rose-500/20 text-[10px] font-mono flex items-center gap-1 border border-rose-500/30 transition-all cursor-pointer shadow-sm" title="Hapus indikator ini">
+            <i data-lucide="trash-2" class="w-3 h-3"></i>
+            <span>Hapus</span>
+          </button>
         </div>
         <div>
-          <label class="block text-[10px] text-slate-400">NILAI UTAMA</label>
-          <input type="text" id="stat-val-${i}" value="${st.value || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono font-bold">
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">LABEL ATAS</label>
+          <input type="text" id="stat-label-${i}" value="${escapeAttr(st.label || '')}" oninput="syncCurrentHeroStatsInputs()" placeholder="Misal: LEGALITAS" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-white">
         </div>
         <div>
-          <label class="block text-[10px] text-slate-400">KETERANGAN</label>
-          <input type="text" id="stat-sub-${i}" value="${st.sub || ''}" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">NILAI UTAMA</label>
+          <input type="text" id="stat-val-${i}" value="${escapeAttr(st.value || '')}" oninput="syncCurrentHeroStatsInputs()" placeholder="Misal: 5.1K / 4K" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-white font-mono font-bold">
+        </div>
+        <div>
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">KETERANGAN BAWAH</label>
+          <input type="text" id="stat-sub-${i}" value="${escapeAttr(st.sub || '')}" oninput="syncCurrentHeroStatsInputs()" placeholder="Misal: ProRes & D-Log M" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-slate-300">
         </div>
       </div>
-    `).join("");
+    `;
+  }).join("");
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function syncCurrentHeroStatsInputs() {
+  if (!currentConfig.hero || !Array.isArray(currentConfig.hero.stats)) return;
+  for (let i = 0; i < currentConfig.hero.stats.length; i++) {
+    const l = document.getElementById(`stat-label-${i}`);
+    const v = document.getElementById(`stat-val-${i}`);
+    const s = document.getElementById(`stat-sub-${i}`);
+    if (l) currentConfig.hero.stats[i].label = l.value;
+    if (v) currentConfig.hero.stats[i].value = v.value;
+    if (s) currentConfig.hero.stats[i].sub = s.value;
   }
 }
+
+function addHeroStatItem() {
+  syncCurrentHeroStatsInputs();
+  if (!currentConfig.hero) currentConfig.hero = {};
+  if (!Array.isArray(currentConfig.hero.stats)) currentConfig.hero.stats = [];
+  
+  const defaultIcons = ["award", "video", "map-pin", "clock", "radio", "zap", "shield", "activity", "check-circle"];
+  const iconChoice = defaultIcons[currentConfig.hero.stats.length % defaultIcons.length];
+  const newNum = currentConfig.hero.stats.length + 1;
+  
+  currentConfig.hero.stats.push({
+    id: "stat_" + Date.now(),
+    label: `INDIKATOR #${newNum}`,
+    value: "100%",
+    sub: "Keterangan Baru",
+    icon: iconChoice
+  });
+
+  renderHeroStatsForm();
+  showToast("Indikator telemetri baru berhasil ditambahkan! Silakan atur nilainya lalu klik Simpan Perubahan.");
+}
+
+function deleteHeroStatItem(index) {
+  syncCurrentHeroStatsInputs();
+  if (!currentConfig.hero || !Array.isArray(currentConfig.hero.stats)) return;
+  
+  if (currentConfig.hero.stats.length <= 1) {
+    showToast("Minimal harus memiliki 1 indikator telemetri di halaman utama.");
+    return;
+  }
+
+  const statLabel = currentConfig.hero.stats[index]?.label || `Stat #${index + 1}`;
+  currentConfig.hero.stats.splice(index, 1);
+  renderHeroStatsForm();
+  showToast(`Indikator "${statLabel}" berhasil dihapus.`);
+}
+
+window.addHeroStatItem = addHeroStatItem;
+window.deleteHeroStatItem = deleteHeroStatItem;
+window.syncCurrentHeroStatsInputs = syncCurrentHeroStatsInputs;
+window.renderHeroStatsForm = renderHeroStatsForm;
 
 // TAB REEL (3 SLOTS)
 function populateReelForm() {
@@ -513,21 +605,13 @@ function saveAllSettings() {
   const heroTitle = document.getElementById("cfg-hero-title");
   const heroSub = document.getElementById("cfg-hero-subtitle");
 
-  const heroStats = (currentConfig.hero && currentConfig.hero.stats) ? [...currentConfig.hero.stats] : [];
-  for (let i = 0; i < heroStats.length; i++) {
-    const l = document.getElementById(`stat-label-${i}`);
-    const v = document.getElementById(`stat-val-${i}`);
-    const s = document.getElementById(`stat-sub-${i}`);
-    if (l) heroStats[i].label = l.value;
-    if (v) heroStats[i].value = v.value;
-    if (s) heroStats[i].sub = s.value;
-  }
+  syncCurrentHeroStatsInputs();
 
   currentConfig.hero = {
     badge: heroBadge ? heroBadge.value : "",
     title: heroTitle ? heroTitle.value : "",
     subtitle: heroSub ? heroSub.value : "",
-    stats: heroStats
+    stats: (currentConfig.hero && Array.isArray(currentConfig.hero.stats)) ? currentConfig.hero.stats : []
   };
 
   // 2. Gather Reel (3 Slots)

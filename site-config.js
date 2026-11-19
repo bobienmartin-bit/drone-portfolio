@@ -287,6 +287,16 @@ function isObject(item) {
   return (item && typeof item === "object" && !Array.isArray(item));
 }
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 /**
  * Apply site configuration dynamically to the DOM on index.html
  */
@@ -304,17 +314,37 @@ function applySiteConfigToDOM(config) {
       heroSubtitle.textContent = config.hero.subtitle;
     }
 
-    // Hero Stats
-    if (Array.isArray(config.hero.stats)) {
-      config.hero.stats.forEach((stat, idx) => {
-        const statBoxes = document.querySelectorAll("#beranda .glass-panel");
-        if (statBoxes[idx]) {
-          const valElem = statBoxes[idx].querySelector(".font-bold.font-mono");
-          const subElem = statBoxes[idx].querySelector("p");
-          if (valElem && stat.value) valElem.textContent = stat.value;
-          if (subElem && stat.sub) subElem.textContent = stat.sub;
-        }
-      });
+    // Dynamic Hero Stats (HUD Telemetry)
+    const statsContainer = document.getElementById("hero-stats-container");
+    if (statsContainer && Array.isArray(config.hero.stats) && config.hero.stats.length > 0) {
+      const count = config.hero.stats.length;
+      let gridCols = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5";
+      if (count === 1) gridCols = "grid-cols-1 max-w-sm";
+      else if (count === 2) gridCols = "grid-cols-2 max-w-xl";
+      else if (count === 3) gridCols = "grid-cols-2 sm:grid-cols-3 max-w-3xl";
+      else if (count === 4) gridCols = "grid-cols-2 sm:grid-cols-4 max-w-4xl";
+      else if (count === 5) gridCols = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-5xl";
+      else if (count >= 6) gridCols = `grid-cols-2 sm:grid-cols-3 lg:grid-cols-${Math.min(count, 6)} max-w-6xl`;
+
+      statsContainer.className = `mt-16 grid ${gridCols} gap-3.5 mx-auto`;
+
+      const defaultIcons = ["award", "video", "map-pin", "clock", "radio", "zap", "shield", "activity"];
+      statsContainer.innerHTML = config.hero.stats.map((stat, idx) => {
+        const isOddLast = (idx === count - 1 && count % 2 !== 0 && count > 1);
+        const iconName = stat.icon || defaultIcons[idx % defaultIcons.length] || "bar-chart-2";
+        return `
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left ${isOddLast ? 'col-span-2 sm:col-span-1' : ''}">
+            <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
+              <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
+              <span>${escapeHtml(stat.label || 'STAT')}</span>
+            </div>
+            <div class="text-xl sm:text-2xl font-bold font-mono text-white">${escapeHtml(stat.value || '')}</div>
+            <p class="text-[11px] text-slate-400 truncate">${escapeHtml(stat.sub || '')}</p>
+          </div>
+        `;
+      }).join("");
+
+      if (window.lucide) window.lucide.createIcons();
     }
   }
 
