@@ -261,16 +261,16 @@
   </section>
 
   <!-- FEATURED SHOWREEL & VIDEO CINEMA SECTION -->
-  <section id="showreel" class="py-24 bg-slate-950 border-t border-b border-slate-900 relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="showreel" class="py-20 bg-slate-950 border-t border-b border-slate-900 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
       
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 max-w-3xl mx-auto">
         <div>
           <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
             <i data-lucide="clapperboard" class="w-4 h-4"></i> <span data-i18n="reel.badge">FEATURED AERIAL CINEMA</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="reel.title">Campus Skies: PKN STAN Aerials</h2>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="reel.title">Campus Skies: PKN STAN Aerials</h2>
           <p class="text-slate-400 text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
             A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.
           </p>
@@ -281,25 +281,39 @@
         </div>
       </div>
 
-      <!-- Cinema Screen Container -->
-      <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/90 shadow-2xl shadow-cyan-950/20 aspect-video max-w-5xl mx-auto group">
-        <!-- Interactive Video Player -->
+      <!-- Cinema Screen Container (Sleek Compact Size) -->
+      <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/90 shadow-2xl shadow-cyan-950/30 aspect-video max-w-3xl mx-auto group">
+        <!-- Interactive Video Player (Autoplay on Scroll, Muted by default, Loop) -->
         <video 
           id="hero-featured-video" 
           controls 
           playsinline 
           preload="metadata"
+          muted
+          loop
           class="w-full h-full object-cover"
         >
           <source src="assets/videos/campus-skies-pkn-stan.mp4" type="video/mp4">
           Browser Anda tidak mendukung tag video HTML5.
         </video>
 
+        <!-- Sound Toggle Button (Floating Top-Right) -->
+        <button 
+          id="hero-sound-toggle" 
+          onclick="toggleHeroVideoSound()" 
+          type="button"
+          title="Toggle Audio"
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 hover:bg-slate-900 border border-white/20 text-white text-xs font-mono backdrop-blur-md shadow-lg transition-all hover:border-cyan-400 cursor-pointer"
+        >
+          <i data-lucide="volume-x" id="hero-sound-icon" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span id="hero-sound-text" class="text-[11px] sm:text-xs" data-i18n="reel.sound_muted">Aktifkan Audio</span>
+        </button>
+
         <!-- Drone Telemetry Overlay (Bottom Bar) -->
-        <div class="absolute bottom-4 left-4 right-4 pointer-events-none flex items-center justify-between text-xs font-mono text-white/90 bg-slate-950/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 hidden sm:flex">
-          <div class="flex items-center gap-3">
+        <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 pointer-events-none flex items-center justify-between text-[11px] sm:text-xs font-mono text-white/90 bg-slate-950/80 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-white/10 hidden sm:flex">
+          <div class="flex items-center gap-2 sm:gap-3">
             <span class="flex items-center gap-1.5 text-cyan-400">
-              <i data-lucide="plane" class="w-4 h-4"></i> DJI MAVIC 3 PRO
+              <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> DJI MAVIC 3 PRO
             </span>
             <span class="text-slate-500">|</span>
             <span>ALTITUDE: 340m AGL</span>
@@ -313,34 +327,34 @@
       </div>
 
       <!-- Quick Selector for Video Highlights -->
-      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto">
-        <button onclick="openMediaDetail('sample-vid-1')" class="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
-          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-            <i data-lucide="play" class="w-5 h-5"></i>
+      <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+        <button onclick="openMediaDetail('sample-vid-1')" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </div>
-          <div>
-            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300" data-i18n="reel.quick1_title">Campus Skies</h4>
-            <p class="text-xs text-slate-400" data-i18n="reel.quick1_sub">PKN STAN Aerials</p>
-          </div>
-        </button>
-
-        <button onclick="openMediaDetail('sample-vid-2')" class="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
-          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-            <i data-lucide="play" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300" data-i18n="reel.quick2_title">Metropolis Glow</h4>
-            <p class="text-xs text-slate-400" data-i18n="reel.quick2_sub">City Hyperlapse SCBD</p>
+          <div class="min-w-0">
+            <h4 class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 truncate" data-i18n="reel.quick1_title">Campus Skies</h4>
+            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick1_sub">PKN STAN Aerials</p>
           </div>
         </button>
 
-        <button onclick="openMediaDetail('sample-vid-3')" class="p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
-          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-            <i data-lucide="play" class="w-5 h-5"></i>
+        <button onclick="openMediaDetail('sample-vid-2')" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </div>
-          <div>
-            <h4 class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300" data-i18n="reel.quick3_title">FPV Diving Canyon</h4>
-            <p class="text-xs text-slate-400" data-i18n="reel.quick3_sub">High-Speed Cliff Action</p>
+          <div class="min-w-0">
+            <h4 class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 truncate" data-i18n="reel.quick2_title">Metropolis Glow</h4>
+            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick2_sub">City Hyperlapse SCBD</p>
+          </div>
+        </button>
+
+        <button onclick="openMediaDetail('sample-vid-3')" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+            <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          </div>
+          <div class="min-w-0">
+            <h4 class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 truncate" data-i18n="reel.quick3_title">FPV Diving Canyon</h4>
+            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick3_sub">High-Speed Cliff Action</p>
           </div>
         </button>
       </div>

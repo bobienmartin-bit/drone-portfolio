@@ -202,12 +202,105 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderGallery();
   setupEventListeners();
   updateMediaCounters();
+  initFeaturedVideoAutoplay();
   
   // Re-run lucide icons if available
   if (window.lucide) {
     window.lucide.createIcons();
   }
 });
+
+// ========================================================
+// 4b. Featured Video Autoplay on Scroll & Audio Management
+// ========================================================
+function initFeaturedVideoAutoplay() {
+  const video = document.getElementById("hero-featured-video");
+  if (!video) return;
+
+  // Modern browsers require muted for background scroll autoplay
+  video.muted = true;
+  updateHeroSoundButtonState(true);
+
+  // Sync state if user changes volume directly on video controls
+  video.addEventListener("volumechange", () => {
+    updateHeroSoundButtonState(video.muted || video.volume === 0);
+  });
+
+  // IntersectionObserver to detect when video enters / exits viewport
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // When >= 30% visible, play automatically
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Browser policy fallback: enforce mute and play
+              video.muted = true;
+              updateHeroSoundButtonState(true);
+              video.play().catch(() => {});
+            });
+          }
+        } else if (entry.intersectionRatio < 0.15) {
+          // Pause when user scrolls past or away from video
+          if (!video.paused) {
+            video.pause();
+          }
+        }
+      });
+    }, {
+      threshold: [0, 0.15, 0.3, 0.6]
+    });
+
+    observer.observe(video);
+  }
+}
+
+function updateHeroSoundButtonState(isMuted) {
+  const soundIcon = document.getElementById("hero-sound-icon");
+  const soundText = document.getElementById("hero-sound-text");
+  const currentLang = (window.AeroI18n && typeof window.AeroI18n.getCurrentLanguage === "function") 
+    ? window.AeroI18n.getCurrentLanguage() 
+    : (localStorage.getItem("aero_lang") || "id");
+
+  if (soundIcon) {
+    if (isMuted) {
+      soundIcon.setAttribute("data-lucide", "volume-x");
+    } else {
+      soundIcon.setAttribute("data-lucide", "volume-2");
+    }
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+
+  if (soundText) {
+    if (isMuted) {
+      soundText.textContent = currentLang === "en" ? "Enable Audio" : "Aktifkan Audio";
+      soundText.setAttribute("data-i18n", "reel.sound_muted");
+    } else {
+      soundText.textContent = currentLang === "en" ? "Audio On" : "Audio Aktif";
+      soundText.setAttribute("data-i18n", "reel.sound_unmuted");
+    }
+  }
+}
+
+function toggleHeroVideoSound() {
+  const video = document.getElementById("hero-featured-video");
+  if (!video) return;
+
+  if (video.muted || video.volume === 0) {
+    video.muted = false;
+    video.volume = 1.0;
+    if (video.paused) {
+      video.play().catch(() => {});
+    }
+    updateHeroSoundButtonState(false);
+  } else {
+    video.muted = true;
+    updateHeroSoundButtonState(true);
+  }
+}
 
 // ========================================================
 // 5. Gallery Rendering
@@ -365,6 +458,12 @@ function openVideoModal(item) {
 
   if (!modal || !videoElem) return;
 
+  // Pause featured hero video if playing
+  const heroVid = document.getElementById("hero-featured-video");
+  if (heroVid && !heroVid.paused) {
+    heroVid.pause();
+  }
+
   videoElem.src = item.mediaUrl;
   titleElem.textContent = item.title;
   descElem.textContent = item.description || "";
@@ -402,6 +501,12 @@ function openPhotoModal(item) {
   const downloadLink = document.getElementById("modal-photo-download");
 
   if (!modal || !imgElem) return;
+
+  // Pause featured hero video if playing
+  const heroVid = document.getElementById("hero-featured-video");
+  if (heroVid && !heroVid.paused) {
+    heroVid.pause();
+  }
 
   imgElem.src = item.mediaUrl;
   titleElem.textContent = item.title;
@@ -748,3 +853,5 @@ window.openPhotoModal = openPhotoModal;
 window.closePhotoModal = closePhotoModal;
 window.handleDeleteUserMedia = handleDeleteUserMedia;
 window.renderGallery = renderGallery;
+window.toggleHeroVideoSound = toggleHeroVideoSound;
+window.initFeaturedVideoAutoplay = initFeaturedVideoAutoplay;
