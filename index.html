@@ -195,7 +195,7 @@
 
         <!-- CTA Buttons -->
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button onclick="openMediaDetail('sample-vid-1')" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 transition-all flex items-center gap-3">
+          <button onclick="openMediaDetail('sample-vid-2')" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 transition-all flex items-center gap-3 cursor-pointer">
             <i data-lucide="play-circle" class="w-5 h-5 fill-current"></i>
             <span data-i18n="hero.btn_showreel">Tonton Showreel 4K</span>
           </button>
@@ -268,11 +268,11 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 max-w-3xl mx-auto">
         <div>
           <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-            <i data-lucide="clapperboard" class="w-4 h-4"></i> <span id="reel-badge" data-i18n="reel.badge">FEATURED AERIAL CINEMA</span>
+            <i data-lucide="clapperboard" class="w-4 h-4"></i> <span id="reel-badge" data-i18n="reel.badge">EVENT AERIAL HIGHLIGHT</span>
           </div>
-          <h2 id="reel-title" class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="reel.title">Campus Skies: PKN STAN Aerials</h2>
+          <h2 id="reel-title" class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="reel.title">Wonderful 12th: Karawang Central Plaza</h2>
           <p id="reel-subtitle" class="text-slate-400 text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
-            A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.
+            Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.
           </p>
         </div>
 
@@ -320,7 +320,7 @@
             loop
             class="w-full h-full object-cover transition-opacity duration-300"
           >
-            <source src="assets/videos/campus-skies-pkn-stan.mp4" type="video/mp4">
+            <source src="assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4" type="video/mp4">
             Browser Anda tidak mendukung tag video HTML5.
           </video>
 
@@ -340,15 +340,15 @@
           <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 pointer-events-none flex items-center justify-between text-[11px] sm:text-xs font-mono text-white/90 bg-slate-950/80 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-white/10 hidden sm:flex">
             <div class="flex items-center gap-2 sm:gap-3">
               <span class="flex items-center gap-1.5 text-cyan-400">
-                <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="reel-telemetry-drone">DJI MAVIC 3 PRO</span>
+                <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="reel-telemetry-drone">DJI MINI 4 PRO</span>
               </span>
               <span class="text-slate-500">|</span>
-              <span id="reel-telemetry-alt">ALTITUDE: 340m AGL</span>
+              <span id="reel-telemetry-alt">ALTITUDE: 150m AGL</span>
               <span class="text-slate-500">|</span>
-              <span id="reel-telemetry-lens">HASSELBLAD 24MM</span>
+              <span id="reel-telemetry-lens">24MM F/1.7</span>
             </div>
             <div class="flex items-center gap-2 text-emerald-400">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span id="reel-telemetry-format">5.1K D-LOG M</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span id="reel-telemetry-format">4K D-LOG M</span>
             </div>
           </div>
         </div>
@@ -356,35 +356,20 @@
       </div>
 
       <!-- Quick Selector for Video Highlights (Synced with Carousel) -->
-      <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
-        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-            <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+      <div class="mt-6 sm:mt-8 max-w-3xl mx-auto">
+        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="w-full p-4 rounded-2xl border text-left transition-all flex items-center justify-between group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer shadow-lg shadow-cyan-950/30">
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+              <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+            </div>
+            <div class="min-w-0">
+              <h4 class="text-sm sm:text-base font-semibold text-slate-100 group-hover:text-cyan-300 truncate">Wonderful 12th: Karawang Central Plaza</h4>
+              <p class="text-xs text-slate-400 truncate">Dokumentasi Acara & Commercial • KCP Galuh Mas, Karawang</p>
+            </div>
           </div>
-          <div class="min-w-0">
-            <h4 class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 truncate" data-i18n="reel.quick1_title">Campus Skies</h4>
-            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick1_sub">PKN STAN Aerials</p>
-          </div>
-        </button>
-
-        <button id="reel-quick-1" onclick="selectFeaturedVideo(1)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-            <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-          </div>
-          <div class="min-w-0">
-            <h4 class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 truncate" data-i18n="reel.quick2_title">Wonderful 12th</h4>
-            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick2_sub">Karawang Central Plaza</p>
-          </div>
-        </button>
-
-        <button id="reel-quick-2" onclick="selectFeaturedVideo(2)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
-            <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-          </div>
-          <div class="min-w-0">
-            <h4 class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 truncate" data-i18n="reel.quick3_title">FPV Diving Canyon</h4>
-            <p class="text-[11px] text-slate-400 truncate" data-i18n="reel.quick3_sub">High-Speed Cliff Action</p>
-          </div>
+          <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
+            <i data-lucide="crosshair" class="w-3.5 h-3.5"></i> DJI Mini 4 Pro
+          </span>
         </button>
       </div>
 

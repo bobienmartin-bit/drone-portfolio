@@ -5,34 +5,6 @@
 // 1. Initial Sample Media (Aerial Drone Showcase)
 const INITIAL_MEDIA = [
   {
-    id: "sample-vid-1",
-    type: "video",
-    title: "Campus Skies: PKN STAN Aerials",
-    category: "urban",
-    mediaUrl: "assets/videos/campus-skies-pkn-stan.mp4",
-    thumbnailUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
-    drone: "DJI Mavic 3 Pro",
-    altitude: "340m AGL",
-    specs: "5.1K D-Log M • Hasselblad 24mm",
-    location: "Kampus PKN STAN, Bintaro",
-    description: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
-    isUserUpload: false
-  },
-  {
-    id: "sample-photo-1",
-    type: "photo",
-    title: "Garis Pantai Karang & Gulungan Ombak",
-    category: "coastal",
-    mediaUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
-    thumbnailUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-    drone: "DJI Mavic 3 Pro",
-    altitude: "120m AGL",
-    specs: "48MP RAW • f/2.8 • 1/500s • ISO 100",
-    location: "Nusa Penida, Bali",
-    description: "Pengambilan gambar top-down (90 derajat) memperlihatkan gradasi warna toska air laut dan tekstur buih ombak samudra.",
-    isUserUpload: false
-  },
-  {
     id: "sample-vid-2",
     type: "video",
     title: "Wonderful 12th: Karawang Central Plaza",
@@ -44,48 +16,6 @@ const INITIAL_MEDIA = [
     specs: "4K UHD • D-Log M • 24mm f/1.7",
     location: "KCP Galuh Mas, Karawang",
     description: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.",
-    isUserUpload: false
-  },
-  {
-    id: "sample-photo-2",
-    type: "photo",
-    title: "Simetri Arsitektur Jembatan Ikonik",
-    category: "urban",
-    mediaUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1600&q=85",
-    thumbnailUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=800&q=80",
-    drone: "DJI Mini 4 Pro",
-    altitude: "95m AGL",
-    specs: "48MP RAW • f/1.7 • 1/120s • ISO 100",
-    location: "Jembatan Suramadu, Jawa Timur",
-    description: "Komposisi garis pandang simetris jembatan bentang panjang saat senja menghubungkan dua daratan.",
-    isUserUpload: false
-  },
-  {
-    id: "sample-vid-3",
-    type: "video",
-    title: "FPV Dive: Menyusuri Tebing Karang & Air Terjun",
-    category: "landscape",
-    mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-canyon-with-a-river-in-the-bottom-42878-large.mp4",
-    thumbnailUrl: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80",
-    drone: "Custom 5\" FPV Quadcopter",
-    altitude: "10m - 180m AGL",
-    specs: "4K 120fps • GoPro 12 Bones • ReelSteady",
-    location: "Lembah Harau, Sumatera Barat",
-    description: "Penerbangan akrobatik FPV menukik dari puncak tebing granit vertikal menuju aliran sungai berarus jernih.",
-    isUserUpload: false
-  },
-  {
-    id: "sample-photo-3",
-    type: "photo",
-    title: "Hutan Hujan Zamrud & Aliran Sungai Liar",
-    category: "landscape",
-    mediaUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=85",
-    thumbnailUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
-    drone: "DJI Air 3",
-    altitude: "160m AGL",
-    specs: "48MP RAW • 70mm Tele Lens • ISO 100",
-    location: "Taman Nasional Gunung Leuser, Aceh",
-    description: "Detail kanopi pepohonan purba dari ketinggian dengan lensa telefoto medium mempertegas tekstur dedaunan tropis.",
     isUserUpload: false
   }
 ];
@@ -307,21 +237,6 @@ function toggleHeroVideoSound() {
 // ========================================================
 const FEATURED_VIDEOS_PLAYLIST = [
   {
-    id: "sample-vid-1",
-    badge_id: "FEATURED AERIAL CINEMA",
-    badge_en: "FEATURED AERIAL CINEMA",
-    title_id: "Campus Skies: PKN STAN Aerials",
-    title_en: "Campus Skies: PKN STAN Aerials",
-    subtitle_id: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
-    subtitle_en: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
-    format: "Format: 4K UHD 60FPS",
-    videoUrl: "assets/videos/campus-skies-pkn-stan.mp4",
-    drone: "DJI MAVIC 3 PRO",
-    altitude: "ALTITUDE: 340m AGL",
-    lens: "HASSELBLAD 24MM",
-    telemetryFormat: "5.1K D-LOG M"
-  },
-  {
     id: "sample-vid-2",
     badge_id: "EVENT AERIAL HIGHLIGHT",
     badge_en: "EVENT AERIAL HIGHLIGHT",
@@ -335,21 +250,6 @@ const FEATURED_VIDEOS_PLAYLIST = [
     altitude: "ALTITUDE: 150m AGL",
     lens: "24MM F/1.7",
     telemetryFormat: "4K D-LOG M"
-  },
-  {
-    id: "sample-vid-3",
-    badge_id: "FPV ACTION CINEMA",
-    badge_en: "FPV ACTION CINEMA",
-    title_id: "FPV Diving Canyon: High-Speed Cliff Action",
-    title_en: "FPV Diving Canyon: High-Speed Cliff Action",
-    subtitle_id: "Penerbangan akrobatik drone FPV berkecepatan tinggi menukik dari puncak tebing granit vertikal menuju aliran sungai liar.",
-    subtitle_en: "Acrobatic FPV quadcopter free-fall maneuver tracing granite canyons and cascading river rapids at 140 km/h.",
-    format: "Format: 4K 120FPS FPV",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-canyon-with-a-river-in-the-bottom-42878-large.mp4",
-    drone: "CUSTOM 5\" FPV",
-    altitude: "ALTITUDE: 180m AGL",
-    lens: "GOPRO 12 BONES",
-    telemetryFormat: "4K 120FPS"
   }
 ];
 
