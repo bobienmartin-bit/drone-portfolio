@@ -37,11 +37,11 @@ const translations = {
     "hero.stat_signal_sub": "Transmisi Stabil HD",
 
     // Showreel
-    "reel.badge": "Featured Aerial Cinema",
-    "reel.title": "Cinematic Video Showcase",
-    "reel.subtitle": "Tonton kompilasi video rekaman drone dengan sinematografi mulus, pergerakan dinamis, dan grading warna profesional.",
-    "reel.quick1_title": "Lanskap Tropis",
-    "reel.quick1_sub": "Pegunungan Bromo & Semeru",
+    "reel.badge": "FEATURED AERIAL CINEMA",
+    "reel.title": "Campus Skies: PKN STAN Aerials",
+    "reel.subtitle": "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
+    "reel.quick1_title": "Campus Skies",
+    "reel.quick1_sub": "PKN STAN Aerials",
     "reel.quick2_title": "Metropolis Glow",
     "reel.quick2_sub": "City Hyperlapse SCBD",
     "reel.quick3_title": "FPV Diving Canyon",
@@ -165,11 +165,11 @@ const translations = {
     "hero.stat_signal_sub": "Stable HD Transmission",
 
     // Showreel
-    "reel.badge": "Featured Aerial Cinema",
-    "reel.title": "Cinematic Video Showcase",
-    "reel.subtitle": "Watch a curated compilation of drone captures with smooth cinematography, dynamic motion, and professional color grading.",
-    "reel.quick1_title": "Tropical Peaks",
-    "reel.quick1_sub": "Bromo & Semeru Mountains",
+    "reel.badge": "FEATURED AERIAL CINEMA",
+    "reel.title": "Campus Skies: PKN STAN Aerials",
+    "reel.subtitle": "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
+    "reel.quick1_title": "Campus Skies",
+    "reel.quick1_sub": "PKN STAN Aerials",
     "reel.quick2_title": "Metropolis Glow",
     "reel.quick2_sub": "SCBD City Hyperlapse",
     "reel.quick3_title": "FPV Diving Canyon",

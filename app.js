@@ -7,15 +7,15 @@ const INITIAL_MEDIA = [
   {
     id: "sample-vid-1",
     type: "video",
-    title: "Cinematic Reel: Lanskap Pegunungan Tropis",
-    category: "landscape",
+    title: "Campus Skies: PKN STAN Aerials",
+    category: "urban",
     mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-mountain-landscape-during-sunset-41481-large.mp4",
     thumbnailUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
     drone: "DJI Mavic 3 Pro",
     altitude: "340m AGL",
-    specs: "5.1K 50fps • D-Log M • ND16 Filter",
-    location: "Gunung Bromo & Semeru, Jawa Timur",
-    description: "Perekaman sinematik kabut pagi yang menyelimuti lembah pegunungan saat matahari terbit dengan grading natural warm.",
+    specs: "5.1K D-Log M • Hasselblad 24mm",
+    location: "Kampus PKN STAN, Bintaro",
+    description: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
     isUserUpload: false
   },
   {
