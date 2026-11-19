@@ -44,8 +44,8 @@ const translations = {
     "reel.sound_unmuted": "Audio Aktif",
     "reel.quick1_title": "Campus Skies",
     "reel.quick1_sub": "PKN STAN Aerials",
-    "reel.quick2_title": "Metropolis Glow",
-    "reel.quick2_sub": "City Hyperlapse SCBD",
+    "reel.quick2_title": "Karawang Central Plaza",
+    "reel.quick2_sub": "Wonderful 12th KCP Galuh Mas",
     "reel.quick3_title": "FPV Diving Canyon",
     "reel.quick3_sub": "High-Speed Cliff Action",
 
@@ -174,8 +174,8 @@ const translations = {
     "reel.sound_unmuted": "Audio On",
     "reel.quick1_title": "Campus Skies",
     "reel.quick1_sub": "PKN STAN Aerials",
-    "reel.quick2_title": "Metropolis Glow",
-    "reel.quick2_sub": "SCBD City Hyperlapse",
+    "reel.quick2_title": "Karawang Central Plaza",
+    "reel.quick2_sub": "Wonderful 12th KCP Galuh Mas",
     "reel.quick3_title": "FPV Diving Canyon",
     "reel.quick3_sub": "High-Speed Cliff Action",
 
