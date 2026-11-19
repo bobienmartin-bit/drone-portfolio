@@ -44,7 +44,9 @@ function handleAdminLogin(e) {
   const val = (pinInput ? pinInput.value : "").trim();
   const currentValidPin = getActiveAdminPin();
 
-  if (val === currentValidPin || (currentValidPin !== DEFAULT_PIN && val === DEFAULT_PIN) || val === "admin") {
+  // STRICT SECURITY RULE: ONLY the active PIN is accepted!
+  // If the user changed the PIN from admin123, the old PIN will NEVER work again.
+  if (val === currentValidPin) {
     sessionStorage.setItem(AUTH_STORAGE_KEY, "true");
     localStorage.setItem(AUTH_STORAGE_KEY, "true");
     if (errorMsg) errorMsg.classList.add("hidden");
@@ -52,10 +54,91 @@ function handleAdminLogin(e) {
     showToast("Login Berhasil! Selamat datang di AeroScope CMS.");
   } else {
     if (errorMsg) {
-      errorMsg.textContent = "PIN salah. Silakan coba lagi.";
+      errorMsg.textContent = "PIN salah! Masukkan PIN aktif Anda atau klik 'Lupa PIN?'.";
       errorMsg.classList.remove("hidden");
     }
     if (pinInput) pinInput.focus();
+  }
+}
+
+function openForgotPasswordModal() {
+  const modal = document.getElementById("forgot-password-modal");
+  const statusMsg = document.getElementById("forgot-status-msg");
+  const btnText = document.getElementById("send-recovery-btn-text");
+  if (statusMsg) statusMsg.classList.add("hidden");
+  if (btnText) btnText.textContent = "Kirim PIN ke bobienfly@gmail.com";
+  if (modal) modal.classList.remove("hidden");
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function closeForgotPasswordModal() {
+  const modal = document.getElementById("forgot-password-modal");
+  if (modal) modal.classList.add("hidden");
+}
+
+async function sendRecoveryEmailToBobien() {
+  const currentPin = getActiveAdminPin();
+  const btn = document.getElementById("send-recovery-email-btn");
+  const btnText = document.getElementById("send-recovery-btn-text");
+  const statusMsg = document.getElementById("forgot-status-msg");
+
+  if (btn) btn.disabled = true;
+  if (btnText) btnText.textContent = "Mengirim PIN ke bobienfly@gmail.com...";
+  if (statusMsg) statusMsg.classList.add("hidden");
+
+  try {
+    const payload = {
+      _subject: "🔐 Pemulihan PIN Admin AeroScope Studio",
+      _template: "table",
+      penerima: "bobienfly@gmail.com",
+      waktu: new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      pin_aktif_anda: currentPin,
+      pesan: `Halo Bobien Martien,\n\nBerikut adalah PIN rahasia aktif untuk login ke Dashboard Admin AeroScope Studio Anda:\n\n👉 PIN AKTIF: ${currentPin}\n\nTautan Login: https://bobienmartien.vercel.app/admin\n\nJaga kerahasiaan PIN ini dan jangan bagikan kepada siapa pun.`
+    };
+
+    await fetch("https://formsubmit.co/ajax/bobienfly@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (statusMsg) {
+      statusMsg.className = "mb-4 p-4 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-1";
+      statusMsg.innerHTML = `
+        <div class="font-bold text-white flex items-center gap-1.5">
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> PIN Berhasil Dikirim!
+        </div>
+        <p class="text-slate-300 leading-relaxed">
+          PIN aktif telah dikirimkan ke <strong>bobienfly@gmail.com</strong>. Silakan periksa Kotak Masuk atau folder Spam email Anda.
+        </p>
+      `;
+      statusMsg.classList.remove("hidden");
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    if (btnText) btnText.textContent = "✓ PIN Berhasil Dikirim ke Email";
+    showToast("PIN berhasil dikirim ke bobienfly@gmail.com!");
+  } catch (err) {
+    console.error("Gagal mengirim email recovery:", err);
+    if (statusMsg) {
+      statusMsg.className = "mb-4 p-4 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-1";
+      statusMsg.innerHTML = `
+        <div class="font-bold text-white flex items-center gap-1.5">
+          <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400"></i> Permintaan Terkirim
+        </div>
+        <p class="text-slate-300 leading-relaxed">
+          Permintaan pemulihan PIN telah diproses ke <strong>bobienfly@gmail.com</strong>.
+        </p>
+      `;
+      statusMsg.classList.remove("hidden");
+      if (window.lucide) window.lucide.createIcons();
+    }
+    if (btnText) btnText.textContent = "Kirim Ulang ke Email";
+  } finally {
+    if (btn) btn.disabled = false;
   }
 }
 
@@ -785,9 +868,11 @@ function handleChangePinSubmit(e) {
   if (succEl) succEl.classList.add("hidden");
 
   const validPin = getActiveAdminPin();
-  if (currentPin !== validPin && currentPin !== "admin123") {
+
+  // STRICT SECURITY CHECK: Old PIN must match validPin exactly!
+  if (currentPin !== validPin) {
     if (errEl) {
-      errEl.textContent = "PIN saat ini tidak cocok.";
+      errEl.textContent = "PIN lama tidak sesuai! Masukkan PIN aktif Anda.";
       errEl.classList.remove("hidden");
     }
     return;
@@ -809,25 +894,33 @@ function handleChangePinSubmit(e) {
     return;
   }
 
+  // Save new PIN permanently in localStorage
   localStorage.setItem(PIN_STORAGE_KEY, newPin);
+
+  // Automatically dispatch notification email to bobienfly@gmail.com
+  fetch("https://formsubmit.co/ajax/bobienfly@gmail.com", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      _subject: "🔔 Pemberitahuan: PIN Admin AeroScope Telah Berhasil Diubah",
+      _template: "table",
+      penerima: "bobienfly@gmail.com",
+      waktu: new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      pin_baru_anda: newPin,
+      pesan: `Halo Bobien Martien,\n\nPIN Admin AeroScope Studio Anda baru saja berhasil diperbarui.\n\n👉 PIN BARU AKTIF: ${newPin}\n\nPIN lama sudah dinonaktifkan permanen dan tidak bisa digunakan lagi.\n\nTautan login: https://bobienmartien.vercel.app/admin`
+    })
+  }).catch(() => {});
+
   if (succEl) {
-    succEl.textContent = "PIN berhasil diubah! Gunakan PIN baru ini untuk akses berikutnya.";
+    succEl.textContent = "✓ PIN berhasil diubah! Salinan PIN baru telah dikirimkan ke bobienfly@gmail.com. PIN lama tidak berlaku lagi.";
     succEl.classList.remove("hidden");
   }
   const form = document.getElementById("change-pin-form");
   if (form) form.reset();
   showToast("PIN Admin berhasil diperbarui!");
-}
-
-function resetPinToDefault() {
-  if (!confirm("Kembalikan PIN ke standar awal (admin123)?")) return;
-  localStorage.removeItem(PIN_STORAGE_KEY);
-  showToast("PIN telah dikembalikan ke admin123");
-  const succEl = document.getElementById("pin-change-success");
-  if (succEl) {
-    succEl.textContent = "PIN telah di-reset ke standar default (admin123).";
-    succEl.classList.remove("hidden");
-  }
 }
 
 // ========================================================

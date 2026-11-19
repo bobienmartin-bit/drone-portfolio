@@ -82,12 +82,50 @@
           <span>Buka Panel Admin</span>
         </button>
 
-        <div class="pt-3 text-center">
-          <a href="index.html" class="text-xs text-slate-400 hover:text-cyan-400 transition-colors inline-flex items-center gap-1">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Website Publik
+        <div class="pt-3 flex items-center justify-between text-xs">
+          <button type="button" onclick="openForgotPasswordModal()" class="text-cyan-400 hover:text-cyan-300 font-semibold hover:underline flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="help-circle" class="w-4 h-4"></i>
+            <span>Lupa PIN?</span>
+          </button>
+          <a href="index.html" class="text-slate-400 hover:text-white transition-colors inline-flex items-center gap-1">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Web Publik
           </a>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: FORGOT PASSWORD / EMAIL PIN RECOVERY -->
+  <!-- ======================================================== -->
+  <div id="forgot-password-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-md bg-slate-900 rounded-3xl border border-cyan-500/40 shadow-2xl p-6 sm:p-8 text-center overflow-hidden">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/30">
+        <i data-lucide="mail" class="w-7 h-7"></i>
+      </div>
+
+      <h3 class="text-xl font-bold text-white mb-1">Pemulihan PIN Admin</h3>
+      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+        Lupa PIN aktif Anda? Klik tombol di bawah untuk langsung mengirimkan PIN yang sudah diubah ke email Anda:
+        <span class="block text-cyan-400 font-mono font-bold mt-1 text-sm">bobienfly@gmail.com</span>
+      </p>
+
+      <div id="forgot-status-msg" class="hidden mb-4 p-3.5 rounded-xl text-xs font-mono"></div>
+
+      <div class="space-y-3">
+        <button id="send-recovery-email-btn" onclick="sendRecoveryEmailToBobien()" type="button" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span id="send-recovery-btn-text">Kirim PIN ke bobienfly@gmail.com</span>
+        </button>
+
+        <button type="button" onclick="closeForgotPasswordModal()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition-colors">
+          Tutup &amp; Kembali
+        </button>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-slate-800 text-[11px] text-slate-500">
+        Pesan akan dikirim langsung ke kotak masuk <strong>bobienfly@gmail.com</strong>.
+      </div>
     </div>
   </div>
 
@@ -632,12 +670,20 @@
               <div id="pin-change-error" class="hidden text-xs text-rose-400 font-mono py-1"></div>
               <div id="pin-change-success" class="hidden text-xs text-emerald-400 font-mono py-1"></div>
 
+              <!-- Security Notice -->
+              <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-3">
+                <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                <div class="space-y-1">
+                  <p class="font-bold text-white">Keamanan PIN Permanen</p>
+                  <p class="text-slate-300 leading-relaxed text-[11px]">
+                    Setelah PIN berhasil diubah, PIN lama (termasuk <code>admin123</code>) <strong>tidak akan pernah bisa digunakan lagi</strong>. Salinan PIN baru akan otomatis dikirimkan ke email <strong>bobienfly@gmail.com</strong> sebagai arsip cadangan Anda.
+                  </p>
+                </div>
+              </div>
+
               <div class="pt-2 flex flex-wrap items-center gap-3">
                 <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-rose-500/20 cursor-pointer transition-all">
                   <i data-lucide="key" class="w-4 h-4"></i> Simpan PIN Baru
-                </button>
-                <button type="button" onclick="resetPinToDefault()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-mono transition-colors">
-                  Reset ke admin123
                 </button>
               </div>
             </form>
