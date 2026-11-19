@@ -336,6 +336,10 @@ function updateLangToggleUI(activeLang) {
   if (typeof window.updateFleetLabel === "function") {
     window.updateFleetLabel();
   }
+
+  if (typeof window.applyFeaturedVideo === "function" && typeof window.currentFeaturedVideoIndex !== "undefined") {
+    window.applyFeaturedVideo(window.currentFeaturedVideoIndex);
+  }
 }
 
 // Auto init on DOM ready

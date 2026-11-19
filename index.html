@@ -270,65 +270,94 @@
           <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
             <i data-lucide="clapperboard" class="w-4 h-4"></i> <span data-i18n="reel.badge">FEATURED AERIAL CINEMA</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="reel.title">Campus Skies: PKN STAN Aerials</h2>
-          <p class="text-slate-400 text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
+          <h2 id="reel-title" class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="reel.title">Campus Skies: PKN STAN Aerials</h2>
+          <p id="reel-subtitle" class="text-slate-400 text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
             A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.
           </p>
         </div>
 
         <div class="mt-4 md:mt-0 flex items-center gap-4">
-          <span class="text-xs font-mono text-slate-400">Format: 4K UHD 60FPS</span>
+          <span id="reel-format" class="text-xs font-mono text-slate-400">Format: 4K UHD 60FPS</span>
         </div>
       </div>
 
-      <!-- Cinema Screen Container (Sleek Compact Size) -->
-      <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/90 shadow-2xl shadow-cyan-950/30 aspect-video max-w-3xl mx-auto group">
-        <!-- Interactive Video Player (Autoplay on Scroll, Muted by default, Loop) -->
-        <video 
-          id="hero-featured-video" 
-          controls 
-          playsinline 
-          preload="metadata"
-          muted
-          loop
-          class="w-full h-full object-cover"
-        >
-          <source src="assets/videos/campus-skies-pkn-stan.mp4" type="video/mp4">
-          Browser Anda tidak mendukung tag video HTML5.
-        </video>
+      <!-- Cinema Screen Container with Carousel Arrows (Sleek Compact Size) -->
+      <div class="relative max-w-3xl mx-auto group">
 
-        <!-- Sound Toggle Button (Floating Top-Right) -->
+        <!-- Left Navigation Arrow (Previous Video) -->
         <button 
-          id="hero-sound-toggle" 
-          onclick="toggleHeroVideoSound()" 
+          id="reel-prev-btn" 
+          onclick="changeFeaturedVideo(-1)" 
           type="button"
-          title="Toggle Audio"
-          class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 hover:bg-slate-900 border border-white/20 text-white text-xs font-mono backdrop-blur-md shadow-lg transition-all hover:border-cyan-400 cursor-pointer"
+          aria-label="Previous Video"
+          title="Video Sebelumnya"
+          class="absolute -left-4 sm:-left-7 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-900/90 hover:bg-cyan-500 text-slate-200 hover:text-slate-950 border border-slate-700/80 hover:border-cyan-400 flex items-center justify-center shadow-2xl shadow-cyan-950/60 backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 group/btn cursor-pointer"
         >
-          <i data-lucide="volume-x" id="hero-sound-icon" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="hero-sound-text" class="text-[11px] sm:text-xs" data-i18n="reel.sound_muted">Aktifkan Audio</span>
+          <i data-lucide="chevron-left" class="w-6 h-6 -translate-x-0.5 group-hover/btn:scale-110 transition-transform"></i>
         </button>
 
-        <!-- Drone Telemetry Overlay (Bottom Bar) -->
-        <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 pointer-events-none flex items-center justify-between text-[11px] sm:text-xs font-mono text-white/90 bg-slate-950/80 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-white/10 hidden sm:flex">
-          <div class="flex items-center gap-2 sm:gap-3">
-            <span class="flex items-center gap-1.5 text-cyan-400">
-              <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> DJI MAVIC 3 PRO
-            </span>
-            <span class="text-slate-500">|</span>
-            <span>ALTITUDE: 340m AGL</span>
-            <span class="text-slate-500">|</span>
-            <span>HASSELBLAD 24MM</span>
-          </div>
-          <div class="flex items-center gap-2 text-emerald-400">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 5.1K D-LOG M
+        <!-- Right Navigation Arrow (Next Video) -->
+        <button 
+          id="reel-next-btn" 
+          onclick="changeFeaturedVideo(1)" 
+          type="button"
+          aria-label="Next Video"
+          title="Video Selanjutnya"
+          class="absolute -right-4 sm:-right-7 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-900/90 hover:bg-cyan-500 text-slate-200 hover:text-slate-950 border border-slate-700/80 hover:border-cyan-400 flex items-center justify-center shadow-2xl shadow-cyan-950/60 backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 group/btn cursor-pointer"
+        >
+          <i data-lucide="chevron-right" class="w-6 h-6 translate-x-0.5 group-hover/btn:scale-110 transition-transform"></i>
+        </button>
+
+        <!-- Inner Video Frame -->
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/90 shadow-2xl shadow-cyan-950/30 aspect-video">
+          <!-- Interactive Video Player (Autoplay on Scroll, Muted by default, Loop) -->
+          <video 
+            id="hero-featured-video" 
+            controls 
+            playsinline 
+            preload="metadata"
+            muted
+            loop
+            class="w-full h-full object-cover transition-opacity duration-300"
+          >
+            <source src="assets/videos/campus-skies-pkn-stan.mp4" type="video/mp4">
+            Browser Anda tidak mendukung tag video HTML5.
+          </video>
+
+          <!-- Sound Toggle Button (Floating Top-Right) -->
+          <button 
+            id="hero-sound-toggle" 
+            onclick="toggleHeroVideoSound()" 
+            type="button"
+            title="Toggle Audio"
+            class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 hover:bg-slate-900 border border-white/20 text-white text-xs font-mono backdrop-blur-md shadow-lg transition-all hover:border-cyan-400 cursor-pointer"
+          >
+            <i data-lucide="volume-x" id="hero-sound-icon" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span id="hero-sound-text" class="text-[11px] sm:text-xs" data-i18n="reel.sound_muted">Aktifkan Audio</span>
+          </button>
+
+          <!-- Drone Telemetry Overlay (Bottom Bar) -->
+          <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 pointer-events-none flex items-center justify-between text-[11px] sm:text-xs font-mono text-white/90 bg-slate-950/80 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-white/10 hidden sm:flex">
+            <div class="flex items-center gap-2 sm:gap-3">
+              <span class="flex items-center gap-1.5 text-cyan-400">
+                <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="reel-telemetry-drone">DJI MAVIC 3 PRO</span>
+              </span>
+              <span class="text-slate-500">|</span>
+              <span id="reel-telemetry-alt">ALTITUDE: 340m AGL</span>
+              <span class="text-slate-500">|</span>
+              <span id="reel-telemetry-lens">HASSELBLAD 24MM</span>
+            </div>
+            <div class="flex items-center gap-2 text-emerald-400">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span id="reel-telemetry-format">5.1K D-LOG M</span>
+            </div>
           </div>
         </div>
+
       </div>
 
-      <!-- Quick Selector for Video Highlights -->
+      <!-- Quick Selector for Video Highlights (Synced with Carousel) -->
       <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
-        <button onclick="openMediaDetail('sample-vid-1')" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer">
           <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
             <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </div>
@@ -338,7 +367,7 @@
           </div>
         </button>
 
-        <button onclick="openMediaDetail('sample-vid-2')" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+        <button id="reel-quick-1" onclick="selectFeaturedVideo(1)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer">
           <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
             <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </div>
@@ -348,7 +377,7 @@
           </div>
         </button>
 
-        <button onclick="openMediaDetail('sample-vid-3')" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 text-left transition-all flex items-center gap-3 group">
+        <button id="reel-quick-2" onclick="selectFeaturedVideo(2)" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer">
           <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
             <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </div>
@@ -1031,5 +1060,10 @@
   <!-- Application Scripts -->
   <script src="supabase.js"></script>
   <script src="app.js"></script>
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
 </body>
 </html>

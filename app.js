@@ -303,6 +303,141 @@ function toggleHeroVideoSound() {
 }
 
 // ========================================================
+// 4c. Featured Showcase Carousel & Next/Prev Video Engine
+// ========================================================
+const FEATURED_VIDEOS_PLAYLIST = [
+  {
+    id: "sample-vid-1",
+    title_id: "Campus Skies: PKN STAN Aerials",
+    title_en: "Campus Skies: PKN STAN Aerials",
+    subtitle_id: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
+    subtitle_en: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
+    format: "Format: 4K UHD 60FPS",
+    videoUrl: "assets/videos/campus-skies-pkn-stan.mp4",
+    drone: "DJI MAVIC 3 PRO",
+    altitude: "ALTITUDE: 340m AGL",
+    lens: "HASSELBLAD 24MM",
+    telemetryFormat: "5.1K D-LOG M"
+  },
+  {
+    id: "sample-vid-2",
+    title_id: "Metropolis Glow: City Hyperlapse SCBD",
+    title_en: "Metropolis Glow: SCBD City Hyperlapse",
+    subtitle_id: "Hyperlapse udara pergerakan arus lalu lintas dan gemerlap gedung pencakar langit pusat bisnis SCBD Jakarta saat malam hari.",
+    subtitle_en: "Aerial hyperlapse capturing the rhythmic pulse of downtown Jakarta and neon skyline reflections across SCBD.",
+    format: "Format: 4K ProRes 60FPS",
+    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-aerial-hyperlapse-of-city-traffic-at-night-42284-large.mp4",
+    drone: "DJI INSPIRE 2",
+    altitude: "ALTITUDE: 210m AGL",
+    lens: "ZENMUSE X7 35MM",
+    telemetryFormat: "4K PRORES 422HQ"
+  },
+  {
+    id: "sample-vid-3",
+    title_id: "FPV Diving Canyon: High-Speed Cliff Action",
+    title_en: "FPV Diving Canyon: High-Speed Cliff Action",
+    subtitle_id: "Penerbangan akrobatik drone FPV berkecepatan tinggi menukik dari puncak tebing granit vertikal menuju aliran sungai liar.",
+    subtitle_en: "Acrobatic FPV quadcopter free-fall maneuver tracing granite canyons and cascading river rapids at 140 km/h.",
+    format: "Format: 4K 120FPS FPV",
+    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-canyon-with-a-river-in-the-bottom-42878-large.mp4",
+    drone: "CUSTOM 5\" FPV",
+    altitude: "ALTITUDE: 180m AGL",
+    lens: "GOPRO 12 BONES",
+    telemetryFormat: "4K 120FPS"
+  }
+];
+
+let currentFeaturedVideoIndex = 0;
+
+function changeFeaturedVideo(direction) {
+  const total = FEATURED_VIDEOS_PLAYLIST.length;
+  currentFeaturedVideoIndex = (currentFeaturedVideoIndex + direction + total) % total;
+  applyFeaturedVideo(currentFeaturedVideoIndex);
+}
+
+function selectFeaturedVideo(index) {
+  if (index < 0 || index >= FEATURED_VIDEOS_PLAYLIST.length) return;
+  currentFeaturedVideoIndex = index;
+  applyFeaturedVideo(currentFeaturedVideoIndex);
+}
+
+function applyFeaturedVideo(index) {
+  const item = FEATURED_VIDEOS_PLAYLIST[index];
+  if (!item) return;
+
+  const video = document.getElementById("hero-featured-video");
+  const titleElem = document.getElementById("reel-title");
+  const subtitleElem = document.getElementById("reel-subtitle");
+  const formatElem = document.getElementById("reel-format");
+  const droneElem = document.getElementById("reel-telemetry-drone");
+  const altElem = document.getElementById("reel-telemetry-alt");
+  const lensElem = document.getElementById("reel-telemetry-lens");
+  const specElem = document.getElementById("reel-telemetry-format");
+
+  const currentLang = (window.AeroI18n && typeof window.AeroI18n.getCurrentLanguage === "function") 
+    ? window.AeroI18n.getCurrentLanguage() 
+    : (localStorage.getItem("aero_lang") || "id");
+
+  // Update Section Header with subtle fade
+  if (titleElem) {
+    if (index === 0) {
+      titleElem.setAttribute("data-i18n", "reel.title");
+    } else {
+      titleElem.removeAttribute("data-i18n");
+    }
+    titleElem.textContent = currentLang === "en" ? (item.title_en || item.title_id) : item.title_id;
+  }
+  if (subtitleElem) {
+    if (index === 0) {
+      subtitleElem.setAttribute("data-i18n", "reel.subtitle");
+    } else {
+      subtitleElem.removeAttribute("data-i18n");
+    }
+    subtitleElem.textContent = currentLang === "en" ? (item.subtitle_en || item.subtitle_id) : item.subtitle_id;
+  }
+  if (formatElem) {
+    formatElem.textContent = item.format;
+  }
+
+  // Update Telemetry Overlay
+  if (droneElem) droneElem.textContent = item.drone;
+  if (altElem) altElem.textContent = item.altitude;
+  if (lensElem) lensElem.textContent = item.lens;
+  if (specElem) specElem.textContent = item.telemetryFormat;
+
+  // Update Quick Selectors Active Indicator
+  for (let i = 0; i < FEATURED_VIDEOS_PLAYLIST.length; i++) {
+    const card = document.getElementById(`reel-quick-${i}`);
+    if (card) {
+      if (i === index) {
+        card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer shadow-lg shadow-cyan-950/30";
+      } else {
+        card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer";
+      }
+    }
+  }
+
+  // Smooth Video Swap & Play
+  if (video) {
+    const wasMuted = video.muted;
+    video.style.opacity = "0.5";
+    setTimeout(() => {
+      video.src = item.videoUrl;
+      video.load();
+      video.muted = wasMuted;
+      video.play().then(() => {
+        video.style.opacity = "1";
+      }).catch(() => {
+        video.muted = true;
+        updateHeroSoundButtonState(true);
+        video.play().catch(() => {});
+        video.style.opacity = "1";
+      });
+    }, 120);
+  }
+}
+
+// ========================================================
 // 5. Gallery Rendering
 // ========================================================
 function renderGallery() {
@@ -855,3 +990,11 @@ window.handleDeleteUserMedia = handleDeleteUserMedia;
 window.renderGallery = renderGallery;
 window.toggleHeroVideoSound = toggleHeroVideoSound;
 window.initFeaturedVideoAutoplay = initFeaturedVideoAutoplay;
+window.changeFeaturedVideo = changeFeaturedVideo;
+window.selectFeaturedVideo = selectFeaturedVideo;
+window.applyFeaturedVideo = applyFeaturedVideo;
+window.FEATURED_VIDEOS_PLAYLIST = FEATURED_VIDEOS_PLAYLIST;
+Object.defineProperty(window, 'currentFeaturedVideoIndex', {
+  get: () => currentFeaturedVideoIndex,
+  set: (v) => { currentFeaturedVideoIndex = v; }
+});
