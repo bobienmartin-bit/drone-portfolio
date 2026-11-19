@@ -441,10 +441,10 @@
               </div>
             </div>
 
-            <!-- Interactive Pilot Photo Upload & Preview Card -->
+            <!-- Pilot Photo Upload Area (Clean & Modern) -->
             <div>
-              <label class="block text-xs font-mono text-slate-300 mb-2">FOTO PROFIL PILOT (BISA UPLOAD DARI HP / KOMPUTER)</label>
-              <div class="flex flex-col sm:flex-row items-center gap-6 p-5 rounded-2xl bg-slate-950 border border-slate-800">
+              <label class="block text-xs font-mono text-slate-300 mb-2">FOTO PROFIL PILOT</label>
+              <div class="flex flex-col sm:flex-row items-center gap-6 p-5 rounded-3xl bg-slate-950 border border-slate-800">
                 <!-- Avatar Preview -->
                 <div class="relative w-28 h-36 rounded-2xl overflow-hidden bg-slate-900 border-2 border-cyan-500/40 shrink-0 shadow-xl group">
                   <img id="pilot-avatar-preview" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80" alt="Avatar Pilot" class="w-full h-full object-cover">
@@ -453,25 +453,31 @@
                   </div>
                 </div>
 
-                <!-- Upload and URL inputs -->
+                <!-- Upload Actions -->
                 <div class="flex-1 space-y-3 w-full">
                   <div>
-                    <label class="block text-[11px] font-mono text-cyan-400 mb-1.5 font-bold">1. PILIH FOTO DARI GALERI HP / FILE KOMPUTER</label>
+                    <h4 class="text-sm font-bold text-white mb-1">Upload &amp; Ganti Foto Profil</h4>
+                    <p class="text-xs text-slate-400 mb-3">Klik tombol di bawah untuk memilih foto baru langsung dari galeri HP atau komputer Anda.</p>
+
+                    <input type="file" id="pilot-avatar-file" accept="image/*" class="hidden" onchange="handlePilotPhotoUpload(event)">
+                    <input type="hidden" id="cfg-about-avatar">
+
                     <div class="flex flex-wrap items-center gap-3">
-                      <input type="file" id="pilot-avatar-file" accept="image/*" class="hidden" onchange="handlePilotPhotoUpload(event)">
-                      <button type="button" onclick="document.getElementById('pilot-avatar-file').click()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/20 transition-all">
-                        <i data-lucide="upload" class="w-4 h-4"></i> Unggah Foto Baru
+                      <!-- Requested button: + Tambah Foto Baru -->
+                      <button type="button" onclick="document.getElementById('pilot-avatar-file').click()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/25 transition-all">
+                        <i data-lucide="plus" class="w-4 h-4 stroke-[3]"></i>
+                        <span>+ Tambah Foto Baru</span>
                       </button>
-                      <button type="button" onclick="resetPilotAvatarToDefault()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white text-xs transition-colors">
-                        Kembalikan Foto Awal
+
+                      <button type="button" onclick="resetPilotAvatarToDefault()" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white text-xs transition-colors">
+                        Kembalikan Foto Bawaan
                       </button>
                     </div>
-                    <p class="text-[11px] text-slate-500 mt-1.5">Mendukung format JPG, PNG, WEBP. Gambar otomatis dioptimalkan agar tajam dan loading cepat.</p>
-                  </div>
 
-                  <div class="pt-2 border-t border-slate-800/80">
-                    <label class="block text-[11px] font-mono text-slate-400 mb-1">2. ATAU GUNAKAN URL FOTO ONLINE</label>
-                    <input type="text" id="cfg-about-avatar" oninput="updatePilotAvatarPreview(this.value)" placeholder="https://..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono">
+                    <div id="pilot-photo-status" class="hidden text-xs text-emerald-400 font-mono mt-2.5 flex items-center gap-1.5">
+                      <i data-lucide="check-circle" class="w-4 h-4"></i>
+                      <span>Foto baru berhasil dipilih! Klik <strong>"Simpan Perubahan"</strong> di kanan atas untuk menerapkan ke web.</span>
+                    </div>
                   </div>
                 </div>
               </div>

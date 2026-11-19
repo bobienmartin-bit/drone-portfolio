@@ -375,7 +375,13 @@ function handlePilotPhotoUpload(e) {
       if (avatarInput) avatarInput.value = optimizedDataUrl;
       updatePilotAvatarPreview(optimizedDataUrl);
 
-      showToast("Foto pilot berhasil dimuat! Klik 'Simpan Perubahan' untuk menerapkan ke web.");
+      const statusEl = document.getElementById("pilot-photo-status");
+      if (statusEl) {
+        statusEl.classList.remove("hidden");
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      showToast("Foto pilot baru siap diterapkan! Klik 'Simpan Perubahan' di kanan atas.");
     };
     img.src = event.target.result;
   };
@@ -394,6 +400,8 @@ function resetPilotAvatarToDefault() {
   const avatarInput = document.getElementById("cfg-about-avatar");
   if (avatarInput) avatarInput.value = defaultUrl;
   updatePilotAvatarPreview(defaultUrl);
+  const statusEl = document.getElementById("pilot-photo-status");
+  if (statusEl) statusEl.classList.add("hidden");
   showToast("Foto profil pilot dikembalikan ke default.");
 }
 
