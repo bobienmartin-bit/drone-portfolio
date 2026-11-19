@@ -35,15 +35,15 @@ const INITIAL_MEDIA = [
   {
     id: "sample-vid-2",
     type: "video",
-    title: "Karawang Central Plaza: Wonderful 12th Full Celebration",
-    category: "urban",
+    title: "Wonderful 12th: Karawang Central Plaza",
+    category: "commercial",
     mediaUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
     thumbnailUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
     drone: "DJI Mavic 3 Pro",
     altitude: "150m AGL",
     specs: "4K UHD • D-Log M • Hasselblad 24mm",
     location: "KCP Galuh Mas, Karawang",
-    description: "Dokumentasi sinematik aerial kemeriahan Wonderful 12th Anniversary Karawang Central Plaza (KCP) di kawasan Galuh Mas.",
+    description: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.",
     isUserUpload: false
   },
   {
@@ -308,6 +308,8 @@ function toggleHeroVideoSound() {
 const FEATURED_VIDEOS_PLAYLIST = [
   {
     id: "sample-vid-1",
+    badge_id: "FEATURED AERIAL CINEMA",
+    badge_en: "FEATURED AERIAL CINEMA",
     title_id: "Campus Skies: PKN STAN Aerials",
     title_en: "Campus Skies: PKN STAN Aerials",
     subtitle_id: "A compiled drone cinematography showcase capturing the architecture and atmosphere of PKN STAN, scored with the official campus anthem.",
@@ -321,10 +323,12 @@ const FEATURED_VIDEOS_PLAYLIST = [
   },
   {
     id: "sample-vid-2",
-    title_id: "Karawang Central Plaza: Wonderful 12th Full Celebration",
-    title_en: "Karawang Central Plaza: Wonderful 12th Full Celebration",
-    subtitle_id: "Dokumentasi sinematik aerial kemeriahan Wonderful 12th Anniversary Karawang Central Plaza (KCP) di kawasan Galuh Mas.",
-    subtitle_en: "A compiled cinematic aerial documentation capturing the vibrant Wonderful 12th Anniversary celebration of Karawang Central Plaza (KCP) Galuh Mas.",
+    badge_id: "EVENT AERIAL HIGHLIGHT",
+    badge_en: "EVENT AERIAL HIGHLIGHT",
+    title_id: "Wonderful 12th: Karawang Central Plaza",
+    title_en: "Wonderful 12th: Karawang Central Plaza",
+    subtitle_id: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.",
+    subtitle_en: "Aerial event highlight documenting the grand 12th Anniversary celebration of Karawang Central Plaza (KCP) Galuh Mas, capturing crowd energy and stage grandeur from the sky.",
     format: "Format: 4K UHD 60FPS",
     videoUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
     drone: "DJI MAVIC 3 PRO",
@@ -334,6 +338,8 @@ const FEATURED_VIDEOS_PLAYLIST = [
   },
   {
     id: "sample-vid-3",
+    badge_id: "FPV ACTION CINEMA",
+    badge_en: "FPV ACTION CINEMA",
     title_id: "FPV Diving Canyon: High-Speed Cliff Action",
     title_en: "FPV Diving Canyon: High-Speed Cliff Action",
     subtitle_id: "Penerbangan akrobatik drone FPV berkecepatan tinggi menukik dari puncak tebing granit vertikal menuju aliran sungai liar.",
@@ -366,6 +372,7 @@ function applyFeaturedVideo(index) {
   if (!item) return;
 
   const video = document.getElementById("hero-featured-video");
+  const badgeElem = document.getElementById("reel-badge");
   const titleElem = document.getElementById("reel-title");
   const subtitleElem = document.getElementById("reel-subtitle");
   const formatElem = document.getElementById("reel-format");
@@ -378,7 +385,17 @@ function applyFeaturedVideo(index) {
     ? window.AeroI18n.getCurrentLanguage() 
     : (localStorage.getItem("aero_lang") || "id");
 
-  // Update Section Header with subtle fade
+  // Update Badge (Eyebrow Label)
+  if (badgeElem) {
+    if (index === 0) {
+      badgeElem.setAttribute("data-i18n", "reel.badge");
+    } else {
+      badgeElem.removeAttribute("data-i18n");
+    }
+    badgeElem.textContent = currentLang === "en" ? (item.badge_en || item.badge_id) : item.badge_id;
+  }
+
+  // Update Section Header Title & Subtitle
   if (titleElem) {
     if (index === 0) {
       titleElem.setAttribute("data-i18n", "reel.title");
@@ -417,23 +434,23 @@ function applyFeaturedVideo(index) {
     }
   }
 
-  // Smooth Video Swap & Play
+  // Immediate Synchronous Autoplay on Swap (preserves user gesture context)
   if (video) {
     const wasMuted = video.muted;
-    video.style.opacity = "0.5";
-    setTimeout(() => {
-      video.src = item.videoUrl;
-      video.load();
-      video.muted = wasMuted;
-      video.play().then(() => {
-        video.style.opacity = "1";
-      }).catch(() => {
+    video.pause();
+    video.src = item.videoUrl;
+    video.muted = wasMuted;
+    video.autoplay = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn("Autoplay muted fallback:", err);
         video.muted = true;
         updateHeroSoundButtonState(true);
         video.play().catch(() => {});
-        video.style.opacity = "1";
       });
-    }, 120);
+    }
   }
 }
 
