@@ -607,6 +607,7 @@ function openVideoModal(item) {
   const droneElem = document.getElementById("modal-video-drone");
   const locElem = document.getElementById("modal-video-location");
   const specsElem = document.getElementById("modal-video-specs");
+  const counterElem = document.getElementById("modal-video-counter");
 
   if (!modal || !videoElem) return;
 
@@ -614,6 +615,13 @@ function openVideoModal(item) {
   const heroVid = document.getElementById("hero-featured-video");
   if (heroVid && !heroVid.paused) {
     heroVid.pause();
+  }
+
+  // Update counter
+  const videoList = allMediaItems.filter(m => m.type === "video");
+  const currentIdx = videoList.findIndex(m => m.id === item.id);
+  if (counterElem && videoList.length > 0) {
+    counterElem.textContent = `${(currentIdx >= 0 ? currentIdx : 0) + 1} / ${videoList.length}`;
   }
 
   videoElem.src = item.mediaUrl;
@@ -625,7 +633,34 @@ function openVideoModal(item) {
 
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
   videoElem.play().catch(e => console.log("Autoplay was prevented:", e));
+}
+
+function navigateModalVideo(direction) {
+  const videoList = allMediaItems.filter(m => m.type === "video");
+  if (!videoList || videoList.length === 0) return;
+
+  let currentIdx = activeVideoItem ? videoList.findIndex(m => m.id === activeVideoItem.id) : 0;
+  if (currentIdx === -1) currentIdx = 0;
+
+  const nextIdx = (currentIdx + direction + videoList.length) % videoList.length;
+  openVideoModal(videoList[nextIdx]);
+}
+
+function navigateModalPhoto(direction) {
+  const photoList = allMediaItems.filter(m => m.type === "photo");
+  if (!photoList || photoList.length === 0) return;
+
+  let currentIdx = activePhotoItem ? photoList.findIndex(m => m.id === activePhotoItem.id) : 0;
+  if (currentIdx === -1) currentIdx = 0;
+
+  const nextIdx = (currentIdx + direction + photoList.length) % photoList.length;
+  openPhotoModal(photoList[nextIdx]);
 }
 
 function closeVideoModal() {
@@ -651,6 +686,7 @@ function openPhotoModal(item) {
   const locElem = document.getElementById("modal-photo-location");
   const specsElem = document.getElementById("modal-photo-specs");
   const downloadLink = document.getElementById("modal-photo-download");
+  const counterElem = document.getElementById("modal-photo-counter");
 
   if (!modal || !imgElem) return;
 
@@ -658,6 +694,13 @@ function openPhotoModal(item) {
   const heroVid = document.getElementById("hero-featured-video");
   if (heroVid && !heroVid.paused) {
     heroVid.pause();
+  }
+
+  // Update photo counter
+  const photoList = allMediaItems.filter(m => m.type === "photo");
+  const currentIdx = photoList.findIndex(m => m.id === item.id);
+  if (counterElem && photoList.length > 0) {
+    counterElem.textContent = `${(currentIdx >= 0 ? currentIdx : 0) + 1} / ${photoList.length}`;
   }
 
   imgElem.src = item.mediaUrl;
@@ -674,6 +717,10 @@ function openPhotoModal(item) {
 
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
 
 function closePhotoModal() {
@@ -864,12 +911,28 @@ function setupEventListeners() {
   document.querySelectorAll("[data-close-photo]").forEach(el => el.addEventListener("click", closePhotoModal));
   document.querySelectorAll("[data-close-upload]").forEach(el => el.addEventListener("click", closeUploadModal));
 
-  // Keyboard navigation (ESC to close modals)
+  // Keyboard navigation (ESC to close, Left/Right to navigate modals)
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       closeVideoModal();
       closePhotoModal();
       closeUploadModal();
+    } else if (e.key === "ArrowRight") {
+      const videoModal = document.getElementById("video-modal");
+      const photoModal = document.getElementById("photo-modal");
+      if (videoModal && !videoModal.classList.contains("hidden")) {
+        navigateModalVideo(1);
+      } else if (photoModal && !photoModal.classList.contains("hidden")) {
+        navigateModalPhoto(1);
+      }
+    } else if (e.key === "ArrowLeft") {
+      const videoModal = document.getElementById("video-modal");
+      const photoModal = document.getElementById("photo-modal");
+      if (videoModal && !videoModal.classList.contains("hidden")) {
+        navigateModalVideo(-1);
+      } else if (photoModal && !photoModal.classList.contains("hidden")) {
+        navigateModalPhoto(-1);
+      }
     }
   });
 
@@ -1000,8 +1063,10 @@ window.openUploadModal = openUploadModal;
 window.closeUploadModal = closeUploadModal;
 window.openMediaDetail = openMediaDetail;
 window.openVideoModal = openVideoModal;
+window.navigateModalVideo = navigateModalVideo;
 window.closeVideoModal = closeVideoModal;
 window.openPhotoModal = openPhotoModal;
+window.navigateModalPhoto = navigateModalPhoto;
 window.closePhotoModal = closePhotoModal;
 window.handleDeleteUserMedia = handleDeleteUserMedia;
 window.renderGallery = renderGallery;
