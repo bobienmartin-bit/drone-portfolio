@@ -39,9 +39,9 @@ const INITIAL_MEDIA = [
     category: "commercial",
     mediaUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
     thumbnailUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
-    drone: "DJI Mavic 3 Pro",
+    drone: "DJI Mini 4 Pro",
     altitude: "150m AGL",
-    specs: "4K UHD • D-Log M • Hasselblad 24mm",
+    specs: "4K UHD • D-Log M • 24mm f/1.7",
     location: "KCP Galuh Mas, Karawang",
     description: "Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.",
     isUserUpload: false
@@ -331,9 +331,9 @@ const FEATURED_VIDEOS_PLAYLIST = [
     subtitle_en: "Aerial event highlight documenting the grand 12th Anniversary celebration of Karawang Central Plaza (KCP) Galuh Mas, capturing crowd energy and stage grandeur from the sky.",
     format: "Format: 4K UHD 60FPS",
     videoUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
-    drone: "DJI MAVIC 3 PRO",
+    drone: "DJI MINI 4 PRO",
     altitude: "ALTITUDE: 150m AGL",
-    lens: "HASSELBLAD 24MM",
+    lens: "24MM F/1.7",
     telemetryFormat: "4K D-LOG M"
   },
   {
