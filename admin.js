@@ -82,18 +82,24 @@ async function sendRecoveryEmailToBobien() {
   const btnText = document.getElementById("send-recovery-btn-text");
   const statusMsg = document.getElementById("forgot-status-msg");
 
+  // Pre-fill pin in the login input in advance
+  const pinInput = document.getElementById("admin-pin-input");
+  if (pinInput) pinInput.value = currentPin;
+
   if (btn) btn.disabled = true;
   if (btnText) btnText.textContent = "Mengirim PIN ke bobienfly@gmail.com...";
   if (statusMsg) statusMsg.classList.add("hidden");
 
   try {
     const payload = {
-      _subject: "🔐 Pemulihan PIN Admin AeroScope Studio",
+      _subject: `🔐 KODE SANDI LOGIN ADMIN: ${currentPin} (AeroScope Studio)`,
       _template: "table",
+      _captcha: "false",
       penerima: "bobienfly@gmail.com",
       waktu: new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
-      pin_aktif_anda: currentPin,
-      pesan: `Halo Bobien Martien,\n\nBerikut adalah PIN rahasia aktif untuk login ke Dashboard Admin AeroScope Studio Anda:\n\n👉 PIN AKTIF: ${currentPin}\n\nTautan Login: https://bobienmartien.vercel.app/admin\n\nJaga kerahasiaan PIN ini dan jangan bagikan kepada siapa pun.`
+      KODE_SANDI_PIN_LOGIN: currentPin,
+      pin_aktif: currentPin,
+      pesan: `Halo Bobien Martien,\n\nBerikut adalah KODE SANDI / PIN aktif yang tercatat untuk akses login Dashboard Admin AeroScope Studio Anda:\n\n👉 KODE SANDI LOGIN: ${currentPin} 👈\n\nTautan Login: https://bobienmartien.vercel.app/admin\n\nSilakan masukkan kode sandi di atas pada form login admin.`
     };
 
     await fetch("https://formsubmit.co/ajax/bobienfly@gmail.com", {
@@ -106,14 +112,26 @@ async function sendRecoveryEmailToBobien() {
     });
 
     if (statusMsg) {
-      statusMsg.className = "mb-4 p-4 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-1";
+      statusMsg.className = "mb-4 p-4 rounded-2xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-2";
       statusMsg.innerHTML = `
-        <div class="font-bold text-white flex items-center gap-1.5">
-          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> PIN Berhasil Dikirim!
+        <div class="font-bold text-white flex items-center gap-1.5 text-sm">
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> PIN Berhasil Dikirim ke Email!
         </div>
-        <p class="text-slate-300 leading-relaxed">
-          PIN aktif telah dikirimkan ke <strong>bobienfly@gmail.com</strong>. Silakan periksa Kotak Masuk atau folder Spam email Anda.
+        <p class="text-slate-300 leading-relaxed text-[11px]">
+          Salinan kode sandi telah dikirimkan ke <strong>bobienfly@gmail.com</strong>.
         </p>
+
+        <div class="mt-2.5 p-3.5 rounded-xl bg-slate-900/90 border border-cyan-400/50 text-center shadow-lg">
+          <div class="text-[10px] text-cyan-400 font-mono font-bold tracking-wider mb-1 flex items-center justify-center gap-1.5">
+            <i data-lucide="key" class="w-3.5 h-3.5 text-cyan-400"></i> KODE SANDI TERCATAT UNTUK AKSES LOGIN:
+          </div>
+          <div class="text-2xl font-black font-mono text-cyan-300 tracking-widest py-1 px-4 rounded-lg bg-cyan-950/80 border border-cyan-500/40 inline-block my-1 select-all">${currentPin}</div>
+          <p class="text-[10px] text-slate-400 mt-1">Kode sandi ini aktif dan tercatat di sistem browser Anda.</p>
+          <button type="button" onclick="useRecoveredPin('${currentPin}')" class="mt-3 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-cyan-500/20">
+            <i data-lucide="log-in" class="w-4 h-4 stroke-[2.5]"></i>
+            <span>Gunakan Kode Ini &amp; Langsung Masuk</span>
+          </button>
+        </div>
       `;
       statusMsg.classList.remove("hidden");
       if (window.lucide) window.lucide.createIcons();
@@ -124,14 +142,26 @@ async function sendRecoveryEmailToBobien() {
   } catch (err) {
     console.error("Gagal mengirim email recovery:", err);
     if (statusMsg) {
-      statusMsg.className = "mb-4 p-4 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-1";
+      statusMsg.className = "mb-4 p-4 rounded-2xl text-xs font-mono bg-slate-900 border border-cyan-500/40 text-slate-300 text-left space-y-2";
       statusMsg.innerHTML = `
-        <div class="font-bold text-white flex items-center gap-1.5">
-          <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400"></i> Permintaan Terkirim
+        <div class="font-bold text-cyan-400 flex items-center gap-1.5 text-sm">
+          <i data-lucide="info" class="w-4 h-4 text-cyan-400"></i> Informasi Kode Sandi Tercatat
         </div>
-        <p class="text-slate-300 leading-relaxed">
-          Permintaan pemulihan PIN telah diproses ke <strong>bobienfly@gmail.com</strong>.
+        <p class="text-slate-300 leading-relaxed text-[11px]">
+          Permintaan telah dikirim ke <strong>bobienfly@gmail.com</strong>.
         </p>
+
+        <div class="mt-2.5 p-3.5 rounded-xl bg-slate-950 border border-cyan-400/50 text-center shadow-lg">
+          <div class="text-[10px] text-cyan-400 font-mono font-bold tracking-wider mb-1 flex items-center justify-center gap-1.5">
+            <i data-lucide="key" class="w-3.5 h-3.5 text-cyan-400"></i> KODE SANDI TERCATAT UNTUK AKSES LOGIN:
+          </div>
+          <div class="text-2xl font-black font-mono text-cyan-300 tracking-widest py-1 px-4 rounded-lg bg-cyan-950/80 border border-cyan-500/40 inline-block my-1 select-all">${currentPin}</div>
+          <p class="text-[10px] text-slate-400 mt-1">Kode sandi ini aktif dan tercatat di sistem browser Anda.</p>
+          <button type="button" onclick="useRecoveredPin('${currentPin}')" class="mt-3 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-cyan-500/20">
+            <i data-lucide="log-in" class="w-4 h-4 stroke-[2.5]"></i>
+            <span>Gunakan Kode Ini &amp; Langsung Masuk</span>
+          </button>
+        </div>
       `;
       statusMsg.classList.remove("hidden");
       if (window.lucide) window.lucide.createIcons();
@@ -141,6 +171,21 @@ async function sendRecoveryEmailToBobien() {
     if (btn) btn.disabled = false;
   }
 }
+
+function useRecoveredPin(pin) {
+  const pinInput = document.getElementById("admin-pin-input");
+  if (pinInput) pinInput.value = pin;
+  closeForgotPasswordModal();
+  const loginForm = document.getElementById("admin-login-form");
+  if (loginForm) {
+    if (typeof loginForm.requestSubmit === "function") {
+      loginForm.requestSubmit();
+    } else {
+      handleAdminLogin({ preventDefault: () => {} });
+    }
+  }
+}
+window.useRecoveredPin = useRecoveredPin;
 
 function handleAdminLogout() {
   sessionStorage.removeItem(AUTH_STORAGE_KEY);
@@ -989,12 +1034,14 @@ function handleChangePinSubmit(e) {
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      _subject: "🔔 Pemberitahuan: PIN Admin AeroScope Telah Berhasil Diubah",
+      _subject: `🔔 KODE SANDI BARU: ${newPin} (PIN Admin AeroScope Diperbarui)`,
       _template: "table",
+      _captcha: "false",
       penerima: "bobienfly@gmail.com",
       waktu: new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      KODE_SANDI_BARU: newPin,
       pin_baru_anda: newPin,
-      pesan: `Halo Bobien Martien,\n\nPIN Admin AeroScope Studio Anda baru saja berhasil diperbarui.\n\n👉 PIN BARU AKTIF: ${newPin}\n\nPIN lama sudah dinonaktifkan permanen dan tidak bisa digunakan lagi.\n\nTautan login: https://bobienmartien.vercel.app/admin`
+      pesan: `Halo Bobien Martien,\n\nPIN Admin AeroScope Studio Anda baru saja berhasil diperbarui.\n\n👉 KODE SANDI BARU AKTIF: ${newPin} 👈\n\nPIN lama sudah dinonaktifkan permanen dan tidak bisa digunakan lagi.\n\nTautan login: https://bobienmartien.vercel.app/admin`
     })
   }).catch(() => {});
 
