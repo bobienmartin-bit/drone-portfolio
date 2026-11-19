@@ -138,18 +138,18 @@ async function sendRecoveryEmailToBobien() {
         statusMsg.className = "mb-4 p-4 rounded-2xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-left space-y-2.5";
         statusMsg.innerHTML = `
           <div class="font-bold text-white flex items-center gap-1.5 text-sm">
-            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Email Berisi Kode PIN Berhasil Terkirim!
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> PIN Berhasil Dikirim ke Email!
           </div>
           <p class="text-slate-300 leading-relaxed text-xs">
-            Format email telah diperbarui. Email dengan subjek <strong>"🔐 KODE PIN ADMIN AEROSCOPE: ${currentPin}"</strong> telah dikirimkan ke <strong>bobienfly@gmail.com</strong>.
+            Kode sandi akses login telah dikirimkan secara rahasia ke <strong>bobienfly@gmail.com</strong>.
           </p>
           <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
             <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
-            <span>Periksa Kotak Masuk atau folder Spam email Anda. Kode PIN tertera jelas di subjek &amp; tabel pesan email.</span>
+            <span>Demi keamanan, kode sandi <strong>hanya dikirim ke email Anda</strong> dan tidak ditampilkan di layar panel ini. Silakan buka Kotak Masuk atau folder Spam email Anda untuk melihat kode PIN tersebut.</span>
           </div>
         `;
         if (btnText) btnText.textContent = "✓ Email Kode PIN Terkirim";
-        showToast("Email berisi kode PIN berhasil dikirim!");
+        showToast("Email berisi kode PIN berhasil dikirim ke bobienfly@gmail.com!");
       }
       statusMsg.classList.remove("hidden");
       if (window.lucide) window.lucide.createIcons();
