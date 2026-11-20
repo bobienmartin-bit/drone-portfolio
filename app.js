@@ -998,18 +998,77 @@ function updateMediaCounters() {
   if (countPhotos) countPhotos.textContent = photos;
 }
 
+// Function to select drone in contact form & scroll smoothly
+window.selectDroneForBooking = function(droneName) {
+  const contactSection = document.getElementById("kontak");
+  const droneSelect = document.getElementById("contact-drone");
+  const nameInput = document.getElementById("contact-name");
+
+  if (droneSelect && droneName) {
+    let matched = false;
+    for (let i = 0; i < droneSelect.options.length; i++) {
+      const val = droneSelect.options[i].value;
+      if (val && (val === droneName || val.toLowerCase().includes(droneName.toLowerCase()) || droneName.toLowerCase().includes(val.toLowerCase()))) {
+        droneSelect.selectedIndex = i;
+        matched = true;
+        break;
+      }
+    }
+    // Visual glow / pulse effect on dropdown
+    droneSelect.classList.add("ring-2", "ring-cyan-400", "border-cyan-400", "bg-cyan-950/60");
+    setTimeout(() => {
+      droneSelect.classList.remove("ring-2", "ring-cyan-400", "border-cyan-400", "bg-cyan-950/60");
+    }, 2000);
+  }
+
+  // Smooth scroll to contact section
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Focus on name input after smooth scroll
+  setTimeout(() => {
+    if (nameInput) {
+      nameInput.focus();
+    }
+  }, 500);
+
+  // Notify user
+  if (typeof showToast === "function") {
+    showToast(`Armada ${droneName} dipilih. Silakan lengkapi formulir inquiry proyek Anda.`, "info");
+  }
+};
+
 // Contact form -> Opens WhatsApp with formatted message
 function handleContactSubmit(e) {
   e.preventDefault();
   const name = document.getElementById("contact-name").value.trim();
   const email = document.getElementById("contact-email").value.trim();
   const service = document.getElementById("contact-service").value;
+  const droneEl = document.getElementById("contact-drone");
+  const drone = droneEl ? droneEl.value.trim() : "";
   const message = document.getElementById("contact-message").value.trim();
 
-  const phone = "6281381453598"; // WhatsApp pemilik
-  const waText = encodeURIComponent(
-    `Halo, saya ${name} (${email}). Ingin mendiskusikan proyek drone untuk: ${service}.\n\nPesan:\n${message}`
-  );
+  let phone = "6281381453598"; // WhatsApp pemilik
+  if (typeof getSiteConfig === "function") {
+    const cfg = getSiteConfig();
+    if (cfg && cfg.contact && cfg.contact.whatsappClean) {
+      phone = cfg.contact.whatsappClean;
+    } else if (cfg && cfg.profile && cfg.profile.phone) {
+      phone = cfg.profile.phone.replace(/[^0-9]/g, "");
+    }
+  }
+
+  let body = `Halo Mas Bobien, saya *${name}* (${email}). Ingin mendiskusikan rencana proyek drone:\n\n`;
+  body += `• Layanan: ${service}\n`;
+  if (drone) {
+    body += `• Pilihan Armada: ${drone}\n`;
+  } else {
+    body += `• Pilihan Armada: Rekomendasi Pilot / Konsultasi Bebas\n`;
+  }
+  body += `\nDetail Proyek & Lokasi:\n${message}`;
+
+  const waText = encodeURIComponent(body);
 
   window.open(`https://wa.me/${phone}?text=${waText}`, "_blank");
   showToast("Membuka WhatsApp untuk mengirim pesan...", "success");

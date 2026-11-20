@@ -421,11 +421,22 @@ function applySiteConfigToDOM(config) {
       link.href = waUrl;
     });
 
-    // Update drone-specific booking CTA links with custom unit name
+    // Drone-specific booking CTA links redirect smoothly to #kontak inquiry form
     document.querySelectorAll('a[data-drone-unit]').forEach(link => {
-      const unit = link.getAttribute('data-drone-unit');
-      const text = encodeURIComponent(`Halo Mas Bobien, saya tertarik booking jasa drone menggunakan unit ${unit}.`);
-      link.href = `https://wa.me/${cleanWa}?text=${text}`;
+      const unit = link.getAttribute('data-drone-unit') || '';
+      link.href = '#kontak';
+      link.removeAttribute('target');
+      link.removeAttribute('rel');
+      link.onclick = function(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (typeof window.selectDroneForBooking === 'function') {
+          window.selectDroneForBooking(unit);
+        } else {
+          const el = document.getElementById('kontak');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+        return false;
+      };
     });
 
     // Update WhatsApp display text
