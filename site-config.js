@@ -75,7 +75,7 @@ const DEFAULT_SITE_CONFIG = {
   gear: [
     {
       id: "drone-1",
-      tag: "NEXT-GEN FLAGSHIP",
+      tag: "CINEMA CLASS • NEXT-GEN 8K",
       title: "DJI Mavic 4 Pro",
       desc: "Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.",
       specs: [
@@ -84,11 +84,13 @@ const DEFAULT_SITE_CONFIG = {
         "10-Bit D-Log M & D-Log Cinema",
         "Waktu Terbang s/d 45 Menit"
       ],
-      ideal: "Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik"
+      ideal: "Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik",
+      ctaText: "Booking dengan Mavic 4 Pro →",
+      ctaUnit: "DJI Mavic 4 Pro"
     },
     {
       id: "drone-2",
-      tag: "TRIPLE CAMERA CINEMA",
+      tag: "COMMERCIAL CINEMA • TRIPLE CAM",
       title: "DJI Mavic 3 Pro",
       desc: "Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.",
       specs: [
@@ -97,11 +99,13 @@ const DEFAULT_SITE_CONFIG = {
         "10-Bit D-Log M & HLG Color",
         "Waktu Terbang s/d 43 Menit"
       ],
-      ideal: "Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi"
+      ideal: "Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi",
+      ctaText: "Booking dengan Mavic 3 Pro →",
+      ctaUnit: "DJI Mavic 3 Pro"
     },
     {
       id: "drone-3",
-      tag: "DUAL CAMERA & NIGHTSCAPE",
+      tag: "ALL-ROUNDER • NIGHTSCAPE LIDAR",
       title: "DJI Air 3S",
       desc: "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
       specs: [
@@ -110,7 +114,9 @@ const DEFAULT_SITE_CONFIG = {
         "LiDAR Malam Hari & Sensor Omnidirectional",
         "10-Bit D-Log M & Waktu Terbang 45 Menit"
       ],
-      ideal: "Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel & Wisata, Komersial Kreatif"
+      ideal: "Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel & Wisata, Komersial Kreatif",
+      ctaText: "Booking dengan Air 3S →",
+      ctaUnit: "DJI Air 3S"
     },
     {
       id: "drone-4",
@@ -123,11 +129,13 @@ const DEFAULT_SITE_CONFIG = {
         "Stabilisasi Gyroflow & HorizonSteady",
         "One-Push ACRO (Flip, Roll, 180° Drift)"
       ],
-      ideal: "Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor & Olahraga Ekstrem"
+      ideal: "Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor & Olahraga Ekstrem",
+      ctaText: "Booking dengan Avata 2 →",
+      ctaUnit: "DJI Avata 2"
     },
     {
       id: "drone-5",
-      tag: "AGILE & SUB-249G",
+      tag: "SOCIAL REELS • SUB-249G VERTICAL",
       title: "DJI Mini 4 Pro",
       desc: "Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.",
       specs: [
@@ -136,11 +144,13 @@ const DEFAULT_SITE_CONFIG = {
         "Omnidirectional Obstacle Sensing",
         "48MP RAW Photo High Details"
       ],
-      ideal: "Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok"
+      ideal: "Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok",
+      ctaText: "Booking dengan Mini 4 Pro →",
+      ctaUnit: "DJI Mini 4 Pro"
     },
     {
       id: "drone-6",
-      tag: "PALM TAKEOFF & AI TRACKING",
+      tag: "INDOOR & VLOG • AI PALM TAKEOFF",
       title: "DJI Neo 2",
       desc: "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
       specs: [
@@ -149,7 +159,9 @@ const DEFAULT_SITE_CONFIG = {
         "Pelacakan Subjek Berbasis AI Cerdas",
         "Full Propeller Guard (Sangat Aman)"
       ],
-      ideal: "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)"
+      ideal: "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)",
+      ctaText: "Booking dengan Neo 2 →",
+      ctaUnit: "DJI Neo 2"
     }
   ],
   services: [
@@ -395,9 +407,16 @@ function applySiteConfigToDOM(config) {
     const waText = encodeURIComponent(config.contact.whatsappText || "Halo saya tertarik dengan jasa drone Anda");
     const waUrl = `https://wa.me/${cleanWa}?text=${waText}`;
 
-    // Update all WhatsApp links
-    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+    // Update general WhatsApp links (excluding drone-specific booking CTAs)
+    document.querySelectorAll('a[href*="wa.me"]:not([data-drone-unit])').forEach(link => {
       link.href = waUrl;
+    });
+
+    // Update drone-specific booking CTA links with custom unit name
+    document.querySelectorAll('a[data-drone-unit]').forEach(link => {
+      const unit = link.getAttribute('data-drone-unit');
+      const text = encodeURIComponent(`Halo Mas Bobien, saya tertarik booking jasa drone menggunakan unit ${unit}.`);
+      link.href = `https://wa.me/${cleanWa}?text=${text}`;
     });
 
     // Update WhatsApp display text

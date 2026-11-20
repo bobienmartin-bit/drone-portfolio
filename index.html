@@ -43,7 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Internationalization (ID/EN) Script -->
-  <script src="i18n.js?v=1795147700"></script>
+  <script src="i18n.js?v=1795150000"></script>
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
@@ -459,9 +459,9 @@
         <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
           <i data-lucide="cpu" class="w-4 h-4"></i> <span data-i18n="gear.badge">Armada & Peralatan</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="gear.title">Spesifikasi Drone & Layanan</h2>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="gear.title">Pilih Armada Drone Sesuai Proyek Anda</h2>
         <p class="text-slate-400 text-sm mt-3" data-i18n="gear.subtitle">
-          Didukung teknologi drone kelas industri dengan kemampuan rekam resolusi ultra tinggi dan manuver presisi.
+          Setiap kebutuhan produksi memiliki karakter visual berbeda. Pilih unit yang paling sesuai dengan konsep syuting Anda, atau konsultasikan untuk rekomendasi terbaik.
         </p>
       </div>
 
@@ -469,17 +469,17 @@
       <div class="relative mb-20" id="fleet-carousel">
 
         <!-- Slide Wrapper -->
-        <div class="overflow-hidden rounded-3xl" id="fleet-track-wrap">
+        <div class="overflow-hidden rounded-3xl p-1 sm:p-2" id="fleet-track-wrap">
           <div class="flex transition-transform duration-700 ease-in-out" id="fleet-track" style="will-change:transform">
 
             <!-- ===== SLIDE 1: Mavic 4 Pro · Mavic 3 Pro · Air 3S ===== -->
-            <div class="fleet-slide min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="fleet-slide w-full min-w-full shrink-0 basis-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 box-border">
 
               <!-- Drone 1: Mavic 4 Pro -->
-              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+              <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group shadow-lg">
                 <div>
                   <div class="flex items-center justify-between mb-6">
-                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d1_tag">NEXT-GEN FLAGSHIP</span>
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d1_tag">CINEMA CLASS • NEXT-GEN 8K</span>
                     <i data-lucide="crown" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 4 Pro</h3>
@@ -491,33 +491,53 @@
                     <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 45 Menit</li>
                   </ul>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d1_ideal">Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik</div>
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-3">
+                  <div class="text-xs text-slate-400 leading-relaxed" data-i18n="gear.d1_ideal">Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik</div>
+                  <a href="https://wa.me/6281381453598?text=Halo%20Mas%20Bobien%2C%20saya%20tertarik%20booking%20jasa%20drone%20menggunakan%20unit%20DJI%20Mavic%204%20Pro."
+                     data-drone-unit="DJI Mavic 4 Pro"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full mt-2 py-2.5 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-slate-950 border border-cyan-500/30 hover:border-cyan-400 font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-cyan-500/20 group/btn cursor-pointer">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-cyan-400 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-all"></i>
+                    <span data-i18n="gear.d1_btn">Booking dengan Mavic 4 Pro &rarr;</span>
+                  </a>
+                </div>
               </div>
 
               <!-- Drone 2: Mavic 3 Pro -->
-              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+              <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 hover:border-amber-500/50 transition-all flex flex-col justify-between group shadow-lg">
                 <div>
                   <div class="flex items-center justify-between mb-6">
-                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold" data-i18n="gear.d2_tag">TRIPLE CAMERA CINEMA</span>
-                    <i data-lucide="camera" class="w-6 h-6 text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+                    <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold" data-i18n="gear.d2_tag">COMMERCIAL CINEMA • TRIPLE CAM</span>
+                    <i data-lucide="camera" class="w-6 h-6 text-slate-500 group-hover:text-amber-400 transition-colors"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 3 Pro</h3>
                   <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d2_desc">Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.</p>
                   <ul class="space-y-3 text-xs text-slate-300 font-mono">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Video 5.1K / 50fps Apple ProRes</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Lensa 24mm + 70mm + 166mm Tele</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 10-Bit D-Log M &amp; HLG Color</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Waktu Terbang s/d 43 Menit</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Video 5.1K / 50fps Apple ProRes</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Lensa 24mm + 70mm + 166mm Tele</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> 10-Bit D-Log M &amp; HLG Color</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Waktu Terbang s/d 43 Menit</li>
                   </ul>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d2_ideal">Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi</div>
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-3">
+                  <div class="text-xs text-slate-400 leading-relaxed" data-i18n="gear.d2_ideal">Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi</div>
+                  <a href="https://wa.me/6281381453598?text=Halo%20Mas%20Bobien%2C%20saya%20tertarik%20booking%20jasa%20drone%20menggunakan%20unit%20DJI%20Mavic%203%20Pro."
+                     data-drone-unit="DJI Mavic 3 Pro"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full mt-2 py-2.5 px-4 rounded-xl bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-slate-950 border border-amber-500/30 hover:border-amber-400 font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-amber-500/20 group/btn cursor-pointer">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-amber-400 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-all"></i>
+                    <span data-i18n="gear.d2_btn">Booking dengan Mavic 3 Pro &rarr;</span>
+                  </a>
+                </div>
               </div>
 
               <!-- Drone 3: Air 3S -->
-              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between group">
+              <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between group shadow-lg">
                 <div>
                   <div class="flex items-center justify-between mb-6">
-                    <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold" data-i18n="gear.d6_tag">DUAL CAMERA &amp; NIGHTSCAPE</span>
+                    <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold" data-i18n="gear.d6_tag">ALL-ROUNDER • NIGHTSCAPE LIDAR</span>
                     <i data-lucide="layers" class="w-6 h-6 text-slate-500 group-hover:text-sky-400 transition-colors"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-white mb-2">DJI Air 3S</h3>
@@ -529,37 +549,57 @@
                     <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-sky-400"></i> 10-Bit D-Log M &amp; Waktu Terbang 45 Menit</li>
                   </ul>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d6_ideal">Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel &amp; Wisata, Komersial Kreatif</div>
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-3">
+                  <div class="text-xs text-slate-400 leading-relaxed" data-i18n="gear.d6_ideal">Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel &amp; Wisata, Komersial Kreatif</div>
+                  <a href="https://wa.me/6281381453598?text=Halo%20Mas%20Bobien%2C%20saya%20tertarik%20booking%20jasa%20drone%20menggunakan%20unit%20DJI%20Air%203S."
+                     data-drone-unit="DJI Air 3S"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full mt-2 py-2.5 px-4 rounded-xl bg-sky-500/10 hover:bg-sky-500 text-sky-400 hover:text-slate-950 border border-sky-500/30 hover:border-sky-400 font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-sky-500/20 group/btn cursor-pointer">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-sky-400 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-all"></i>
+                    <span data-i18n="gear.d6_btn">Booking dengan Air 3S &rarr;</span>
+                  </a>
+                </div>
               </div>
             </div><!-- /SLIDE 1 -->
 
             <!-- ===== SLIDE 2: Avata 2 · Mini 4 Pro · Neo 2 ===== -->
-            <div class="fleet-slide min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="fleet-slide w-full min-w-full shrink-0 basis-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 box-border">
 
               <!-- Drone 4: Avata 2 -->
-              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-amber-500/50 transition-all flex flex-col justify-between group">
+              <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 hover:border-rose-500/50 transition-all flex flex-col justify-between group shadow-lg">
                 <div>
                   <div class="flex items-center justify-between mb-6">
-                    <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold" data-i18n="gear.d3_tag">IMMERSIVE FPV CINEMA</span>
-                    <i data-lucide="wind" class="w-6 h-6 text-slate-500 group-hover:text-amber-400 transition-colors"></i>
+                    <span class="px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs font-mono font-bold" data-i18n="gear.d3_tag">IMMERSIVE FPV CINEMA</span>
+                    <i data-lucide="wind" class="w-6 h-6 text-slate-500 group-hover:text-rose-400 transition-colors"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-white mb-2">DJI Avata 2</h3>
                   <p class="text-xs text-slate-400 mb-6 leading-relaxed" data-i18n="gear.d3_desc">Drone FPV lincah dengan sensor 1/1.3&quot; CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.</p>
                   <ul class="space-y-3 text-xs text-slate-300 font-mono">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Video 4K / 60fps HDR &amp; RockSteady 3.0+</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Lensa 155° Ultra-Wide Angle FOV</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> Stabilisasi Gyroflow &amp; HorizonSteady</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> One-Push ACRO (Flip, Roll, 180° Drift)</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-400"></i> Video 4K / 60fps HDR &amp; RockSteady 3.0+</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-400"></i> Lensa 155° Ultra-Wide Angle FOV</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-400"></i> Stabilisasi Gyroflow &amp; HorizonSteady</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-400"></i> One-Push ACRO (Flip, Roll, 180° Drift)</li>
                   </ul>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d3_ideal">Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor &amp; Olahraga Ekstrem</div>
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-3">
+                  <div class="text-xs text-slate-400 leading-relaxed" data-i18n="gear.d3_ideal">Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor &amp; Olahraga Ekstrem</div>
+                  <a href="https://wa.me/6281381453598?text=Halo%20Mas%20Bobien%2C%20saya%20tertarik%20booking%20jasa%20drone%20menggunakan%20unit%20DJI%20Avata%202."
+                     data-drone-unit="DJI Avata 2"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full mt-2 py-2.5 px-4 rounded-xl bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-slate-950 border border-rose-500/30 hover:border-rose-400 font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-rose-500/20 group/btn cursor-pointer">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-rose-400 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-all"></i>
+                    <span data-i18n="gear.d3_btn">Booking dengan Avata 2 &rarr;</span>
+                  </a>
+                </div>
               </div>
 
               <!-- Drone 5: Mini 4 Pro -->
-              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group">
+              <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-lg">
                 <div>
                   <div class="flex items-center justify-between mb-6">
-                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold" data-i18n="gear.d4_tag">AGILE &amp; SUB-249G</span>
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold" data-i18n="gear.d4_tag">SOCIAL REELS • SUB-249G VERTICAL</span>
                     <i data-lucide="zap" class="w-6 h-6 text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-white mb-2">DJI Mini 4 Pro</h3>
@@ -571,14 +611,24 @@
                     <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 48MP RAW Photo High Details</li>
                   </ul>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d4_ideal">Ideal untuk: Wisata, Real Estate, Konten Instagram Reels &amp; TikTok</div>
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-3">
+                  <div class="text-xs text-slate-400 leading-relaxed" data-i18n="gear.d4_ideal">Ideal untuk: Wisata, Real Estate, Konten Instagram Reels &amp; TikTok</div>
+                  <a href="https://wa.me/6281381453598?text=Halo%20Mas%20Bobien%2C%20saya%20tertarik%20booking%20jasa%20drone%20menggunakan%20unit%20DJI%20Mini%204%20Pro."
+                     data-drone-unit="DJI Mini 4 Pro"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full mt-2 py-2.5 px-4 rounded-xl bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 border border-emerald-500/30 hover:border-emerald-400 font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-emerald-500/20 group/btn cursor-pointer">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-emerald-400 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-all"></i>
+                    <span data-i18n="gear.d4_btn">Booking dengan Mini 4 Pro &rarr;</span>
+                  </a>
+                </div>
               </div>
 
               <!-- Drone 6: Neo 2 -->
-              <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-purple-500/50 transition-all flex flex-col justify-between group">
+              <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 hover:border-purple-500/50 transition-all flex flex-col justify-between group shadow-lg">
                 <div>
                   <div class="flex items-center justify-between mb-6">
-                    <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-mono font-bold" data-i18n="gear.d5_tag">PALM TAKEOFF &amp; AI TRACKING</span>
+                    <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-mono font-bold" data-i18n="gear.d5_tag">INDOOR &amp; VLOG • AI PALM TAKEOFF</span>
                     <i data-lucide="sparkles" class="w-6 h-6 text-slate-500 group-hover:text-purple-400 transition-colors"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-white mb-2">DJI Neo 2</h3>
@@ -590,7 +640,17 @@
                     <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Full Propeller Guard (Sangat Aman)</li>
                   </ul>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500" data-i18n="gear.d5_ideal">Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)</div>
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-3">
+                  <div class="text-xs text-slate-400 leading-relaxed" data-i18n="gear.d5_ideal">Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)</div>
+                  <a href="https://wa.me/6281381453598?text=Halo%20Mas%20Bobien%2C%20saya%20tertarik%20booking%20jasa%20drone%20menggunakan%20unit%20DJI%20Neo%202."
+                     data-drone-unit="DJI Neo 2"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full mt-2 py-2.5 px-4 rounded-xl bg-purple-500/10 hover:bg-purple-500 text-purple-400 hover:text-slate-950 border border-purple-500/30 hover:border-purple-400 font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-purple-500/20 group/btn cursor-pointer">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-purple-400 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-all"></i>
+                    <span data-i18n="gear.d5_btn">Booking dengan Neo 2 &rarr;</span>
+                  </a>
+                </div>
               </div>
             </div><!-- /SLIDE 2 -->
 
@@ -598,10 +658,10 @@
         </div><!-- /fleet-track-wrap -->
 
         <!-- Navigation Buttons -->
-        <button id="fleet-prev" aria-label="Previous" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-11 h-11 rounded-full bg-slate-900 border border-slate-700 hover:border-cyan-500 hover:bg-slate-800 text-white flex items-center justify-center shadow-xl transition-all group">
+        <button id="fleet-prev" aria-label="Previous" class="hidden sm:flex absolute -left-3 md:-left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700 hover:border-cyan-500 hover:bg-slate-800 text-white items-center justify-center shadow-2xl transition-all group cursor-pointer">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <button id="fleet-next" aria-label="Next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-11 h-11 rounded-full bg-slate-900 border border-slate-700 hover:border-cyan-500 hover:bg-slate-800 text-white flex items-center justify-center shadow-xl transition-all group">
+        <button id="fleet-next" aria-label="Next" class="hidden sm:flex absolute -right-3 md:-right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700 hover:border-cyan-500 hover:bg-slate-800 text-white items-center justify-center shadow-2xl transition-all group cursor-pointer">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
 
@@ -1131,9 +1191,9 @@
 
 
   <!-- Application Scripts -->
-  <script src="site-config.js?v=1795147700"></script>
-  <script src="supabase.js?v=1795147700"></script>
-  <script src="app.js?v=1795147700"></script>
+  <script src="site-config.js?v=1795150000"></script>
+  <script src="supabase.js?v=1795150000"></script>
+  <script src="app.js?v=1795150000"></script>
   <script>
     if (window.lucide) {
       window.lucide.createIcons();
