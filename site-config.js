@@ -156,22 +156,42 @@ const DEFAULT_SITE_CONFIG = {
     {
       id: "service-1",
       title: "Aerial Cinematography",
-      desc: "Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan."
+      desc: "Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan produksi kreatif.",
+      deliverables: [
+        "File Mentah (D-Log M) + Color Graded 4K",
+        "Waktu Terbang 2–4 Baterai Operasional",
+        "Izin Terbang Resmi & Prosedur Aman"
+      ]
     },
     {
       id: "service-2",
       title: "Real Estate & Arsitektur",
-      desc: "Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar."
+      desc: "Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.",
+      deliverables: [
+        "Foto Udara 48MP RAW High-Resolution",
+        "Video Showcase 4K + Format Vertikal Reels",
+        "Highlight Fasilitas & Aksesibilitas Kawasan"
+      ]
     },
     {
       id: "service-3",
       title: "Dokumentasi Acara",
-      desc: "Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering."
+      desc: "Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.",
+      deliverables: [
+        "Dokumentasi Sudut Pandang Crowd Dinamis",
+        "Highlight Video 60s Siap Publikasi",
+        "Penerbangan Aman di Atas Area Publik"
+      ]
     },
     {
       id: "service-4",
       title: "Company Profile",
-      desc: "Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional."
+      desc: "Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.",
+      deliverables: [
+        "Master Video 4K Siap Presentasi & Web",
+        "Seluruh File Rekaman Mentah (Unedited)",
+        "Sertifikasi Remote Pilot Berlisensi Resmi"
+      ]
     }
   ],
   about: {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AeroScope — Portofolio Drone Fotografi & Sinematografi Udara</title>
-  <meta name="description" content="Portofolio fotografi dan sinematografi drone profesional. Menampilkan karya foto udara resolusi tinggi, video reel 4K, dan studio upload karya mandiri yang siap dideploy ke Vercel.">
+  <meta name="description" content="Portofolio fotografi dan sinematografi drone profesional oleh Bobien Martien. Menampilkan karya foto udara resolusi tinggi, video reel 4K, armada drone sinematik, dan layanan dokumentasi udara komersial.">
   
   <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Internationalization (ID/EN) Script -->
-  <script src="i18n.js"></script>
+  <script src="i18n.js?v=1795147700"></script>
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
@@ -63,8 +63,12 @@
       <span class="hidden md:inline" data-i18n="hud.color">WARNA: 10-BIT D-LOG M</span>
     </div>
     <div class="flex items-center gap-3">
-      <span class="text-emerald-400 flex items-center gap-1">
-        <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> <span data-i18n="hud.vercel">VERCEL READY</span>
+      <span class="text-emerald-400 flex items-center gap-1.5 font-bold">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span data-i18n="hud.status">STATUS: READY TO FLY • JABODETABEK &amp; NASIONAL</span>
       </span>
     </div>
   </div>
@@ -401,7 +405,7 @@
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="gallery.title">Koleksi Foto & Video Udara</h2>
       <p class="text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed" data-i18n="gallery.subtitle">
-        Koleksi rekaman visual lanskap alam, perkotaan, dan aksi FPV sinematik beresolusi tinggi yang terhubung langsung ke database Supabase.
+        Koleksi dokumentasi udara terpilih untuk produksi komersial, lanskap alam, arsitektur, dan sinematografi FPV.
       </p>
     </div>
 
@@ -440,7 +444,7 @@
       </div>
       <h3 class="text-lg font-bold text-slate-200" data-i18n="gallery.empty_title">Belum ada karya pada kategori ini</h3>
       <p class="text-sm text-slate-400 mt-1 max-w-sm mx-auto" data-i18n="gallery.empty_desc">
-        Karya foto dan video dapat ditambahkan melalui database Supabase SQL.
+        Karya untuk kategori ini sedang dalam proses kurasi.
       </p>
     </div>
 
@@ -680,36 +684,112 @@
 
       <!-- Services Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4">
-            <i data-lucide="video" class="w-5 h-5"></i>
+        <!-- Service 1: Aerial Cinematography -->
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="video" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s1_title">Aerial Cinematography</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="service.s1_desc">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan produksi kreatif.</p>
           </div>
-          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s1_title">Aerial Cinematography</h4>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s1_desc">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan.</p>
+          
+          <div class="pt-4 border-t border-slate-800/70 space-y-1.5">
+            <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <span data-i18n="service.s1_d1">File Mentah (D-Log M) + Color Graded 4K</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <span data-i18n="service.s1_d2">Waktu Terbang 2–4 Baterai Operasional</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <span data-i18n="service.s1_d3">Izin Terbang Resmi &amp; Prosedur Aman</span>
+            </div>
+          </div>
         </div>
 
-        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
-            <i data-lucide="home" class="w-5 h-5"></i>
+        <!-- Service 2: Real Estate & Arsitektur -->
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-emerald-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="home" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s2_title">Real Estate &amp; Arsitektur</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="service.s2_desc">Pengambilan foto &amp; video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
           </div>
-          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s2_title">Real Estate & Arsitektur</h4>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s2_desc">Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
+          
+          <div class="pt-4 border-t border-slate-800/70 space-y-1.5">
+            <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+              <span data-i18n="service.s2_d1">Foto Udara 48MP RAW High-Resolution</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+              <span data-i18n="service.s2_d2">Video Showcase 4K + Format Vertikal Reels</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+              <span data-i18n="service.s2_d3">Highlight Fasilitas &amp; Aksesibilitas Kawasan</span>
+            </div>
+          </div>
         </div>
 
-        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
-            <i data-lucide="calendar" class="w-5 h-5"></i>
+        <!-- Service 3: Dokumentasi Acara -->
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-amber-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="calendar" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s3_title">Dokumentasi Acara</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="service.s3_desc">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
           </div>
-          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s3_title">Dokumentasi Acara</h4>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s3_desc">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
+          
+          <div class="pt-4 border-t border-slate-800/70 space-y-1.5">
+            <span class="text-[10px] font-mono text-amber-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span data-i18n="service.s3_d1">Dokumentasi Sudut Pandang Crowd Dinamis</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span data-i18n="service.s3_d2">Highlight Video 60s Siap Publikasi</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span data-i18n="service.s3_d3">Penerbangan Aman di Atas Area Publik</span>
+            </div>
+          </div>
         </div>
 
-        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80">
-          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4">
-            <i data-lucide="building-2" class="w-5 h-5"></i>
+        <!-- Service 4: Company Profile -->
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-purple-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="building-2" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s4_title">Company Profile</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="service.s4_desc">Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.</p>
           </div>
-          <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s4_title">Company Profile</h4>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="service.s4_desc">Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.</p>
+          
+          <div class="pt-4 border-t border-slate-800/70 space-y-1.5">
+            <span class="text-[10px] font-mono text-purple-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+              <span data-i18n="service.s4_d1">Master Video 4K Siap Presentasi &amp; Web</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+              <span data-i18n="service.s4_d2">Seluruh File Rekaman Mentah (Unedited)</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+              <span data-i18n="service.s4_d3">Sertifikasi Remote Pilot Berlisensi Resmi</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -884,7 +964,7 @@
       
       <div class="flex items-center gap-3">
         <i data-lucide="crosshair" class="w-5 h-5 text-cyan-400 shrink-0"></i>
-        <span data-i18n="footer.copyright">Copyright &copy; 2026 <strong>AeroScope</strong> All Right Reserved Powered By <a href="https://www.instagram.com/bobienmartien/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors">Bobien Martien</a></span>
+        <span data-i18n="footer.copyright">Copyright &copy; 2026 <strong>AeroScope</strong> All Rights Reserved Powered By <a href="https://www.instagram.com/bobienmartien/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors">Bobien Martien</a></span>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px]">
@@ -1050,75 +1130,10 @@
 
 
 
-  <!-- ======================================================== -->
-  <!-- MODAL 4: VERCEL DEPLOYMENT STEP-BY-STEP MODAL -->
-  <!-- ======================================================== -->
-  <div id="vercel-guide-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="relative w-full max-w-2xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-6 sm:p-8 overflow-y-auto max-h-[90vh]">
-      
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center font-bold">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 76 65">
-              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Panduan Menghubungkan ke Vercel</h3>
-            <p class="text-xs text-slate-400">2 Cara termudah untuk menerbitkan website portofolio ini secara online</p>
-          </div>
-        </div>
-        <button onclick="document.getElementById('vercel-guide-modal').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="space-y-6 text-sm text-slate-300">
-        <!-- Metode 1 -->
-        <div class="p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/30">
-          <h4 class="font-bold text-cyan-300 flex items-center gap-2 mb-2">
-            <span class="w-5 h-5 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center text-xs">1</span>
-            Metode GitHub (Sangat Disarankan & Otomatis)
-          </h4>
-          <ol class="list-decimal list-inside space-y-2 text-xs text-slate-300 pl-1 leading-relaxed">
-            <li>Buat repository baru di <a href="https://github.com" target="_blank" class="text-cyan-400 underline">GitHub.com</a> (misal: <code class="bg-slate-900 px-1 py-0.5 rounded text-white">drone-portfolio</code>).</li>
-            <li>Upload seluruh file di folder ini ke repository GitHub Anda.</li>
-            <li>Buka <a href="https://vercel.com" target="_blank" class="text-cyan-400 underline">Vercel.com</a>, login dengan akun GitHub Anda.</li>
-            <li>Klik tombol <strong>"Add New..." &rarr; "Project"</strong>, lalu pilih repository tadi.</li>
-            <li>Klik <strong>"Deploy"</strong>. Dalam 10 detik, website Anda langsung online dengan domain gratis seperti <code class="text-emerald-400">nama-anda.vercel.app</code>!</li>
-          </ol>
-        </div>
-
-        <!-- Metode 2 -->
-        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800">
-          <h4 class="font-bold text-white flex items-center gap-2 mb-2">
-            <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs">2</span>
-            Menyimpan File Foto/Video Permanen di Server
-          </h4>
-          <p class="text-xs text-slate-400 leading-relaxed mb-2">
-            Jika Anda ingin video dan foto pribadi Anda selalu tampil permanen untuk siapa saja yang membuka web di Vercel:
-          </p>
-          <ul class="list-disc list-inside space-y-1 text-xs text-slate-300 pl-1">
-            <li>Letakkan file foto Anda di folder <code class="text-cyan-300">assets/images/</code>.</li>
-            <li>Letakkan file video Anda di folder <code class="text-cyan-300">assets/videos/</code>.</li>
-            <li>Buka <code class="text-cyan-300">app.js</code>, dan tambahkan nama file Anda ke dalam daftar array <code class="text-emerald-300 font-mono">INITIAL_MEDIA</code>.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
-        <button onclick="document.getElementById('vercel-guide-modal').classList.add('hidden')" class="px-5 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs">
-          Mengerti & Tutup
-        </button>
-      </div>
-
-    </div>
-  </div>
-
   <!-- Application Scripts -->
-  <script src="site-config.js"></script>
-  <script src="supabase.js"></script>
-  <script src="app.js"></script>
+  <script src="site-config.js?v=1795147700"></script>
+  <script src="supabase.js?v=1795147700"></script>
+  <script src="app.js?v=1795147700"></script>
   <script>
     if (window.lucide) {
       window.lucide.createIcons();

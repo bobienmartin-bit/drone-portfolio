@@ -8,7 +8,8 @@ const translations = {
     "hud.gps": "GPS LOCK • 18 SATELIT",
     "hud.resolution": "MAKS 4K/60FPS UHD",
     "hud.color": "WARNA: 10-BIT D-LOG M",
-    "hud.vercel": "VERCEL READY",
+    "hud.status": "STATUS: READY TO FLY • JABODETABEK & NASIONAL",
+    "hud.vercel": "STATUS: READY TO FLY • JABODETABEK & NASIONAL",
 
     // Nav
     "nav.home": "Beranda",
@@ -52,14 +53,14 @@ const translations = {
     // Gallery
     "gallery.badge": "Galeri & Portofolio",
     "gallery.title": "Koleksi Foto & Video Udara",
-    "gallery.subtitle": "Koleksi rekaman visual lanskap alam, perkotaan, dan aksi FPV sinematik beresolusi tinggi yang terhubung langsung ke database Supabase.",
+    "gallery.subtitle": "Koleksi dokumentasi udara terpilih untuk produksi komersial, lanskap alam, arsitektur, dan sinematografi FPV.",
     "gallery.filter_all": "Semua Karya",
     "gallery.filter_photo": "Foto Udara",
     "gallery.filter_video": "Video Sinematik",
     "gallery.filter_landscape": "Alam & Lanskap",
     "gallery.filter_urban": "Perkotaan & Arsitektur",
     "gallery.empty_title": "Belum ada karya pada kategori ini",
-    "gallery.empty_desc": "Karya foto dan video dapat ditambahkan melalui database Supabase SQL.",
+    "gallery.empty_desc": "Karya untuk kategori ini sedang dalam proses kurasi.",
     "gallery.btn_watch": "Tonton",
     "gallery.btn_view": "Lihat",
 
@@ -88,13 +89,25 @@ const translations = {
     
     // Services
     "service.s1_title": "Aerial Cinematography",
-    "service.s1_desc": "Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan profil perusahaan.",
+    "service.s1_desc": "Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan produksi kreatif.",
+    "service.s1_d1": "File Mentah (D-Log M) + Color Graded 4K",
+    "service.s1_d2": "Waktu Terbang 2–4 Baterai Operasional",
+    "service.s1_d3": "Izin Terbang Resmi & Prosedur Aman",
     "service.s2_title": "Real Estate & Arsitektur",
     "service.s2_desc": "Pengambilan foto & video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.",
+    "service.s2_d1": "Foto Udara 48MP RAW High-Resolution",
+    "service.s2_d2": "Video Showcase 4K + Format Vertikal Reels",
+    "service.s2_d3": "Highlight Fasilitas & Aksesibilitas Kawasan",
     "service.s3_title": "Dokumentasi Acara",
     "service.s3_desc": "Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.",
+    "service.s3_d1": "Dokumentasi Sudut Pandang Crowd Dinamis",
+    "service.s3_d2": "Highlight Video 60s Siap Publikasi",
+    "service.s3_d3": "Penerbangan Aman di Atas Area Publik",
     "service.s4_title": "Company Profile",
     "service.s4_desc": "Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.",
+    "service.s4_d1": "Master Video 4K Siap Presentasi & Web",
+    "service.s4_d2": "Seluruh File Rekaman Mentah (Unedited)",
+    "service.s4_d3": "Sertifikasi Remote Pilot Berlisensi Resmi",
 
     // About Me
     "about.badge": "Profil Pilot",
@@ -129,7 +142,7 @@ const translations = {
     "modal.photo_badge": "AERIAL PHOTO VIEWER",
 
     // Footer
-    "footer.copyright": "Copyright &copy; 2026 <strong>AeroScope</strong> All Right Reserved Powered By <a href=\"https://www.instagram.com/bobienmartien/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors\">Bobien Martien</a>",
+    "footer.copyright": "Copyright &copy; 2026 <strong>AeroScope</strong> All Rights Reserved Powered By <a href=\"https://www.instagram.com/bobienmartien/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors\">Bobien Martien</a>",
     "footer.top": "Kembali ke Atas ↑"
   },
 
@@ -138,7 +151,8 @@ const translations = {
     "hud.gps": "GPS LOCK • 18 SATELLITES",
     "hud.resolution": "MAX 4K/60FPS UHD",
     "hud.color": "COLOR: 10-BIT D-LOG M",
-    "hud.vercel": "VERCEL READY",
+    "hud.status": "STATUS: READY TO FLY • JABODETABEK & NATIONWIDE",
+    "hud.vercel": "STATUS: READY TO FLY • JABODETABEK & NATIONWIDE",
 
     // Nav
     "nav.home": "Home",
@@ -182,14 +196,14 @@ const translations = {
     // Gallery
     "gallery.badge": "Portfolio & Gallery",
     "gallery.title": "Aerial Photo & Video Showcase",
-    "gallery.subtitle": "A collection of high-resolution aerial landscapes, urban cityscapes, and dynamic FPV cinematic shots synced directly with Supabase database.",
+    "gallery.subtitle": "Selected aerial documentation collection for commercial production, natural landscapes, architecture, and FPV cinematography.",
     "gallery.filter_all": "All Media",
     "gallery.filter_photo": "Aerial Photos",
     "gallery.filter_video": "Cinematic Videos",
     "gallery.filter_landscape": "Nature & Landscape",
     "gallery.filter_urban": "Urban & Architecture",
     "gallery.empty_title": "No media found in this category",
-    "gallery.empty_desc": "New photos and videos can be added directly via Supabase SQL.",
+    "gallery.empty_desc": "Works for this category are currently being curated.",
     "gallery.btn_watch": "Watch",
     "gallery.btn_view": "View",
 
@@ -219,12 +233,24 @@ const translations = {
     // Services
     "service.s1_title": "Aerial Cinematography",
     "service.s1_desc": "4K/5K aerial video production for commercial film, tourism promotions, and brand storytelling.",
+    "service.s1_d1": "Raw Footage (D-Log M) + Color Graded 4K",
+    "service.s1_d2": "Flight Duration 2–4 Flight Batteries",
+    "service.s1_d3": "Official Flight Permits & Safety Compliance",
     "service.s2_title": "Real Estate & Architecture",
     "service.s2_desc": "Wide-angle aerial photography and cinematic fly-throughs showcasing architectural lines and surroundings.",
+    "service.s2_d1": "48MP RAW High-Resolution Aerial Photos",
+    "service.s2_d2": "4K Showcase Video + Vertical Reels Format",
+    "service.s2_d3": "Facility Highlights & Environmental Views",
     "service.s3_title": "Event Documentation",
     "service.s3_desc": "Aerial coverage for festivals, outdoor concerts, sports events, weddings, and grand gatherings.",
+    "service.s3_d1": "Dynamic Crowd Aerial Angles & Flow",
+    "service.s3_d2": "60-Second Social Ready Highlight Reel",
+    "service.s3_d3": "Multi-Battery Standby & Safe Protocols",
     "service.s4_title": "Company Profile",
     "service.s4_desc": "Cinematic aerial video and photo production for corporate facilities, industrial plants, and company showcase.",
+    "service.s4_d1": "4K Master Video Ready for Web & Presentation",
+    "service.s4_d2": "Complete Unedited Raw Footage Package",
+    "service.s4_d3": "Certified Remote Pilot & Full Compliance",
 
     // About Me
     "about.badge": "Pilot Profile",
@@ -259,7 +285,7 @@ const translations = {
     "modal.photo_badge": "AERIAL PHOTO VIEWER",
 
     // Footer
-    "footer.copyright": "Copyright &copy; 2026 <strong>AeroScope</strong> All Right Reserved Powered By <a href=\"https://www.instagram.com/bobienmartien/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors\">Bobien Martien</a>",
+    "footer.copyright": "Copyright &copy; 2026 <strong>AeroScope</strong> All Rights Reserved Powered By <a href=\"https://www.instagram.com/bobienmartien/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 transition-colors\">Bobien Martien</a>",
     "footer.top": "Back to Top ↑"
   }
 };
