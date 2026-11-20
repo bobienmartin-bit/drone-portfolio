@@ -22,8 +22,8 @@ const translations = {
 
     // Hero
     "hero.badge": "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
-    "hero.title": "Menangkap Keindahan Dunia dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Sudut Pandang Langit</span>.",
-    "hero.subtitle": "Koleksi visual lanskap alam, perkotaan, dan aksi FPV beresolusi tinggi hingga 5.1K. Siap untuk produksi komersial, dokumentasi acara, dan estetika visual sinematik.",
+    "hero.title": "Visual Udara Sinematik<br class=\"hidden sm:inline\"> dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Perspektif Terbaik</span>.",
+    "hero.subtitle": "Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.",
     "hero.btn_showreel": "Tonton Showreel 4K",
     "hero.btn_gallery": "Jelajahi Galeri",
     "hero.stat_legal": "LEGALITAS",
@@ -171,8 +171,8 @@ const translations = {
 
     // Hero
     "hero.badge": "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
-    "hero.title": "Capturing the World's Wonders from a <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Sky View Perspective</span>.",
-    "hero.subtitle": "High-resolution aerial landscapes, urban cityscapes, and dynamic FPV action up to 5.1K. Tailored for commercial productions, event coverage, and cinematic storytelling.",
+    "hero.title": "Cinematic Aerial Visuals<br class=\"hidden sm:inline\"> from the <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Best Perspective</span>.",
+    "hero.subtitle": "High-resolution aerial cinematography and drone photography up to 5.1K. Backed by certified drone pilots and an advanced fleet for commercial productions, real estate, and event coverage.",
     "hero.btn_showreel": "Watch 4K Showreel",
     "hero.btn_gallery": "Explore Portfolio",
     "hero.stat_legal": "LEGAL STATUS",

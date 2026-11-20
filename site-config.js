@@ -7,8 +7,8 @@ const SITE_CONFIG_STORAGE_KEY = "AEROSCOPE_SITE_CONFIG";
 const DEFAULT_SITE_CONFIG = {
   hero: {
     badge: "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
-    title: "Menangkap Keindahan Dunia dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Sudut Pandang Langit</span>.",
-    subtitle: "Koleksi visual lanskap alam, perkotaan, dan aksi FPV beresolusi tinggi hingga 5.1K. Siap untuk produksi komersial, dokumentasi acara, dan estetika visual sinematik.",
+    title: "Visual Udara Sinematik<br class=\"hidden sm:inline\"> dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Perspektif Terbaik</span>.",
+    subtitle: "Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.",
     btnShowreel: "Tonton Showreel 4K",
     btnGallery: "Jelajahi Galeri",
     stats: [
@@ -239,6 +239,15 @@ function getSiteConfig() {
     const saved = localStorage.getItem(SITE_CONFIG_STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
+      // Auto-migrate legacy default hero title & subtitle if unchanged by user
+      if (parsed && parsed.hero) {
+        if (parsed.hero.title && parsed.hero.title.includes("Menangkap Keindahan Dunia")) {
+          parsed.hero.title = DEFAULT_SITE_CONFIG.hero.title;
+        }
+        if (parsed.hero.subtitle && parsed.hero.subtitle.includes("Koleksi visual lanskap alam")) {
+          parsed.hero.subtitle = DEFAULT_SITE_CONFIG.hero.subtitle;
+        }
+      }
       return deepMergeConfig(DEFAULT_SITE_CONFIG, parsed);
     }
   } catch (err) {
