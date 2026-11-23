@@ -485,12 +485,12 @@ function populateReelForm() {
 
 // TAB GEAR (6 DRONES)
 const DEFAULT_DRONE_IMAGES = [
-  "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1521405924368-64c5b84bec60?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=800&q=80"
+  "assets/images/drone-mavic-4-pro.jpg",
+  "assets/images/drone-mavic-3-pro.jpg",
+  "assets/images/drone-air-3s.jpg",
+  "assets/images/drone-avata-2.jpg",
+  "assets/images/drone-mini-4-pro.jpg",
+  "assets/images/drone-neo-2.jpg"
 ];
 
 function populateGearForm() {
@@ -1053,8 +1053,8 @@ function getDefaultGalleryMedia() {
       type: "photo",
       title: "Masjid Apung An-Nur — Sunset Vista",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/masjid-apung-sunset.jpg",
+      thumbnailUrl: "assets/images/masjid-apung-sunset.jpg",
       drone: "DJI Mavic 3 Pro",
       altitude: "180m AGL",
       specs: "Hasselblad 20MP • 24mm f/2.8 • RAW",
@@ -1066,8 +1066,8 @@ function getDefaultGalleryMedia() {
       type: "photo",
       title: "Masjid Apung An-Nur — Blue Hour Twilight",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/masjid-apung-bluehour.jpg",
+      thumbnailUrl: "assets/images/masjid-apung-bluehour.jpg",
       drone: "DJI Mavic 3 Pro",
       altitude: "120m AGL",
       specs: "Hasselblad 20MP • 70mm Tele • ISO 100",
@@ -1079,8 +1079,8 @@ function getDefaultGalleryMedia() {
       type: "photo",
       title: "Embung Retensi Hijau & Jogging Track",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/embung-retensi-aerial.jpg",
+      thumbnailUrl: "assets/images/embung-retensi-aerial.jpg",
       drone: "DJI Air 3S",
       altitude: "220m AGL",
       specs: "1-Inch CMOS 50MP • LiDAR Nightscape",
@@ -1092,8 +1092,8 @@ function getDefaultGalleryMedia() {
       type: "photo",
       title: "Geometri Lansekap Embung dari Udara",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/embung-retensi-topdown.jpg",
+      thumbnailUrl: "assets/images/embung-retensi-topdown.jpg",
       drone: "DJI Mini 4 Pro",
       altitude: "260m AGL",
       specs: "48MP Quad-Bayer • 24mm f/1.7 • HDR",
@@ -1103,54 +1103,54 @@ function getDefaultGalleryMedia() {
     {
       id: "sample-photo-5",
       type: "photo",
-      title: "Marina Pier & Coastal Waterfront",
+      title: "Masjid Apung An-Nur — Siluet Senja Teluk",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/masjid-apung-twilight.jpg",
+      thumbnailUrl: "assets/images/masjid-apung-twilight.jpg",
       drone: "DJI Mavic 3 Pro",
       altitude: "160m AGL",
       specs: "Hasselblad 24mm • 10-Bit Color • f/4.0",
-      location: "Marina Bay Harbour",
-      description: "Visual aerial dermaga perahu dan yacht dengan garis dermaga geometris di atas air laut biru toska beresolusi tinggi."
+      location: "Pesisir Teluk Jakarta",
+      description: "Visual aerial arsitektur masjid apung dengan siluet lembut sebelum malam tiba memperlihatkan pantulan warna langit di permukaan air laut."
     },
     {
       id: "sample-photo-6",
       type: "photo",
-      title: "Garis Kontur Kebun Teh Ciater",
+      title: "Koridor Hijau & Lintasan Jogging Embung",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/embung-retensi-jogging.jpg",
+      thumbnailUrl: "assets/images/embung-retensi-jogging.jpg",
       drone: "DJI Air 3S",
-      altitude: "320m AGL",
+      altitude: "140m AGL",
       specs: "70mm Medium Tele • 48MP • ISO 100",
-      location: "Subang, Jawa Barat",
-      description: "Pola berulang garis terasering perkebunan teh berkabut pagi hari diambil dengan lensa medium telephoto 70mm yang memampatkan perspektif."
+      location: "Kawasan Penataan Lanskap Kota",
+      description: "Pemandangan udara lintasan pejalan kaki dan pepohonan asri di tepian danau retensi pemukiman warga."
     },
     {
       id: "sample-photo-7",
       type: "photo",
-      title: "Kelok Sinematik Jalur Lintas Lembah",
+      title: "Masjid Apung An-Nur — Kilau Malam Arsitektur",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/masjid-apung-night.jpg",
+      thumbnailUrl: "assets/images/masjid-apung-night.jpg",
       drone: "DJI Mavic 3 Pro",
-      altitude: "240m AGL",
+      altitude: "110m AGL",
       specs: "Hasselblad 24mm • RAW DNG • f/2.8",
-      location: "Jalur Wisata Pegunungan",
-      description: "Perspektif elevasi tinggi yang membingkai jalan aspal berkelok membelah kanopi hutan tropis dengan kabut tipis di kejauhan."
+      location: "Pesisir Teluk Jakarta",
+      description: "Perspektif malam hari memperlihatkan keindahan pendar lampu temaram yang menyinari struktur modern masjid di atas laut."
     },
     {
       id: "sample-photo-8",
       type: "photo",
-      title: "Metropolitan Golden Hour Skyline",
+      title: "Panorama Udara Elevasi Tinggi 8K",
       category: "commercial",
-      mediaUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1600&q=85",
-      thumbnailUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "assets/images/landscape-ciater-aerial.jpg",
+      thumbnailUrl: "assets/images/landscape-ciater-aerial.jpg",
       drone: "DJI Mavic 3 Pro",
-      altitude: "290m AGL",
-      specs: "166mm Telephoto • Hasselblad 20MP • ISO 100",
-      location: "Kawasan Segitiga Emas CBD",
-      description: "Dokumentasi udara deretan gedung pencakar langit kota metropolitan dengan siluet dramatis saat matahari terbenam memancarkan rona keemasan."
+      altitude: "350m AGL",
+      specs: "Hasselblad 48MP • D-Log M • ISO 100",
+      location: "Jawa Barat, Indonesia",
+      description: "Dokumentasi visual udara beresolusi super tinggi 48MP dengan sudut pandang luas membentang di atas cakrawala."
     }
   ];
 }
