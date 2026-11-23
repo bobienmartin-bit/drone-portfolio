@@ -212,11 +212,6 @@ const DEFAULT_SITE_CONFIG = {
       ctaUnit: "DJI Neo 2"
     }
   ],
-      ideal: "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)",
-      ctaText: "Booking dengan Neo 2 →",
-      ctaUnit: "DJI Neo 2"
-    }
-  ],
   services: [
     {
       id: "service-1",
