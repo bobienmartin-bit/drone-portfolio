@@ -22,20 +22,13 @@ const translations = {
 
     // Hero
     "hero.badge": "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
-    "hero.title": "Visual Udara Sinematik<br class=\"hidden sm:inline\"> dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Perspektif Terbaik</span>.",
+    "hero.title": "Visual Udara Sinematik dari Perspektif Terbaik.",
     "hero.subtitle": "Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.",
     "hero.btn_showreel": "Tonton Showreel 4K",
     "hero.btn_gallery": "Jelajahi Galeri",
-    "hero.stat_legal": "LEGALITAS",
-    "hero.stat_legal_sub": "SIDOPI GO & DKPPU",
-    "hero.stat_res": "RESOLUSI",
-    "hero.stat_res_sub": "ProRes & D-Log M",
-    "hero.stat_range": "JANGKAUAN",
-    "hero.stat_range_sub": "Siap Tugas Luar Kota",
-    "hero.stat_turnaround": "WAKTU PROSES",
-    "hero.stat_turnaround_sub": "File Mentah & Edit",
-    "hero.stat_signal": "JARAK KONTROL",
-    "hero.stat_signal_sub": "Transmisi Stabil HD",
+    "hero.cred_license": "Pilot Tersertifikasi SIDOPI GO & DKPPU",
+    "hero.cred_hours": "450+ Jam Terbang Operasional",
+    "hero.cred_nationwide": "Siap Penugasan Seluruh Indonesia",
 
     // Showreel
     "reel.badge": "EVENT AERIAL HIGHLIGHT",
@@ -51,7 +44,7 @@ const translations = {
     "reel.quick3_sub": "1st Place Winner • Fortune",
 
     // Gallery
-    "gallery.badge": "Galeri & Portofolio",
+    "gallery.badge": "PORTOFOLIO",
     "gallery.title": "Koleksi Foto & Video Udara",
     "gallery.subtitle": "Koleksi dokumentasi udara terpilih untuk produksi komersial, lanskap alam, arsitektur, dan sinematografi FPV.",
     "gallery.filter_all": "Semua Karya",
@@ -116,16 +109,16 @@ const translations = {
     "service.s4_d3": "Sertifikasi Remote Pilot Berlisensi Resmi",
 
     // About Me
-    "about.badge": "Profil Pilot",
-    "about.pilot_badge": "CERTIFIED DRONE PILOT",
+    "about.badge": "PROFIL OPERASIONAL",
+    "about.pilot_badge": "CERTIFIED REMOTE PILOT",
     "about.pilot_role": "Aerial Cinematographer & Remote Pilot",
     "about.reg_title": "REGISTRASI RESMI",
     "about.reg_desc": "Kementerian Perhubungan RI",
-    "about.title": "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.",
-    "about.p1": "Saya adalah seorang <strong class=\"text-white\">Certified Remote Pilot dan Aerial Visual Creator</strong> yang berfokus pada fotografi udara, videografi sinematik, serta produksi visual berbasis drone.",
-    "about.p2": "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam di berbagai wilayah Indonesia</strong>, saya telah mengabadikan beragam perspektif visual, mulai dari lanskap alam, kawasan pesisir, hingga arsitektur dan kawasan metropolitan.",
-    "about.p3": "Saya menggabungkan keterampilan pilot, ketelitian dalam pengambilan gambar, serta pemahaman teknis penerbangan untuk menghasilkan karya visual yang memiliki nilai estetika, komposisi kuat, dan standar produksi berkualitas.",
-    "about.p4": "Dalam setiap proyek, saya mengutamakan <strong class=\"text-white\">keselamatan penerbangan, kepatuhan terhadap regulasi, dan kualitas hasil visual</strong> sebagai bagian dari komitmen profesional.",
+    "about.title": "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial.",
+    "about.p1": "Saya adalah seorang <strong class=\"text-white\">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.",
+    "about.p2": "Dengan pengalaman lebih dari <strong class=\"text-white\">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata—mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.",
+    "about.p3": "Fokus utama di lapangan diarahkan pada <strong class=\"text-white\">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.",
+    "about.p4": "Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.",
 
     // Contact
     "contact.badge": "Kolaborasi",
@@ -180,20 +173,13 @@ const translations = {
 
     // Hero
     "hero.badge": "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
-    "hero.title": "Cinematic Aerial Visuals<br class=\"hidden sm:inline\"> from the <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Best Perspective</span>.",
+    "hero.title": "Cinematic Aerial Visuals from the Best Perspective.",
     "hero.subtitle": "High-resolution aerial cinematography and drone photography up to 5.1K. Backed by certified drone pilots and an advanced fleet for commercial productions, real estate, and event coverage.",
     "hero.btn_showreel": "Watch 4K Showreel",
     "hero.btn_gallery": "Explore Portfolio",
-    "hero.stat_legal": "LEGAL STATUS",
-    "hero.stat_legal_sub": "Certified SIDOPI GO",
-    "hero.stat_res": "RESOLUTION",
-    "hero.stat_res_sub": "ProRes & D-Log M",
-    "hero.stat_range": "COVERAGE",
-    "hero.stat_range_sub": "Nationwide Missions",
-    "hero.stat_turnaround": "TURNAROUND",
-    "hero.stat_turnaround_sub": "Raw & Edited Delivery",
-    "hero.stat_signal": "RANGE LIMIT",
-    "hero.stat_signal_sub": "Stable HD Transmission",
+    "hero.cred_license": "Certified Pilot SIDOPI GO & DKPPU",
+    "hero.cred_hours": "450+ Operational Flight Hours",
+    "hero.cred_nationwide": "Nationwide Mission Ready",
 
     // Showreel
     "reel.badge": "EVENT AERIAL HIGHLIGHT",
@@ -209,7 +195,7 @@ const translations = {
     "reel.quick3_sub": "1st Place Winner • Fortune",
 
     // Gallery
-    "gallery.badge": "Portfolio & Gallery",
+    "gallery.badge": "PORTFOLIO",
     "gallery.title": "Aerial Photo & Video Showcase",
     "gallery.subtitle": "Selected aerial documentation collection for commercial production, natural landscapes, architecture, and FPV cinematography.",
     "gallery.filter_all": "All Media",
@@ -274,16 +260,16 @@ const translations = {
     "service.s4_d3": "Certified Remote Pilot & Full Compliance",
 
     // About Me
-    "about.badge": "Pilot Profile",
-    "about.pilot_badge": "CERTIFIED DRONE PILOT",
+    "about.badge": "OPERATIONAL PROFILE",
+    "about.pilot_badge": "CERTIFIED REMOTE PILOT",
     "about.pilot_role": "Aerial Cinematographer & Remote Pilot",
     "about.reg_title": "OFFICIAL CERTIFICATION",
     "about.reg_desc": "Ministry of Transportation RI",
-    "about.title": "Discovering Perspectives Never Reached from the Ground.",
-    "about.p1": "I am a <strong class=\"text-white\">Certified Remote Pilot and Aerial Visual Creator</strong> focused on aerial photography, cinematic videography, and drone-based visual production.",
-    "about.p2": "With over <strong class=\"text-white\">450 flight hours across various regions of Indonesia</strong>, I have captured diverse visual perspectives, from natural landscapes and coastal areas to architecture and metropolitan areas.",
-    "about.p3": "I combine piloting skills, precision framing, and aeronautical technical expertise to produce visual works with high aesthetic value, compelling composition, and professional production standards.",
-    "about.p4": "In every project, I prioritize <strong class=\"text-white\">flight safety, regulatory compliance, and visual excellence</strong> as part of my professional commitment.",
+    "about.title": "Precision Aerial Perspectives for Feature Film & Commercial Production Standards.",
+    "about.p1": "I am a <strong class=\"text-white\">Certified Remote Pilot (Ministry of Transportation DGCA & SIDOPI GO)</strong> dedicated to high-precision aerial cinematography and professional visual capture.",
+    "about.p2": "With over <strong class=\"text-white\">450 operational flight hours</strong> across diverse Indonesian terrains, I am experienced in real-world flight dynamics—from high coastal winds to extreme natural landscapes and precision flight in dense urban zones.",
+    "about.p3": "Field focus is centered on <strong class=\"text-white\">smooth, cinematic gimbal motion, precise 10-Bit D-Log M color profiles for color grading flexibility, and rigorous airspace safety compliance</strong>.",
+    "about.p4": "Every flight is backed by structured pre-flight safety checklists, calibrated battery management, and operational readiness to ensure smooth execution for your production crew.",
 
     // Contact
     "contact.badge": "Collaboration",
@@ -375,8 +361,8 @@ function updateLangToggleUI(activeLang) {
   const mobileIdBtn = document.getElementById("mobile-lang-btn-id");
   const mobileEnBtn = document.getElementById("mobile-lang-btn-en");
 
-  const activeClasses = ["bg-cyan-500", "text-slate-950", "font-bold"];
-  const inactiveClasses = ["text-slate-400", "hover:text-white"];
+  const activeClasses = ["bg-white", "text-neutral-950", "font-bold"];
+  const inactiveClasses = ["text-neutral-400", "hover:text-white"];
 
   [ { id: idBtn, lang: "id" }, { id: enBtn, lang: "en" }, { id: mobileIdBtn, lang: "id" }, { id: mobileEnBtn, lang: "en" } ].forEach(item => {
     if (!item.id) return;

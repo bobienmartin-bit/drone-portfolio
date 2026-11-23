@@ -409,14 +409,14 @@ function applyFeaturedVideo(index) {
     if (card) {
       const iconBox = card.querySelector(".w-10");
       if (i === index) {
-        card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-cyan-400 bg-slate-800/90 ring-1 ring-cyan-400/50 cursor-pointer shadow-lg shadow-cyan-950/30";
+        card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-white bg-neutral-800/90 ring-1 ring-white/20 cursor-pointer shadow-lg";
         if (iconBox) {
-          iconBox.className = "w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0";
+          iconBox.className = "w-10 h-10 rounded-xl bg-neutral-700 flex items-center justify-center text-white group-hover:scale-105 transition-transform flex-shrink-0";
         }
       } else {
-        card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-slate-800 bg-slate-900/60 hover:border-cyan-500/50 hover:bg-slate-800/90 cursor-pointer";
+        card.className = "p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all flex items-center gap-3 group border-neutral-800 bg-[#121212] hover:border-neutral-600 hover:bg-neutral-800/80 cursor-pointer";
         if (iconBox) {
-          iconBox.className = "w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0";
+          iconBox.className = "w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-white group-hover:scale-105 transition-transform flex-shrink-0";
         }
       }
     }
@@ -479,39 +479,39 @@ function renderGallery() {
   container.innerHTML = filtered.map(item => {
     const isVideo = item.type === "video";
     return `
-      <div class="gallery-card group relative bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between" data-id="${item.id}">
+      <div class="gallery-card group relative bg-[#121212] rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-600 transition-all duration-300 shadow-xl flex flex-col justify-between" data-id="${item.id}">
         <!-- Media Preview Area -->
-        <div class="relative w-full aspect-[16/10] bg-slate-950 overflow-hidden cursor-pointer" onclick="openMediaDetail('${item.id}')">
+        <div class="relative w-full aspect-[16/10] bg-neutral-950 overflow-hidden cursor-pointer" onclick="openMediaDetail('${item.id}')">
           ${isVideo ? `
             <video src="${item.mediaUrl}" poster="${item.thumbnailUrl || ''}" preload="metadata" muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
             <!-- Play Button Overlay -->
-            <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 flex items-center justify-center transition-all">
-              <div class="w-14 h-14 rounded-full bg-cyan-500/90 text-slate-950 flex items-center justify-center shadow-lg shadow-cyan-500/40 group-hover:scale-110 transition-transform">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-all">
+              <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                 <i data-lucide="play" class="w-6 h-6 fill-current translate-x-0.5"></i>
               </div>
             </div>
             <!-- Video duration / tag badge -->
-            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur text-xs font-mono text-cyan-400 flex items-center gap-1.5 border border-cyan-500/20">
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur text-xs font-mono text-neutral-300 flex items-center gap-1.5 border border-neutral-700">
               <i data-lucide="video" class="w-3.5 h-3.5"></i> 4K VIDEO
             </span>
           ` : `
             <img src="${item.thumbnailUrl || item.mediaUrl}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <!-- Zoom Icon Overlay on hover -->
-            <div class="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/20 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-              <div class="w-12 h-12 rounded-full bg-slate-900/80 backdrop-blur text-cyan-400 flex items-center justify-center border border-cyan-500/30">
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
+              <div class="w-12 h-12 rounded-full bg-neutral-900/90 backdrop-blur text-white flex items-center justify-center border border-neutral-700">
                 <i data-lucide="maximize-2" class="w-5 h-5"></i>
               </div>
             </div>
             <!-- Photo badge -->
-            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur text-xs font-mono text-emerald-400 flex items-center gap-1.5 border border-emerald-500/20">
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur text-xs font-mono text-neutral-300 flex items-center gap-1.5 border border-neutral-700">
               <i data-lucide="camera" class="w-3.5 h-3.5"></i> ${labelPhoto}
             </span>
           `}
 
           <!-- Drone Model Tag -->
           <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-            <span class="px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur text-[11px] font-medium text-slate-200 border border-slate-700/60 flex items-center gap-1">
-              <i data-lucide="crosshair" class="w-3 h-3 text-cyan-400"></i> ${item.drone || 'Drone Aerial'}
+            <span class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur text-[11px] font-medium text-neutral-200 border border-neutral-700 flex items-center gap-1">
+              <i data-lucide="crosshair" class="w-3 h-3 text-neutral-400"></i> ${item.drone || 'Drone Aerial'}
             </span>
             ${item.isUserUpload ? `
               <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-semibold border border-amber-500/40">
@@ -522,7 +522,7 @@ function renderGallery() {
 
           <!-- Altitude Tag -->
           ${item.altitude ? `
-            <span class="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur text-[11px] font-mono text-cyan-300 border border-cyan-500/20">
+            <span class="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur text-[11px] font-mono text-neutral-300 border border-neutral-700">
               ALT: ${item.altitude}
             </span>
           ` : ''}
@@ -531,26 +531,26 @@ function renderGallery() {
         <!-- Card Body Content -->
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
-              <span class="flex items-center gap-1.5 text-cyan-400">
+            <div class="flex items-center justify-between text-xs text-neutral-400 mb-2">
+              <span class="flex items-center gap-1.5 text-neutral-300">
                 <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${item.location || 'Indonesia'}
               </span>
-              <span class="capitalize text-slate-500 font-mono text-[11px]">${item.category}</span>
+              <span class="capitalize text-neutral-500 font-mono text-[11px]">${item.category}</span>
             </div>
 
-            <h3 class="text-lg font-bold text-slate-100 group-hover:text-cyan-300 transition-colors line-clamp-1 cursor-pointer" onclick="openMediaDetail('${item.id}')">
+            <h3 class="text-lg font-bold text-white group-hover:text-neutral-200 transition-colors line-clamp-1 cursor-pointer" onclick="openMediaDetail('${item.id}')">
               ${item.title}
             </h3>
 
-            <p class="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+            <p class="text-xs text-neutral-400 mt-2 line-clamp-2 leading-relaxed">
               ${item.description || 'Dokumentasi visual udara dengan resolusi tinggi dan detail sinematik.'}
             </p>
           </div>
 
           <!-- Card Footer & Actions -->
-          <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
-            <div class="text-[11px] font-mono text-slate-400 flex items-center gap-1">
-              <i data-lucide="sliders" class="w-3.5 h-3.5 text-slate-500"></i>
+          <div class="pt-4 mt-4 border-t border-neutral-800 flex items-center justify-between">
+            <div class="text-[11px] font-mono text-neutral-400 flex items-center gap-1">
+              <i data-lucide="sliders" class="w-3.5 h-3.5 text-neutral-500"></i>
               <span class="truncate max-w-[170px]">${item.specs || '4K UHD'}</span>
             </div>
 
@@ -560,7 +560,7 @@ function renderGallery() {
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               ` : ''}
-              <button onclick="openMediaDetail('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-xs font-semibold text-slate-200 transition-all flex items-center gap-1">
+              <button onclick="openMediaDetail('${item.id}')" class="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-white hover:text-black text-xs font-semibold text-neutral-200 transition-all flex items-center gap-1 border border-neutral-700">
                 ${isVideo ? labelWatch : labelView} <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </div>
@@ -887,11 +887,11 @@ function setupEventListeners() {
   filterButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       filterButtons.forEach(b => {
-        b.classList.remove("bg-cyan-500", "text-slate-950", "font-bold");
-        b.classList.add("bg-slate-900/80", "text-slate-300");
+        b.classList.remove("bg-white", "text-black", "font-bold");
+        b.classList.add("bg-neutral-900", "text-neutral-300");
       });
-      btn.classList.add("bg-cyan-500", "text-slate-950", "font-bold");
-      btn.classList.remove("bg-slate-900/80", "text-slate-300");
+      btn.classList.add("bg-white", "text-black", "font-bold");
+      btn.classList.remove("bg-neutral-900", "text-neutral-300");
 
       currentFilter = btn.dataset.filter || "all";
       renderGallery();
@@ -1015,9 +1015,9 @@ window.selectDroneForBooking = function(droneName) {
       }
     }
     // Visual glow / pulse effect on dropdown
-    droneSelect.classList.add("ring-2", "ring-cyan-400", "border-cyan-400", "bg-cyan-950/60");
+    droneSelect.classList.add("ring-2", "ring-white/60", "border-white", "bg-neutral-800");
     setTimeout(() => {
-      droneSelect.classList.remove("ring-2", "ring-cyan-400", "border-cyan-400", "bg-cyan-950/60");
+      droneSelect.classList.remove("ring-2", "ring-white/60", "border-white", "bg-neutral-800");
     }, 2000);
   }
 
@@ -1089,7 +1089,7 @@ function showToast(message, type = "info") {
     success: "bg-emerald-900/90 border-emerald-500 text-emerald-200",
     error: "bg-rose-900/90 border-rose-500 text-rose-200",
     warning: "bg-amber-900/90 border-amber-500 text-amber-200",
-    info: "bg-slate-900/90 border-cyan-500 text-cyan-200"
+    info: "bg-neutral-900/95 border-neutral-700 text-neutral-100"
   };
 
   toast.className = `px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center justify-between gap-3 text-sm transition-all duration-300 transform translate-y-4 opacity-0 ${colors[type] || colors.info}`;

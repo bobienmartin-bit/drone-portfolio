@@ -2,87 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Drone Aesthetics & Animations */
+/* Cinematic Production House Theme */
 :root {
-  --hud-cyan: #06b6d4;
-  --hud-glow: rgba(6, 182, 212, 0.25);
-  --bg-deep: #07090e;
+  --bg-deep: #0a0a0a;
+  --bg-surface: #121212;
+  --bg-elevated: #1a1a1a;
+  --accent-amber: #d97706;
+  --accent-red: #ef4444;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
 }
 
 body {
-  background-color: var(--bg-deep);
-  color: #f1f5f9;
+  background-color: #0a0a0a;
+  color: #e5e5e5;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
 }
 
-/* Glassmorphism */
+/* Neutral Film Glassmorphism */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(18, 18, 18, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 10px 30px -10px var(--hud-glow);
+  background: rgba(26, 26, 26, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* HUD Grid background */
+/* Subtle Film Grid background */
 .hud-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-/* Radar pulse animation */
-@keyframes radar-pulse {
+/* Camera REC Indicator Pulse */
+@keyframes rec-pulse {
   0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.6);
-  }
-  70% {
+    opacity: 1;
     transform: scale(1);
-    box-shadow: 0 0 0 12px rgba(6, 182, 212, 0);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.92);
   }
   100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-.pulse-radar {
-  animation: radar-pulse 2.2s infinite;
-}
-
-/* Telemetry crosshair decor */
-.crosshair-corner {
-  position: relative;
-}
-.crosshair-corner::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid var(--hud-cyan);
-  border-left: 2px solid var(--hud-cyan);
-  pointer-events: none;
-}
-.crosshair-corner::after {
-  content: '';
-  position: absolute;
-  bottom: 6px;
-  right: 6px;
-  width: 10px;
-  height: 10px;
-  border-bottom: 2px solid var(--hud-cyan);
-  border-right: 2px solid var(--hud-cyan);
-  pointer-events: none;
+.rec-pulse {
+  animation: rec-pulse 1.8s infinite ease-in-out;
 }
 
 /* Custom scrollbar */
@@ -90,14 +66,14 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #0a0a0a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #262626;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4;
+  background: #404040;
 }
 
 /* Modal transition */

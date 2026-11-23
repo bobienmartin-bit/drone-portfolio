@@ -7,16 +7,14 @@ const SITE_CONFIG_STORAGE_KEY = "AEROSCOPE_SITE_CONFIG";
 const DEFAULT_SITE_CONFIG = {
   hero: {
     badge: "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
-    title: "Visual Udara Sinematik<br class=\"hidden sm:inline\"> dari <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500\">Perspektif Terbaik</span>.",
+    title: "Visual Udara Sinematik dari Perspektif Terbaik.",
     subtitle: "Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.",
     btnShowreel: "Tonton Showreel 4K",
     btnGallery: "Jelajahi Galeri",
-    stats: [
-      { id: "stat_legal", label: "LEGALITAS", value: "RESMI", sub: "SIDOPI GO & DKPPU" },
-      { id: "stat_res", label: "RESOLUSI", value: "5.1K / 4K", sub: "ProRes & D-Log M" },
-      { id: "stat_range", label: "JANGKAUAN", value: "NASIONAL", sub: "Siap Tugas Luar Kota" },
-      { id: "stat_turnaround", label: "WAKTU PROSES", value: "24 JAM", sub: "File Mentah & Edit" },
-      { id: "stat_signal", label: "JARAK KONTROL", value: "15 KM", sub: "Transmisi Stabil HD" }
+    credentials: [
+      { text: "Pilot Tersertifikasi SIDOPI GO & DKPPU" },
+      { text: "450+ Jam Terbang Operasional" },
+      { text: "Siap Penugasan Seluruh Indonesia" }
     ]
   },
   featuredReel: [
@@ -241,7 +239,7 @@ function getSiteConfig() {
       const parsed = JSON.parse(saved);
       // Auto-migrate legacy default hero title & subtitle if unchanged by user
       if (parsed && parsed.hero) {
-        if (parsed.hero.title && parsed.hero.title.includes("Menangkap Keindahan Dunia")) {
+        if (parsed.hero.title && (parsed.hero.title.includes("Menangkap Keindahan Dunia") || parsed.hero.title.includes("bg-gradient-to-r") || parsed.hero.title.includes("bg-clip-text"))) {
           parsed.hero.title = DEFAULT_SITE_CONFIG.hero.title;
         }
         if (parsed.hero.subtitle && parsed.hero.subtitle.includes("Koleksi visual lanskap alam")) {
