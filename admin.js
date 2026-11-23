@@ -484,16 +484,71 @@ function populateReelForm() {
 }
 
 // TAB GEAR (6 DRONES)
+const DEFAULT_DRONE_IMAGES = [
+  "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1521405924368-64c5b84bec60?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=800&q=80"
+];
+
 function populateGearForm() {
-  const gearList = currentConfig.gear || [];
+  const gearList = currentConfig.gear || (window.AeroSiteConfig ? window.AeroSiteConfig.DEFAULT_SITE_CONFIG.gear : []);
   const container = document.getElementById("gear-form-grid");
   if (!container) return;
 
-  container.innerHTML = gearList.map((g, i) => `
-    <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-3">
+  container.innerHTML = gearList.map((g, i) => {
+    const currentImg = g.imageUrl || DEFAULT_DRONE_IMAGES[i] || DEFAULT_DRONE_IMAGES[0];
+    const isDataUrl = currentImg.startsWith("data:");
+    return `
+    <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
       <div class="flex items-center justify-between pb-2 border-b border-slate-800">
         <span class="text-xs font-mono font-bold text-purple-400 uppercase">DRONE #${i+1}</span>
-        <span class="text-[11px] font-mono text-slate-400">${g.title}</span>
+        <span class="text-[11px] font-mono text-slate-300 font-bold">${g.title || 'Drone Unit'}</span>
+      </div>
+
+      <!-- FOTO UTAMA UNIT DRONE (PREVIEW & UPLOAD) -->
+      <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800/90 space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="block text-[11px] font-mono font-bold text-slate-200">FOTO UTAMA UNIT DRONE</label>
+          <span class="text-[10px] font-mono text-purple-400">Tampil Langsung di Kolom</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-900 border border-purple-500/30 shrink-0 group shadow-md">
+            <img id="gear-img-preview-${i}" src="${currentImg}" alt="Foto ${g.title}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-[10px] text-white font-mono">
+              Foto Aktif
+            </div>
+          </div>
+
+          <div class="flex-1 space-y-2">
+            <input type="file" id="gear-file-${i}" accept="image/*" class="hidden" onchange="handleDronePhotoUpload(event, ${i})">
+            <input type="hidden" id="gear-image-${i}" value="${currentImg}">
+
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" onclick="document.getElementById('gear-file-${i}').click()" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow-lg shadow-purple-600/20 transition-all">
+                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                <span>Upload Foto Baru</span>
+              </button>
+              <button type="button" onclick="resetDronePhoto(${i})" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 text-xs transition-colors">
+                Reset Default
+              </button>
+            </div>
+            <p class="text-[10px] text-slate-400">Pilih foto dari galeri HP/PC (otomatis dikompres &amp; langsung update ke website).</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">ATAU GUNAKAN URL GAMBAR LANGSUNG:</label>
+          <input type="text" id="gear-url-input-${i}" value="${isDataUrl ? '(Foto lokal tersimpan)' : currentImg}" onchange="handleDroneUrlChange(${i}, this.value)" placeholder="https://images.unsplash.com/..." class="w-full px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white font-mono focus:border-purple-400 focus:outline-none">
+        </div>
+
+        <div id="gear-status-${i}" class="hidden text-[11px] text-emerald-400 font-mono flex items-center gap-1">
+          <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+          <span>Foto baru aktif &amp; tersimpan!</span>
+        </div>
       </div>
 
       <div class="grid grid-cols-2 gap-3">
@@ -517,7 +572,122 @@ function populateGearForm() {
         <input type="text" id="gear-ideal-${i}" value="${g.ideal || ''}" class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400">
       </div>
     </div>
-  `).join("");
+  `}).join("");
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+// Upload & optimize drone photo
+function handleDronePhotoUpload(e, index) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Harap pilih file gambar (JPG, PNG, WEBP).");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = 900;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.84);
+
+      // Update inputs & preview
+      const hiddenInput = document.getElementById(`gear-image-${index}`);
+      if (hiddenInput) hiddenInput.value = optimizedDataUrl;
+
+      const preview = document.getElementById(`gear-img-preview-${index}`);
+      if (preview) preview.src = optimizedDataUrl;
+
+      const urlInput = document.getElementById(`gear-url-input-${index}`);
+      if (urlInput) urlInput.value = "(Foto lokal tersimpan)";
+
+      const statusEl = document.getElementById(`gear-status-${index}`);
+      if (statusEl) {
+        statusEl.classList.remove("hidden");
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      // Auto-save immediately to currentConfig and localStorage
+      if (!currentConfig.gear) currentConfig.gear = [];
+      if (!currentConfig.gear[index]) currentConfig.gear[index] = {};
+      currentConfig.gear[index].imageUrl = optimizedDataUrl;
+
+      if (window.AeroSiteConfig) {
+        window.AeroSiteConfig.saveSiteConfig(currentConfig);
+      }
+
+      const droneName = currentConfig.gear[index]?.title || `Drone #${index + 1}`;
+      showToast(`Foto utama ${droneName} berhasil diupload & langsung aktif di website!`);
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleDroneUrlChange(index, newUrl) {
+  if (!newUrl || newUrl === "(Foto lokal tersimpan)") return;
+  const hiddenInput = document.getElementById(`gear-image-${index}`);
+  if (hiddenInput) hiddenInput.value = newUrl;
+
+  const preview = document.getElementById(`gear-img-preview-${index}`);
+  if (preview) preview.src = newUrl;
+
+  if (!currentConfig.gear) currentConfig.gear = [];
+  if (!currentConfig.gear[index]) currentConfig.gear[index] = {};
+  currentConfig.gear[index].imageUrl = newUrl;
+
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
+  showToast(`URL foto drone #${index + 1} berhasil diperbarui & disimpan!`);
+}
+
+function resetDronePhoto(index) {
+  const defaultUrl = DEFAULT_DRONE_IMAGES[index] || DEFAULT_DRONE_IMAGES[0];
+  const hiddenInput = document.getElementById(`gear-image-${index}`);
+  if (hiddenInput) hiddenInput.value = defaultUrl;
+
+  const preview = document.getElementById(`gear-img-preview-${index}`);
+  if (preview) preview.src = defaultUrl;
+
+  const urlInput = document.getElementById(`gear-url-input-${index}`);
+  if (urlInput) urlInput.value = defaultUrl;
+
+  const statusEl = document.getElementById(`gear-status-${index}`);
+  if (statusEl) statusEl.classList.add("hidden");
+
+  if (!currentConfig.gear) currentConfig.gear = [];
+  if (!currentConfig.gear[index]) currentConfig.gear[index] = {};
+  currentConfig.gear[index].imageUrl = defaultUrl;
+
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
+  showToast(`Foto drone #${index + 1} dikembalikan ke default & tersimpan.`);
 }
 
 // TAB SERVICES (4)
@@ -547,6 +717,7 @@ function populateAboutForm() {
   const nameEl = document.getElementById("cfg-about-name");
   const roleEl = document.getElementById("cfg-about-role");
   const avatarEl = document.getElementById("cfg-about-avatar");
+  const avatarUrlEl = document.getElementById("cfg-about-avatar-url");
   const titleEl = document.getElementById("cfg-about-title");
   const p1El = document.getElementById("cfg-about-p1");
   const p2El = document.getElementById("cfg-about-p2");
@@ -556,6 +727,10 @@ function populateAboutForm() {
   if (avatarEl) {
     avatarEl.value = ab.avatarUrl || "";
     updatePilotAvatarPreview(ab.avatarUrl);
+  }
+  if (avatarUrlEl) {
+    const isData = ab.avatarUrl && ab.avatarUrl.startsWith("data:");
+    avatarUrlEl.value = isData ? "(Foto lokal tersimpan)" : (ab.avatarUrl || "");
   }
   if (titleEl) titleEl.value = ab.title || "";
   if (p1El) p1El.value = ab.p1 || "";
@@ -576,7 +751,7 @@ function handlePilotPhotoUpload(e) {
   reader.onload = (event) => {
     const img = new Image();
     img.onload = () => {
-      const maxDim = 1000;
+      const maxDim = 800;
       let width = img.width;
       let height = img.height;
 
@@ -596,23 +771,53 @@ function handlePilotPhotoUpload(e) {
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0, width, height);
 
-      const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.88);
+      const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.85);
 
       const avatarInput = document.getElementById("cfg-about-avatar");
       if (avatarInput) avatarInput.value = optimizedDataUrl;
+
+      const avatarUrlInput = document.getElementById("cfg-about-avatar-url");
+      if (avatarUrlInput) avatarUrlInput.value = "(Foto lokal tersimpan)";
+
       updatePilotAvatarPreview(optimizedDataUrl);
+
+      // AUTO-SAVE IMMEDIATELY to currentConfig and localStorage
+      if (!currentConfig.about) currentConfig.about = {};
+      currentConfig.about.avatarUrl = optimizedDataUrl;
+
+      if (window.AeroSiteConfig) {
+        window.AeroSiteConfig.saveSiteConfig(currentConfig);
+      }
 
       const statusEl = document.getElementById("pilot-photo-status");
       if (statusEl) {
         statusEl.classList.remove("hidden");
+        statusEl.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+          <span>Foto profil baru berhasil diupload dan <strong>langsung aktif di website!</strong></span>`;
         if (window.lucide) window.lucide.createIcons();
       }
 
-      showToast("Foto pilot baru siap diterapkan! Klik 'Simpan Perubahan' di kanan atas.");
+      showToast("Foto profil pilot berhasil diupload & langsung terupdate di website!");
     };
     img.src = event.target.result;
   };
   reader.readAsDataURL(file);
+}
+
+function handlePilotUrlChange(newUrl) {
+  if (!newUrl || newUrl === "(Foto lokal tersimpan)") return;
+  const avatarInput = document.getElementById("cfg-about-avatar");
+  if (avatarInput) avatarInput.value = newUrl;
+  updatePilotAvatarPreview(newUrl);
+
+  if (!currentConfig.about) currentConfig.about = {};
+  currentConfig.about.avatarUrl = newUrl;
+
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
+  showToast("URL foto profil berhasil diperbarui & langsung tersimpan!");
 }
 
 function updatePilotAvatarPreview(url) {
@@ -626,10 +831,22 @@ function resetPilotAvatarToDefault() {
   const defaultUrl = "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80";
   const avatarInput = document.getElementById("cfg-about-avatar");
   if (avatarInput) avatarInput.value = defaultUrl;
+
+  const avatarUrlInput = document.getElementById("cfg-about-avatar-url");
+  if (avatarUrlInput) avatarUrlInput.value = defaultUrl;
+
   updatePilotAvatarPreview(defaultUrl);
+
+  if (!currentConfig.about) currentConfig.about = {};
+  currentConfig.about.avatarUrl = defaultUrl;
+
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
   const statusEl = document.getElementById("pilot-photo-status");
   if (statusEl) statusEl.classList.add("hidden");
-  showToast("Foto profil pilot dikembalikan ke default.");
+  showToast("Foto profil pilot dikembalikan ke default & tersimpan.");
 }
 
 // TAB CONTACT
@@ -702,10 +919,12 @@ function saveAllSettings() {
     const title = document.getElementById(`gear-title-${i}`);
     const desc = document.getElementById(`gear-desc-${i}`);
     const ideal = document.getElementById(`gear-ideal-${i}`);
+    const img = document.getElementById(`gear-image-${i}`);
     if (tag) gearList[i].tag = tag.value;
     if (title) gearList[i].title = title.value;
     if (desc) gearList[i].desc = desc.value;
     if (ideal) gearList[i].ideal = ideal.value;
+    if (img && img.value) gearList[i].imageUrl = img.value;
   }
   currentConfig.gear = gearList;
 
@@ -1081,3 +1300,11 @@ function showToast(msg) {
     toast.classList.add("translate-y-20", "opacity-0");
   }, 3500);
 }
+
+// Expose handlers globally
+window.handleDronePhotoUpload = handleDronePhotoUpload;
+window.handleDroneUrlChange = handleDroneUrlChange;
+window.resetDronePhoto = resetDronePhoto;
+window.handlePilotPhotoUpload = handlePilotPhotoUpload;
+window.handlePilotUrlChange = handlePilotUrlChange;
+window.resetPilotAvatarToDefault = resetPilotAvatarToDefault;

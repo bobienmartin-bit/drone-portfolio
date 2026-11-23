@@ -175,6 +175,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.FEATURED_VIDEOS_PLAYLIST = siteCfg.featuredReel;
     }
     window.AeroSiteConfig.applySiteConfigToDOM(siteCfg);
+
+    // Listen for real-time config updates from CMS (admin panel in another tab)
+    window.addEventListener("storage", (e) => {
+      if (e.key === "AEROSCOPE_SITE_CONFIG" && window.AeroSiteConfig) {
+        const updatedCfg = window.AeroSiteConfig.getSiteConfig();
+        window.AeroSiteConfig.applySiteConfigToDOM(updatedCfg);
+      }
+    });
   }
 
   renderGallery();

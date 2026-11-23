@@ -76,6 +76,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "CINEMA CLASS • NEXT-GEN 8K",
       title: "DJI Mavic 4 Pro",
       desc: "Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.",
+      imageUrl: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80",
       specs: [
         "Video 8K/60fps & 4K/120fps HDR",
         "Sistem Multi-Kamera Hasselblad",
@@ -91,6 +92,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "COMMERCIAL CINEMA • TRIPLE CAM",
       title: "DJI Mavic 3 Pro",
       desc: "Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.",
+      imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80",
       specs: [
         "Video 5.1K / 50fps Apple ProRes",
         "Lensa 24mm + 70mm + 166mm Tele",
@@ -106,6 +108,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "ALL-ROUNDER • NIGHTSCAPE LIDAR",
       title: "DJI Air 3S",
       desc: "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
+      imageUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
       specs: [
         "Sensor 1\" CMOS 50MP + 70mm Medium Tele",
         "Video 4K/60fps HDR & 4K/120fps Slow-mo",
@@ -121,6 +124,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "IMMERSIVE FPV CINEMA",
       title: "DJI Avata 2",
       desc: "Drone FPV lincah dengan sensor 1/1.3\" CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.",
+      imageUrl: "https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=800&q=80",
       specs: [
         "Video 4K / 60fps HDR & RockSteady 3.0+",
         "Lensa 155° Ultra-Wide Angle FOV",
@@ -136,6 +140,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "SOCIAL REELS • SUB-249G VERTICAL",
       title: "DJI Mini 4 Pro",
       desc: "Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.",
+      imageUrl: "https://images.unsplash.com/photo-1521405924368-64c5b84bec60?auto=format&fit=crop&w=800&q=80",
       specs: [
         "4K / 60fps HDR & 4K / 100fps Slow-mo",
         "True Vertical Gimbal Rotation",
@@ -151,6 +156,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "INDOOR & VLOG • AI PALM TAKEOFF",
       title: "DJI Neo 2",
       desc: "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
+      imageUrl: "https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=800&q=80",
       specs: [
         "Video 4K Ultra-Stabilized & QuickShots",
         "Palm Takeoff & Landing Tanpa Remote",
@@ -472,11 +478,23 @@ function applySiteConfigToDOM(config) {
     const pilotRole = document.querySelector('#tentang [data-i18n="about.pilot_role"]');
     if (pilotRole && config.about.pilotRole) pilotRole.textContent = config.about.pilotRole;
 
-    const pilotImg = document.querySelector("#tentang img");
-    if (pilotImg && config.about.avatarUrl) pilotImg.src = config.about.avatarUrl;
+    const pilotImg = document.getElementById("pilot-profile-img") || document.querySelector("#tentang img");
+    if (pilotImg && config.about.avatarUrl) {
+      pilotImg.src = config.about.avatarUrl;
+    }
 
     const pilotTitle = document.querySelector("#tentang h2");
     if (pilotTitle && config.about.title) pilotTitle.textContent = config.about.title;
+  }
+
+  // 5. Gear / Armada Drone Fleet Cards
+  if (Array.isArray(config.gear)) {
+    config.gear.forEach((g, idx) => {
+      const imgEl = document.getElementById(`fleet-drone-img-${idx}`);
+      if (imgEl && g.imageUrl) {
+        imgEl.src = g.imageUrl;
+      }
+    });
   }
 }
 
