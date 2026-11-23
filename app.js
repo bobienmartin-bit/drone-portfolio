@@ -45,6 +45,118 @@ const INITIAL_MEDIA = [
     location: "Fortune District",
     description: "Karya pemenang juara pertama kategori vertical aerial showcase 2025, mendokumentasikan kemewahan arsitektur kawasan New Cluster Groove at Fortune.",
     isUserUpload: false
+  },
+  {
+    id: "sample-photo-1",
+    type: "photo",
+    title: "Masjid Apung An-Nur — Sunset Vista",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Mavic 3 Pro",
+    altitude: "180m AGL",
+    specs: "Hasselblad 20MP • 24mm f/2.8 • RAW",
+    location: "Pesisir Teluk Jakarta",
+    description: "Dokumentasi visual udara arsitektur Masjid Apung An-Nur di atas perairan dengan jembatan melengkung berlatar pancaran senja keemasan.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-2",
+    type: "photo",
+    title: "Masjid Apung An-Nur — Blue Hour Twilight",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Mavic 3 Pro",
+    altitude: "120m AGL",
+    specs: "Hasselblad 20MP • 70mm Tele • ISO 100",
+    location: "Pesisir Teluk Jakarta",
+    description: "Komposisi simetris waktu blue hour dengan sorotan lampu arsitektural yang memantul di permukaan air laut tenang.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-3",
+    type: "photo",
+    title: "Embung Retensi Hijau & Jogging Track",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Air 3S",
+    altitude: "220m AGL",
+    specs: "1-Inch CMOS 50MP • LiDAR Nightscape",
+    location: "Kawasan Residensial Terpadu",
+    description: "Perspektif udara top-down dan lansekap embung retensi pengendali air dengan lintasan jogging ramah lingkungan di tengah permukiman modern.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-4",
+    type: "photo",
+    title: "Geometri Lansekap Embung dari Udara",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Mini 4 Pro",
+    altitude: "260m AGL",
+    specs: "48MP Quad-Bayer • 24mm f/1.7 • HDR",
+    location: "Kawasan Penataan Air Perkotaan",
+    description: "Pola top-down 90 derajat yang memperlihatkan kontras air kehijauan embung dengan alur trotoar bata terra cotta dan kerapatan pemukiman.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-5",
+    type: "photo",
+    title: "Marina Pier & Coastal Waterfront",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Mavic 3 Pro",
+    altitude: "160m AGL",
+    specs: "Hasselblad 24mm • 10-Bit Color • f/4.0",
+    location: "Marina Bay Harbour",
+    description: "Visual aerial dermaga perahu dan yacht dengan garis dermaga geometris di atas air laut biru toska beresolusi tinggi.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-6",
+    type: "photo",
+    title: "Garis Kontur Kebun Teh Ciater",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Air 3S",
+    altitude: "320m AGL",
+    specs: "70mm Medium Tele • 48MP • ISO 100",
+    location: "Subang, Jawa Barat",
+    description: "Pola berulang garis terasering perkebunan teh berkabut pagi hari diambil dengan lensa medium telephoto 70mm yang memampatkan perspektif.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-7",
+    type: "photo",
+    title: "Kelok Sinematik Jalur Lintas Lembah",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Mavic 3 Pro",
+    altitude: "240m AGL",
+    specs: "Hasselblad 24mm • RAW DNG • f/2.8",
+    location: "Jalur Wisata Pegunungan",
+    description: "Perspektif elevasi tinggi yang membingkai jalan aspal berkelok membelah kanopi hutan tropis dengan kabut tipis di kejauhan.",
+    isUserUpload: false
+  },
+  {
+    id: "sample-photo-8",
+    type: "photo",
+    title: "Metropolitan Golden Hour Skyline",
+    category: "commercial",
+    mediaUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1600&q=85",
+    thumbnailUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=800&q=80",
+    drone: "DJI Mavic 3 Pro",
+    altitude: "290m AGL",
+    specs: "166mm Telephoto • Hasselblad 20MP • ISO 100",
+    location: "Kawasan Segitiga Emas CBD",
+    description: "Dokumentasi udara deretan gedung pencakar langit kota metropolitan dengan siluet dramatis saat matahari terbenam memancarkan rona keemasan.",
+    isUserUpload: false
   }
 ];
 
@@ -136,7 +248,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (cmsGallery) {
     try {
       const parsed = JSON.parse(cmsGallery);
-      if (Array.isArray(parsed) && parsed.length > 0) baseMedia = parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        const hasPhotos = parsed.some(i => i.type === "photo");
+        if (!hasPhotos) {
+          const defaultPhotos = INITIAL_MEDIA.filter(i => i.type === "photo");
+          baseMedia = [...parsed, ...defaultPhotos];
+          try {
+            localStorage.setItem("AEROSCOPE_GALLERY_ITEMS", JSON.stringify(baseMedia));
+          } catch (storageErr) {}
+        } else {
+          baseMedia = parsed;
+        }
+      }
     } catch (e) {}
   }
 
@@ -480,97 +603,68 @@ function renderGallery() {
 
   const lang = window.AeroI18n ? window.AeroI18n.getCurrentLanguage() : 'id';
   const isEn = lang === 'en';
-  const labelWatch = isEn ? 'Watch' : 'Tonton';
-  const labelView = isEn ? 'View' : 'Lihat';
-  const labelPhoto = isEn ? 'AERIAL PHOTO' : 'FOTO UDARA';
+  const labelPhoto = isEn ? 'PHOTO' : 'FOTO UDARA';
 
   container.innerHTML = filtered.map(item => {
     const isVideo = item.type === "video";
     return `
-      <div class="gallery-card group relative bg-[#121212] rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-600 transition-all duration-300 shadow-xl flex flex-col justify-between" data-id="${item.id}">
-        <!-- Media Preview Area -->
-        <div class="relative w-full aspect-[16/10] bg-neutral-950 overflow-hidden cursor-pointer" onclick="openMediaDetail('${item.id}')">
+      <div class="gallery-card group relative bg-[#121212] rounded-2xl overflow-hidden border border-neutral-800/90 hover:border-neutral-500 transition-all duration-300 shadow-xl flex flex-col cursor-pointer select-none" onclick="openMediaDetail('${item.id}')" data-id="${item.id}">
+        <!-- Media Visual Panel (Pure Edge-to-Edge Visual) -->
+        <div class="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden">
           ${isVideo ? `
             <video src="${item.mediaUrl}" poster="${item.thumbnailUrl || ''}" preload="metadata" muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
-            <!-- Play Button Overlay -->
-            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-all">
-              <div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <i data-lucide="play" class="w-6 h-6 fill-current translate-x-0.5"></i>
+            <!-- Ambient Cinema Vignette Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/60 pointer-events-none"></div>
+            <!-- Video Play Button Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center transition-all group-hover:scale-110 pointer-events-none">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transition-transform">
+                <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
               </div>
             </div>
-            <!-- Video duration / tag badge -->
-            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur text-xs font-mono text-neutral-300 flex items-center gap-1.5 border border-neutral-700">
-              <i data-lucide="video" class="w-3.5 h-3.5"></i> 4K VIDEO
-            </span>
           ` : `
             <img src="${item.thumbnailUrl || item.mediaUrl}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <!-- Zoom Icon Overlay on hover -->
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-              <div class="w-12 h-12 rounded-full bg-neutral-900/90 backdrop-blur text-white flex items-center justify-center border border-neutral-700">
-                <i data-lucide="maximize-2" class="w-5 h-5"></i>
+            <!-- Ambient Photo Vignette Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/60 pointer-events-none"></div>
+            <!-- Expand/Zoom Icon on Hover -->
+            <div class="absolute inset-0 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 group-hover:scale-110 pointer-events-none">
+              <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 backdrop-blur-md text-white flex items-center justify-center border border-neutral-600 shadow-2xl">
+                <i data-lucide="maximize-2" class="w-4 h-4"></i>
               </div>
             </div>
-            <!-- Photo badge -->
-            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur text-xs font-mono text-neutral-300 flex items-center gap-1.5 border border-neutral-700">
-              <i data-lucide="camera" class="w-3.5 h-3.5"></i> ${labelPhoto}
-            </span>
           `}
 
-          <!-- Drone Model Tag -->
-          <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-            <span class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur text-[11px] font-medium text-neutral-200 border border-neutral-700 flex items-center gap-1">
-              <i data-lucide="crosshair" class="w-3 h-3 text-neutral-400"></i> ${item.drone || 'Drone Aerial'}
+          <!-- Top Tags & Badges -->
+          <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none z-10">
+            <span class="px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-neutral-200 border border-neutral-700/80 flex items-center gap-1 shadow-sm">
+              <i data-lucide="crosshair" class="w-3 h-3 text-neutral-400"></i>
+              <span class="truncate max-w-[90px] sm:max-w-[120px]">${item.drone || 'DJI Drone'}</span>
             </span>
-            ${item.isUserUpload ? `
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-semibold border border-amber-500/40">
-                Upload Anda
-              </span>
-            ` : ''}
-          </div>
 
-          <!-- Altitude Tag -->
-          ${item.altitude ? `
-            <span class="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur text-[11px] font-mono text-neutral-300 border border-neutral-700">
-              ALT: ${item.altitude}
-            </span>
-          ` : ''}
-        </div>
-
-        <!-- Card Body Content -->
-        <div class="p-5 flex-1 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-xs text-neutral-400 mb-2">
-              <span class="flex items-center gap-1.5 text-neutral-300">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${item.location || 'Indonesia'}
-              </span>
-              <span class="capitalize text-neutral-500 font-mono text-[11px]">${item.category}</span>
-            </div>
-
-            <h3 class="text-lg font-bold text-white group-hover:text-neutral-200 transition-colors line-clamp-1 cursor-pointer" onclick="openMediaDetail('${item.id}')">
-              ${item.title}
-            </h3>
-
-            <p class="text-xs text-neutral-400 mt-2 line-clamp-2 leading-relaxed">
-              ${item.description || 'Dokumentasi visual udara dengan resolusi tinggi dan detail sinematik.'}
-            </p>
-          </div>
-
-          <!-- Card Footer & Actions -->
-          <div class="pt-4 mt-4 border-t border-neutral-800 flex items-center justify-between">
-            <div class="text-[11px] font-mono text-neutral-400 flex items-center gap-1">
-              <i data-lucide="sliders" class="w-3.5 h-3.5 text-neutral-500"></i>
-              <span class="truncate max-w-[170px]">${item.specs || '4K UHD'}</span>
-            </div>
-
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1">
               ${item.isUserUpload ? `
-                <button onclick="handleDeleteUserMedia('${item.id}')" title="Hapus dari Galeri" class="p-2 rounded-lg text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors">
-                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                <button type="button" onclick="event.stopPropagation(); handleDeleteUserMedia('${item.id}');" title="Hapus dari Galeri" class="p-1 rounded-md bg-rose-500/80 hover:bg-rose-600 text-white pointer-events-auto transition-colors">
+                  <i data-lucide="trash-2" class="w-3 h-3"></i>
                 </button>
               ` : ''}
-              <button onclick="openMediaDetail('${item.id}')" class="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-white hover:text-black text-xs font-semibold text-neutral-200 transition-all flex items-center gap-1 border border-neutral-700">
-                ${isVideo ? labelWatch : labelView} <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </button>
+              <span class="px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[10px] font-mono text-neutral-300 border border-neutral-700/80 flex items-center gap-1 shadow-sm">
+                ${isVideo ? `<i data-lucide="video" class="w-3 h-3 text-red-400"></i> 4K VIDEO` : `<i data-lucide="camera" class="w-3 h-3 text-emerald-400"></i> ${item.altitude || labelPhoto}`}
+              </span>
+            </div>
+          </div>
+
+          <!-- Bottom Panel Content Overlay -->
+          <div class="absolute bottom-0 inset-x-0 p-3 sm:p-3.5 z-10 pointer-events-none">
+            <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-1 drop-shadow-md">
+              ${item.title}
+            </h3>
+            <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-neutral-300 mt-1">
+              <span class="flex items-center gap-1 truncate max-w-[130px] sm:max-w-[160px] text-neutral-300">
+                <i data-lucide="map-pin" class="w-3 h-3 text-neutral-400 shrink-0"></i>
+                <span class="truncate">${item.location || 'Indonesia'}</span>
+              </span>
+              <span class="text-neutral-400 font-mono text-[10px] shrink-0">
+                ${item.specs ? item.specs.split('•')[0].trim() : (isVideo ? '4K UHD' : 'RAW')}
+              </span>
             </div>
           </div>
         </div>
@@ -703,7 +797,7 @@ function openPhotoModal(item) {
     counterElem.textContent = `${(currentIdx >= 0 ? currentIdx : 0) + 1} / ${photoList.length}`;
   }
 
-  imgElem.src = item.mediaUrl;
+  imgElem.src = item.mediaUrl || item.thumbnailUrl || "";
   titleElem.textContent = item.title;
   descElem.textContent = item.description || "";
   droneElem.textContent = item.drone || "Drone System";
@@ -711,7 +805,7 @@ function openPhotoModal(item) {
   specsElem.textContent = item.specs || "48MP RAW High-Res";
 
   if (downloadLink) {
-    downloadLink.href = item.mediaUrl;
+    downloadLink.href = item.mediaUrl || item.thumbnailUrl || "#";
     downloadLink.setAttribute("download", `${item.title.replace(/\s+/g, "_")}.jpg`);
   }
 

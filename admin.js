@@ -990,6 +990,14 @@ function loadGalleryMedia() {
   if (saved) {
     try {
       currentGalleryList = JSON.parse(saved);
+      // Auto-merge default photos if stored gallery only has videos
+      if (Array.isArray(currentGalleryList) && !currentGalleryList.some(i => i.type === "photo")) {
+        const defaultPhotos = getDefaultGalleryMedia().filter(i => i.type === "photo");
+        currentGalleryList = [...currentGalleryList, ...defaultPhotos];
+        try {
+          localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(currentGalleryList));
+        } catch (e) {}
+      }
     } catch (e) {
       currentGalleryList = getDefaultGalleryMedia();
     }
@@ -1039,6 +1047,110 @@ function getDefaultGalleryMedia() {
       specs: "4K Vertical • D-Log M • 24mm f/1.7",
       location: "Fortune District",
       description: "Karya pemenang juara pertama kategori vertical aerial showcase 2025."
+    },
+    {
+      id: "sample-photo-1",
+      type: "photo",
+      title: "Masjid Apung An-Nur — Sunset Vista",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Mavic 3 Pro",
+      altitude: "180m AGL",
+      specs: "Hasselblad 20MP • 24mm f/2.8 • RAW",
+      location: "Pesisir Teluk Jakarta",
+      description: "Dokumentasi visual udara arsitektur Masjid Apung An-Nur di atas perairan dengan jembatan melengkung berlatar pancaran senja keemasan."
+    },
+    {
+      id: "sample-photo-2",
+      type: "photo",
+      title: "Masjid Apung An-Nur — Blue Hour Twilight",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Mavic 3 Pro",
+      altitude: "120m AGL",
+      specs: "Hasselblad 20MP • 70mm Tele • ISO 100",
+      location: "Pesisir Teluk Jakarta",
+      description: "Komposisi simetris waktu blue hour dengan sorotan lampu arsitektural yang memantul di permukaan air laut tenang."
+    },
+    {
+      id: "sample-photo-3",
+      type: "photo",
+      title: "Embung Retensi Hijau & Jogging Track",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Air 3S",
+      altitude: "220m AGL",
+      specs: "1-Inch CMOS 50MP • LiDAR Nightscape",
+      location: "Kawasan Residensial Terpadu",
+      description: "Perspektif udara top-down dan lansekap embung retensi pengendali air dengan lintasan jogging ramah lingkungan di tengah permukiman modern."
+    },
+    {
+      id: "sample-photo-4",
+      type: "photo",
+      title: "Geometri Lansekap Embung dari Udara",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Mini 4 Pro",
+      altitude: "260m AGL",
+      specs: "48MP Quad-Bayer • 24mm f/1.7 • HDR",
+      location: "Kawasan Penataan Air Perkotaan",
+      description: "Pola top-down 90 derajat yang memperlihatkan kontras air kehijauan embung dengan alur trotoar bata terra cotta dan kerapatan pemukiman."
+    },
+    {
+      id: "sample-photo-5",
+      type: "photo",
+      title: "Marina Pier & Coastal Waterfront",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Mavic 3 Pro",
+      altitude: "160m AGL",
+      specs: "Hasselblad 24mm • 10-Bit Color • f/4.0",
+      location: "Marina Bay Harbour",
+      description: "Visual aerial dermaga perahu dan yacht dengan garis dermaga geometris di atas air laut biru toska beresolusi tinggi."
+    },
+    {
+      id: "sample-photo-6",
+      type: "photo",
+      title: "Garis Kontur Kebun Teh Ciater",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Air 3S",
+      altitude: "320m AGL",
+      specs: "70mm Medium Tele • 48MP • ISO 100",
+      location: "Subang, Jawa Barat",
+      description: "Pola berulang garis terasering perkebunan teh berkabut pagi hari diambil dengan lensa medium telephoto 70mm yang memampatkan perspektif."
+    },
+    {
+      id: "sample-photo-7",
+      type: "photo",
+      title: "Kelok Sinematik Jalur Lintas Lembah",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Mavic 3 Pro",
+      altitude: "240m AGL",
+      specs: "Hasselblad 24mm • RAW DNG • f/2.8",
+      location: "Jalur Wisata Pegunungan",
+      description: "Perspektif elevasi tinggi yang membingkai jalan aspal berkelok membelah kanopi hutan tropis dengan kabut tipis di kejauhan."
+    },
+    {
+      id: "sample-photo-8",
+      type: "photo",
+      title: "Metropolitan Golden Hour Skyline",
+      category: "commercial",
+      mediaUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1600&q=85",
+      thumbnailUrl: "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=800&q=80",
+      drone: "DJI Mavic 3 Pro",
+      altitude: "290m AGL",
+      specs: "166mm Telephoto • Hasselblad 20MP • ISO 100",
+      location: "Kawasan Segitiga Emas CBD",
+      description: "Dokumentasi udara deretan gedung pencakar langit kota metropolitan dengan siluet dramatis saat matahari terbenam memancarkan rona keemasan."
     }
   ];
 }
