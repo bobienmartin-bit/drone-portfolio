@@ -423,13 +423,25 @@ function applySiteConfigToDOM(config) {
 
   // 1. Hero Section
   if (config.hero) {
+    const isEn = window.AeroI18n ? (window.AeroI18n.getCurrentLanguage() === 'en') : false;
+    const isDefaultIdTitle = !config.hero.title || config.hero.title === "Visual Udara Sinematik dari Perspektif Terbaik.";
+    const isDefaultIdSubtitle = !config.hero.subtitle || config.hero.subtitle.startsWith("Jasa aerial cinematography");
+
     const heroTitle = document.querySelector("#beranda h1");
-    if (heroTitle && config.hero.title) {
-      heroTitle.innerHTML = config.hero.title;
+    if (heroTitle) {
+      if (isEn && isDefaultIdTitle && window.AeroI18n && window.AeroI18n.translations && window.AeroI18n.translations.en) {
+        heroTitle.innerHTML = window.AeroI18n.translations.en["hero.title"] || "Cinematic Aerial Visuals from the Best Perspective.";
+      } else if (config.hero.title) {
+        heroTitle.innerHTML = config.hero.title;
+      }
     }
     const heroSubtitle = document.querySelector("#beranda p");
-    if (heroSubtitle && config.hero.subtitle) {
-      heroSubtitle.textContent = config.hero.subtitle;
+    if (heroSubtitle) {
+      if (isEn && isDefaultIdSubtitle && window.AeroI18n && window.AeroI18n.translations && window.AeroI18n.translations.en) {
+        heroSubtitle.textContent = window.AeroI18n.translations.en["hero.subtitle"] || "High-resolution aerial cinematography and drone photography up to 5.1K. Backed by certified drone pilots and an advanced fleet for commercial productions, real estate, and event coverage.";
+      } else if (config.hero.subtitle) {
+        heroSubtitle.textContent = config.hero.subtitle;
+      }
     }
 
     // Dynamic Hero Stats (HUD Telemetry)
