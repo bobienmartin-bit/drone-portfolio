@@ -451,13 +451,13 @@ function applySiteConfigToDOM(config) {
         const isOddLast = (idx === count - 1 && count % 2 !== 0 && count > 1);
         const iconName = stat.icon || defaultIcons[idx % defaultIcons.length] || "bar-chart-2";
         return `
-          <div class="glass-panel p-4 rounded-2xl border border-slate-800/80 crosshair-corner text-left ${isOddLast ? 'col-span-2 sm:col-span-1' : ''}">
-            <div class="text-xs font-mono text-cyan-400 flex items-center gap-1.5 mb-1">
-              <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
+          <div class="glass-panel p-4 rounded-xl border border-[#262629] bg-[#141416]/90 crosshair-corner text-left ${isOddLast ? 'col-span-2 sm:col-span-1' : ''}">
+            <div class="text-xs font-mono text-[#EAB308] flex items-center gap-1.5 mb-1">
+              <i data-lucide="${iconName}" class="w-3.5 h-3.5 text-[#EAB308]"></i>
               <span>${escapeHtml(stat.label || 'STAT')}</span>
             </div>
-            <div class="text-xl sm:text-2xl font-bold font-mono text-white">${escapeHtml(stat.value || '')}</div>
-            <p class="text-[11px] text-slate-400 truncate">${escapeHtml(stat.sub || '')}</p>
+            <div class="text-xl sm:text-2xl font-bold font-mono text-[#F5F5F7]">${escapeHtml(stat.value || '')}</div>
+            <p class="text-[11px] text-[#9CA3AF] truncate">${escapeHtml(stat.sub || '')}</p>
           </div>
         `;
       }).join("");

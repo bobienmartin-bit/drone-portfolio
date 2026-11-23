@@ -621,26 +621,26 @@ function renderGallery() {
   container.innerHTML = filtered.map(item => {
     const isVideo = item.type === "video";
     return `
-      <div class="gallery-card group relative bg-[#121212] rounded-2xl overflow-hidden border border-neutral-800/90 hover:border-neutral-500 transition-all duration-300 shadow-xl flex flex-col cursor-pointer select-none" onclick="openMediaDetail('${item.id}')" data-id="${item.id}">
+      <div class="gallery-card group relative bg-[#141416] rounded-xl overflow-hidden border border-[#262629] hover:border-[#EAB308]/60 transition-all duration-300 shadow-xl flex flex-col cursor-pointer select-none" onclick="openMediaDetail('${item.id}')" data-id="${item.id}">
         <!-- Media Visual Panel (Pure Edge-to-Edge Visual) -->
-        <div class="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden">
+        <div class="relative w-full aspect-[4/3] bg-[#0A0A0B] overflow-hidden">
           ${isVideo ? `
             <video src="${item.mediaUrl}" poster="${item.thumbnailUrl || ''}" preload="metadata" muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></video>
             <!-- Ambient Cinema Vignette Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/60 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 via-[#0A0A0B]/25 to-[#0A0A0B]/60 pointer-events-none"></div>
             <!-- Video Play Button Overlay -->
             <div class="absolute inset-0 flex items-center justify-center transition-all group-hover:scale-110 pointer-events-none">
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transition-transform">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#EAB308] text-[#0A0A0B] flex items-center justify-center shadow-2xl transition-transform">
                 <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
               </div>
             </div>
           ` : `
             <img src="${item.thumbnailUrl || item.mediaUrl}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <!-- Ambient Photo Vignette Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/60 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 via-[#0A0A0B]/20 to-[#0A0A0B]/60 pointer-events-none"></div>
             <!-- Expand/Zoom Icon on Hover -->
             <div class="absolute inset-0 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 group-hover:scale-110 pointer-events-none">
-              <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/80 backdrop-blur-md text-white flex items-center justify-center border border-neutral-600 shadow-2xl">
+              <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#0A0A0B]/80 backdrop-blur-md text-[#F5F5F7] flex items-center justify-center border border-[#262629] shadow-2xl">
                 <i data-lucide="maximize-2" class="w-4 h-4"></i>
               </div>
             </div>
@@ -648,8 +648,8 @@ function renderGallery() {
 
           <!-- Top Tags & Badges -->
           <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none z-10">
-            <span class="px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-neutral-200 border border-neutral-700/80 flex items-center gap-1 shadow-sm">
-              <i data-lucide="crosshair" class="w-3 h-3 text-neutral-400"></i>
+            <span class="px-2 py-0.5 rounded-md bg-[#0A0A0B]/85 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-[#F5F5F7] border border-[#262629] flex items-center gap-1 shadow-sm">
+              <i data-lucide="crosshair" class="w-3 h-3 text-[#EAB308]"></i>
               <span class="truncate max-w-[90px] sm:max-w-[120px]">${item.drone || 'DJI Drone'}</span>
             </span>
 
@@ -659,23 +659,23 @@ function renderGallery() {
                   <i data-lucide="trash-2" class="w-3 h-3"></i>
                 </button>
               ` : ''}
-              <span class="px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[10px] font-mono text-neutral-300 border border-neutral-700/80 flex items-center gap-1 shadow-sm">
-                ${isVideo ? `<i data-lucide="video" class="w-3 h-3 text-red-400"></i> 4K VIDEO` : `<i data-lucide="camera" class="w-3 h-3 text-emerald-400"></i> ${item.altitude || labelPhoto}`}
+              <span class="px-2 py-0.5 rounded-md bg-[#0A0A0B]/85 backdrop-blur-md text-[10px] font-mono text-[#F5F5F7] border border-[#262629] flex items-center gap-1 shadow-sm">
+                ${isVideo ? `<i data-lucide="video" class="w-3 h-3 text-red-400"></i> 4K VIDEO` : `<i data-lucide="camera" class="w-3 h-3 text-[#EAB308]"></i> ${item.altitude || labelPhoto}`}
               </span>
             </div>
           </div>
 
           <!-- Bottom Panel Content Overlay -->
           <div class="absolute bottom-0 inset-x-0 p-3 sm:p-3.5 z-10 pointer-events-none">
-            <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-1 drop-shadow-md">
+            <h3 class="text-xs sm:text-sm font-bold font-heading text-[#F5F5F7] group-hover:text-[#EAB308] transition-colors line-clamp-1 drop-shadow-md">
               ${item.title}
             </h3>
-            <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-neutral-300 mt-1">
-              <span class="flex items-center gap-1 truncate max-w-[130px] sm:max-w-[160px] text-neutral-300">
-                <i data-lucide="map-pin" class="w-3 h-3 text-neutral-400 shrink-0"></i>
+            <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-[#9CA3AF] mt-1 font-mono">
+              <span class="flex items-center gap-1 truncate max-w-[130px] sm:max-w-[160px] text-[#9CA3AF]">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#EAB308] shrink-0"></i>
                 <span class="truncate">${item.location || 'Indonesia'}</span>
               </span>
-              <span class="text-neutral-400 font-mono text-[10px] shrink-0">
+              <span class="text-[#9CA3AF] font-mono text-[10px] shrink-0">
                 ${item.specs ? item.specs.split('•')[0].trim() : (isVideo ? '4K UHD' : 'RAW')}
               </span>
             </div>
@@ -1002,11 +1002,11 @@ function setupEventListeners() {
   filterButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       filterButtons.forEach(b => {
-        b.classList.remove("bg-white", "text-black", "font-bold");
-        b.classList.add("bg-neutral-900", "text-neutral-300");
+        b.classList.remove("bg-[#EAB308]", "text-[#0A0A0B]", "font-bold", "bg-white", "text-black");
+        b.classList.add("bg-[#141416]", "text-[#9CA3AF]", "font-semibold");
       });
-      btn.classList.add("bg-white", "text-black", "font-bold");
-      btn.classList.remove("bg-neutral-900", "text-neutral-300");
+      btn.classList.add("bg-[#EAB308]", "text-[#0A0A0B]", "font-bold");
+      btn.classList.remove("bg-[#141416]", "text-[#9CA3AF]", "font-semibold");
 
       currentFilter = btn.dataset.filter || "all";
       renderGallery();

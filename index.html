@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AeroScope — Portofolio Drone Fotografi & Sinematografi Udara</title>
-  <meta name="description" content="Portofolio fotografi dan sinematografi drone profesional oleh Bobien Martien. Menampilkan karya foto udara resolusi tinggi, video reel 4K, armada drone sinematik, dan layanan dokumentasi udara komersial.">
+  <title>AeroScope — Aerial Cinematography & Drone Photography Portfolio</title>
+  <meta name="description" content="Professional aerial cinematography and drone photography portfolio by Bobien Martien. Featuring ultra high-resolution aerial visuals, 4K showreels, certified drone pilot credentials, and commercial cinema fleet.">
   
-  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <!-- Google Fonts: Syne (Headings), Plus Jakarta Sans (Body), JetBrains Mono (Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,16 +19,22 @@
       theme: {
         extend: {
           fontFamily: {
+            heading: ['"Syne"', 'sans-serif'],
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"Space Grotesk"', 'monospace'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              cyan: '#06b6d4',
-              accent: '#38bdf8',
-              gold: '#f59e0b',
-              dark: '#07090e',
-              card: '#0d131f'
+            cinema: {
+              bg: '#0A0A0B',
+              surface: '#141416',
+              surfaceHover: '#1C1C1F',
+              border: '#262629',
+              borderHover: '#38383D',
+              text: '#F5F5F7',
+              muted: '#9CA3AF',
+              amber: '#EAB308',
+              amberHover: '#CA8A04',
+              orange: '#F97316'
             }
           }
         }
@@ -43,172 +49,172 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Internationalization (ID/EN) Script -->
-  <script src="i18n.js?v=1795172000"></script>
+  <script src="i18n.js?v=1795188000"></script>
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=1795172000">
+  <link rel="stylesheet" href="styles.css?v=1795188000">
 </head>
-<body class="bg-[#0a0a0a] text-neutral-100 font-sans selection:bg-neutral-800 selection:text-white">
+<body class="bg-[#0A0A0B] text-[#F5F5F7] font-sans selection:bg-[#EAB308] selection:text-[#0A0A0B]">
 
   <!-- TOP HUD TELEMETRY BAR -->
-  <div class="w-full bg-[#0a0a0a] border-b border-neutral-800/80 px-4 py-1.5 text-[11px] font-mono text-neutral-400 flex items-center justify-between z-50 relative">
+  <div class="w-full bg-[#0A0A0B] border-b border-[#262629] px-4 py-2 text-[11px] font-mono text-[#9CA3AF] flex items-center justify-between z-50 relative">
     <div class="flex items-center gap-4">
-      <span class="flex items-center gap-1.5 text-neutral-300">
+      <span class="flex items-center gap-1.5 text-[#F5F5F7]">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span data-i18n="hud.gps">GPS LOCK • 18 SATELIT</span>
+        <span data-i18n="hud.gps">GPS LOCK • 18 SATELLITES</span>
       </span>
-      <span class="hidden sm:inline text-neutral-700">|</span>
-      <span class="hidden sm:inline text-neutral-400" data-i18n="hud.resolution">MAKS 4K/60FPS UHD</span>
-      <span class="hidden md:inline text-neutral-700">|</span>
-      <span class="hidden md:inline text-neutral-400" data-i18n="hud.color">WARNA: 10-BIT D-LOG M</span>
+      <span class="hidden sm:inline text-[#38383D]">|</span>
+      <span class="hidden sm:inline text-[#9CA3AF]" data-i18n="hud.resolution">MAX 4K/60FPS UHD</span>
+      <span class="hidden md:inline text-[#38383D]">|</span>
+      <span class="hidden md:inline text-[#9CA3AF]" data-i18n="hud.color">COLOR: 10-BIT D-LOG M</span>
     </div>
     <div class="flex items-center gap-3">
-      <span class="text-neutral-200 flex items-center gap-2 font-medium">
-        <span class="w-2 h-2 rounded-full bg-red-500 rec-pulse"></span>
-        <span data-i18n="hud.status">STATUS: READY TO FLY • JABODETABEK &amp; NASIONAL</span>
+      <span class="text-[#F5F5F7] flex items-center gap-2 font-medium">
+        <span class="w-2 h-2 rounded-full bg-[#EAB308] rec-pulse"></span>
+        <span data-i18n="hud.status">STATUS: READY TO FLY • JABODETABEK &amp; NATIONWIDE</span>
       </span>
     </div>
   </div>
 
   <!-- NAVIGATION HEADER -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0a]/90 border-b border-neutral-800/80">
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0A0A0B]/90 border-b border-[#262629]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Logo Brand -->
       <a href="#beranda" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-700/80 flex items-center justify-center text-white group-hover:border-neutral-500 transition-all">
-          <i data-lucide="crosshair" class="w-5 h-5 text-white group-hover:rotate-45 transition-transform duration-300"></i>
+        <div class="w-10 h-10 rounded-lg bg-[#141416] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:border-[#EAB308]/60 transition-all">
+          <i data-lucide="crosshair" class="w-5 h-5 text-[#EAB308] group-hover:rotate-45 transition-transform duration-300"></i>
         </div>
         <div>
-          <span class="text-lg font-bold tracking-wider font-mono text-white">
+          <span class="text-lg font-bold tracking-wider font-heading text-[#F5F5F7]">
             AEROSCOPE
           </span>
-          <p class="text-[10px] tracking-widest uppercase font-mono text-neutral-400">Drone Visual Arts</p>
+          <p class="text-[10px] tracking-widest uppercase font-mono text-[#9CA3AF]">Drone Visual Arts</p>
         </div>
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-neutral-300">
-        <a href="#beranda" class="hover:text-white transition-colors" data-i18n="nav.home">Beranda</a>
-        <a href="#showreel" class="hover:text-white transition-colors" data-i18n="nav.reel">Video Reel</a>
-        <a href="#galeri" class="hover:text-white transition-colors" data-i18n="nav.gallery">Galeri Karya</a>
-        <a href="#gear" class="hover:text-white transition-colors" data-i18n="nav.gear">Gear & Layanan</a>
-        <a href="#tentang" class="hover:text-white transition-colors" data-i18n="nav.about">Tentang Saya</a>
-        <a href="#kontak" class="hover:text-white transition-colors" data-i18n="nav.contact">Kontak</a>
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-[#9CA3AF]">
+        <a href="#beranda" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.home">Home</a>
+        <a href="#showreel" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.reel">Video Reel</a>
+        <a href="#galeri" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.gallery">Portfolio</a>
+        <a href="#gear" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.gear">Gear &amp; Services</a>
+        <a href="#tentang" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.about">About Me</a>
+        <a href="#kontak" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <!-- Action Buttons + Language Switcher (Navbar) -->
       <div class="hidden sm:flex items-center gap-3">
 
         <!-- Language Switcher — ID / EN Pill -->
-        <div class="flex items-center bg-neutral-900 border border-neutral-800 rounded-xl p-1 gap-0.5 shadow-sm" role="group" aria-label="Language Switcher">
+        <div class="flex items-center bg-[#141416] border border-[#262629] rounded-lg p-0.5 gap-0.5 shadow-sm" role="group" aria-label="Language Switcher">
           <button id="lang-btn-id" onclick="AeroI18n.setLanguage('id')"
-            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono bg-white text-neutral-950 shadow transition-all duration-200">
+            class="px-3.5 py-1.5 rounded-md text-xs font-bold font-mono text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#1C1C1F] transition-all duration-200">
             ID
           </button>
           <button id="lang-btn-en" onclick="AeroI18n.setLanguage('en')"
-            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all duration-200">
+            class="px-3.5 py-1.5 rounded-md text-xs font-bold font-mono bg-[#EAB308] text-[#0A0A0B] shadow transition-all duration-200">
             EN
           </button>
         </div>
 
         <!-- Booking Button -->
-        <a href="#kontak" class="px-5 py-2.5 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold text-xs tracking-wide uppercase transition-all shadow-md flex items-center gap-2">
-          <span data-i18n="nav.booking">Booking Pilot</span>
+        <a href="#kontak" class="px-5 py-2.5 rounded-lg bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0A0B] font-bold text-xs tracking-wide uppercase transition-all flex items-center gap-2">
+          <span data-i18n="nav.booking">Book Pilot</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
         </a>
       </div>
 
       <!-- Mobile Menu Trigger -->
-      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-800">
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#141416] border border-[#262629]">
         <i data-lucide="menu" class="w-6 h-6"></i>
       </button>
     </div>
 
     <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-neutral-800 bg-[#0a0a0a]/95 px-6 py-6 space-y-4">
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-[#262629] bg-[#0A0A0B]/98 px-6 py-6 space-y-4">
       <div class="flex flex-col gap-4 text-base font-medium">
-        <a href="#beranda" class="text-neutral-200 hover:text-white" data-i18n="nav.home">Beranda</a>
-        <a href="#showreel" class="text-neutral-200 hover:text-white" data-i18n="nav.reel">Video Reel</a>
-        <a href="#galeri" class="text-neutral-200 hover:text-white" data-i18n="nav.gallery">Galeri Karya</a>
-        <a href="#gear" class="text-neutral-200 hover:text-white" data-i18n="nav.gear">Gear & Layanan</a>
-        <a href="#tentang" class="text-neutral-200 hover:text-white" data-i18n="nav.about">Tentang Saya</a>
-        <a href="#kontak" class="text-neutral-200 hover:text-white" data-i18n="nav.contact">Kontak</a>
+        <a href="#beranda" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.home">Home</a>
+        <a href="#showreel" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.reel">Video Reel</a>
+        <a href="#galeri" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.gallery">Portfolio</a>
+        <a href="#gear" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.gear">Gear &amp; Services</a>
+        <a href="#tentang" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.about">About Me</a>
+        <a href="#kontak" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.contact">Contact</a>
       </div>
 
       <!-- Mobile Language Switcher -->
-      <div class="flex items-center justify-between pt-3 border-t border-neutral-800">
-        <span class="text-neutral-400 font-mono text-xs">Bahasa / Language:</span>
-        <div class="flex items-center bg-neutral-900 border border-neutral-800 rounded-xl p-1 gap-0.5">
+      <div class="flex items-center justify-between pt-3 border-t border-[#262629]">
+        <span class="text-[#9CA3AF] font-mono text-xs">Bahasa / Language:</span>
+        <div class="flex items-center bg-[#141416] border border-[#262629] rounded-lg p-0.5 gap-0.5">
           <button id="mobile-lang-btn-id" onclick="AeroI18n.setLanguage('id')"
-            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono bg-white text-neutral-950 transition-all">
+            class="px-3.5 py-1.5 rounded-md text-xs font-bold font-mono text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#1C1C1F] transition-all">
             ID
           </button>
           <button id="mobile-lang-btn-en" onclick="AeroI18n.setLanguage('en')"
-            class="px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all">
+            class="px-3.5 py-1.5 rounded-md text-xs font-bold font-mono bg-[#EAB308] text-[#0A0A0B] transition-all">
             EN
           </button>
         </div>
       </div>
 
       <div class="pt-2">
-        <a href="#kontak" class="w-full py-2.5 rounded-xl bg-white text-neutral-950 font-bold text-sm text-center block" data-i18n="nav.booking">
-          Booking Proyek Drone
+        <a href="#kontak" class="w-full py-2.5 rounded-lg bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0A0B] font-bold text-sm text-center block uppercase tracking-wider" data-i18n="nav.booking">
+          Book Pilot Project
         </a>
       </div>
     </div>
   </header>
 
   <!-- HERO SECTION -->
-  <section id="beranda" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden hud-grid py-20">
+  <section id="beranda" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden hud-grid py-24 lg:py-32">
     <!-- Ambient Overlay -->
     <div class="absolute inset-0 z-0">
       <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85" alt="Drone Background" class="w-full h-full object-cover opacity-20 filter brightness-50">
-      <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/85 to-transparent"></div>
     </div>
 
     <!-- Hero Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
       <div class="text-center max-w-4xl mx-auto">
         
-        <!-- Main Headline (Solid White, No AI Gradients) -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.15] mb-6" data-i18n="hero.title">
-          Visual Udara Sinematik dari Perspektif Terbaik.
+        <!-- Main Headline (Solid Off-White #F5F5F7, Syne font, No AI Gradients) -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F5F5F7] font-heading leading-[1.12] mb-6" data-i18n="hero.title">
+          Cinematic Aerial Visuals from the Best Perspective.
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-base sm:text-lg text-neutral-300 font-normal max-w-3xl mx-auto mb-10 leading-relaxed" data-i18n="hero.subtitle">
-          Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.
+        <p class="text-base sm:text-lg text-[#9CA3AF] font-normal max-w-3xl mx-auto mb-12 leading-relaxed" data-i18n="hero.subtitle">
+          High-resolution aerial cinematography and drone photography up to 5.1K. Backed by certified drone pilots and an advanced fleet for commercial productions, real estate, and event coverage.
         </p>
 
-        <!-- CTA Buttons -->
+        <!-- CTA Buttons (Clean High Contrast, 8px rounded corners) -->
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button onclick="openMediaDetail('sample-vid-2')" class="px-7 py-3.5 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold text-sm tracking-wide shadow-lg transition-all flex items-center gap-3 cursor-pointer">
+          <button onclick="openMediaDetail('sample-vid-2')" class="px-7 py-3.5 rounded-lg bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0A0B] font-bold text-sm tracking-wide shadow-none transition-all flex items-center gap-3 cursor-pointer">
             <i data-lucide="play-circle" class="w-5 h-5 fill-current"></i>
-            <span data-i18n="hero.btn_showreel">Tonton Showreel 4K</span>
+            <span data-i18n="hero.btn_showreel">Watch 4K Showreel</span>
           </button>
 
-          <a href="#galeri" class="px-7 py-3.5 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 hover:border-neutral-500 font-semibold text-sm transition-all flex items-center gap-2">
-            <i data-lucide="grid" class="w-4 h-4 text-neutral-400"></i>
-            <span data-i18n="hero.btn_gallery">Jelajahi Galeri</span>
+          <a href="#galeri" class="px-7 py-3.5 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] text-[#F5F5F7] border border-[#262629] hover:border-[#38383D] font-semibold text-sm transition-all flex items-center gap-2">
+            <i data-lucide="grid" class="w-4 h-4 text-[#9CA3AF]"></i>
+            <span data-i18n="hero.btn_gallery">Explore Portfolio</span>
           </a>
         </div>
 
-        <!-- Practitioner Credential Strip (Replaces Clunky 5-Box Stats) -->
-        <div id="hero-credentials" class="mt-14 pt-8 border-t border-neutral-800/80 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-2.5 text-xs sm:text-sm font-medium text-neutral-400">
+        <!-- Practitioner Credential Strip -->
+        <div id="hero-credentials" class="mt-16 pt-8 border-t border-[#262629] flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-2.5 text-xs sm:text-sm font-medium text-[#9CA3AF]">
           <span class="flex items-center gap-2">
-            <span class="text-emerald-400 font-bold">✓</span>
-            <span data-i18n="hero.cred_license">Pilot Tersertifikasi SIDOPI GO &amp; DKPPU</span>
+            <span class="text-[#EAB308] font-bold">✓</span>
+            <span data-i18n="hero.cred_license">Certified Pilot SIDOPI GO &amp; DKPPU</span>
           </span>
-          <span class="hidden sm:inline text-neutral-700">•</span>
+          <span class="hidden sm:inline text-[#38383D]">•</span>
           <span class="flex items-center gap-2">
-            <span class="text-amber-400 font-bold">✓</span>
-            <span data-i18n="hero.cred_hours">450+ Jam Terbang Operasional</span>
+            <span class="text-[#EAB308] font-bold">✓</span>
+            <span data-i18n="hero.cred_hours">450+ Operational Flight Hours</span>
           </span>
-          <span class="hidden sm:inline text-neutral-700">•</span>
+          <span class="hidden sm:inline text-[#38383D]">•</span>
           <span class="flex items-center gap-2">
-            <span class="text-red-400 font-bold">✓</span>
-            <span data-i18n="hero.cred_nationwide">Siap Penugasan Seluruh Indonesia</span>
+            <span class="text-[#EAB308] font-bold">✓</span>
+            <span data-i18n="hero.cred_nationwide">Nationwide Mission Ready</span>
           </span>
         </div>
 
@@ -217,23 +223,23 @@
   </section>
 
   <!-- FEATURED SHOWREEL & VIDEO CINEMA SECTION -->
-  <section id="showreel" class="py-20 bg-[#0a0a0a] border-t border-b border-neutral-800/80 relative">
+  <section id="showreel" class="py-24 lg:py-32 bg-[#0A0A0B] border-t border-b border-[#262629] relative">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
       
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 max-w-3xl mx-auto">
         <div>
-          <p class="text-xs font-mono tracking-widest text-neutral-400 uppercase mb-2" id="reel-badge" data-i18n="reel.badge">
+          <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" id="reel-badge" data-i18n="reel.badge">
             EVENT AERIAL HIGHLIGHT
           </p>
-          <h2 id="reel-title" class="text-2xl sm:text-3xl font-bold text-white" data-i18n="reel.title">Wonderful 12th: Karawang Central Plaza</h2>
-          <p id="reel-subtitle" class="text-neutral-400 text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
-            Dokumentasi udara kemeriahan puncak perayaan ulang tahun ke-12 Karawang Central Plaza (KCP) di kawasan Galuh Mas, menampilkan antusiasme pengunjung dan kemegahan acara dari ketinggian.
+          <h2 id="reel-title" class="text-2xl sm:text-3xl font-bold font-heading text-[#F5F5F7]" data-i18n="reel.title">Wonderful 12th: Karawang Central Plaza</h2>
+          <p id="reel-subtitle" class="text-[#9CA3AF] text-sm mt-2 max-w-xl" data-i18n="reel.subtitle">
+            Aerial event highlight documenting the grand 12th Anniversary celebration of Karawang Central Plaza (KCP) Galuh Mas, capturing crowd energy and stage grandeur from the sky.
           </p>
         </div>
 
         <div class="mt-4 md:mt-0 flex items-center gap-4">
-          <span id="reel-format" class="text-xs font-mono text-neutral-400">Format: 4K UHD 60FPS</span>
+          <span id="reel-format" class="text-xs font-mono text-[#9CA3AF]">Format: 4K UHD 60FPS</span>
         </div>
       </div>
 
@@ -247,7 +253,7 @@
           type="button"
           aria-label="Previous Video"
           title="Video Sebelumnya"
-          class="absolute -left-4 sm:-left-7 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-neutral-900/90 hover:bg-white text-neutral-200 hover:text-black border border-neutral-700 hover:border-white flex items-center justify-center shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 group/btn cursor-pointer"
+          class="absolute -left-4 sm:-left-7 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] flex items-center justify-center shadow-lg transition-all duration-200 group/btn cursor-pointer"
         >
           <i data-lucide="chevron-left" class="w-6 h-6 -translate-x-0.5 transition-transform"></i>
         </button>
@@ -259,13 +265,13 @@
           type="button"
           aria-label="Next Video"
           title="Video Selanjutnya"
-          class="absolute -right-4 sm:-right-7 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-neutral-900/90 hover:bg-white text-neutral-200 hover:text-black border border-neutral-700 hover:border-white flex items-center justify-center shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 group/btn cursor-pointer"
+          class="absolute -right-4 sm:-right-7 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] flex items-center justify-center shadow-lg transition-all duration-200 group/btn cursor-pointer"
         >
           <i data-lucide="chevron-right" class="w-6 h-6 translate-x-0.5 transition-transform"></i>
         </button>
 
         <!-- Inner Video Frame -->
-        <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-[#121212] shadow-2xl aspect-video">
+        <div class="relative rounded-xl overflow-hidden border border-[#262629] bg-[#141416] shadow-2xl aspect-video">
           <!-- Interactive Video Player (Autoplay on Scroll, Muted by default, Loop) -->
           <video 
             id="hero-featured-video" 
@@ -277,7 +283,7 @@
             class="w-full h-full object-cover transition-opacity duration-300"
           >
             <source src="assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4" type="video/mp4">
-            Browser Anda tidak mendukung tag video HTML5.
+            Your browser does not support HTML5 video.
           </video>
 
           <!-- Sound Toggle Button (Floating Top-Right) -->
@@ -286,25 +292,25 @@
             onclick="toggleHeroVideoSound()" 
             type="button"
             title="Toggle Audio"
-            class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black border border-neutral-700 text-white text-xs font-mono backdrop-blur-md shadow-lg transition-all hover:border-neutral-500 cursor-pointer"
+            class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-md bg-[#0A0A0B]/85 hover:bg-[#0A0A0B] border border-[#262629] text-[#F5F5F7] text-xs font-mono backdrop-blur-md shadow-md transition-all hover:border-[#EAB308] cursor-pointer"
           >
-            <i data-lucide="volume-x" id="hero-sound-icon" class="w-3.5 h-3.5 text-neutral-400"></i>
-            <span id="hero-sound-text" class="text-[11px] sm:text-xs" data-i18n="reel.sound_muted">Aktifkan Audio</span>
+            <i data-lucide="volume-x" id="hero-sound-icon" class="w-3.5 h-3.5 text-[#9CA3AF]"></i>
+            <span id="hero-sound-text" class="text-[11px] sm:text-xs" data-i18n="reel.sound_muted">Enable Audio</span>
           </button>
 
           <!-- Drone Telemetry Overlay (Bottom Bar) -->
-          <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 pointer-events-none flex items-center justify-between text-[11px] sm:text-xs font-mono text-neutral-300 bg-black/80 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-neutral-800 hidden sm:flex">
+          <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 pointer-events-none flex items-center justify-between text-[11px] sm:text-xs font-mono text-[#9CA3AF] bg-[#0A0A0B]/90 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-[#262629] hidden sm:flex">
             <div class="flex items-center gap-2 sm:gap-3">
-              <span class="flex items-center gap-1.5 text-white">
-                <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="reel-telemetry-drone">DJI MINI 4 PRO</span>
+              <span class="flex items-center gap-1.5 text-[#F5F5F7]">
+                <i data-lucide="plane" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#EAB308]"></i> <span id="reel-telemetry-drone">DJI MINI 4 PRO</span>
               </span>
-              <span class="text-neutral-600">|</span>
-              <span id="reel-telemetry-alt">ALTITUDE: 150m AGL</span>
-              <span class="text-neutral-600">|</span>
+              <span class="text-[#38383D]">|</span>
+              <span id="reel-telemetry-alt">ALTITUDE: 100m AGL</span>
+              <span class="text-[#38383D]">|</span>
               <span id="reel-telemetry-lens">24MM F/1.7</span>
             </div>
-            <div class="flex items-center gap-2 text-emerald-400">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span id="reel-telemetry-format">4K D-LOG M</span>
+            <div class="flex items-center gap-2 text-[#EAB308]">
+              <span class="w-2 h-2 rounded-full bg-[#EAB308]"></span> <span id="reel-telemetry-format">4K D-LOG M</span>
             </div>
           </div>
         </div>
@@ -313,33 +319,33 @@
 
       <!-- Quick Selector for Video Highlights (Synced with Carousel) -->
       <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
-        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="p-3 sm:p-4 rounded-xl border text-left transition-all flex items-center gap-3 group border-white bg-neutral-800/90 ring-1 ring-white/20 cursor-pointer shadow-lg">
-          <div class="w-10 h-10 rounded-xl bg-neutral-700 flex items-center justify-center text-white group-hover:scale-105 transition-transform flex-shrink-0">
+        <button id="reel-quick-0" onclick="selectFeaturedVideo(0)" class="p-3 sm:p-4 rounded-lg border text-left transition-all flex items-center gap-3 group border-[#EAB308] bg-[#141416] ring-1 ring-[#EAB308]/30 cursor-pointer shadow-md">
+          <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-105 transition-transform flex-shrink-0">
             <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           </div>
           <div class="min-w-0">
-            <h4 class="text-xs sm:text-sm font-semibold text-white truncate" data-i18n="reel.quick1_title">Wonderful 12th</h4>
-            <p class="text-[11px] text-neutral-400 truncate" data-i18n="reel.quick1_sub">Karawang Central Plaza</p>
+            <h4 class="text-xs sm:text-sm font-semibold text-[#F5F5F7] truncate font-heading" data-i18n="reel.quick1_title">Wonderful 12th</h4>
+            <p class="text-[11px] text-[#9CA3AF] truncate" data-i18n="reel.quick1_sub">Karawang Central Plaza</p>
           </div>
         </button>
 
-        <button id="reel-quick-1" onclick="selectFeaturedVideo(1)" class="p-3 sm:p-4 rounded-xl border text-left transition-all flex items-center gap-3 group border-neutral-800 bg-[#121212] hover:border-neutral-600 hover:bg-neutral-800/80 cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-white group-hover:scale-105 transition-transform flex-shrink-0">
+        <button id="reel-quick-1" onclick="selectFeaturedVideo(1)" class="p-3 sm:p-4 rounded-lg border text-left transition-all flex items-center gap-3 group border-[#262629] bg-[#141416] hover:border-[#38383D] hover:bg-[#1C1C1F] cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#9CA3AF] group-hover:text-[#F5F5F7] group-hover:scale-105 transition-transform flex-shrink-0">
             <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           </div>
           <div class="min-w-0">
-            <h4 class="text-xs sm:text-sm font-semibold text-neutral-200 group-hover:text-white truncate" data-i18n="reel.quick2_title">Campus Skies</h4>
-            <p class="text-[11px] text-neutral-400 truncate" data-i18n="reel.quick2_sub">PKN STAN Aerials</p>
+            <h4 class="text-xs sm:text-sm font-semibold text-[#9CA3AF] group-hover:text-[#F5F5F7] truncate font-heading" data-i18n="reel.quick2_title">Campus Skies</h4>
+            <p class="text-[11px] text-[#9CA3AF] truncate" data-i18n="reel.quick2_sub">PKN STAN Aerials</p>
           </div>
         </button>
 
-        <button id="reel-quick-2" onclick="selectFeaturedVideo(2)" class="p-3 sm:p-4 rounded-xl border text-left transition-all flex items-center gap-3 group border-neutral-800 bg-[#121212] hover:border-neutral-600 hover:bg-neutral-800/80 cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-white group-hover:scale-105 transition-transform flex-shrink-0">
+        <button id="reel-quick-2" onclick="selectFeaturedVideo(2)" class="p-3 sm:p-4 rounded-lg border text-left transition-all flex items-center gap-3 group border-[#262629] bg-[#141416] hover:border-[#38383D] hover:bg-[#1C1C1F] cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#9CA3AF] group-hover:text-[#F5F5F7] group-hover:scale-105 transition-transform flex-shrink-0">
             <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           </div>
           <div class="min-w-0">
-            <h4 class="text-xs sm:text-sm font-semibold text-neutral-200 group-hover:text-white truncate" data-i18n="reel.quick3_title">New Cluster Groove</h4>
-            <p class="text-[11px] text-neutral-400 truncate" data-i18n="reel.quick3_sub">1st Place Winner • Fortune</p>
+            <h4 class="text-xs sm:text-sm font-semibold text-[#9CA3AF] group-hover:text-[#F5F5F7] truncate font-heading" data-i18n="reel.quick3_title">New Cluster Groove</h4>
+            <p class="text-[11px] text-[#9CA3AF] truncate" data-i18n="reel.quick3_sub">1st Place Winner • Fortune</p>
           </div>
         </button>
       </div>
@@ -348,31 +354,31 @@
   </section>
 
   <!-- INTERACTIVE GALLERY & MEDIA MANAGER SECTION -->
-  <section id="galeri" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="galeri" class="py-24 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Section Title (Centered) -->
     <div class="text-center max-w-3xl mx-auto mb-10">
-      <p class="text-xs font-mono tracking-widest text-neutral-400 uppercase mb-2" data-i18n="gallery.badge">
-        PORTOFOLIO
+      <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="gallery.badge">
+        PORTFOLIO
       </p>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight" data-i18n="gallery.title">Koleksi Foto & Video Udara</h2>
-      <p class="text-neutral-400 text-sm mt-3 leading-relaxed mx-auto max-w-2xl" data-i18n="gallery.subtitle">
-        Koleksi dokumentasi udara terpilih untuk produksi komersial, lanskap alam, arsitektur, dan sinematografi FPV.
+      <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] tracking-tight" data-i18n="gallery.title">Aerial Photo &amp; Video Showcase</h2>
+      <p class="text-[#9CA3AF] text-sm mt-3 leading-relaxed mx-auto max-w-2xl" data-i18n="gallery.subtitle">
+        Selected aerial documentation collection for commercial production, natural landscapes, architecture, and FPV cinematography.
       </p>
     </div>
 
-    <!-- Filter Buttons Bar (Centered, Filtered to: Semua Karya, Video Sinematik, Foto Udara) -->
-    <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-10 pb-4 border-b border-neutral-800">
-      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm" data-filter="all">
-        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_all">Semua Karya</span>
+    <!-- Filter Buttons Bar (Centered, Filtered to: All Media, Cinematic Videos, Aerial Photos) -->
+    <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-10 pb-4 border-b border-[#262629]">
+      <button class="filter-btn px-4 py-2 rounded-lg text-xs font-bold bg-[#EAB308] text-[#0A0A0B] transition-all flex items-center gap-1.5 cursor-pointer shadow-none" data-filter="all">
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_all">All Media</span>
       </button>
 
-      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800 transition-all flex items-center gap-1.5 cursor-pointer" data-filter="video">
-        <i data-lucide="video" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_video">Video Sinematik</span>
+      <button class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold bg-[#141416] text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#1C1C1F] border border-[#262629] transition-all flex items-center gap-1.5 cursor-pointer" data-filter="video">
+        <i data-lucide="video" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_video">Cinematic Videos</span>
       </button>
 
-      <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800 transition-all flex items-center gap-1.5 cursor-pointer" data-filter="photo">
-        <i data-lucide="camera" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_photo">Foto Udara</span>
+      <button class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold bg-[#141416] text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#1C1C1F] border border-[#262629] transition-all flex items-center gap-1.5 cursor-pointer" data-filter="photo">
+        <i data-lucide="camera" class="w-3.5 h-3.5"></i> <span data-i18n="gallery.filter_photo">Aerial Photos</span>
       </button>
     </div>
 
@@ -382,30 +388,30 @@
     </div>
 
     <!-- Empty State Container -->
-    <div id="gallery-empty" class="hidden text-center py-20 bg-neutral-900/40 rounded-3xl border border-dashed border-neutral-800">
-      <div class="w-16 h-16 mx-auto rounded-full bg-neutral-800 flex items-center justify-center text-neutral-400 mb-4">
+    <div id="gallery-empty" class="hidden text-center py-20 bg-[#141416]/50 rounded-xl border border-dashed border-[#262629]">
+      <div class="w-16 h-16 mx-auto rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#9CA3AF] mb-4">
         <i data-lucide="image-off" class="w-8 h-8"></i>
       </div>
-      <h3 class="text-lg font-bold text-neutral-200" data-i18n="gallery.empty_title">Belum ada karya pada kategori ini</h3>
-      <p class="text-sm text-neutral-400 mt-1 max-w-sm mx-auto" data-i18n="gallery.empty_desc">
-        Karya untuk kategori ini sedang dalam proses kurasi.
+      <h3 class="text-lg font-bold font-heading text-[#F5F5F7]" data-i18n="gallery.empty_title">No media found in this category</h3>
+      <p class="text-sm text-[#9CA3AF] mt-1 max-w-sm mx-auto" data-i18n="gallery.empty_desc">
+        Works for this category are currently being curated.
       </p>
     </div>
 
   </section>
 
   <!-- DRONE FLEET & CAPABILITIES SECTION -->
-  <section id="gear" class="py-24 bg-[#0a0a0a] border-t border-neutral-800/80">
+  <section id="gear" class="py-24 lg:py-32 bg-[#0A0A0B] border-t border-[#262629]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Section Title -->
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <p class="text-xs font-mono tracking-widest text-neutral-400 uppercase mb-2" data-i18n="gear.badge">
-          ARMADA DRONE &amp; SPESIFIKASI
+        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="gear.badge">
+          FLEET &amp; EQUIPMENT
         </p>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white" data-i18n="gear.title">Pilihan Armada Drone Sesuai Kebutuhan Produksi</h2>
-        <p class="text-neutral-400 text-sm mt-3" data-i18n="gear.subtitle">
-          Setiap kebutuhan produksi memiliki karakter visual berbeda. Pilih unit yang paling sesuai dengan konsep syuting Anda, atau konsultasikan untuk rekomendasi terbaik.
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7]" data-i18n="gear.title">Choose the Right Drone Fleet for Your Project</h2>
+        <p class="text-[#9CA3AF] text-sm mt-3" data-i18n="gear.subtitle">
+          Every production need carries a unique visual signature. Select the ideal drone unit for your shoot concept, or consult with us for the best recommendation.
         </p>
       </div>
 
@@ -413,29 +419,29 @@
       <div class="relative mb-20" id="fleet-carousel">
 
         <!-- Slide Wrapper -->
-        <div class="overflow-hidden rounded-3xl p-1 sm:p-2" id="fleet-track-wrap">
+        <div class="overflow-hidden rounded-2xl p-1 sm:p-2" id="fleet-track-wrap">
           <div class="flex transition-transform duration-700 ease-in-out" id="fleet-track" style="will-change:transform">
 
             <!-- ===== SLIDE 1: Mavic 4 Pro · Mavic 3 Pro · Air 3S ===== -->
             <div class="fleet-slide w-full min-w-full shrink-0 basis-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 box-border">
 
               <!-- Drone 1: Mavic 4 Pro -->
-              <div class="bg-[#141414] rounded-2xl border border-neutral-800 hover:border-neutral-600 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div class="bg-[#141416] rounded-xl border border-[#262629] hover:border-[#38383D] transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
                 <div>
-                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-900">
+                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-[#0A0A0B]">
                     <img id="fleet-drone-img-0" src="assets/images/drone-mavic-4-pro.jpg?v=2" alt="DJI Mavic 4 Pro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-neutral-300 border border-neutral-700 font-semibold" data-i18n="gear.d1_tag">
-                      CINEMA CLASS • NEXT-GEN 8K
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141416] via-transparent to-transparent"></div>
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0B]/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-[#EAB308] border border-[#262629] font-semibold" data-i18n="gear.d1_tag">
+                      NEXT-GEN FLAGSHIP
                     </span>
                   </div>
                   <div class="p-6">
-                    <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 4 Pro</h3>
-                    <p class="text-xs text-neutral-400 mb-5 leading-relaxed" data-i18n="gear.d1_desc">Drone flagship generasi terdepan dengan multi-lensa Hasselblad dan transmisi O4 Pro jarak jauh.</p>
-                    <ul class="space-y-2.5 text-xs text-neutral-300 font-mono">
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> 8K/60fps &amp; 4K/120fps HDR Hasselblad</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Profil Warna 10-Bit D-Log M &amp; D-Log Cinema</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Ideal: Film Layar Lebar &amp; Iklan Skala Besar</li>
+                    <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Mavic 4 Pro</h3>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d1_desc">Drone flagship generasi terdepan dengan multi-lensa Hasselblad dan transmisi O4 Pro jarak jauh.</p>
+                    <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> 8K/60fps &amp; 4K/120fps HDR Hasselblad</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Profil Warna 10-Bit D-Log M &amp; D-Log Cinema</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Film Layar Lebar &amp; Iklan Skala Besar</li>
                     </ul>
                   </div>
                 </div>
@@ -443,29 +449,29 @@
                   <a href="#kontak"
                      onclick="selectDroneForBooking('DJI Mavic 4 Pro'); return false;"
                      data-drone-unit="DJI Mavic 4 Pro"
-                     class="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-700 hover:border-white font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                    <span data-i18n="gear.d1_btn">Booking dengan Mavic 4 Pro &rarr;</span>
+                     class="w-full py-2.5 px-4 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+                    <span data-i18n="gear.d1_btn">Book with Mavic 4 Pro &rarr;</span>
                   </a>
                 </div>
               </div>
 
               <!-- Drone 2: Mavic 3 Pro -->
-              <div class="bg-[#141414] rounded-2xl border border-neutral-800 hover:border-neutral-600 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div class="bg-[#141416] rounded-xl border border-[#262629] hover:border-[#38383D] transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
                 <div>
-                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-900">
+                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-[#0A0A0B]">
                     <img id="fleet-drone-img-1" src="assets/images/drone-mavic-3-pro.jpg?v=2" alt="DJI Mavic 3 Pro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-amber-400 border border-neutral-700 font-semibold" data-i18n="gear.d2_tag">
-                      COMMERCIAL CINEMA • TRIPLE CAM
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141416] via-transparent to-transparent"></div>
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0B]/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-[#EAB308] border border-[#262629] font-semibold" data-i18n="gear.d2_tag">
+                      TRIPLE CAMERA CINEMA
                     </span>
                   </div>
                   <div class="p-6">
-                    <h3 class="text-2xl font-bold text-white mb-2">DJI Mavic 3 Pro</h3>
-                    <p class="text-xs text-neutral-400 mb-5 leading-relaxed" data-i18n="gear.d2_desc">Sistem 3 Kamera optik independen Hasselblad 4/3 CMOS untuk hasil sinematik kaliber komersial.</p>
-                    <ul class="space-y-2.5 text-xs text-neutral-300 font-mono">
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Triple Cam: 24mm + 70mm + 166mm Tele</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Video 5.1K ProRes &amp; 10-Bit D-Log M</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Ideal: Video Profil Perusahaan &amp; Properti</li>
+                    <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Mavic 3 Pro</h3>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d2_desc">Sistem 3 Kamera optik independen Hasselblad 4/3 CMOS untuk hasil sinematik kaliber komersial.</p>
+                    <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Triple Cam: 24mm + 70mm + 166mm Tele</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Video 5.1K ProRes &amp; 10-Bit D-Log M</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Video Profil Perusahaan &amp; Properti</li>
                     </ul>
                   </div>
                 </div>
@@ -473,29 +479,29 @@
                   <a href="#kontak"
                      onclick="selectDroneForBooking('DJI Mavic 3 Pro'); return false;"
                      data-drone-unit="DJI Mavic 3 Pro"
-                     class="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-700 hover:border-white font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                    <span data-i18n="gear.d2_btn">Booking dengan Mavic 3 Pro &rarr;</span>
+                     class="w-full py-2.5 px-4 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+                    <span data-i18n="gear.d2_btn">Book with Mavic 3 Pro &rarr;</span>
                   </a>
                 </div>
               </div>
 
               <!-- Drone 3: Air 3S -->
-              <div class="bg-[#141414] rounded-2xl border border-neutral-800 hover:border-neutral-600 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div class="bg-[#141416] rounded-xl border border-[#262629] hover:border-[#38383D] transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
                 <div>
-                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-900">
+                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-[#0A0A0B]">
                     <img id="fleet-drone-img-2" src="assets/images/drone-air-3s.jpg?v=2" alt="DJI Air 3S" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-neutral-300 border border-neutral-700 font-semibold" data-i18n="gear.d6_tag">
-                      ALL-ROUNDER • NIGHTSCAPE LIDAR
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141416] via-transparent to-transparent"></div>
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0B]/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-[#EAB308] border border-[#262629] font-semibold" data-i18n="gear.d6_tag">
+                      DUAL CAMERA &amp; NIGHTSCAPE
                     </span>
                   </div>
                   <div class="p-6">
-                    <h3 class="text-2xl font-bold text-white mb-2">DJI Air 3S</h3>
-                    <p class="text-xs text-neutral-400 mb-5 leading-relaxed" data-i18n="gear.d6_desc">Sensor 1-inci CMOS 50MP + 70mm Medium Tele dengan LiDAR malam hari untuk keamanan terbang maksimal.</p>
-                    <ul class="space-y-2.5 text-xs text-neutral-300 font-mono">
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Sensor 1" CMOS 50MP + 70mm Medium Tele</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> LiDAR Malam Hari &amp; Sensor Omnidirectional</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Ideal: Lanskap Malam, Pariwisata &amp; Dokumentasi</li>
+                    <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Air 3S</h3>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d6_desc">Sensor 1-inci CMOS 50MP + 70mm Medium Tele dengan LiDAR malam hari untuk keamanan terbang maksimal.</p>
+                    <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Sensor 1" CMOS 50MP + 70mm Medium Tele</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> LiDAR Malam Hari &amp; Sensor Omnidirectional</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Lanskap Malam, Pariwisata &amp; Dokumentasi</li>
                     </ul>
                   </div>
                 </div>
@@ -503,8 +509,8 @@
                   <a href="#kontak"
                      onclick="selectDroneForBooking('DJI Air 3S'); return false;"
                      data-drone-unit="DJI Air 3S"
-                     class="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-700 hover:border-white font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                    <span data-i18n="gear.d6_btn">Booking dengan Air 3S &rarr;</span>
+                     class="w-full py-2.5 px-4 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+                    <span data-i18n="gear.d6_btn">Book with Air 3S &rarr;</span>
                   </a>
                 </div>
               </div>
@@ -514,22 +520,22 @@
             <div class="fleet-slide w-full min-w-full shrink-0 basis-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 box-border">
 
               <!-- Drone 4: Avata 2 -->
-              <div class="bg-[#141414] rounded-2xl border border-neutral-800 hover:border-neutral-600 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div class="bg-[#141416] rounded-xl border border-[#262629] hover:border-[#38383D] transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
                 <div>
-                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-900">
+                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-[#0A0A0B]">
                     <img id="fleet-drone-img-3" src="assets/images/drone-avata-2.jpg?v=2" alt="DJI Avata 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-rose-400 border border-neutral-700 font-semibold" data-i18n="gear.d3_tag">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141416] via-transparent to-transparent"></div>
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0B]/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-[#EAB308] border border-[#262629] font-semibold" data-i18n="gear.d3_tag">
                       IMMERSIVE FPV CINEMA
                     </span>
                   </div>
                   <div class="p-6">
-                    <h3 class="text-2xl font-bold text-white mb-2">DJI Avata 2</h3>
-                    <p class="text-xs text-neutral-400 mb-5 leading-relaxed" data-i18n="gear.d3_desc">Drone FPV berpelindung dengan sudut 155° Ultra-Wide dan manuver dinamis untuk aksi visual intens.</p>
-                    <ul class="space-y-2.5 text-xs text-neutral-300 font-mono">
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Video 4K/60fps HDR, 155° FOV &amp; RockSteady 3.0+</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Pelindung Baling-Baling Terintegrasi (Aman Indoor)</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Ideal: Fly-Through Gedung, Otomotif &amp; Olahraga</li>
+                    <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Avata 2</h3>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d3_desc">Drone FPV berpelindung dengan sudut 155° Ultra-Wide dan manuver dinamis untuk aksi visual intens.</p>
+                    <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Video 4K/60fps HDR, 155° FOV &amp; RockSteady 3.0+</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Pelindung Baling-Baling Terintegrasi (Aman Indoor)</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Fly-Through Gedung, Otomotif &amp; Olahraga</li>
                     </ul>
                   </div>
                 </div>
@@ -537,29 +543,29 @@
                   <a href="#kontak"
                      onclick="selectDroneForBooking('DJI Avata 2'); return false;"
                      data-drone-unit="DJI Avata 2"
-                     class="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-700 hover:border-white font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                    <span data-i18n="gear.d3_btn">Booking dengan Avata 2 &rarr;</span>
+                     class="w-full py-2.5 px-4 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+                    <span data-i18n="gear.d3_btn">Book with Avata 2 &rarr;</span>
                   </a>
                 </div>
               </div>
 
               <!-- Drone 5: Mini 4 Pro -->
-              <div class="bg-[#141414] rounded-2xl border border-neutral-800 hover:border-neutral-600 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div class="bg-[#141416] rounded-xl border border-[#262629] hover:border-[#38383D] transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
                 <div>
-                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-900">
+                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-[#0A0A0B]">
                     <img id="fleet-drone-img-4" src="assets/images/drone-mini-4-pro.jpg?v=2" alt="DJI Mini 4 Pro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-emerald-400 border border-neutral-700 font-semibold" data-i18n="gear.d4_tag">
-                      SOCIAL REELS • SUB-249G VERTICAL
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141416] via-transparent to-transparent"></div>
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0B]/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-[#EAB308] border border-[#262629] font-semibold" data-i18n="gear.d4_tag">
+                      AGILE &amp; SUB-249G
                     </span>
                   </div>
                   <div class="p-6">
-                    <h3 class="text-2xl font-bold text-white mb-2">DJI Mini 4 Pro</h3>
-                    <p class="text-xs text-neutral-400 mb-5 leading-relaxed" data-i18n="gear.d4_desc">Drone ultra-ringan sub-249g dengan True Vertical Shooting untuk format vertikal Reels &amp; TikTok.</p>
-                    <ul class="space-y-2.5 text-xs text-neutral-300 font-mono">
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> True Vertical Gimbal Rotation 4K/60fps HDR</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Sub-249g untuk izin fleksibel di ruang terbatas</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Ideal: Real Estate, Instagram Reels &amp; Wisata</li>
+                    <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Mini 4 Pro</h3>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d4_desc">Drone ultra-ringan sub-249g dengan True Vertical Shooting untuk format vertikal Reels &amp; TikTok.</p>
+                    <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> True Vertical Gimbal Rotation 4K/60fps HDR</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Sub-249g untuk izin fleksibel di ruang terbatas</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Real Estate, Instagram Reels &amp; Wisata</li>
                     </ul>
                   </div>
                 </div>
@@ -567,29 +573,29 @@
                   <a href="#kontak"
                      onclick="selectDroneForBooking('DJI Mini 4 Pro'); return false;"
                      data-drone-unit="DJI Mini 4 Pro"
-                     class="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-700 hover:border-white font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                    <span data-i18n="gear.d4_btn">Booking dengan Mini 4 Pro &rarr;</span>
+                     class="w-full py-2.5 px-4 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+                    <span data-i18n="gear.d4_btn">Book with Mini 4 Pro &rarr;</span>
                   </a>
                 </div>
               </div>
 
               <!-- Drone 6: Neo 2 -->
-              <div class="bg-[#141414] rounded-2xl border border-neutral-800 hover:border-neutral-600 transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div class="bg-[#141416] rounded-xl border border-[#262629] hover:border-[#38383D] transition-all duration-300 overflow-hidden flex flex-col justify-between group shadow-xl">
                 <div>
-                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-900">
+                  <div class="relative w-full aspect-[16/10] overflow-hidden bg-[#0A0A0B]">
                     <img id="fleet-drone-img-5" src="assets/images/drone-neo-2.jpg?v=2" alt="DJI Neo 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-purple-400 border border-neutral-700 font-semibold" data-i18n="gear.d5_tag">
-                      INDOOR &amp; VLOG • AI PALM TAKEOFF
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141416] via-transparent to-transparent"></div>
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0B]/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-[#EAB308] border border-[#262629] font-semibold" data-i18n="gear.d5_tag">
+                      PALM TAKEOFF &amp; AI TRACKING
                     </span>
                   </div>
                   <div class="p-6">
-                    <h3 class="text-2xl font-bold text-white mb-2">DJI Neo 2</h3>
-                    <p class="text-xs text-neutral-400 mb-5 leading-relaxed" data-i18n="gear.d5_desc">Drone ultra-ringan 135g dengan lepas landas telapak tangan, pelacakan AI pintar, dan pelindung penuh.</p>
-                    <ul class="space-y-2.5 text-xs text-neutral-300 font-mono">
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Bobot 135g Ultra-Ringan • Palm Takeoff &amp; Landing</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Pelacakan AI Cerdas dengan Baling-Baling Tertutup</li>
-                      <li class="flex items-center gap-2"><span class="text-neutral-500">•</span> Ideal: Syuting Ruang Sempit, Event Intim &amp; BTS</li>
+                    <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Neo 2</h3>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d5_desc">Drone ultra-ringan 135g dengan lepas landas telapak tangan, pelacakan AI pintar, dan pelindung penuh.</p>
+                    <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Bobot 135g Ultra-Ringan • Palm Takeoff &amp; Landing</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Pelacakan AI Cerdas dengan Baling-Baling Tertutup</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Syuting Ruang Sempit, Event Intim &amp; BTS</li>
                     </ul>
                   </div>
                 </div>
@@ -597,8 +603,8 @@
                   <a href="#kontak"
                      onclick="selectDroneForBooking('DJI Neo 2'); return false;"
                      data-drone-unit="DJI Neo 2"
-                     class="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-700 hover:border-white font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                    <span data-i18n="gear.d5_btn">Booking dengan Neo 2 &rarr;</span>
+                     class="w-full py-2.5 px-4 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+                    <span data-i18n="gear.d5_btn">Book with Neo 2 &rarr;</span>
                   </a>
                 </div>
               </div>
@@ -608,24 +614,24 @@
         </div><!-- /fleet-track-wrap -->
 
         <!-- Navigation Buttons -->
-        <button id="fleet-prev" aria-label="Previous" class="hidden sm:flex absolute -left-3 md:-left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-neutral-900/90 backdrop-blur-md border border-neutral-700 hover:border-white hover:bg-white hover:text-black text-white items-center justify-center shadow-xl transition-all group cursor-pointer">
+        <button id="fleet-prev" aria-label="Previous" class="hidden sm:flex absolute -left-3 md:-left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] items-center justify-center shadow-xl transition-all group cursor-pointer">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <button id="fleet-next" aria-label="Next" class="hidden sm:flex absolute -right-3 md:-right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-neutral-900/90 backdrop-blur-md border border-neutral-700 hover:border-white hover:bg-white hover:text-black text-white items-center justify-center shadow-xl transition-all group cursor-pointer">
+        <button id="fleet-next" aria-label="Next" class="hidden sm:flex absolute -right-3 md:-right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-lg bg-[#141416] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] items-center justify-center shadow-xl transition-all group cursor-pointer">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
 
         <!-- Dot Indicators -->
         <div class="flex items-center justify-center gap-3 mt-8" id="fleet-dots">
-          <button class="fleet-dot w-8 h-1.5 rounded-full bg-white transition-all duration-300" data-slide="0"></button>
-          <button class="fleet-dot w-4 h-1.5 rounded-full bg-neutral-700 hover:bg-neutral-500 transition-all duration-300" data-slide="1"></button>
+          <button class="fleet-dot w-8 h-1.5 rounded-full bg-[#EAB308] transition-all duration-300" data-slide="0"></button>
+          <button class="fleet-dot w-4 h-1.5 rounded-full bg-[#262629] hover:bg-[#38383D] transition-all duration-300" data-slide="1"></button>
         </div>
 
         <!-- Slide Label (Bilingual HUD) -->
         <div class="flex items-center justify-center mt-4">
-          <span id="fleet-label" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 shadow-md">
-            <span class="w-1.5 h-1.5 rounded-full bg-red-500 rec-pulse"></span>
-            <span>SLIDE 1 / 2 — ARMADA DRONE</span>
+          <span id="fleet-label" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-[#141416] border border-[#262629] text-xs font-mono text-[#9CA3AF] shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#EAB308] rec-pulse"></span>
+            <span>SLIDE 1 / 2 — DRONE FLEET</span>
           </span>
         </div>
 
@@ -695,108 +701,108 @@
       <!-- Services Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Service 1: Aerial Cinematography -->
-        <div class="p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-600 transition-all flex flex-col justify-between group shadow-xl">
+        <div class="p-6 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-xl">
           <div>
-            <div class="w-10 h-10 rounded-xl bg-neutral-800 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
               <i data-lucide="video" class="w-5 h-5"></i>
             </div>
-            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s1_title">Aerial Cinematography</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-4" data-i18n="service.s1_desc">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan produksi kreatif.</p>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s1_title">Aerial Cinematography</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s1_desc">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan produksi kreatif.</p>
           </div>
           
-          <div class="pt-4 border-t border-neutral-800 space-y-1.5">
-            <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+          <div class="pt-4 border-t border-[#262629] space-y-1.5">
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s1_d1">File Mentah (D-Log M) + Color Graded 4K</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s1_d2">Waktu Terbang 2–4 Baterai Operasional</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s1_d3">Izin Terbang Resmi &amp; Prosedur Aman</span>
             </div>
           </div>
         </div>
 
         <!-- Service 2: Real Estate & Arsitektur -->
-        <div class="p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-600 transition-all flex flex-col justify-between group shadow-xl">
+        <div class="p-6 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-xl">
           <div>
-            <div class="w-10 h-10 rounded-xl bg-neutral-800 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
               <i data-lucide="home" class="w-5 h-5"></i>
             </div>
-            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s2_title">Real Estate &amp; Arsitektur</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-4" data-i18n="service.s2_desc">Pengambilan foto &amp; video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s2_title">Real Estate &amp; Arsitektur</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s2_desc">Pengambilan foto &amp; video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
           </div>
           
-          <div class="pt-4 border-t border-neutral-800 space-y-1.5">
-            <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+          <div class="pt-4 border-t border-[#262629] space-y-1.5">
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s2_d1">Foto Udara 48MP RAW High-Resolution</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s2_d2">Video Showcase 4K + Format Vertikal Reels</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s2_d3">Highlight Fasilitas &amp; Aksesibilitas Kawasan</span>
             </div>
           </div>
         </div>
 
         <!-- Service 3: Dokumentasi Acara -->
-        <div class="p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-600 transition-all flex flex-col justify-between group shadow-xl">
+        <div class="p-6 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-xl">
           <div>
-            <div class="w-10 h-10 rounded-xl bg-neutral-800 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
               <i data-lucide="calendar" class="w-5 h-5"></i>
             </div>
-            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s3_title">Dokumentasi Acara</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-4" data-i18n="service.s3_desc">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s3_title">Dokumentasi Acara</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s3_desc">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
           </div>
           
-          <div class="pt-4 border-t border-neutral-800 space-y-1.5">
-            <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+          <div class="pt-4 border-t border-[#262629] space-y-1.5">
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s3_d1">Dokumentasi Sudut Pandang Crowd Dinamis</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s3_d2">Highlight Video 60s Siap Publikasi</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s3_d3">Penerbangan Aman di Atas Area Publik</span>
             </div>
           </div>
         </div>
 
         <!-- Service 4: Company Profile -->
-        <div class="p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-600 transition-all flex flex-col justify-between group shadow-xl">
+        <div class="p-6 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-xl">
           <div>
-            <div class="w-10 h-10 rounded-xl bg-neutral-800 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
               <i data-lucide="building-2" class="w-5 h-5"></i>
             </div>
-            <h4 class="font-bold text-white text-base mb-2" data-i18n="service.s4_title">Company Profile</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-4" data-i18n="service.s4_desc">Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.</p>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s4_title">Company Profile</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s4_desc">Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.</p>
           </div>
           
-          <div class="pt-4 border-t border-neutral-800 space-y-1.5">
-            <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+          <div class="pt-4 border-t border-[#262629] space-y-1.5">
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s4_d1">Master Video 4K Siap Presentasi &amp; Web</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s4_d2">Seluruh File Rekaman Mentah (Unedited)</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-neutral-300">
-              <span class="text-neutral-500">•</span>
+            <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
+              <span class="text-[#EAB308]">•</span>
               <span data-i18n="service.s4_d3">Sertifikasi Remote Pilot Berlisensi Resmi</span>
             </div>
           </div>
@@ -807,51 +813,51 @@
   </section>
 
   <!-- ABOUT ME SECTION -->
-  <section id="tentang" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="tentang" class="py-24 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
       <!-- Pilot Avatar & Badge Card -->
       <div class="lg:col-span-5 relative">
-        <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-[#141414] aspect-[4/5] shadow-2xl">
+        <div class="relative rounded-xl overflow-hidden border border-[#262629] bg-[#141416] aspect-[4/5] shadow-2xl">
           <img id="pilot-profile-img" src="assets/images/pilot-bobien-martien.jpg?v=2" alt="Bobien Martien - Certified Remote Pilot" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
           
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/30 to-transparent"></div>
           
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="px-3 py-1 rounded bg-black/80 text-neutral-200 text-xs font-mono border border-neutral-700 inline-flex items-center gap-1.5 mb-2">
-              <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i> <span data-i18n="about.pilot_badge">CERTIFIED REMOTE PILOT</span>
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B]/90 text-[#F5F5F7] text-xs font-mono border border-[#262629] inline-flex items-center gap-1.5 mb-2">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-[#EAB308]"></i> <span data-i18n="about.pilot_badge">CERTIFIED REMOTE PILOT</span>
             </span>
-            <h3 class="text-2xl font-bold text-white">Bobien Martien</h3>
-            <p class="text-xs text-neutral-400 font-mono" data-i18n="about.pilot_role">Aerial Cinematographer &amp; Remote Pilot</p>
+            <h3 class="text-2xl font-bold font-heading text-[#F5F5F7]">Bobien Martien</h3>
+            <p class="text-xs text-[#9CA3AF] font-mono" data-i18n="about.pilot_role">Aerial Cinematographer &amp; Remote Pilot</p>
           </div>
         </div>
 
         <!-- Floating Operational Credential Card -->
-        <div class="absolute -bottom-6 -right-6 bg-[#141414]/95 p-4 rounded-xl border border-neutral-800 hidden sm:block shadow-2xl">
-          <div class="text-[11px] font-mono text-neutral-400 mb-1" data-i18n="about.reg_title">REGISTRASI RESMI</div>
-          <div class="text-sm font-bold text-white font-mono">SIDOPI GO &amp; DGCA DKPPU</div>
-          <div class="text-[10px] text-neutral-400" data-i18n="about.reg_desc">Kementerian Perhubungan RI</div>
+        <div class="absolute -bottom-6 -right-6 bg-[#141416]/95 p-4 rounded-lg border border-[#262629] hidden sm:block shadow-2xl">
+          <div class="text-[11px] font-mono text-[#9CA3AF] mb-1" data-i18n="about.reg_title">REGISTRASI RESMI</div>
+          <div class="text-sm font-bold text-[#F5F5F7] font-mono">SIDOPI GO &amp; DGCA DKPPU</div>
+          <div class="text-[10px] text-[#9CA3AF]" data-i18n="about.reg_desc">Kementerian Perhubungan RI</div>
         </div>
       </div>
 
       <!-- Bio & Story -->
       <div class="lg:col-span-7">
-        <p class="text-xs font-mono tracking-widest text-neutral-400 uppercase mb-2" data-i18n="about.badge">
+        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="about.badge">
           PROFIL OPERASIONAL
         </p>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6" data-i18n="about.title">
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-6 leading-tight" data-i18n="about.title">
           Perspektif Udara Presisi untuk Standar Produksi Layar Lebar &amp; Komersial.
         </h2>
 
-        <div class="space-y-4 text-neutral-300 text-sm sm:text-base leading-relaxed">
+        <div class="space-y-4 text-[#9CA3AF] text-sm sm:text-base leading-relaxed">
           <p data-i18n="about.p1">
-            Saya adalah seorang <strong class="text-white">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU &amp; SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.
+            Saya adalah seorang <strong class="text-[#F5F5F7]">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU &amp; SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.
           </p>
           <p data-i18n="about.p2">
-            Dengan pengalaman lebih dari <strong class="text-white">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata—mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.
+            Dengan pengalaman lebih dari <strong class="text-[#F5F5F7]">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata—mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.
           </p>
           <p data-i18n="about.p3">
-            Fokus utama di lapangan diarahkan pada <strong class="text-white">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.
+            Fokus utama di lapangan diarahkan pada <strong class="text-[#F5F5F7]">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.
           </p>
           <p data-i18n="about.p4">
             Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.
@@ -864,48 +870,48 @@
   </section>
 
   <!-- CONTACT & BOOKING SECTION -->
-  <section id="kontak" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="kontak" class="py-24 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
       
       <!-- Contact Info -->
       <div class="lg:col-span-5">
-        <p class="text-xs font-mono tracking-widest text-neutral-400 uppercase mb-2" data-i18n="contact.badge">
+        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="contact.badge">
           KONTAK &amp; BOOKING
         </p>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" data-i18n="contact.title">Mari Wujudkan Proyek Visual Anda</h2>
-        <p class="text-neutral-400 text-sm mb-8 leading-relaxed" data-i18n="contact.desc">
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-4" data-i18n="contact.title">Mari Wujudkan Proyek Visual Anda</h2>
+        <p class="text-[#9CA3AF] text-sm mb-8 leading-relaxed" data-i18n="contact.desc">
           Punya rencana syuting film, promosi properti, dokumentasi event, atau kebutuhan visual udara khusus? Hubungi saya untuk diskusi penawaran dan jadwal terbang.
         </p>
 
         <!-- Direct Social / Messaging Buttons -->
         <div class="space-y-4">
-          <a href="https://wa.me/6281381453598?text=Halo%20saya%20tertarik%20dengan%20jasa%20drone%20Anda" target="_blank" class="p-4 rounded-xl bg-[#141414] hover:bg-neutral-900 border border-neutral-800 hover:border-neutral-600 flex items-center justify-between transition-all group">
+          <a href="https://wa.me/6281381453598?text=Halo%20saya%20tertarik%20dengan%20jasa%20drone%20Anda" target="_blank" class="p-4 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] border border-[#262629] hover:border-[#EAB308]/50 flex items-center justify-between transition-all group">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                 <i data-lucide="message-circle" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-white group-hover:text-emerald-300" data-i18n="contact.wa_label">WhatsApp Langsung</h4>
-                <p class="text-xs text-neutral-400" data-i18n="contact.wa_sub">+62 813-8145-3598 (Respon Cepat)</p>
+                <h4 class="text-sm font-bold text-[#F5F5F7] group-hover:text-emerald-300" data-i18n="contact.wa_label">WhatsApp Langsung</h4>
+                <p class="text-xs text-[#9CA3AF]" data-i18n="contact.wa_sub">+62 813-8145-3598 (Respon Cepat)</p>
               </div>
             </div>
-            <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform"></i>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#9CA3AF] group-hover:translate-x-1 group-hover:text-[#EAB308] transition-all"></i>
           </a>
 
-          <a href="mailto:bobienfly@gmail.com" class="p-4 rounded-xl bg-[#141414] hover:bg-neutral-900 border border-neutral-800 hover:border-neutral-600 flex items-center justify-between transition-all group">
+          <a href="mailto:bobienfly@gmail.com" class="p-4 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] border border-[#262629] hover:border-[#EAB308]/50 flex items-center justify-between transition-all group">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-neutral-800 text-white flex items-center justify-center">
+              <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center">
                 <i data-lucide="mail" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-white" data-i18n="contact.email_label">Email Resmi</h4>
-                <p class="text-xs text-neutral-400">bobienfly@gmail.com</p>
+                <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="contact.email_label">Email Resmi</h4>
+                <p class="text-xs text-[#9CA3AF]">bobienfly@gmail.com</p>
               </div>
             </div>
-            <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform"></i>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#9CA3AF] group-hover:translate-x-1 group-hover:text-[#EAB308] transition-all"></i>
           </a>
 
-          <div class="p-4 rounded-xl bg-[#141414] border border-neutral-800 flex items-center justify-between">
+          <div class="p-4 rounded-lg bg-[#141416] border border-[#262629] flex items-center justify-between">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -915,8 +921,8 @@
                 </svg>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-white">Instagram</h4>
-                <p class="text-xs text-neutral-400">@bobienmartien</p>
+                <h4 class="text-sm font-bold text-[#F5F5F7]">Instagram</h4>
+                <p class="text-xs text-[#9CA3AF]">@bobienmartien</p>
               </div>
             </div>
             <a href="https://instagram.com/bobienmartien" target="_blank" class="text-xs font-semibold text-pink-400 hover:underline" data-i18n="contact.ig_follow">Ikuti &rarr;</a>
@@ -926,24 +932,24 @@
 
       <!-- Contact Form -->
       <div class="lg:col-span-7">
-        <form id="contact-form" class="bg-[#141414] p-8 rounded-2xl border border-neutral-800 space-y-5">
-          <h3 class="text-xl font-bold text-white" data-i18n="contact.form_title">Kirim Pesan Inquiry</h3>
+        <form id="contact-form" class="bg-[#141416] p-8 rounded-xl border border-[#262629] space-y-5 shadow-2xl">
+          <h3 class="text-xl font-bold font-heading text-[#F5F5F7]" data-i18n="contact.form_title">Kirim Pesan Inquiry</h3>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-mono text-neutral-300 mb-2" data-i18n="contact.name_label">NAMA LENGKAP</label>
-              <input type="text" id="contact-name" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white text-sm text-white placeholder-neutral-600">
+              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.name_label">NAMA LENGKAP</label>
+              <input type="text" id="contact-name" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40">
             </div>
 
             <div>
-              <label class="block text-xs font-mono text-neutral-300 mb-2" data-i18n="contact.email_label_field">EMAIL ATAU NO HP</label>
-              <input type="text" id="contact-email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white text-sm text-white placeholder-neutral-600">
+              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.email_label_field">EMAIL ATAU NO HP</label>
+              <input type="text" id="contact-email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-neutral-300 mb-2" data-i18n="contact.service_label">JENIS KEBUTUHAN LAYANAN</label>
-            <select id="contact-service" class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white text-sm text-white">
+            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.service_label">JENIS KEBUTUHAN LAYANAN</label>
+            <select id="contact-service" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7]">
               <option value="Aerial Cinematography">Aerial Cinematography (Video 4K / 5K)</option>
               <option value="Drone Photography">Fotografi Udara Resolusi Tinggi / High-Res Aerial Photo</option>
               <option value="FPV Action Shoot">FPV Action / Olahraga Ekstrem</option>
@@ -954,12 +960,12 @@
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-neutral-300 mb-2 flex items-center justify-between" for="contact-drone">
+            <label class="block text-xs font-mono text-[#9CA3AF] mb-2 flex items-center justify-between" for="contact-drone">
               <span data-i18n="contact.drone_label">PILIH ARMADA DRONE SESUAI PROYEK ANDA</span>
-              <span class="text-[10px] font-sans font-normal text-neutral-400 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800" data-i18n="contact.drone_badge">Rekomendasi Pilot</span>
+              <span class="text-[10px] font-sans font-normal text-[#9CA3AF] bg-[#0A0A0B] px-2 py-0.5 rounded border border-[#262629]" data-i18n="contact.drone_badge">Rekomendasi Pilot</span>
             </label>
             <div class="relative">
-              <select id="contact-drone" class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white text-sm text-white appearance-none transition-all duration-300 cursor-pointer">
+              <select id="contact-drone" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] appearance-none transition-all duration-300 cursor-pointer">
                 <option value="" data-i18n="contact.drone_opt_default">-- Konsultasikan Rekomendasi Armada Pilot --</option>
                 <option value="DJI Mavic 4 Pro" data-i18n="contact.drone_opt_mavic4">DJI Mavic 4 Pro (Cinema Class • 8K/4K HDR)</option>
                 <option value="DJI Mavic 3 Pro" data-i18n="contact.drone_opt_mavic3">DJI Mavic 3 Pro (Commercial Cinema • Triple Cam)</option>
@@ -968,18 +974,18 @@
                 <option value="DJI Mini 4 Pro" data-i18n="contact.drone_opt_mini4">DJI Mini 4 Pro (Social Reels • Sub-249g Vertical)</option>
                 <option value="DJI Neo 2" data-i18n="contact.drone_opt_neo2">DJI Neo 2 (Indoor &amp; Vlog • AI Palm Takeoff)</option>
               </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-neutral-400">
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#9CA3AF]">
                 <i data-lucide="chevron-down" class="w-4 h-4"></i>
               </div>
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-neutral-300 mb-2" data-i18n="contact.msg_label">DETAIL PROYEK &amp; LOKASI</label>
-            <textarea id="contact-message" rows="4" required placeholder="Ceritakan tentang rencana lokasi, tanggal pengambilan gambar, dan harapan visual Anda..." class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white text-sm text-white placeholder-neutral-600"></textarea>
+            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.msg_label">DETAIL PROYEK &amp; LOKASI</label>
+            <textarea id="contact-message" rows="4" required placeholder="Ceritakan tentang rencana lokasi, tanggal pengambilan gambar, dan harapan visual Anda..." class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40"></textarea>
           </div>
 
-          <button type="submit" class="w-full py-3.5 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold text-sm tracking-wide uppercase transition-all shadow-md flex items-center justify-center gap-2">
+          <button type="submit" class="w-full py-3.5 rounded-lg bg-[#EAB308] hover:bg-[#FACC15] text-[#0A0A0B] font-bold text-sm tracking-wide uppercase transition-all shadow-lg hover:shadow-[#EAB308]/20 flex items-center justify-center gap-2 cursor-pointer">
             <i data-lucide="send" class="w-4 h-4"></i>
             <span data-i18n="contact.submit_btn">Kirim Pesan ke WhatsApp</span>
           </button>
@@ -990,16 +996,16 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-12 border-t border-neutral-900 bg-[#0a0a0a] text-xs text-neutral-500">
+  <footer class="py-12 border-t border-[#262629] bg-[#0A0A0B] text-xs text-[#9CA3AF]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
       
       <div class="flex items-center gap-3">
-        <i data-lucide="crosshair" class="w-4 h-4 text-neutral-400 shrink-0"></i>
-        <span data-i18n="footer.copyright">Copyright &copy; 2026 <strong>AeroScope</strong> All Rights Reserved Powered By <a href="https://www.instagram.com/bobienmartien/" target="_blank" rel="noopener noreferrer" class="text-white hover:underline underline-offset-2 transition-colors">Bobien Martien</a></span>
+        <i data-lucide="crosshair" class="w-4 h-4 text-[#EAB308] shrink-0"></i>
+        <span data-i18n="footer.copyright">Copyright &copy; 2026 <strong>AeroScope</strong> All Rights Reserved Powered By <a href="https://www.instagram.com/bobienmartien/" target="_blank" rel="noopener noreferrer" class="text-[#F5F5F7] hover:text-[#EAB308] hover:underline underline-offset-2 transition-colors">Bobien Martien</a></span>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px]">
-        <a href="#beranda" class="text-neutral-400 hover:text-white transition-colors" data-i18n="footer.top">Kembali ke Atas &uarr;</a>
+        <a href="#beranda" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="footer.top">Kembali ke Atas &uarr;</a>
       </div>
 
     </div>
@@ -1008,16 +1014,16 @@
   <!-- ======================================================== -->
   <!-- MODAL 1: FULLSCREEN VIDEO PLAYER MODAL -->
   <!-- ======================================================== -->
-  <div id="video-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="relative w-full max-w-5xl bg-[#141414] rounded-2xl border border-neutral-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+  <div id="video-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-[#0A0A0B]/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-5xl bg-[#141416] rounded-xl border border-[#262629] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
       
       <!-- Modal Header -->
-      <div class="px-6 py-4 bg-[#0a0a0a] border-b border-neutral-800 flex items-center justify-between">
+      <div class="px-6 py-4 bg-[#0A0A0B] border-b border-[#262629] flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="w-2 h-2 rounded-full bg-red-500 rec-pulse"></span>
-          <span class="text-xs font-mono text-neutral-300 uppercase tracking-wider">AERIAL VIDEO PLAYER</span>
+          <span class="text-xs font-mono text-[#9CA3AF] uppercase tracking-wider">AERIAL VIDEO PLAYER</span>
         </div>
-        <button data-close-video class="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+        <button data-close-video class="p-2 rounded-lg text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#262629] transition-colors">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -1033,7 +1039,7 @@
           type="button" 
           aria-label="Previous Video" 
           title="Video Sebelumnya"
-          class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-neutral-700 hover:border-white flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
+          class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#0A0A0B]/90 hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
         >
           <i data-lucide="chevron-left" class="w-6 h-6 -translate-x-0.5 transition-transform"></i>
         </button>
@@ -1045,34 +1051,34 @@
           type="button" 
           aria-label="Next Video" 
           title="Video Selanjutnya"
-          class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-neutral-700 hover:border-white flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
+          class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#0A0A0B]/90 hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
         >
           <i data-lucide="chevron-right" class="w-6 h-6 translate-x-0.5 transition-transform"></i>
         </button>
 
         <!-- Video Counter Badge -->
-        <div id="modal-video-counter" class="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-black/80 text-[11px] font-mono text-neutral-300 border border-neutral-700 backdrop-blur-md">
+        <div id="modal-video-counter" class="absolute top-3 left-3 z-10 px-3 py-1 rounded-md bg-[#0A0A0B]/90 text-[11px] font-mono text-[#9CA3AF] border border-[#262629] backdrop-blur-md">
           1 / 3
         </div>
       </div>
 
       <!-- Video Details & Telemetry -->
-      <div class="p-6 bg-[#141414] border-t border-neutral-800 overflow-y-auto">
+      <div class="p-6 bg-[#141416] border-t border-[#262629] overflow-y-auto">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
-          <h3 id="modal-video-title" class="text-xl font-bold text-white">Judul Video</h3>
+          <h3 id="modal-video-title" class="text-xl font-bold font-heading text-[#F5F5F7]">Judul Video</h3>
           <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-            <span class="px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-neutral-700 flex items-center gap-1">
-              <i data-lucide="plane" class="w-3.5 h-3.5"></i> <span id="modal-video-drone">DJI Drone</span>
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B] text-[#9CA3AF] border border-[#262629] flex items-center gap-1">
+              <i data-lucide="plane" class="w-3.5 h-3.5 text-[#EAB308]"></i> <span id="modal-video-drone">DJI Drone</span>
             </span>
-            <span class="px-3 py-1 rounded-full bg-neutral-900 text-emerald-400 border border-neutral-700 flex items-center gap-1">
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B] text-[#EAB308] border border-[#262629] flex items-center gap-1">
               <i data-lucide="sliders" class="w-3.5 h-3.5"></i> <span id="modal-video-specs">4K UHD</span>
             </span>
-            <span class="px-3 py-1 rounded-full bg-neutral-900 text-neutral-400 flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-neutral-400"></i> <span id="modal-video-location">Indonesia</span>
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B] text-[#9CA3AF] border border-[#262629] flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#9CA3AF]"></i> <span id="modal-video-location">Indonesia</span>
             </span>
           </div>
         </div>
-        <p id="modal-video-desc" class="text-xs sm:text-sm text-neutral-400 leading-relaxed"></p>
+        <p id="modal-video-desc" class="text-xs sm:text-sm text-[#9CA3AF] leading-relaxed"></p>
       </div>
 
     </div>
@@ -1081,23 +1087,23 @@
   <!-- ======================================================== -->
   <!-- MODAL 2: HIGH-RES PHOTO LIGHTBOX MODAL -->
   <!-- ======================================================== -->
-  <div id="photo-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="relative w-full max-w-5xl bg-[#141414] rounded-2xl border border-neutral-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+  <div id="photo-modal" class="modal-overlay hidden fixed inset-0 z-50 bg-[#0A0A0B]/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-5xl bg-[#141416] rounded-xl border border-[#262629] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
       
       <!-- Modal Header -->
-      <div class="px-6 py-4 bg-[#0a0a0a] border-b border-neutral-800 flex items-center justify-between">
+      <div class="px-6 py-4 bg-[#0A0A0B] border-b border-[#262629] flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span class="text-xs font-mono text-neutral-300 uppercase tracking-wider">AERIAL PHOTO VIEWER</span>
+          <span class="text-xs font-mono text-[#9CA3AF] uppercase tracking-wider">AERIAL PHOTO VIEWER</span>
         </div>
-        <button data-close-photo class="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+        <button data-close-photo class="p-2 rounded-lg text-[#9CA3AF] hover:text-[#F5F5F7] hover:bg-[#262629] transition-colors">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- Image Area with Navigation Arrows -->
       <div class="relative bg-black w-full flex-1 min-h-[300px] flex items-center justify-center p-2 overflow-hidden group/modalphoto">
-        <img id="modal-photo-img" src="" alt="Photo Lightbox" class="max-h-[62vh] w-auto max-w-full object-contain rounded-xl shadow-2xl">
+        <img id="modal-photo-img" src="" alt="Photo Lightbox" class="max-h-[62vh] w-auto max-w-full object-contain rounded-lg shadow-2xl">
 
         <!-- Previous Photo Arrow Button -->
         <button 
@@ -1106,7 +1112,7 @@
           type="button" 
           aria-label="Previous Photo" 
           title="Foto Sebelumnya"
-          class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-neutral-700 hover:border-white flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
+          class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#0A0A0B]/90 hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
         >
           <i data-lucide="chevron-left" class="w-6 h-6 -translate-x-0.5 transition-transform"></i>
         </button>
@@ -1118,43 +1124,43 @@
           type="button" 
           aria-label="Next Photo" 
           title="Foto Selanjutnya"
-          class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-neutral-700 hover:border-white flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
+          class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#0A0A0B]/90 hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group/modalbtn"
         >
           <i data-lucide="chevron-right" class="w-6 h-6 translate-x-0.5 transition-transform"></i>
         </button>
 
         <!-- Photo Counter Badge -->
-        <div id="modal-photo-counter" class="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-black/80 text-[11px] font-mono text-neutral-300 border border-neutral-700 backdrop-blur-md">
+        <div id="modal-photo-counter" class="absolute top-3 left-3 z-10 px-3 py-1 rounded-md bg-[#0A0A0B]/90 text-[11px] font-mono text-[#9CA3AF] border border-[#262629] backdrop-blur-md">
           1 / 3
         </div>
       </div>
 
       <!-- Photo Telemetry -->
-      <div class="p-6 bg-[#141414] border-t border-neutral-800">
+      <div class="p-6 bg-[#141416] border-t border-[#262629]">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-          <h3 id="modal-photo-title" class="text-xl font-bold text-white">Judul Foto</h3>
+          <h3 id="modal-photo-title" class="text-xl font-bold font-heading text-[#F5F5F7]">Judul Foto</h3>
           <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-            <span class="px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-neutral-700 flex items-center gap-1">
-              <i data-lucide="camera" class="w-3.5 h-3.5"></i> <span id="modal-photo-drone">DJI Mavic 3 Pro</span>
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B] text-[#9CA3AF] border border-[#262629] flex items-center gap-1">
+              <i data-lucide="camera" class="w-3.5 h-3.5 text-[#EAB308]"></i> <span id="modal-photo-drone">DJI Mavic 3 Pro</span>
             </span>
-            <span class="px-3 py-1 rounded-full bg-neutral-900 text-emerald-400 border border-neutral-700 flex items-center gap-1">
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B] text-[#EAB308] border border-[#262629] flex items-center gap-1">
               <i data-lucide="aperture" class="w-3.5 h-3.5"></i> <span id="modal-photo-specs">48MP RAW</span>
             </span>
-            <span class="px-3 py-1 rounded-full bg-neutral-900 text-neutral-400 flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-neutral-400"></i> <span id="modal-photo-location">Indonesia</span>
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B] text-[#9CA3AF] border border-[#262629] flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#9CA3AF]"></i> <span id="modal-photo-location">Indonesia</span>
             </span>
           </div>
         </div>
-        <p id="modal-photo-desc" class="text-xs sm:text-sm text-neutral-400 leading-relaxed"></p>
+        <p id="modal-photo-desc" class="text-xs sm:text-sm text-[#9CA3AF] leading-relaxed"></p>
       </div>
 
     </div>
   </div>
 
   <!-- Application Scripts -->
-  <script src="site-config.js?v=1795182000"></script>
-  <script src="supabase.js?v=1795182000"></script>
-  <script src="app.js?v=1795182000"></script>
+  <script src="site-config.js?v=1795188000"></script>
+  <script src="supabase.js?v=1795188000"></script>
+  <script src="app.js?v=1795188000"></script>
   <script>
     if (window.lucide) {
       window.lucide.createIcons();

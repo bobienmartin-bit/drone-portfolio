@@ -61,15 +61,15 @@ const translations = {
     "gear.badge": "Armada & Peralatan",
     "gear.title": "Pilih Armada Drone Sesuai Proyek Anda",
     "gear.subtitle": "Setiap kebutuhan produksi memiliki karakter visual berbeda. Pilih unit yang paling sesuai dengan konsep syuting Anda, atau konsultasikan untuk rekomendasi terbaik.",
-    "gear.d1_tag": "CINEMA CLASS • NEXT-GEN 8K",
+    "gear.d1_tag": "NEXT-GEN FLAGSHIP",
     "gear.d1_desc": "Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.",
     "gear.d1_ideal": "Ideal untuk: Film Layar Lebar, Produksi Komersial Skala Besar, Dokumentasi Sinematik",
     "gear.d1_btn": "Booking dengan Mavic 4 Pro →",
-    "gear.d2_tag": "COMMERCIAL CINEMA • TRIPLE CAM",
+    "gear.d2_tag": "TRIPLE CAMERA CINEMA",
     "gear.d2_desc": "Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.",
     "gear.d2_ideal": "Ideal untuk: Iklan Komersial, Video Profil Perusahaan, Fotografi Lanskap Presisi",
     "gear.d2_btn": "Booking dengan Mavic 3 Pro →",
-    "gear.d6_tag": "ALL-ROUNDER • NIGHTSCAPE LIDAR",
+    "gear.d6_tag": "DUAL CAMERA & NIGHTSCAPE",
     "gear.d6_desc": "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
     "gear.d6_ideal": "Ideal untuk: Fotografi Lanskap Malam Hari, Dokumentasi Travel & Wisata, Komersial Kreatif",
     "gear.d6_btn": "Booking dengan Air 3S →",
@@ -77,11 +77,11 @@ const translations = {
     "gear.d3_desc": "Drone FPV lincah dengan sensor 1/1.3\" CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.",
     "gear.d3_ideal": "Ideal untuk: Diving Tebing, Aksi Otomotif / Drift, Fly-through Indoor & Olahraga Ekstrem",
     "gear.d3_btn": "Booking dengan Avata 2 →",
-    "gear.d4_tag": "SOCIAL REELS • SUB-249G VERTICAL",
+    "gear.d4_tag": "AGILE & SUB-249G",
     "gear.d4_desc": "Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.",
     "gear.d4_ideal": "Ideal untuk: Wisata, Real Estate, Konten Instagram Reels & TikTok",
     "gear.d4_btn": "Booking dengan Mini 4 Pro →",
-    "gear.d5_tag": "INDOOR & VLOG • AI PALM TAKEOFF",
+    "gear.d5_tag": "PALM TAKEOFF & AI TRACKING",
     "gear.d5_desc": "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
     "gear.d5_ideal": "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)",
     "gear.d5_btn": "Booking dengan Neo 2 →",
@@ -212,15 +212,15 @@ const translations = {
     "gear.badge": "Fleet & Equipment",
     "gear.title": "Choose the Right Drone Fleet for Your Project",
     "gear.subtitle": "Every production need carries a unique visual signature. Select the ideal drone unit for your shoot concept, or consult with us for the best recommendation.",
-    "gear.d1_tag": "CINEMA CLASS • NEXT-GEN 8K",
+    "gear.d1_tag": "NEXT-GEN FLAGSHIP",
     "gear.d1_desc": "Next-generation cinema flagship drone with advanced Hasselblad multi-lens system, 360° omnidirectional obstacle sensing, and long-range O4 Pro transmission.",
     "gear.d1_ideal": "Ideal for: Feature Films, High-End Commercials, Cinematic Aerial Storytelling",
     "gear.d1_btn": "Book with Mavic 4 Pro →",
-    "gear.d2_tag": "COMMERCIAL CINEMA • TRIPLE CAM",
+    "gear.d2_tag": "TRIPLE CAMERA CINEMA",
     "gear.d2_desc": "Independent 3-camera optical system with Hasselblad 4/3 CMOS primary sensor delivering large-screen cinematic calibre.",
     "gear.d2_ideal": "Ideal for: Commercial Ads, Corporate Profiles, High-Resolution Landscapes",
     "gear.d2_btn": "Book with Mavic 3 Pro →",
-    "gear.d6_tag": "ALL-ROUNDER • NIGHTSCAPE LIDAR",
+    "gear.d6_tag": "DUAL CAMERA & NIGHTSCAPE",
     "gear.d6_desc": "Advanced dual-camera drone featuring a 1-inch CMOS 50MP primary sensor and 70mm medium telephoto lens, equipped with forward LiDAR nightscape sensing.",
     "gear.d6_ideal": "Ideal for: Nightscape Photography, Travel & Tourism Content, Creative Commercials",
     "gear.d6_btn": "Book with Air 3S →",
@@ -228,11 +228,11 @@ const translations = {
     "gear.d3_desc": "Agile cinematic FPV drone featuring 1/1.3\" CMOS sensor, 155° ultra-wide FOV, integrated propeller guards, and intuitive One-Push ACRO maneuvers.",
     "gear.d3_ideal": "Ideal for: Cliff Dives, Automotive & Drift, Indoor Fly-throughs, Action Sports",
     "gear.d3_btn": "Book with Avata 2 →",
-    "gear.d4_tag": "SOCIAL REELS • SUB-249G VERTICAL",
+    "gear.d4_tag": "AGILE & SUB-249G",
     "gear.d4_desc": "Ultra-lightweight sub-249g drone with True Vertical Shooting optimized for portrait social media content on TikTok & Instagram Reels.",
     "gear.d4_ideal": "Ideal for: Tourism, Real Estate, Instagram Reels & TikTok",
     "gear.d4_btn": "Book with Mini 4 Pro →",
-    "gear.d5_tag": "INDOOR & VLOG • AI PALM TAKEOFF",
+    "gear.d5_tag": "PALM TAKEOFF & AI TRACKING",
     "gear.d5_desc": "Ultra-compact 135g palm-takeoff drone featuring smart AI subject tracking, RockSteady stabilization, and dynamic close-proximity shots.",
     "gear.d5_ideal": "Ideal for: Personal Vlogs, Intimate Events, Safe Indoor Fly-throughs",
     "gear.d5_btn": "Book with Neo 2 →",
@@ -313,11 +313,11 @@ function getCurrentLanguage() {
   if (saved && (saved === "id" || saved === "en")) {
     return saved;
   }
-  return "id"; // Default Indonesian
+  return "en"; // Default English
 }
 
 function setLanguage(lang) {
-  if (lang !== "id" && lang !== "en") lang = "id";
+  if (lang !== "id" && lang !== "en") lang = "en";
   localStorage.setItem(LANG_STORAGE_KEY, lang);
   document.documentElement.lang = lang;
 
