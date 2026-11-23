@@ -263,7 +263,7 @@ function switchTab(tabId) {
 // ========================================================
 // 3. Dashboard Data Population & Forms
 // ========================================================
-function initDashboard() {
+async function initDashboard() {
   currentConfig = window.AeroSiteConfig ? window.AeroSiteConfig.getSiteConfig() : {};
   loadGalleryMedia();
   populateHeroForm();
@@ -274,6 +274,35 @@ function initDashboard() {
   populateContactForm();
   populateGithubTokenForm();
   switchTab(currentActiveTab);
+
+  // Auto-sync with live server site-config.json
+  if (window.AeroSiteConfig && typeof window.AeroSiteConfig.loadLiveServerConfig === "function") {
+    try {
+      const liveConfig = await window.AeroSiteConfig.loadLiveServerConfig();
+      if (liveConfig && typeof liveConfig === "object") {
+        if (liveConfig.about && (!liveConfig.about.avatarUrl || liveConfig.about.avatarUrl.includes("photo-1516035069371"))) {
+          liveConfig.about.avatarUrl = "assets/images/pilot-bobien-martien.jpg?v=2";
+        }
+        if (Array.isArray(liveConfig.gear)) {
+          liveConfig.gear.forEach((g, idx) => {
+            if (!g.imageUrl || g.imageUrl.includes("unsplash.com")) {
+              g.imageUrl = DEFAULT_DRONE_IMAGES[idx] || DEFAULT_DRONE_IMAGES[0];
+            }
+          });
+        }
+        currentConfig = window.AeroSiteConfig.deepMergeConfig(currentConfig, liveConfig);
+        window.AeroSiteConfig.saveSiteConfig(currentConfig);
+        populateHeroForm();
+        populateReelForm();
+        populateGearForm();
+        populateServicesForm();
+        populateAboutForm();
+        populateContactForm();
+      }
+    } catch (err) {
+      console.debug("Live config sync skipped or failed:", err);
+    }
+  }
 }
 
 // TAB HERO
@@ -824,12 +853,12 @@ function handlePilotUrlChange(newUrl) {
 function updatePilotAvatarPreview(url) {
   const preview = document.getElementById("pilot-avatar-preview");
   if (preview) {
-    preview.src = url || "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80";
+    preview.src = url || "assets/images/pilot-bobien-martien.jpg?v=2";
   }
 }
 
 function resetPilotAvatarToDefault() {
-  const defaultUrl = "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80";
+  const defaultUrl = "assets/images/pilot-bobien-martien.jpg?v=2";
   const avatarInput = document.getElementById("cfg-about-avatar");
   if (avatarInput) avatarInput.value = defaultUrl;
 

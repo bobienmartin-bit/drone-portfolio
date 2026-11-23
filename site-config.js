@@ -15,6 +15,50 @@ const DEFAULT_SITE_CONFIG = {
       { text: "Pilot Tersertifikasi SIDOPI GO & DKPPU" },
       { text: "450+ Jam Terbang Operasional" },
       { text: "Siap Penugasan Seluruh Indonesia" }
+    ],
+    stats: [
+      {
+        id: "stat_legal",
+        label: "LEGALITAS",
+        value: "RESMI",
+        sub: "SIDOPI GO & DKPPU",
+        icon: "award"
+      },
+      {
+        id: "stat_res",
+        label: "RESOLUSI",
+        value: "5.1K / 4K",
+        sub: "ProRes & D-Log M",
+        icon: "video"
+      },
+      {
+        id: "stat_range",
+        label: "JANGKAUAN",
+        value: "NASIONAL",
+        sub: "Siap Tugas Luar Kota",
+        icon: "map-pin"
+      },
+      {
+        id: "stat_turnaround",
+        label: "WAKTU PROSES",
+        value: "24 JAM",
+        sub: "File Mentah & Edit",
+        icon: "clock"
+      },
+      {
+        id: "stat_signal",
+        label: "JARAK KONTROL",
+        value: "15 KM",
+        sub: "Transmisi Stabil HD",
+        icon: "radio"
+      },
+      {
+        id: "stat_1795085211926",
+        label: "PRESTASI / SERTIFIKASI",
+        value: "JUARA",
+        sub: "Konten Kreatif & Aerial",
+        icon: "zap"
+      }
     ]
   },
   featuredReel: [
@@ -29,7 +73,7 @@ const DEFAULT_SITE_CONFIG = {
       format: "Format: 4K UHD 60FPS",
       videoUrl: "assets/videos/karawang-central-plaza-kcp-galuh-mas.mp4",
       drone: "DJI MINI 4 PRO",
-      altitude: "ALTITUDE: 150m AGL",
+      altitude: "ALTITUDE: 100m AGL",
       lens: "24MM F/1.7",
       telemetryFormat: "4K D-LOG M",
       quickTitle: "Wonderful 12th",
@@ -46,7 +90,7 @@ const DEFAULT_SITE_CONFIG = {
       format: "Format: 5.1K UHD 60FPS",
       videoUrl: "assets/videos/campus-skies-pkn-stan.mp4",
       drone: "DJI MAVIC 3 PRO",
-      altitude: "ALTITUDE: 340m AGL",
+      altitude: "ALTITUDE: 110m AGL",
       lens: "HASSELBLAD 24MM",
       telemetryFormat: "5.1K D-LOG M",
       quickTitle: "Campus Skies",
@@ -63,7 +107,7 @@ const DEFAULT_SITE_CONFIG = {
       format: "Format: 4K VERTICAL 60FPS",
       videoUrl: "assets/videos/new-cluster-groove-fortune.mp4",
       drone: "DJI MINI 4 PRO",
-      altitude: "ALTITUDE: 120m AGL",
+      altitude: "ALTITUDE: 40m AGL",
       lens: "24MM F/1.7",
       telemetryFormat: "4K D-LOG M",
       quickTitle: "New Cluster Groove",
@@ -73,7 +117,7 @@ const DEFAULT_SITE_CONFIG = {
   gear: [
     {
       id: "drone-1",
-      tag: "CINEMA CLASS • NEXT-GEN 8K",
+      tag: "NEXT-GEN FLAGSHIP",
       title: "DJI Mavic 4 Pro",
       desc: "Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.",
       imageUrl: "assets/images/drone-mavic-4-pro.jpg?v=2",
@@ -89,7 +133,7 @@ const DEFAULT_SITE_CONFIG = {
     },
     {
       id: "drone-2",
-      tag: "COMMERCIAL CINEMA • TRIPLE CAM",
+      tag: "TRIPLE CAMERA CINEMA",
       title: "DJI Mavic 3 Pro",
       desc: "Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.",
       imageUrl: "assets/images/drone-mavic-3-pro.jpg?v=2",
@@ -105,7 +149,7 @@ const DEFAULT_SITE_CONFIG = {
     },
     {
       id: "drone-3",
-      tag: "ALL-ROUNDER • NIGHTSCAPE LIDAR",
+      tag: "DUAL CAMERA & NIGHTSCAPE",
       title: "DJI Air 3S",
       desc: "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
       imageUrl: "assets/images/drone-air-3s.jpg?v=2",
@@ -137,7 +181,7 @@ const DEFAULT_SITE_CONFIG = {
     },
     {
       id: "drone-5",
-      tag: "SOCIAL REELS • SUB-249G VERTICAL",
+      tag: "AGILE & SUB-249G",
       title: "DJI Mini 4 Pro",
       desc: "Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.",
       imageUrl: "assets/images/drone-mini-4-pro.jpg?v=2",
@@ -153,7 +197,7 @@ const DEFAULT_SITE_CONFIG = {
     },
     {
       id: "drone-6",
-      tag: "INDOOR & VLOG • AI PALM TAKEOFF",
+      tag: "PALM TAKEOFF & AI TRACKING",
       title: "DJI Neo 2",
       desc: "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
       imageUrl: "assets/images/drone-neo-2.jpg?v=2",
@@ -163,6 +207,11 @@ const DEFAULT_SITE_CONFIG = {
         "Pelacakan Subjek Berbasis AI Cerdas",
         "Full Propeller Guard (Sangat Aman)"
       ],
+      ideal: "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)",
+      ctaText: "Booking dengan Neo 2 →",
+      ctaUnit: "DJI Neo 2"
+    }
+  ],
       ideal: "Ideal untuk: Vlog Personal, Acara Intimate, Syuting Dalam Ruangan (Indoor Fly)",
       ctaText: "Booking dengan Neo 2 →",
       ctaUnit: "DJI Neo 2"
@@ -219,8 +268,8 @@ const DEFAULT_SITE_CONFIG = {
     regSub: "Kementerian Perhubungan RI",
     avatarUrl: "assets/images/pilot-bobien-martien.jpg?v=2",
     title: "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.",
-    p1: "Saya adalah seorang <strong class=\"text-white\">Certified Remote Pilot dan Aerial Visual Creator</strong> yang berfokus pada fotografi udara, videografi sinematik, serta produksi visual berbasis drone.",
-    p2: "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam di berbagai wilayah Indonesia</strong>, saya telah mengabadikan beragam perspektif visual, mulai dari lanskap alam, kawasan pesisir, hingga arsitektur dan kawasan metropolitan.",
+    p1: "Saya adalah seorang <strong class=\"text-white\">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.",
+    p2: "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam terbang operasional</strong>di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.\n\nFokus utama di lapangan diarahkan pada  <strong class=\"text-white\"> pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>\n\nSetiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.",
     p3: "Saya menggabungkan keterampilan pilot, ketelitian dalam pengambilan gambar, serta pemahaman teknis penerbangan untuk menghasilkan karya visual yang memiliki nilai estetika, komposisi kuat, dan standar produksi berkualitas.",
     p4: "Dalam setiap proyek, saya mengutamakan <strong class=\"text-white\">keselamatan penerbangan, kepatuhan terhadap regulasi, dan kualitas hasil visual</strong> sebagai bagian dari komitmen profesional."
   },
@@ -252,17 +301,32 @@ function getSiteConfig() {
           parsed.hero.subtitle = DEFAULT_SITE_CONFIG.hero.subtitle;
         }
       }
-      // Auto-migrate avatar to official Bobien Martien photo
-      if (parsed && parsed.about && (!parsed.about.avatarUrl || parsed.about.avatarUrl.includes("photo-1516035069371") || parsed.about.avatarUrl === "assets/images/pilot-profile.jpg")) {
-        parsed.about.avatarUrl = DEFAULT_SITE_CONFIG.about.avatarUrl;
+      // Auto-migrate hero stats if missing or outdated count
+      if (parsed && parsed.hero) {
+        if (!Array.isArray(parsed.hero.stats) || parsed.hero.stats.length < 6) {
+          parsed.hero.stats = JSON.parse(JSON.stringify(DEFAULT_SITE_CONFIG.hero.stats));
+        }
       }
-      // Auto-migrate drone fleet images to official local assets if using legacy or unsplash URLs
+      // Auto-migrate avatar to official Bobien Martien photo
+      if (parsed && parsed.about) {
+        if (!parsed.about.avatarUrl || parsed.about.avatarUrl.includes("photo-1516035069371") || parsed.about.avatarUrl === "assets/images/pilot-profile.jpg") {
+          parsed.about.avatarUrl = DEFAULT_SITE_CONFIG.about.avatarUrl;
+        }
+        if (parsed.about.p1 && parsed.about.p1.includes("Certified Remote Pilot dan Aerial Visual Creator")) {
+          parsed.about.p1 = DEFAULT_SITE_CONFIG.about.p1;
+          parsed.about.p2 = DEFAULT_SITE_CONFIG.about.p2;
+        }
+      }
+      // Auto-migrate drone fleet images & tags to official local assets if using legacy or unsplash URLs
       if (parsed && Array.isArray(parsed.gear)) {
         parsed.gear.forEach((g, idx) => {
           if (!g.imageUrl || g.imageUrl.includes("unsplash.com") || g.imageUrl === DEFAULT_SITE_CONFIG.gear[idx]?.imageUrl?.replace("?v=2", "")) {
             if (DEFAULT_SITE_CONFIG.gear[idx]) {
               g.imageUrl = DEFAULT_SITE_CONFIG.gear[idx].imageUrl;
             }
+          }
+          if (g.tag && g.tag.includes("CINEMA CLASS • NEXT-GEN 8K") && DEFAULT_SITE_CONFIG.gear[idx]) {
+            g.tag = DEFAULT_SITE_CONFIG.gear[idx].tag;
           }
         });
       }
