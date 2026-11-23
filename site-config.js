@@ -252,6 +252,10 @@ function getSiteConfig() {
           parsed.hero.subtitle = DEFAULT_SITE_CONFIG.hero.subtitle;
         }
       }
+      // Auto-migrate avatar if it was the legacy unsplash placeholder
+      if (parsed && parsed.about && parsed.about.avatarUrl && parsed.about.avatarUrl.includes("photo-1516035069371")) {
+        parsed.about.avatarUrl = DEFAULT_SITE_CONFIG.about.avatarUrl;
+      }
       return deepMergeConfig(DEFAULT_SITE_CONFIG, parsed);
     }
   } catch (err) {
