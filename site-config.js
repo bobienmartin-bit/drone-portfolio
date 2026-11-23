@@ -217,7 +217,7 @@ const DEFAULT_SITE_CONFIG = {
     regTitle: "REGISTRASI RESMI",
     regBody: "SIDOPI GO & DGCA DKPPU",
     regSub: "Kementerian Perhubungan RI",
-    avatarUrl: "assets/images/pilot-profile.jpg",
+    avatarUrl: "assets/images/pilot-bobien-martien.jpg?v=2",
     title: "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.",
     p1: "Saya adalah seorang <strong class=\"text-white\">Certified Remote Pilot dan Aerial Visual Creator</strong> yang berfokus pada fotografi udara, videografi sinematik, serta produksi visual berbasis drone.",
     p2: "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam di berbagai wilayah Indonesia</strong>, saya telah mengabadikan beragam perspektif visual, mulai dari lanskap alam, kawasan pesisir, hingga arsitektur dan kawasan metropolitan.",
@@ -252,8 +252,8 @@ function getSiteConfig() {
           parsed.hero.subtitle = DEFAULT_SITE_CONFIG.hero.subtitle;
         }
       }
-      // Auto-migrate avatar if it was the legacy unsplash placeholder
-      if (parsed && parsed.about && parsed.about.avatarUrl && parsed.about.avatarUrl.includes("photo-1516035069371")) {
+      // Auto-migrate avatar to official Bobien Martien photo
+      if (parsed && parsed.about && (!parsed.about.avatarUrl || parsed.about.avatarUrl.includes("photo-1516035069371") || parsed.about.avatarUrl === "assets/images/pilot-profile.jpg")) {
         parsed.about.avatarUrl = DEFAULT_SITE_CONFIG.about.avatarUrl;
       }
       return deepMergeConfig(DEFAULT_SITE_CONFIG, parsed);
