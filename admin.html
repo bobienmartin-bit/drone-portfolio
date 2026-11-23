@@ -237,6 +237,10 @@
         </div>
 
         <div class="flex items-center gap-3">
+          <button type="button" onclick="triggerPermanentSave()" id="btn-permanent-sync" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wide flex items-center gap-1.5 shadow-lg shadow-purple-600/25 transition-all cursor-pointer" title="Simpan permanen ke hosting Vercel agar tampil di semua HP & browser">
+            <i data-lucide="cloud-upload" class="w-4 h-4"></i>
+            <span>Terapkan Permanen</span>
+          </button>
           <button onclick="saveAllSettings()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer">
             <i data-lucide="save" class="w-4 h-4"></i>
             <span>Simpan Perubahan</span>
@@ -625,6 +629,62 @@
             </div>
           </div>
 
+          <!-- GitHub & Vercel Permanent Auto-Deploy Sync -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-purple-500/40 space-y-5 shadow-2xl relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/30">
+                  <i data-lucide="cloud-lightning" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <span>Penerapan Permanen ke Website (GitHub &amp; Vercel)</span>
+                    <span id="github-sync-badge" class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700">Belum Terhubung</span>
+                  </h3>
+                  <p class="text-xs text-slate-400">Pastikan seluruh upload foto &amp; perubahan teks tersimpan permanen di cloud agar tampil di semua HP &amp; laptop pengunjung.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">GITHUB PERSONAL ACCESS TOKEN (PAT)</label>
+                <div class="relative">
+                  <input type="password" id="cfg-github-token" placeholder="ghp_xxxx atau github_pat_xxxx" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-400 text-xs text-white focus:outline-none font-mono">
+                  <button type="button" onclick="toggleGithubTokenVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+                    <i data-lucide="eye" id="gh-eye-icon" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                  Repository: <code class="text-purple-400 font-mono">bobienmartin-bit/drone-portfolio</code> • Token disimpan aman di browser lokal Anda.
+                </p>
+              </div>
+
+              <div id="github-sync-msg" class="hidden p-3 rounded-xl text-xs font-mono"></div>
+
+              <div class="flex flex-wrap items-center gap-3 pt-2">
+                <button type="button" onclick="saveGithubTokenAndTest()" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-purple-600/25 transition-all cursor-pointer">
+                  <i data-lucide="check-circle" class="w-4 h-4"></i>
+                  <span>Simpan Token &amp; Hubungkan</span>
+                </button>
+
+                <button type="button" onclick="triggerPermanentSave()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wide flex items-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer">
+                  <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                  <span>Deploy Permanen ke Vercel Sekarang</span>
+                </button>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80 text-[11px] text-slate-400 space-y-1.5">
+                <p class="font-bold text-slate-300">💡 Cara Dapatkan GitHub Token (Gratis &amp; Cepat 1 Menit):</p>
+                <ol class="list-decimal pl-4 space-y-1">
+                  <li>Buka <a href="https://github.com/settings/tokens" target="_blank" class="text-purple-400 hover:underline">github.com/settings/tokens</a> &gt; klik <em>Generate new token (classic)</em>.</li>
+                  <li>Beri nama (misal: "AeroScope CMS") dan centang opsi <code class="text-white">repo</code> (Full control of private/public repositories).</li>
+                  <li>Klik <em>Generate token</em> di bawah, salin kode <code class="text-white">ghp_...</code> lalu tempelkan di kotak atas.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
           <!-- Supabase Cloud Sync -->
           <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
             <div class="flex items-center justify-between">
@@ -816,8 +876,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="site-config.js?v=1795175000"></script>
-  <script src="supabase.js?v=1795175000"></script>
-  <script src="admin.js?v=1795175000"></script>
+  <script src="site-config.js?v=1795177000"></script>
+  <script src="supabase.js?v=1795177000"></script>
+  <script src="admin.js?v=1795177000"></script>
 </body>
 </html>

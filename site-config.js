@@ -76,7 +76,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "CINEMA CLASS • NEXT-GEN 8K",
       title: "DJI Mavic 4 Pro",
       desc: "Drone sinema generasi terdepan dengan sistem multi-lensa Hasselblad canggih, sensor rintangan 360° omnidirectional, dan transmisi sinyal O4 Pro jarak jauh.",
-      imageUrl: "assets/images/drone-mavic-4-pro.jpg",
+      imageUrl: "assets/images/drone-mavic-4-pro.jpg?v=2",
       specs: [
         "Video 8K/60fps & 4K/120fps HDR",
         "Sistem Multi-Kamera Hasselblad",
@@ -92,7 +92,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "COMMERCIAL CINEMA • TRIPLE CAM",
       title: "DJI Mavic 3 Pro",
       desc: "Sistem 3 Kamera optik independen dengan sensor utama Hasselblad 4/3 CMOS untuk hasil sinematik kaliber layar lebar.",
-      imageUrl: "assets/images/drone-mavic-3-pro.jpg",
+      imageUrl: "assets/images/drone-mavic-3-pro.jpg?v=2",
       specs: [
         "Video 5.1K / 50fps Apple ProRes",
         "Lensa 24mm + 70mm + 166mm Tele",
@@ -108,7 +108,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "ALL-ROUNDER • NIGHTSCAPE LIDAR",
       title: "DJI Air 3S",
       desc: "Drone kamera ganda canggih dengan sensor utama 1-inci CMOS 50MP dan kamera medium tele 70mm, dilengkapi sensor LiDAR malam hari untuk keamanan terbang maksimal.",
-      imageUrl: "assets/images/drone-air-3s.jpg",
+      imageUrl: "assets/images/drone-air-3s.jpg?v=2",
       specs: [
         "Sensor 1\" CMOS 50MP + 70mm Medium Tele",
         "Video 4K/60fps HDR & 4K/120fps Slow-mo",
@@ -124,7 +124,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "IMMERSIVE FPV CINEMA",
       title: "DJI Avata 2",
       desc: "Drone FPV lincah dengan sensor 1/1.3\" CMOS, sudut pandang 155° Ultra-Wide, pelindung baling-baling terintegrasi, dan manuver One-Push ACRO akrobatik.",
-      imageUrl: "assets/images/drone-avata-2.jpg",
+      imageUrl: "assets/images/drone-avata-2.jpg?v=2",
       specs: [
         "Video 4K / 60fps HDR & RockSteady 3.0+",
         "Lensa 155° Ultra-Wide Angle FOV",
@@ -140,7 +140,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "SOCIAL REELS • SUB-249G VERTICAL",
       title: "DJI Mini 4 Pro",
       desc: "Drone lincah sub-249 gram dengan fitur True Vertical Shooting untuk konten media sosial format portrait TikTok & Reels.",
-      imageUrl: "assets/images/drone-mini-4-pro.jpg",
+      imageUrl: "assets/images/drone-mini-4-pro.jpg?v=2",
       specs: [
         "4K / 60fps HDR & 4K / 100fps Slow-mo",
         "True Vertical Gimbal Rotation",
@@ -156,7 +156,7 @@ const DEFAULT_SITE_CONFIG = {
       tag: "INDOOR & VLOG • AI PALM TAKEOFF",
       title: "DJI Neo 2",
       desc: "Drone ultra-ringan 135g dengan lepas landas langsung dari telapak tangan, pelacakan AI subjek otomatis cerdas, dan stabilisasi RockSteady untuk sudut pandang unik yang dekat.",
-      imageUrl: "assets/images/drone-neo-2.jpg",
+      imageUrl: "assets/images/drone-neo-2.jpg?v=2",
       specs: [
         "Video 4K Ultra-Stabilized & QuickShots",
         "Palm Takeoff & Landing Tanpa Remote",
@@ -255,6 +255,16 @@ function getSiteConfig() {
       // Auto-migrate avatar to official Bobien Martien photo
       if (parsed && parsed.about && (!parsed.about.avatarUrl || parsed.about.avatarUrl.includes("photo-1516035069371") || parsed.about.avatarUrl === "assets/images/pilot-profile.jpg")) {
         parsed.about.avatarUrl = DEFAULT_SITE_CONFIG.about.avatarUrl;
+      }
+      // Auto-migrate drone fleet images to official local assets if using legacy or unsplash URLs
+      if (parsed && Array.isArray(parsed.gear)) {
+        parsed.gear.forEach((g, idx) => {
+          if (!g.imageUrl || g.imageUrl.includes("unsplash.com") || g.imageUrl === DEFAULT_SITE_CONFIG.gear[idx]?.imageUrl?.replace("?v=2", "")) {
+            if (DEFAULT_SITE_CONFIG.gear[idx]) {
+              g.imageUrl = DEFAULT_SITE_CONFIG.gear[idx].imageUrl;
+            }
+          }
+        });
       }
       return deepMergeConfig(DEFAULT_SITE_CONFIG, parsed);
     }
@@ -502,6 +512,22 @@ function applySiteConfigToDOM(config) {
   }
 }
 
+// Load live server configuration from site-config.json
+async function loadLiveServerConfig() {
+  try {
+    const res = await fetch("site-config.json?v=" + Date.now());
+    if (res.ok) {
+      const serverConfig = await res.json();
+      if (serverConfig && typeof serverConfig === "object") {
+        return serverConfig;
+      }
+    }
+  } catch (e) {
+    console.debug("Could not fetch remote site-config.json:", e);
+  }
+  return null;
+}
+
 // Expose globally
 window.AeroSiteConfig = {
   DEFAULT_SITE_CONFIG,
@@ -510,5 +536,7 @@ window.AeroSiteConfig = {
   resetSiteConfig,
   exportSiteConfigJSON,
   importSiteConfigJSON,
-  applySiteConfigToDOM
+  applySiteConfigToDOM,
+  loadLiveServerConfig,
+  deepMergeConfig
 };

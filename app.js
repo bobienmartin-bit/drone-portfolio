@@ -292,7 +292,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Sync CMS Site Configuration if available
   if (window.AeroSiteConfig) {
-    const siteCfg = window.AeroSiteConfig.getSiteConfig();
+    let siteCfg = window.AeroSiteConfig.getSiteConfig();
+
+    // Fetch permanent cloud configuration hosted on Vercel
+    try {
+      if (typeof window.AeroSiteConfig.loadLiveServerConfig === "function") {
+        const serverCfg = await window.AeroSiteConfig.loadLiveServerConfig();
+        if (serverCfg && typeof serverCfg === "object") {
+          siteCfg = window.AeroSiteConfig.deepMergeConfig(serverCfg, siteCfg);
+        }
+      }
+    } catch (cfgErr) {
+      console.debug("Could not fetch server site-config.json:", cfgErr);
+    }
+
     if (siteCfg && Array.isArray(siteCfg.featuredReel) && siteCfg.featuredReel.length > 0) {
       FEATURED_VIDEOS_PLAYLIST = siteCfg.featuredReel;
       window.FEATURED_VIDEOS_PLAYLIST = siteCfg.featuredReel;

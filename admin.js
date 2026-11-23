@@ -272,6 +272,7 @@ function initDashboard() {
   populateServicesForm();
   populateAboutForm();
   populateContactForm();
+  populateGithubTokenForm();
   switchTab(currentActiveTab);
 }
 
@@ -485,12 +486,12 @@ function populateReelForm() {
 
 // TAB GEAR (6 DRONES)
 const DEFAULT_DRONE_IMAGES = [
-  "assets/images/drone-mavic-4-pro.jpg",
-  "assets/images/drone-mavic-3-pro.jpg",
-  "assets/images/drone-air-3s.jpg",
-  "assets/images/drone-avata-2.jpg",
-  "assets/images/drone-mini-4-pro.jpg",
-  "assets/images/drone-neo-2.jpg"
+  "assets/images/drone-mavic-4-pro.jpg?v=2",
+  "assets/images/drone-mavic-3-pro.jpg?v=2",
+  "assets/images/drone-air-3s.jpg?v=2",
+  "assets/images/drone-avata-2.jpg?v=2",
+  "assets/images/drone-mini-4-pro.jpg?v=2",
+  "assets/images/drone-neo-2.jpg?v=2"
 ];
 
 function populateGearForm() {
@@ -977,7 +978,10 @@ function saveAllSettings() {
     window.AeroSiteConfig.saveSiteConfig(currentConfig);
   }
 
-  showToast("Perubahan berhasil disimpan! Website publik langsung terupdate.");
+  // Auto-sync to GitHub & Vercel if token configured
+  autoSyncGithubIfConfigured();
+
+  showToast("Perubahan tersimpan! Website publik langsung terupdate.");
 }
 
 // ========================================================
@@ -1413,6 +1417,190 @@ function showToast(msg) {
   }, 3500);
 }
 
+// ========================================================
+// 9. Permanent GitHub & Vercel Auto-Deploy Engine
+// ========================================================
+const GITHUB_PAT_STORAGE_KEY = "AEROSCOPE_GITHUB_PAT";
+const GITHUB_REPO_OWNER = "bobienmartin-bit";
+const GITHUB_REPO_NAME = "drone-portfolio";
+const GITHUB_CONFIG_FILE_PATH = "site-config.json";
+const GITHUB_BRANCH = "main";
+
+function getActiveGithubToken() {
+  return localStorage.getItem(GITHUB_PAT_STORAGE_KEY) || "";
+}
+
+function populateGithubTokenForm() {
+  const token = getActiveGithubToken();
+  const input = document.getElementById("cfg-github-token");
+  const badge = document.getElementById("github-sync-badge");
+
+  if (input) input.value = token;
+  if (badge) {
+    if (token) {
+      badge.textContent = "Terhubung";
+      badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+    } else {
+      badge.textContent = "Belum Terhubung";
+      badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700";
+    }
+  }
+}
+
+function toggleGithubTokenVisibility() {
+  const input = document.getElementById("cfg-github-token");
+  const icon = document.getElementById("gh-eye-icon");
+  if (!input) return;
+  if (input.type === "password") {
+    input.type = "text";
+    if (icon) icon.setAttribute("data-lucide", "eye-off");
+  } else {
+    input.type = "password";
+    if (icon) icon.setAttribute("data-lucide", "eye");
+  }
+  if (window.lucide) window.lucide.createIcons();
+}
+
+async function saveGithubTokenAndTest() {
+  const input = document.getElementById("cfg-github-token");
+  const msgEl = document.getElementById("github-sync-msg");
+  const token = (input ? input.value : "").trim();
+
+  if (!token) {
+    localStorage.removeItem(GITHUB_PAT_STORAGE_KEY);
+    populateGithubTokenForm();
+    if (msgEl) {
+      msgEl.className = "p-3 rounded-xl text-xs font-mono bg-slate-800 text-slate-300";
+      msgEl.textContent = "Token dihapus. Mode penyimpanan offline / browser aktif.";
+      msgEl.classList.remove("hidden");
+    }
+    return;
+  }
+
+  if (msgEl) {
+    msgEl.className = "p-3 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-300";
+    msgEl.textContent = "Menguji koneksi ke repositori bobienmartin-bit/drone-portfolio...";
+    msgEl.classList.remove("hidden");
+  }
+
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+
+    if (res.ok) {
+      localStorage.setItem(GITHUB_PAT_STORAGE_KEY, token);
+      populateGithubTokenForm();
+      if (msgEl) {
+        msgEl.className = "p-3 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/30 text-emerald-300";
+        msgEl.textContent = "✓ Koneksi GitHub Berhasil! Setiap perubahan di CMS sekarang otomatis dideploy permanen ke Vercel.";
+      }
+      showToast("Koneksi GitHub aktif! Auto-deploy Vercel siap.");
+    } else {
+      const err = await res.json();
+      if (msgEl) {
+        msgEl.className = "p-3 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/30 text-rose-300";
+        msgEl.textContent = `Gagal menghubungkan: ${err.message || 'Token tidak memiliki akses ke repositori ini'}`;
+      }
+    }
+  } catch (err) {
+    if (msgEl) {
+      msgEl.className = "p-3 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/30 text-rose-300";
+      msgEl.textContent = "Gagal menghubungi API GitHub: " + err.message;
+    }
+  }
+}
+
+async function triggerPermanentSave() {
+  saveAllSettings();
+
+  const token = getActiveGithubToken();
+  if (!token) {
+    switchTab('backup');
+    const input = document.getElementById("cfg-github-token");
+    if (input) input.focus();
+    showToast("Masukkan GitHub Token di bawah agar perubahan dapat tersimpan permanen!");
+    return;
+  }
+
+  const syncBtn = document.getElementById("btn-permanent-sync");
+  if (syncBtn) {
+    syncBtn.disabled = true;
+    syncBtn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Deploying...</span>`;
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  try {
+    const success = await pushConfigToGithub(token, currentConfig);
+    if (success) {
+      showToast("✓ Sukses! Perubahan telah tersimpan permanen di GitHub & sedang dideploy Vercel.");
+    } else {
+      showToast("Gagal menyimpan ke GitHub. Periksa kembali GitHub Token Anda.");
+    }
+  } catch (err) {
+    showToast("Error saat deploy permanen: " + err.message);
+  } finally {
+    if (syncBtn) {
+      syncBtn.disabled = false;
+      syncBtn.innerHTML = `<i data-lucide="cloud-upload" class="w-4 h-4"></i><span>Terapkan Permanen</span>`;
+      if (window.lucide) window.lucide.createIcons();
+    }
+  }
+}
+
+async function autoSyncGithubIfConfigured() {
+  const token = getActiveGithubToken();
+  if (!token) return;
+  try {
+    await pushConfigToGithub(token, currentConfig);
+  } catch (e) {
+    console.warn("Background GitHub auto-deploy failed:", e);
+  }
+}
+
+async function pushConfigToGithub(token, configData) {
+  // 1. Get current file sha
+  let sha = null;
+  try {
+    const getUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_CONFIG_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+    const getRes = await fetch(getUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    }
+  } catch (e) {}
+
+  // 2. Put updated JSON content
+  const cleanJson = JSON.stringify(configData, null, 2);
+  const contentBase64 = btoa(unescape(encodeURIComponent(cleanJson)));
+
+  const putUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_CONFIG_FILE_PATH}`;
+  const putRes = await fetch(putUrl, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github.v3+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: "cms: update site configuration permanently [skip ci]",
+      content: contentBase64,
+      sha: sha || undefined,
+      branch: GITHUB_BRANCH
+    })
+  });
+
+  return putRes.ok;
+}
+
 // Expose handlers globally
 window.handleDronePhotoUpload = handleDronePhotoUpload;
 window.handleDroneUrlChange = handleDroneUrlChange;
@@ -1420,3 +1608,8 @@ window.resetDronePhoto = resetDronePhoto;
 window.handlePilotPhotoUpload = handlePilotPhotoUpload;
 window.handlePilotUrlChange = handlePilotUrlChange;
 window.resetPilotAvatarToDefault = resetPilotAvatarToDefault;
+window.populateGithubTokenForm = populateGithubTokenForm;
+window.toggleGithubTokenVisibility = toggleGithubTokenVisibility;
+window.saveGithubTokenAndTest = saveGithubTokenAndTest;
+window.triggerPermanentSave = triggerPermanentSave;
+window.pushConfigToGithub = pushConfigToGithub;
