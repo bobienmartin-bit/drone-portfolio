@@ -1456,7 +1456,11 @@ const GITHUB_CONFIG_FILE_PATH = "site-config.json";
 const GITHUB_BRANCH = "main";
 
 function getActiveGithubToken() {
-  return localStorage.getItem(GITHUB_PAT_STORAGE_KEY) || "";
+  const stored = localStorage.getItem(GITHUB_PAT_STORAGE_KEY) || "";
+  if (stored) return stored.trim();
+  const input = document.getElementById("cfg-github-token");
+  if (input && input.value.trim()) return input.value.trim();
+  return "";
 }
 
 function populateGithubTokenForm() {
@@ -1464,11 +1468,11 @@ function populateGithubTokenForm() {
   const input = document.getElementById("cfg-github-token");
   const badge = document.getElementById("github-sync-badge");
 
-  if (input) input.value = token;
+  if (input && !input.value) input.value = token;
   if (badge) {
     if (token) {
-      badge.textContent = "Terhubung";
-      badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+      badge.textContent = "Token Tersimpan (Siap Uji)";
+      badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20";
     } else {
       badge.textContent = "Belum Terhubung";
       badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700";
@@ -1493,13 +1497,14 @@ function toggleGithubTokenVisibility() {
 async function saveGithubTokenAndTest() {
   const input = document.getElementById("cfg-github-token");
   const msgEl = document.getElementById("github-sync-msg");
+  const badge = document.getElementById("github-sync-badge");
   const token = (input ? input.value : "").trim();
 
   if (!token) {
     localStorage.removeItem(GITHUB_PAT_STORAGE_KEY);
     populateGithubTokenForm();
     if (msgEl) {
-      msgEl.className = "p-3 rounded-xl text-xs font-mono bg-slate-800 text-slate-300";
+      msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-slate-800 text-slate-300";
       msgEl.textContent = "Token dihapus. Mode penyimpanan offline / browser aktif.";
       msgEl.classList.remove("hidden");
     }
@@ -1507,37 +1512,71 @@ async function saveGithubTokenAndTest() {
   }
 
   if (msgEl) {
-    msgEl.className = "p-3 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-300";
-    msgEl.textContent = "Menguji koneksi ke repositori bobienmartin-bit/drone-portfolio...";
+    msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-300";
+    msgEl.textContent = "Menguji token ke repositori bobienmartin-bit/drone-portfolio...";
     msgEl.classList.remove("hidden");
   }
 
   try {
-    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`, {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}?t=${Date.now()}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github.v3+json"
+        Accept: "application/vnd.github.v3+json",
+        "Cache-Control": "no-cache"
       }
     });
 
     if (res.ok) {
+      const repoData = await res.json();
+      const hasWriteAccess = repoData.permissions && (repoData.permissions.push || repoData.permissions.admin);
+
+      if (!hasWriteAccess) {
+        if (msgEl) {
+          msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-amber-950/80 border border-amber-500/40 text-amber-300 leading-relaxed";
+          msgEl.innerHTML = "⚠️ <strong>Token terhubung, tetapi TIDAK memiliki izin tulis (push).</strong><br>Pastikan saat membuat token di GitHub Anda mencentang checklist <code class='text-white bg-slate-900 px-1 rounded'>repo</code> agar CMS dapat menyimpan pembaruan permanen.";
+        }
+        if (badge) {
+          badge.textContent = "Izin Terbatas (Tanpa Push)";
+          badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20";
+        }
+        return;
+      }
+
       localStorage.setItem(GITHUB_PAT_STORAGE_KEY, token);
-      populateGithubTokenForm();
+      if (badge) {
+        badge.textContent = "Terhubung (Izin Penuh)";
+        badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+      }
       if (msgEl) {
-        msgEl.className = "p-3 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/30 text-emerald-300";
-        msgEl.textContent = "✓ Koneksi GitHub Berhasil! Setiap perubahan di CMS sekarang otomatis dideploy permanen ke Vercel.";
+        msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 leading-relaxed";
+        msgEl.innerHTML = "✓ <strong>Koneksi GitHub Berhasil!</strong> Token aktif &amp; memiliki akses tulis (repo). Setiap kali Anda menekan <em>Terapkan Permanen</em>, situs akan otomatis terdeploy ke Vercel.";
       }
       showToast("Koneksi GitHub aktif! Auto-deploy Vercel siap.");
     } else {
-      const err = await res.json();
+      const status = res.status;
+      let errMsg = "Token ditolak GitHub.";
+      try {
+        const errJson = await res.json();
+        errMsg = errJson.message || errMsg;
+      } catch (e) {}
+
+      if (badge) {
+        badge.textContent = "Token Tidak Valid / Kedaluwarsa";
+        badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
+      }
+
       if (msgEl) {
-        msgEl.className = "p-3 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/30 text-rose-300";
-        msgEl.textContent = `Gagal menghubungkan: ${err.message || 'Token tidak memiliki akses ke repositori ini'}`;
+        msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-rose-950/80 border border-rose-500/40 text-rose-300 leading-relaxed";
+        if (status === 401) {
+          msgEl.innerHTML = `❌ <strong>Gagal Terhubung: Bad credentials (401 Unauthorized)</strong><br>Token ini sudah kedaluwarsa atau telah dihapus di GitHub.<br><br>👉 <strong>Solusi:</strong> Buat token baru di <a href="https://github.com/settings/tokens" target="_blank" class="underline text-white font-bold">github.com/settings/tokens</a> (pilih <em>Generate new token (classic)</em>, pilih <strong>Expiration: No expiration</strong>, centang <strong>repo</strong>), lalu salin kode <code>ghp_...</code> baru ke kotak di atas.`;
+        } else {
+          msgEl.innerHTML = `❌ <strong>Gagal (${status}):</strong> ${errMsg}`;
+        }
       }
     }
   } catch (err) {
     if (msgEl) {
-      msgEl.className = "p-3 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/30 text-rose-300";
+      msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-rose-950/80 border border-rose-500/40 text-rose-300";
       msgEl.textContent = "Gagal menghubungi API GitHub: " + err.message;
     }
   }
@@ -1563,11 +1602,33 @@ async function triggerPermanentSave() {
   }
 
   try {
-    const success = await pushConfigToGithub(token, currentConfig);
-    if (success) {
+    const result = await pushConfigToGithub(token, currentConfig);
+    if (result.success) {
       showToast("✓ Sukses! Perubahan telah tersimpan permanen di GitHub & sedang dideploy Vercel.");
+      const msgEl = document.getElementById("github-sync-msg");
+      if (msgEl) {
+        msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/30 text-emerald-300";
+        msgEl.innerHTML = `✓ <strong>Deploy Berhasil (${new Date().toLocaleTimeString()}):</strong> Konfigurasi tersimpan permanen di commit terbaru repositori GitHub.`;
+        msgEl.classList.remove("hidden");
+      }
     } else {
-      showToast("Gagal menyimpan ke GitHub. Periksa kembali GitHub Token Anda.");
+      if (result.status === 401) {
+        showToast("Token GitHub kedaluwarsa (401 Bad credentials). Buka tab Backup & GitHub untuk perbarui.");
+        switchTab('backup');
+        const msgEl = document.getElementById("github-sync-msg");
+        const badge = document.getElementById("github-sync-badge");
+        if (badge) {
+          badge.textContent = "Token Kedaluwarsa (401)";
+          badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
+        }
+        if (msgEl) {
+          msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-rose-950/80 border border-rose-500/40 text-rose-300 leading-relaxed";
+          msgEl.innerHTML = `❌ <strong>Token GitHub Tidak Valid / Kedaluwarsa (401 Bad credentials)</strong><br>Token yang tersimpan saat ini ditolak oleh GitHub server.<br><br>👉 <strong>Solusi:</strong> Silakan buat token baru di <a href="https://github.com/settings/tokens" target="_blank" class="underline text-white font-bold">github.com/settings/tokens</a> &gt; klik <em>Generate new token (classic)</em> &gt; centang <code class="text-white bg-slate-900 px-1 rounded">repo</code> &gt; pilih <em>No expiration</em> &gt; salin dan tempel di atas, lalu klik Simpan Token &amp; Hubungkan.`;
+          msgEl.classList.remove("hidden");
+        }
+      } else {
+        showToast(`Gagal menyimpan ke GitHub (${result.status}): ${result.message}`);
+      }
     }
   } catch (err) {
     showToast("Error saat deploy permanen: " + err.message);
@@ -1590,44 +1651,71 @@ async function autoSyncGithubIfConfigured() {
   }
 }
 
-async function pushConfigToGithub(token, configData) {
-  // 1. Get current file sha
+async function pushConfigToGithub(token, configData, isRetry = false) {
+  // 1. Get current file sha with cache buster
   let sha = null;
+  const getUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_CONFIG_FILE_PATH}?ref=${GITHUB_BRANCH}&t=${Date.now()}`;
   try {
-    const getUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_CONFIG_FILE_PATH}?ref=${GITHUB_BRANCH}`;
     const getRes = await fetch(getUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github.v3+json"
+        Accept: "application/vnd.github.v3+json",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache"
       }
     });
+
+    if (getRes.status === 401) {
+      return { success: false, status: 401, message: "Bad credentials (token expired/revoked)" };
+    }
+    if (getRes.status === 403) {
+      return { success: false, status: 403, message: "Forbidden (token lacks repo permission)" };
+    }
     if (getRes.ok) {
       const fileData = await getRes.json();
       sha = fileData.sha;
     }
-  } catch (e) {}
+  } catch (e) {
+    return { success: false, status: 0, message: e.message };
+  }
 
   // 2. Put updated JSON content
   const cleanJson = JSON.stringify(configData, null, 2);
   const contentBase64 = btoa(unescape(encodeURIComponent(cleanJson)));
 
   const putUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_CONFIG_FILE_PATH}`;
-  const putRes = await fetch(putUrl, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github.v3+json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: "cms: update site configuration permanently [skip ci]",
-      content: contentBase64,
-      sha: sha || undefined,
-      branch: GITHUB_BRANCH
-    })
-  });
+  try {
+    const putRes = await fetch(putUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "cms: update site configuration permanently [skip ci]",
+        content: contentBase64,
+        sha: sha || undefined,
+        branch: GITHUB_BRANCH
+      })
+    });
 
-  return putRes.ok;
+    if (putRes.ok) {
+      return { success: true, status: 200, message: "OK" };
+    }
+
+    // Auto-retry once on 409 conflict
+    if (putRes.status === 409 && !isRetry) {
+      console.warn("409 Conflict encountered, retrying with fresh SHA...");
+      return await pushConfigToGithub(token, configData, true);
+    }
+
+    let putErr = {};
+    try { putErr = await putRes.json(); } catch(e) {}
+    return { success: false, status: putRes.status, message: putErr.message || "Failed to commit file to GitHub" };
+  } catch (e) {
+    return { success: false, status: 0, message: e.message };
+  }
 }
 
 // Expose handlers globally
