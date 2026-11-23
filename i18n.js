@@ -361,17 +361,19 @@ function updateLangToggleUI(activeLang) {
   const mobileIdBtn = document.getElementById("mobile-lang-btn-id");
   const mobileEnBtn = document.getElementById("mobile-lang-btn-en");
 
-  const activeClasses = ["bg-white", "text-neutral-950", "font-bold"];
-  const inactiveClasses = ["text-neutral-400", "hover:text-white"];
+  const activeClasses = ["bg-[#EAB308]", "text-[#0A0A0B]", "font-bold", "shadow"];
+  const inactiveClasses = ["text-[#9CA3AF]", "hover:text-[#F5F5F7]", "hover:bg-[#1C1C1F]"];
+  const legacyClasses = ["bg-white", "text-neutral-950", "text-neutral-400", "hover:text-white"];
 
-  [ { id: idBtn, lang: "id" }, { id: enBtn, lang: "en" }, { id: mobileIdBtn, lang: "id" }, { id: mobileEnBtn, lang: "en" } ].forEach(item => {
-    if (!item.id) return;
+  [ { el: idBtn, lang: "id" }, { el: enBtn, lang: "en" }, { el: mobileIdBtn, lang: "id" }, { el: mobileEnBtn, lang: "en" } ].forEach(item => {
+    if (!item.el) return;
+    item.el.classList.remove(...legacyClasses);
     if (item.lang === activeLang) {
-      item.id.classList.add(...activeClasses);
-      item.id.classList.remove(...inactiveClasses);
+      item.el.classList.add(...activeClasses);
+      item.el.classList.remove(...inactiveClasses);
     } else {
-      item.id.classList.remove(...activeClasses);
-      item.id.classList.add(...inactiveClasses);
+      item.el.classList.remove(...activeClasses);
+      item.el.classList.add(...inactiveClasses);
     }
   });
 
