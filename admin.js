@@ -884,7 +884,6 @@ function populateTestimonialsForm() {
     </div>
   `).join("");
 }
-}
 
 // Pilot Photo Upload & Preview Engine
 function handlePilotPhotoUpload(e) {

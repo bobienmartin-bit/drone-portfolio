@@ -347,7 +347,6 @@ const DEFAULT_SITE_CONFIG = {
       ]
     }
   ],
-  },
   contact: {
     whatsapp: "+62 813-8145-3598",
     whatsappClean: "6281381453598",
@@ -839,7 +838,6 @@ function applySiteConfigToDOM(config) {
         });
       }
     });
-  }
   }
 
   // 5. Gear / Armada Drone Fleet Cards
