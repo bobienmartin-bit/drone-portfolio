@@ -1154,6 +1154,66 @@ window.selectDroneForBooking = function(droneName) {
   }
 };
 
+// Function to select commercial package for quotation & scroll smoothly to contact form
+window.selectPackageForQuote = function(packageName, droneHint) {
+  const contactSection = document.getElementById("kontak");
+  const serviceSelect = document.getElementById("contact-service");
+  const droneSelect = document.getElementById("contact-drone");
+  const msgInput = document.getElementById("contact-message");
+  const nameInput = document.getElementById("contact-name");
+
+  if (serviceSelect && packageName) {
+    const pkgLower = packageName.toLowerCase();
+    for (let i = 0; i < serviceSelect.options.length; i++) {
+      const optVal = (serviceSelect.options[i].value || "").toLowerCase();
+      const optText = (serviceSelect.options[i].textContent || "").toLowerCase();
+      if (
+        (pkgLower.includes("cinematography") && (optVal.includes("cinema") || optText.includes("cinema"))) ||
+        (pkgLower.includes("photography") && (optVal.includes("photo") || optText.includes("photo"))) ||
+        (pkgLower.includes("fpv") && (optVal.includes("fpv") || optText.includes("fpv"))) ||
+        (pkgLower.includes("real estate") && (optVal.includes("estate") || optVal.includes("property") || optText.includes("properti"))) ||
+        (pkgLower.includes("event") && (optVal.includes("event") || optText.includes("event") || optText.includes("acara"))) ||
+        (pkgLower.includes("corporate") && (optVal.includes("corp") || optVal.includes("company") || optText.includes("profil")))
+      ) {
+        serviceSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+  if (droneSelect && droneHint) {
+    for (let i = 0; i < droneSelect.options.length; i++) {
+      const val = droneSelect.options[i].value || "";
+      if (val.toLowerCase().includes(droneHint.toLowerCase())) {
+        droneSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+  if (msgInput && (!msgInput.value || msgInput.value.trim() === "")) {
+    const isEn = (typeof currentLang !== "undefined" && currentLang === "en");
+    msgInput.value = isEn 
+      ? `Hello Bobien, I would like to request a quotation and flight consultation for the ${packageName}.` 
+      : `Halo Bobien, saya ingin meminta penawaran (quotation) dan konsultasi jadwal terbang untuk paket ${packageName}.`;
+  }
+
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  setTimeout(() => {
+    if (nameInput) {
+      nameInput.focus();
+    }
+  }, 500);
+
+  if (typeof showToast === "function") {
+    const isEn = (typeof currentLang !== "undefined" && currentLang === "en");
+    showToast(isEn ? `Selected ${packageName}. Please fill out the inquiry form.` : `Paket ${packageName} dipilih. Silakan lengkapi formulir konsultasi.`, "info");
+  }
+};
+
 // Contact form -> Opens WhatsApp with formatted message
 function handleContactSubmit(e) {
   e.preventDefault();
@@ -1174,19 +1234,24 @@ function handleContactSubmit(e) {
     }
   }
 
-  let body = `Halo Mas Bobien, saya *${name}* (${email}). Ingin mendiskusikan rencana proyek drone:\n\n`;
-  body += `• Layanan: ${service}\n`;
+  const isEn = (window.AeroI18n && typeof window.AeroI18n.getCurrentLanguage === "function") 
+    ? window.AeroI18n.getCurrentLanguage() === 'en' : false;
+
+  let body = isEn
+    ? `Hello Bobien, I am *${name}* (${email}). I would like to discuss an aerial drone project:\n\n`
+    : `Halo Mas Bobien, saya *${name}* (${email}). Ingin mendiskusikan rencana proyek drone:\n\n`;
+  body += isEn ? `• Service: ${service}\n` : `• Layanan: ${service}\n`;
   if (drone) {
-    body += `• Pilihan Armada: ${drone}\n`;
+    body += isEn ? `• Drone Fleet: ${drone}\n` : `• Pilihan Armada: ${drone}\n`;
   } else {
-    body += `• Pilihan Armada: Rekomendasi Pilot / Konsultasi Bebas\n`;
+    body += isEn ? `• Drone Fleet: Pilot Recommendation / Free Consultation\n` : `• Pilihan Armada: Rekomendasi Pilot / Konsultasi Bebas\n`;
   }
-  body += `\nDetail Proyek & Lokasi:\n${message}`;
+  body += isEn ? `\nProject Details & Location:\n${message}` : `\nDetail Proyek & Lokasi:\n${message}`;
 
   const waText = encodeURIComponent(body);
 
   window.open(`https://wa.me/${phone}?text=${waText}`, "_blank");
-  showToast("Membuka WhatsApp untuk mengirim pesan...", "success");
+  showToast(isEn ? "Opening WhatsApp to send inquiry..." : "Membuka WhatsApp untuk mengirim pesan...", "success");
 }
 
 // Helper Toast Notification

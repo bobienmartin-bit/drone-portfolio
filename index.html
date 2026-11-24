@@ -49,10 +49,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Internationalization (ID/EN) Script -->
-  <script src="i18n.js?v=1795204000"></script>
+  <script src="i18n.js?v=1795212000"></script>
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=1795192000">
+  <link rel="stylesheet" href="styles.css?v=1795212000">
 </head>
 <body class="bg-[#0A0A0B] text-[#F5F5F7] font-sans selection:bg-[#EAB308] selection:text-[#0A0A0B]">
 
@@ -64,7 +64,7 @@
         <span data-i18n="hud.gps">GPS LOCK • 18 SATELLITES</span>
       </span>
       <span class="hidden sm:inline text-[#38383D]">|</span>
-      <span class="hidden sm:inline text-[#9CA3AF]" data-i18n="hud.resolution">MAX 4K/60FPS UHD</span>
+      <span class="hidden sm:inline text-[#9CA3AF]" data-i18n="hud.resolution">MAX 5.1K / 8K CINEMA</span>
       <span class="hidden md:inline text-[#38383D]">|</span>
       <span class="hidden md:inline text-[#9CA3AF]" data-i18n="hud.color">COLOR: 10-BIT D-LOG M</span>
     </div>
@@ -89,17 +89,20 @@
           <span class="text-lg font-bold tracking-wider font-heading text-[#F5F5F7]">
             AEROSCOPE
           </span>
-          <p class="text-[10px] tracking-widest uppercase font-mono text-[#9CA3AF]">Drone Visual Arts</p>
+          <p class="text-[10px] tracking-widest uppercase font-mono text-[#9CA3AF]">BY BOBIEN MARTIEN • PILOT</p>
         </div>
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-[#9CA3AF]">
+      <nav class="hidden lg:flex items-center gap-6 text-xs xl:text-sm font-medium text-[#9CA3AF]">
         <a href="#beranda" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.home">Home</a>
         <a href="#showreel" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.reel">Video Reel</a>
         <a href="#galeri" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.gallery">Portfolio</a>
-        <a href="#gear" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.gear">Gear &amp; Services</a>
-        <a href="#tentang" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.about">About Me</a>
+        <a href="#packages" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.packages">Packages</a>
+        <a href="#gear" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.gear">Drone Fleet</a>
+        <a href="#workflow" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.workflow">Workflow</a>
+        <a href="#tentang" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.about">Pilot Profile</a>
+        <a href="#testimoni" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.testimonials">Testimonials</a>
         <a href="#kontak" class="hover:text-[#F5F5F7] transition-colors" data-i18n="nav.contact">Contact</a>
       </nav>
 
@@ -137,8 +140,11 @@
         <a href="#beranda" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.home">Home</a>
         <a href="#showreel" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.reel">Video Reel</a>
         <a href="#galeri" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.gallery">Portfolio</a>
-        <a href="#gear" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.gear">Gear &amp; Services</a>
-        <a href="#tentang" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.about">About Me</a>
+        <a href="#packages" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.packages">Packages</a>
+        <a href="#gear" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.gear">Drone Fleet</a>
+        <a href="#workflow" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.workflow">Workflow</a>
+        <a href="#tentang" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.about">Pilot Profile</a>
+        <a href="#testimoni" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.testimonials">Testimonials</a>
         <a href="#kontak" class="text-[#9CA3AF] hover:text-[#F5F5F7]" data-i18n="nav.contact">Contact</a>
       </div>
 
@@ -177,14 +183,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
       <div class="text-center max-w-4xl mx-auto">
         
-        <!-- Main Headline (Solid Off-White #F5F5F7, Syne font, No AI Gradients) -->
+        <!-- Pilot Status Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141416] border border-[#262629] text-xs font-mono text-[#EAB308] mb-6 shadow-md">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span data-i18n="hero.badge">CERTIFIED REMOTE PILOT • DKPPU &amp; SIDOPI GO</span>
+        </div>
+
+        <!-- Main Headline (Solid Off-White #F5F5F7, Syne font) -->
         <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F5F5F7] font-heading leading-[1.12] mb-6" data-i18n="hero.title">
           Cinematic Aerial Visuals from the Best Perspective.
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-base sm:text-lg text-[#9CA3AF] font-normal max-w-3xl mx-auto mb-12 leading-relaxed" data-i18n="hero.subtitle">
-          High-resolution aerial cinematography and drone photography up to 5.1K. Backed by certified drone pilots and an advanced fleet for commercial productions, real estate, and event coverage.
+        <p class="text-base sm:text-lg text-[#9CA3AF] font-normal max-w-3xl mx-auto mb-10 leading-relaxed" data-i18n="hero.subtitle">
+          High-resolution aerial cinematography and precision drone photography up to 5.1K by Bobien Martien—Official Certified Remote Pilot (DGCA DKPPU &amp; SIDOPI GO) with over 450 operational flight hours across Indonesia.
         </p>
 
         <!-- CTA Buttons (Clean High Contrast, 8px rounded corners) -->
@@ -194,14 +206,19 @@
             <span data-i18n="hero.btn_showreel">Watch 4K Showreel</span>
           </button>
 
-          <a href="#galeri" class="px-7 py-3.5 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] text-[#F5F5F7] border border-[#262629] hover:border-[#38383D] font-semibold text-sm transition-all flex items-center gap-2">
+          <a href="#packages" class="px-7 py-3.5 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] text-[#F5F5F7] border border-[#262629] hover:border-[#EAB308]/60 font-semibold text-sm transition-all flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4 text-[#EAB308]"></i>
+            <span data-i18n="hero.btn_quote">Request a Quotation</span>
+          </a>
+
+          <a href="#galeri" class="px-7 py-3.5 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] text-[#9CA3AF] hover:text-[#F5F5F7] border border-[#262629] hover:border-[#38383D] font-semibold text-sm transition-all flex items-center gap-2">
             <i data-lucide="grid" class="w-4 h-4 text-[#9CA3AF]"></i>
             <span data-i18n="hero.btn_gallery">Explore Portfolio</span>
           </a>
         </div>
 
         <!-- Practitioner Credential Strip -->
-        <div id="hero-credentials" class="mt-16 pt-8 border-t border-[#262629] flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-2.5 text-xs sm:text-sm font-medium text-[#9CA3AF]">
+        <div id="hero-credentials" class="mt-14 pt-8 border-t border-[#262629] flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-2.5 text-xs sm:text-sm font-medium text-[#9CA3AF]">
           <span class="flex items-center gap-2">
             <span class="text-[#EAB308] font-bold">✓</span>
             <span data-i18n="hero.cred_license">Certified Pilot SIDOPI GO &amp; DKPPU</span>
@@ -210,6 +227,11 @@
           <span class="flex items-center gap-2">
             <span class="text-[#EAB308] font-bold">✓</span>
             <span data-i18n="hero.cred_hours">450+ Operational Flight Hours</span>
+          </span>
+          <span class="hidden sm:inline text-[#38383D]">•</span>
+          <span class="flex items-center gap-2">
+            <span class="text-[#EAB308] font-bold">✓</span>
+            <span data-i18n="hero.cred_safety">100% Zero-Incident Safety Record</span>
           </span>
           <span class="hidden sm:inline text-[#38383D]">•</span>
           <span class="flex items-center gap-2">
@@ -400,6 +422,204 @@
 
   </section>
 
+  <!-- ======================================================== -->
+  <!-- COMMERCIAL PACKAGES SECTION (#packages) -->
+  <!-- ======================================================== -->
+  <section id="packages" class="py-24 lg:py-32 bg-[#0A0A0B] border-t border-[#262629] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-16">
+        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="pkg.badge">
+          COMMERCIAL PACKAGES
+        </p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#F5F5F7] tracking-tight mb-4" data-i18n="pkg.title">
+          Commercial Aerial Cinematography Packages
+        </h2>
+        <p class="text-sm sm:text-base text-[#9CA3AF] leading-relaxed" data-i18n="pkg.subtitle">
+          Engineered for advertising agencies, film production houses, property developers, and corporate clients. All operations executed directly by Certified Pilots under strict airspace safety compliance.
+        </p>
+      </div>
+
+      <!-- Packages Grid (6 Packages) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- Package 1: Aerial Photography -->
+        <div class="bg-[#141416] rounded-xl border border-[#262629] p-8 flex flex-col justify-between hover:border-[#EAB308]/60 transition-all duration-300 group shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-12 h-12 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-110 transition-transform">
+                <i data-lucide="camera" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                HIGH-RES STILLS
+              </span>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-[#F5F5F7] mb-3" data-i18n="pkg.p1_title">Aerial Photography Package</h3>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-6" data-i18n="pkg.p1_desc">
+              High-resolution 48MP RAW aerial photography tailored for architectural showcases, masterplans, billboards, and high-definition marketing campaigns.
+            </p>
+            <ul class="space-y-3 text-xs text-[#F5F5F7]/85 font-mono pt-4 border-t border-[#262629]">
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p1_f1">48MP RAW High-Resolution Photos</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p1_f2">Wide-Angle &amp; Panoramic Landscape Coverage</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p1_f3">Professional Retouching &amp; Commercial Color Science</span></li>
+            </ul>
+          </div>
+          <div class="pt-8">
+            <a href="#kontak" onclick="selectPackageForQuote('Aerial Photography Package');" class="w-full py-3 rounded-lg bg-[#0A0A0B] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span data-i18n="pkg.btn_quote">Request a Quotation &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Package 2: Aerial Cinematography (Featured) -->
+        <div class="bg-[#141416] rounded-xl border-2 border-[#EAB308]/60 p-8 flex flex-col justify-between relative shadow-2xl group">
+          <div class="absolute -top-3 right-6 px-3 py-1 rounded bg-[#EAB308] text-[#0A0A0B] font-mono font-bold text-[10px] uppercase tracking-wider">
+            CINEMA FLAGSHIP
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-12 h-12 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-110 transition-transform">
+                <i data-lucide="video" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#EAB308]">
+                5.1K / 4K MASTER
+              </span>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-[#F5F5F7] mb-3" data-i18n="pkg.p2_title">Aerial Cinematography Package</h3>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-6" data-i18n="pkg.p2_desc">
+              Commercial film and cinema-grade advertising utilizing Hasselblad optical sensors, 5.1K/4K UHD, and 10-Bit D-Log M high dynamic range color profiles.
+            </p>
+            <ul class="space-y-3 text-xs text-[#F5F5F7]/85 font-mono pt-4 border-t border-[#262629]">
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p2_f1">Master Video 5.1K / 4K UHD (60/120fps)</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p2_f2">10-Bit D-Log M High Dynamic Range Color</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p2_f3">Multi-Battery Sorties &amp; Cinematic Gimbal Sequences</span></li>
+            </ul>
+          </div>
+          <div class="pt-8">
+            <a href="#kontak" onclick="selectPackageForQuote('Aerial Cinematography Package');" class="w-full py-3 rounded-lg bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0A0B] font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-[#EAB308]/20">
+              <span data-i18n="pkg.btn_quote">Request a Quotation &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Package 3: FPV Cinematic -->
+        <div class="bg-[#141416] rounded-xl border border-[#262629] p-8 flex flex-col justify-between hover:border-[#EAB308]/60 transition-all duration-300 group shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-12 h-12 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-110 transition-transform">
+                <i data-lucide="zap" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                ONE-PUSH ACRO
+              </span>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-[#F5F5F7] mb-3" data-i18n="pkg.p3_title">FPV Cinematic Package</h3>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-6" data-i18n="pkg.p3_desc">
+              Dynamic high-speed visuals, building and cliff dives, automotive chase sequences, and controlled indoor fly-throughs with enclosed propeller units.
+            </p>
+            <ul class="space-y-3 text-xs text-[#F5F5F7]/85 font-mono pt-4 border-t border-[#262629]">
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p3_f1">One-Push ACRO Dynamic Cinematic Maneuvers</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p3_f2">155° Ultra-Wide FOV with RockSteady 3.0+</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p3_f3">Confined Space &amp; Controlled Indoor Operations</span></li>
+            </ul>
+          </div>
+          <div class="pt-8">
+            <a href="#kontak" onclick="selectPackageForQuote('FPV Cinematic Package');" class="w-full py-3 rounded-lg bg-[#0A0A0B] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span data-i18n="pkg.btn_quote">Request a Quotation &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Package 4: Real Estate & Property -->
+        <div class="bg-[#141416] rounded-xl border border-[#262629] p-8 flex flex-col justify-between hover:border-[#EAB308]/60 transition-all duration-300 group shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-12 h-12 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-110 transition-transform">
+                <i data-lucide="home" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                HORIZONTAL + VERTICAL
+              </span>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-[#F5F5F7] mb-3" data-i18n="pkg.p4_title">Real Estate &amp; Property Showcase</h3>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-6" data-i18n="pkg.p4_desc">
+              Comprehensive visual documentation for luxury developments, commercial clusters, and masterplans with horizontal 4K &amp; vertical 9:16 social formats.
+            </p>
+            <ul class="space-y-3 text-xs text-[#F5F5F7]/85 font-mono pt-4 border-t border-[#262629]">
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p4_f1">Facility Highlights &amp; Environmental Connectivity</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p4_f2">Master 4K + Vertical 9:16 Format for Instagram Reels</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p4_f3">Golden Hour &amp; Sunset Dramatic Lighting Sessions</span></li>
+            </ul>
+          </div>
+          <div class="pt-8">
+            <a href="#kontak" onclick="selectPackageForQuote('Real Estate & Property Showcase');" class="w-full py-3 rounded-lg bg-[#0A0A0B] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span data-i18n="pkg.btn_quote">Request a Quotation &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Package 5: Corporate & Industrial Documentation -->
+        <div class="bg-[#141416] rounded-xl border border-[#262629] p-8 flex flex-col justify-between hover:border-[#EAB308]/60 transition-all duration-300 group shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-12 h-12 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-110 transition-transform">
+                <i data-lucide="building-2" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                SAFETY &amp; PROGRESS
+              </span>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-[#F5F5F7] mb-3" data-i18n="pkg.p5_title">Corporate &amp; Industrial Documentation</h3>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-6" data-i18n="pkg.p5_desc">
+              Factory facility coverage, infrastructure progress tracking, asset visual audit, and corporate profile videos under strict industrial safety protocols.
+            </p>
+            <ul class="space-y-3 text-xs text-[#F5F5F7]/85 font-mono pt-4 border-t border-[#262629]">
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p5_f1">Industrial Safety PPE &amp; Risk Protocol Compliance</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p5_f2">Periodic Infrastructure Progress Tracking</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p5_f3">Official SIDOPI GO &amp; DGCA Airspace Clearance</span></li>
+            </ul>
+          </div>
+          <div class="pt-8">
+            <a href="#kontak" onclick="selectPackageForQuote('Corporate & Industrial Documentation');" class="w-full py-3 rounded-lg bg-[#0A0A0B] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span data-i18n="pkg.btn_quote">Request a Quotation &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Package 6: Event & Festival Coverage -->
+        <div class="bg-[#141416] rounded-xl border border-[#262629] p-8 flex flex-col justify-between hover:border-[#EAB308]/60 transition-all duration-300 group shadow-xl">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-12 h-12 rounded-lg bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] group-hover:scale-110 transition-transform">
+                <i data-lucide="calendar" class="w-6 h-6"></i>
+              </span>
+              <span class="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                MASS GATHERINGS
+              </span>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-[#F5F5F7] mb-3" data-i18n="pkg.p6_title">Event &amp; Festival Coverage</h3>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-6" data-i18n="pkg.p6_desc">
+              Aerial coverage for music festivals, outdoor concerts, sports tournaments, and large-scale gatherings with active crowd risk mitigation.
+            </p>
+            <ul class="space-y-3 text-xs text-[#F5F5F7]/85 font-mono pt-4 border-t border-[#262629]">
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p6_f1">Dynamic Crowd Perspectives &amp; Stage Grandeur Flow</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p6_f2">60-Second Social Ready Highlight Reel</span></li>
+              <li class="flex items-center gap-2"><span class="text-[#EAB308]">•</span> <span data-i18n="pkg.p6_f3">Airspace Authorization &amp; Safety Standby Crew</span></li>
+            </ul>
+          </div>
+          <div class="pt-8">
+            <a href="#kontak" onclick="selectPackageForQuote('Event & Festival Coverage');" class="w-full py-3 rounded-lg bg-[#0A0A0B] hover:bg-[#EAB308] text-[#F5F5F7] hover:text-[#0A0A0B] border border-[#262629] hover:border-[#EAB308] font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span data-i18n="pkg.btn_quote">Request a Quotation &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- DRONE FLEET & CAPABILITIES SECTION -->
   <section id="gear" class="py-24 lg:py-32 bg-[#0A0A0B] border-t border-[#262629]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -437,11 +657,11 @@
                   </div>
                   <div class="p-6">
                     <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Mavic 4 Pro</h3>
-                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d1_desc">Drone flagship generasi terdepan dengan multi-lensa Hasselblad dan transmisi O4 Pro jarak jauh.</p>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d1_desc">Next-generation cinema flagship drone with advanced Hasselblad multi-lens system, 360° omnidirectional obstacle sensing, and long-range O4 Pro transmission.</p>
                     <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> 8K/60fps &amp; 4K/120fps HDR Hasselblad</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Profil Warna 10-Bit D-Log M &amp; D-Log Cinema</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Film Layar Lebar &amp; Iklan Skala Besar</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d1_s1">8K/60fps &amp; 4K/120fps HDR Hasselblad</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d1_s2">10-Bit D-Log M &amp; D-Log Cinema Color Profile</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d1_s3">Ideal: Feature Films &amp; Large-Scale Commercials</span></li>
                     </ul>
                   </div>
                 </div>
@@ -467,11 +687,11 @@
                   </div>
                   <div class="p-6">
                     <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Mavic 3 Pro</h3>
-                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d2_desc">Sistem 3 Kamera optik independen Hasselblad 4/3 CMOS untuk hasil sinematik kaliber komersial.</p>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d2_desc">Independent 3-camera optical system with Hasselblad 4/3 CMOS primary sensor delivering large-screen cinematic calibre.</p>
                     <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Triple Cam: 24mm + 70mm + 166mm Tele</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Video 5.1K ProRes &amp; 10-Bit D-Log M</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Video Profil Perusahaan &amp; Properti</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d2_s1">Triple Cam: 24mm + 70mm + 166mm Tele</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d2_s2">5.1K ProRes &amp; 10-Bit D-Log M Video</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d2_s3">Ideal: Corporate Profile Videos &amp; Real Estate</span></li>
                     </ul>
                   </div>
                 </div>
@@ -497,11 +717,11 @@
                   </div>
                   <div class="p-6">
                     <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Air 3S</h3>
-                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d6_desc">Sensor 1-inci CMOS 50MP + 70mm Medium Tele dengan LiDAR malam hari untuk keamanan terbang maksimal.</p>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d6_desc">Advanced dual-camera drone featuring a 1-inch CMOS 50MP primary sensor and 70mm medium telephoto lens, equipped with forward LiDAR nightscape sensing.</p>
                     <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Sensor 1" CMOS 50MP + 70mm Medium Tele</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> LiDAR Malam Hari &amp; Sensor Omnidirectional</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Lanskap Malam, Pariwisata &amp; Dokumentasi</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d6_s1">1" CMOS 50MP Sensor + 70mm Medium Tele</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d6_s2">Nightscape LiDAR &amp; Omnidirectional Sensing</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d6_s3">Ideal: Nightscapes, Tourism &amp; Documentation</span></li>
                     </ul>
                   </div>
                 </div>
@@ -531,11 +751,11 @@
                   </div>
                   <div class="p-6">
                     <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Avata 2</h3>
-                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d3_desc">Drone FPV berpelindung dengan sudut 155° Ultra-Wide dan manuver dinamis untuk aksi visual intens.</p>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d3_desc">Agile cinematic FPV drone featuring 1/1.3" CMOS sensor, 155° ultra-wide FOV, integrated propeller guards, and intuitive One-Push ACRO maneuvers.</p>
                     <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Video 4K/60fps HDR, 155° FOV &amp; RockSteady 3.0+</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Pelindung Baling-Baling Terintegrasi (Aman Indoor)</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Fly-Through Gedung, Otomotif &amp; Olahraga</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d3_s1">4K/60fps HDR Video, 155° FOV &amp; RockSteady 3.0+</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d3_s2">Integrated Propeller Guards (Indoor Safe)</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d3_s3">Ideal: Building Fly-Throughs, Automotive &amp; Action Sports</span></li>
                     </ul>
                   </div>
                 </div>
@@ -561,11 +781,11 @@
                   </div>
                   <div class="p-6">
                     <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Mini 4 Pro</h3>
-                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d4_desc">Drone ultra-ringan sub-249g dengan True Vertical Shooting untuk format vertikal Reels &amp; TikTok.</p>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d4_desc">Ultra-lightweight sub-249g drone with True Vertical Shooting optimized for portrait social media content on TikTok &amp; Reels.</p>
                     <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> True Vertical Gimbal Rotation 4K/60fps HDR</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Sub-249g untuk izin fleksibel di ruang terbatas</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Real Estate, Instagram Reels &amp; Wisata</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d4_s1">True Vertical Gimbal Rotation 4K/60fps HDR</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d4_s2">Sub-249g for Flexible Permitting in Tight Spaces</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d4_s3">Ideal: Real Estate, Instagram Reels &amp; Travel</span></li>
                     </ul>
                   </div>
                 </div>
@@ -591,11 +811,11 @@
                   </div>
                   <div class="p-6">
                     <h3 class="text-2xl font-bold font-heading text-[#F5F5F7] mb-2">DJI Neo 2</h3>
-                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d5_desc">Drone ultra-ringan 135g dengan lepas landas telapak tangan, pelacakan AI pintar, dan pelindung penuh.</p>
+                    <p class="text-xs text-[#9CA3AF] mb-5 leading-relaxed" data-i18n="gear.d5_desc">Ultra-compact 135g palm-takeoff drone featuring smart AI subject tracking, RockSteady stabilization, and dynamic close-proximity shots.</p>
                     <ul class="space-y-2.5 text-xs text-[#9CA3AF] font-mono">
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Bobot 135g Ultra-Ringan • Palm Takeoff &amp; Landing</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Pelacakan AI Cerdas dengan Baling-Baling Tertutup</li>
-                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> Ideal: Syuting Ruang Sempit, Event Intim &amp; BTS</li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d5_s1">Ultra-Light 135g Weight • Palm Takeoff &amp; Landing</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d5_s2">Smart AI Subject Tracking with Enclosed Propellers</span></li>
+                      <li class="flex items-center gap-2"><span class="text-[#38383D]">•</span> <span data-i18n="gear.d5_s3">Ideal: Confined Spaces, Intimate Events &amp; BTS</span></li>
                     </ul>
                   </div>
                 </div>
@@ -707,22 +927,22 @@
               <i data-lucide="video" class="w-5 h-5"></i>
             </div>
             <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s1_title">Aerial Cinematography</h4>
-            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s1_desc">Perekaman video udara resolusi 4K/5K untuk film komersial, pariwisata, dan produksi kreatif.</p>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s1_desc">4K/5K aerial video production for commercial film, tourism promotions, and brand storytelling.</p>
           </div>
           
           <div class="pt-4 border-t border-[#262629] space-y-1.5">
-            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2" data-i18n="service.deliverables_header">OUTPUT &amp; DELIVERABLES:</span>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s1_d1">File Mentah (D-Log M) + Color Graded 4K</span>
+              <span data-i18n="service.s1_d1">Raw Log Files (D-Log M) + Color Graded 4K Master</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s1_d2">Waktu Terbang 2–4 Baterai Operasional</span>
+              <span data-i18n="service.s1_d2">Flight Duration 2–4 Flight Batteries</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s1_d3">Izin Terbang Resmi &amp; Prosedur Aman</span>
+              <span data-i18n="service.s1_d3">Official Flight Permits &amp; Airspace Compliance</span>
             </div>
           </div>
         </div>
@@ -733,23 +953,23 @@
             <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
               <i data-lucide="home" class="w-5 h-5"></i>
             </div>
-            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s2_title">Real Estate &amp; Arsitektur</h4>
-            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s2_desc">Pengambilan foto &amp; video properti dari sudut pandang luas memperlihatkan lanskap lingkungan sekitar.</p>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s2_title">Real Estate &amp; Architecture</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s2_desc">Wide-angle aerial photography and cinematic fly-throughs showcasing architectural lines and surroundings.</p>
           </div>
           
           <div class="pt-4 border-t border-[#262629] space-y-1.5">
-            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2" data-i18n="service.deliverables_header">OUTPUT &amp; DELIVERABLES:</span>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s2_d1">Foto Udara 48MP RAW High-Resolution</span>
+              <span data-i18n="service.s2_d1">48MP RAW High-Resolution Aerial Photos</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s2_d2">Video Showcase 4K + Format Vertikal Reels</span>
+              <span data-i18n="service.s2_d2">4K Showcase Video + Vertical Reels Format</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s2_d3">Highlight Fasilitas &amp; Aksesibilitas Kawasan</span>
+              <span data-i18n="service.s2_d3">Facility Highlights &amp; Environmental Connectivity</span>
             </div>
           </div>
         </div>
@@ -760,23 +980,23 @@
             <div class="w-10 h-10 rounded-lg bg-[#0A0A0B] border border-[#262629] text-[#EAB308] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
               <i data-lucide="calendar" class="w-5 h-5"></i>
             </div>
-            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s3_title">Dokumentasi Acara</h4>
-            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s3_desc">Liputan udara untuk festival, konser outdoor, acara olahraga, resepsi pernikahan, dan gathering.</p>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s3_title">Event Documentation</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s3_desc">Aerial coverage for festivals, outdoor concerts, sports events, weddings, and grand gatherings.</p>
           </div>
           
           <div class="pt-4 border-t border-[#262629] space-y-1.5">
-            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2" data-i18n="service.deliverables_header">OUTPUT &amp; DELIVERABLES:</span>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s3_d1">Dokumentasi Sudut Pandang Crowd Dinamis</span>
+              <span data-i18n="service.s3_d1">Dynamic Crowd Aerial Angles &amp; Perspectives</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s3_d2">Highlight Video 60s Siap Publikasi</span>
+              <span data-i18n="service.s3_d2">60-Second Social Ready Highlight Reel</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s3_d3">Penerbangan Aman di Atas Area Publik</span>
+              <span data-i18n="service.s3_d3">Multi-Battery Standby &amp; Safe Public Operations</span>
             </div>
           </div>
         </div>
@@ -788,22 +1008,22 @@
               <i data-lucide="building-2" class="w-5 h-5"></i>
             </div>
             <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="service.s4_title">Company Profile</h4>
-            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s4_desc">Produksi video profil perusahaan, fasilitas industri, dan kantor korporat dengan visual udara sinematik berstandar profesional.</p>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed mb-4" data-i18n="service.s4_desc">Cinematic aerial video and photo production for corporate facilities, industrial plants, and company showcase.</p>
           </div>
           
           <div class="pt-4 border-t border-[#262629] space-y-1.5">
-            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2">OUTPUT &amp; DELIVERABLES:</span>
+            <span class="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-wider block font-semibold mb-2" data-i18n="service.deliverables_header">OUTPUT &amp; DELIVERABLES:</span>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s4_d1">Master Video 4K Siap Presentasi &amp; Web</span>
+              <span data-i18n="service.s4_d1">4K Master Video Ready for Web &amp; Presentation</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s4_d2">Seluruh File Rekaman Mentah (Unedited)</span>
+              <span data-i18n="service.s4_d2">Complete Unedited Raw Footage Package</span>
             </div>
             <div class="flex items-center gap-2 text-xs text-[#F5F5F7]/85">
               <span class="text-[#EAB308]">•</span>
-              <span data-i18n="service.s4_d3">Sertifikasi Remote Pilot Berlisensi Resmi</span>
+              <span data-i18n="service.s4_d3">Certified Remote Pilot &amp; Full Airspace Compliance</span>
             </div>
           </div>
         </div>
@@ -812,58 +1032,364 @@
     </div>
   </section>
 
-  <!-- ABOUT ME SECTION -->
-  <section id="tentang" class="py-24 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+  <!-- ======================================================== -->
+  <!-- OPERATIONAL WORKFLOW SECTION (#workflow) -->
+  <!-- ======================================================== -->
+  <section id="workflow" class="py-24 lg:py-32 bg-[#0A0A0B] border-t border-[#262629] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Pilot Avatar & Badge Card -->
-      <div class="lg:col-span-5 relative">
-        <div class="relative rounded-xl overflow-hidden border border-[#262629] bg-[#141416] aspect-[4/5] shadow-2xl">
-          <img id="pilot-profile-img" src="assets/images/pilot-bobien-martien.jpg?v=2" alt="Bobien Martien - Certified Remote Pilot" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
-          
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/30 to-transparent"></div>
-          
-          <div class="absolute bottom-6 left-6 right-6">
-            <span class="px-3 py-1 rounded-md bg-[#0A0A0B]/90 text-[#F5F5F7] text-xs font-mono border border-[#262629] inline-flex items-center gap-1.5 mb-2">
-              <i data-lucide="award" class="w-3.5 h-3.5 text-[#EAB308]"></i> <span data-i18n="about.pilot_badge">CERTIFIED REMOTE PILOT</span>
-            </span>
-            <h3 class="text-2xl font-bold font-heading text-[#F5F5F7]">Bobien Martien</h3>
-            <p class="text-xs text-[#9CA3AF] font-mono" data-i18n="about.pilot_role">Aerial Cinematographer &amp; Remote Pilot</p>
+      <div class="max-w-3xl mb-16">
+        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="flow.badge">
+          OPERATIONAL WORKFLOW
+        </p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#F5F5F7] tracking-tight mb-4" data-i18n="flow.title">
+          Five-Step Precision Flight Workflow
+        </h2>
+        <p class="text-sm sm:text-base text-[#9CA3AF] leading-relaxed" data-i18n="flow.subtitle">
+          Every mission is executed through 5 structured phases ensuring cinematic excellence, legal airspace compliance, and absolute safety.
+        </p>
+      </div>
+
+      <!-- 5-Step Cards Flow -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        
+        <!-- Step 1 -->
+        <div class="bg-[#141416] p-6 rounded-xl border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-lg">
+          <div>
+            <div class="text-3xl font-bold font-mono text-[#EAB308] mb-4">01</div>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="flow.s1_title">Project Consultation &amp; Vision</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed" data-i18n="flow.s1_desc">Aligning on visual concepts, deliverables, aspect ratios, style references, and shooting schedules with your creative team.</p>
           </div>
         </div>
 
-        <!-- Floating Operational Credential Card -->
-        <div class="absolute -bottom-6 -right-6 bg-[#141416]/95 p-4 rounded-lg border border-[#262629] hidden sm:block shadow-2xl">
-          <div class="text-[11px] font-mono text-[#9CA3AF] mb-1" data-i18n="about.reg_title">REGISTRASI RESMI</div>
-          <div class="text-sm font-bold text-[#F5F5F7] font-mono">SIDOPI GO &amp; DGCA DKPPU</div>
-          <div class="text-[10px] text-[#9CA3AF]" data-i18n="about.reg_desc">Kementerian Perhubungan RI</div>
+        <!-- Step 2 -->
+        <div class="bg-[#141416] p-6 rounded-xl border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-lg">
+          <div>
+            <div class="text-3xl font-bold font-mono text-[#EAB308] mb-4">02</div>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="flow.s2_title">Airspace Assessment (SIDOPI GO)</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed" data-i18n="flow.s2_desc">Screening coordinate locations against airport KKOP zones, 120m AGL altitude caps, and topography hazard assessment.</p>
+          </div>
         </div>
+
+        <!-- Step 3 -->
+        <div class="bg-[#141416] p-6 rounded-xl border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-lg">
+          <div>
+            <div class="text-3xl font-bold font-mono text-[#EAB308] mb-4">03</div>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="flow.s3_title">Permits &amp; Safety Risk Assessment</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed" data-i18n="flow.s3_desc">Securing airspace authorizations when needed, pre-flight safety checklists, and establishing emergency fail-safe landing zones.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-[#141416] p-6 rounded-xl border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-lg">
+          <div>
+            <div class="text-3xl font-bold font-mono text-[#EAB308] mb-4">04</div>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="flow.s4_title">Precision Flight Execution</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed" data-i18n="flow.s4_desc">On-site flight operations by Certified Pilot featuring smooth camera gimbal moves, live monitoring, and calibrated battery management.</p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="bg-[#141416] p-6 rounded-xl border border-[#262629] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group shadow-lg">
+          <div>
+            <div class="text-3xl font-bold font-mono text-[#EAB308] mb-4">05</div>
+            <h4 class="font-bold font-heading text-[#F5F5F7] text-base mb-2" data-i18n="flow.s5_title">Post-Production &amp; Master Delivery</h4>
+            <p class="text-xs text-[#9CA3AF] leading-relaxed" data-i18n="flow.s5_desc">Raw log file integrity inspection, professional D-Log M color grading, master 5.1K/4K exports, and fast cloud delivery.</p>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Bio & Story -->
-      <div class="lg:col-span-7">
-        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="about.badge">
-          PROFIL OPERASIONAL
-        </p>
-        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-6 leading-tight" data-i18n="about.title">
-          Perspektif Udara Presisi untuk Standar Produksi Layar Lebar &amp; Komersial.
-        </h2>
+    </div>
+  </section>
 
-        <div class="space-y-4 text-[#9CA3AF] text-sm sm:text-base leading-relaxed">
-          <p data-i18n="about.p1">
-            Saya adalah seorang <strong class="text-[#F5F5F7]">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU &amp; SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.
-          </p>
-          <p data-i18n="about.p2">
-            Dengan pengalaman lebih dari <strong class="text-[#F5F5F7]">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata—mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.
-          </p>
-          <p data-i18n="about.p3">
-            Fokus utama di lapangan diarahkan pada <strong class="text-[#F5F5F7]">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.
-          </p>
-          <p data-i18n="about.p4">
-            Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.
-          </p>
+  <!-- ABOUT PILOT & OFFICIAL CREDENTIALS SECTION -->
+  <section id="tentang" class="py-24 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#262629]/60">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Pilot Avatar & Official Verification Credentials Card -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Large High-Impact Pilot Portrait Card -->
+        <div class="relative rounded-2xl overflow-hidden border border-[#262629] bg-[#141416] aspect-[4/5] shadow-2xl group">
+          <img id="pilot-profile-img" src="assets/images/pilot-bobien-martien.jpg?v=2" alt="Bobien Martien - Certified Remote Pilot" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+          
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/40 to-transparent"></div>
+          
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="px-3 py-1 rounded-md bg-[#0A0A0B]/90 text-[#F5F5F7] text-xs font-mono border border-[#262629] inline-flex items-center gap-1.5 mb-2 backdrop-blur-md">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-[#EAB308]"></i> <span data-i18n="about.pilot_badge">CERTIFIED REMOTE PILOT</span>
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold font-heading text-[#F5F5F7]" data-i18n="about.pilot_name">Bobien Martien</h3>
+            <p class="text-xs text-[#9CA3AF] font-mono mt-1" data-i18n="about.pilot_role">Chief Remote Pilot &amp; Aerial Cinematographer</p>
+          </div>
         </div>
 
+        <!-- Official Licensing & Security Card (Masked ID for Safety) -->
+        <div class="p-6 rounded-xl bg-[#141416] border border-[#262629] shadow-xl space-y-4">
+          <div class="flex items-center gap-3 pb-3 border-b border-[#262629]">
+            <div class="w-8 h-8 rounded-lg bg-[#EAB308]/10 border border-[#EAB308]/30 flex items-center justify-center text-[#EAB308]">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-mono font-bold text-[#F5F5F7] tracking-wider uppercase" data-i18n="about.cert_card_title">OFFICIAL CREDENTIALS &amp; LICENSING</h4>
+              <p class="text-[11px] text-[#9CA3AF]" data-i18n="about.cert_card_sub">Ministry of Transportation Republic of Indonesia (DGCA)</p>
+            </div>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <!-- SIDOPI GO Registration -->
+            <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#0A0A0B] border border-[#262629]">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="text-[#9CA3AF]" data-i18n="about.cert_item1_label">SIDOPI GO REGISTRATION</span>
+              </div>
+              <span class="text-[#F5F5F7] font-semibold" data-i18n="about.cert_item1_val">ID: PILOT-••••-2024</span>
+            </div>
+
+            <!-- DKPPU Certification -->
+            <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#0A0A0B] border border-[#262629]">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="text-[#9CA3AF]" data-i18n="about.cert_item2_label">DKPPU CERTIFICATION</span>
+              </div>
+              <span class="text-[#F5F5F7] font-semibold" data-i18n="about.cert_item2_val">CASR PART 107 • #DKPPU-••••-89</span>
+            </div>
+
+            <!-- Flight Hours Log -->
+            <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#0A0A0B] border border-[#262629]">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#EAB308]"></span>
+                <span class="text-[#9CA3AF]" data-i18n="about.cert_item3_label">OPERATIONAL FLIGHT LOG</span>
+              </div>
+              <span class="text-[#EAB308] font-bold" data-i18n="about.cert_item3_val">450+ Hours • Zero Incident Record</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bio, Story, Telemetry Counters & BTS Field Ops -->
+      <div class="lg:col-span-7 space-y-8">
+        <div>
+          <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="about.badge">
+            CHIEF PILOT &amp; CREDENTIALS
+          </p>
+          <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-6 leading-tight" data-i18n="about.title">
+            Precision Aerial Perspectives for Feature Film &amp; Commercial Production Standards.
+          </h2>
+
+          <div class="space-y-4 text-[#9CA3AF] text-sm sm:text-base leading-relaxed">
+            <p data-i18n="about.p1">
+              I am a <strong class="text-white">Certified Remote Pilot (Ministry of Transportation DGCA &amp; SIDOPI GO)</strong> dedicated to high-precision aerial cinematography and professional visual capture.
+            </p>
+            <p data-i18n="about.p2">
+              With over <strong class="text-white">450 operational flight hours</strong> across diverse Indonesian terrains, I am experienced in real-world flight dynamics—from high coastal winds to open natural landscapes and precision flight in dense urban zones.
+            </p>
+            <p data-i18n="about.p3">
+              Field focus is centered on <strong class="text-white">smooth, cinematic gimbal motion, precise 10-Bit D-Log M color profiles for color grading flexibility, and rigorous flight safety standards</strong>.
+            </p>
+            <p data-i18n="about.p4">
+              Every flight is backed by structured pre-flight safety checklists, calibrated battery management, and airspace permit compliance to ensure smooth execution for your production crew.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 Key Telemetry Metrics Counters -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-[#262629]">
+          <div class="p-4 rounded-xl bg-[#141416] border border-[#262629]">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-[#F5F5F7]">450+</div>
+            <div class="text-[11px] font-mono text-[#9CA3AF] mt-1 uppercase">Flight Hours</div>
+          </div>
+          <div class="p-4 rounded-xl bg-[#141416] border border-[#262629]">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">100%</div>
+            <div class="text-[11px] font-mono text-[#9CA3AF] mt-1 uppercase">Zero Incident</div>
+          </div>
+          <div class="p-4 rounded-xl bg-[#141416] border border-[#262629]">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-[#EAB308]">6+</div>
+            <div class="text-[11px] font-mono text-[#9CA3AF] mt-1 uppercase">Fleet Units</div>
+          </div>
+          <div class="p-4 rounded-xl bg-[#141416] border border-[#262629]">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-[#F5F5F7]">18+</div>
+            <div class="text-[11px] font-mono text-[#9CA3AF] mt-1 uppercase">Cities Flown</div>
+          </div>
+        </div>
+
+        <!-- Field Operations in Action (BTS Grid) -->
+        <div class="pt-4 border-t border-[#262629]">
+          <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-[#9CA3AF] mb-4 flex items-center gap-2" data-i18n="about.bts_title">
+            <i data-lucide="camera" class="w-4 h-4 text-[#EAB308]"></i> FLIGHT OPERATIONS IN ACTION
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="group relative rounded-lg overflow-hidden border border-[#262629] aspect-[4/3] bg-[#0A0A0B]">
+              <img src="assets/images/hero-bg-balloons.jpg" alt="Mass Airspace Flight Ops Wonosobo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 via-transparent to-transparent opacity-90"></div>
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 text-[10px] font-mono text-[#F5F5F7] truncate">
+                Wonosobo Airspace Ops
+              </div>
+            </div>
+
+            <div class="group relative rounded-lg overflow-hidden border border-[#262629] aspect-[4/3] bg-[#0A0A0B]">
+              <img src="assets/images/landscape-ciater-aerial.jpg" alt="Highland Aerial Cinematography" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 via-transparent to-transparent opacity-90"></div>
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 text-[10px] font-mono text-[#F5F5F7] truncate">
+                Subang Highland Flight
+              </div>
+            </div>
+
+            <div class="group relative rounded-lg overflow-hidden border border-[#262629] aspect-[4/3] bg-[#0A0A0B]">
+              <img src="assets/images/embung-retensi-topdown.jpg" alt="Precision Top-Down Architecture" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 via-transparent to-transparent opacity-90"></div>
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 text-[10px] font-mono text-[#F5F5F7] truncate">
+                Top-Down Infrastructure
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section id="testimoni" class="py-24 lg:py-32 border-t border-[#262629] bg-[#0A0A0B]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-16">
+        <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="testi.badge">
+          CLIENT TESTIMONIALS
+        </p>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-4" data-i18n="testi.title">
+          Trusted by Event Organizers &amp; Production Teams
+        </h2>
+        <p class="text-[#9CA3AF] text-sm sm:text-base leading-relaxed" data-i18n="testi.subtitle">
+          Real feedback from brands, event organizers, and corporate partners who have experienced our aerial cinematography.
+        </p>
+      </div>
+
+      <!-- Testimonial Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Testimonial 1 -->
+        <div class="p-8 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#EAB308]">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                EVENT COVERAGE
+              </span>
+            </div>
+            <p class="text-[#F5F5F7] text-sm sm:text-base leading-relaxed italic mb-6" data-i18n="testi.t1_quote">
+              "Bobien executed the aerial coverage for KCP Galuh Mas 12th Anniversary with extreme precision. The camera movement was cinematic, safety procedures were strictly followed, and the highlight reel was stellar."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#262629]/60 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] font-bold font-mono text-sm">
+              KC
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="testi.t1_author">Event Management Team</h4>
+              <p class="text-xs text-[#9CA3AF] font-mono" data-i18n="testi.t1_role">Wonderful 12th KCP Galuh Mas Organizer</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="p-8 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#EAB308]">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#EAB308]">
+                1ST PLACE WINNER
+              </span>
+            </div>
+            <p class="text-[#F5F5F7] text-sm sm:text-base leading-relaxed italic mb-6" data-i18n="testi.t2_quote">
+              "The Hasselblad footage quality and Bobien's architectural angle composition elevated our New Cluster Groove showcase, winning 1st Place in the aerial competition."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#262629]/60 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] font-bold font-mono text-sm">
+              ML
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="testi.t2_author">Commercial Marketing Lead</h4>
+              <p class="text-xs text-[#9CA3AF] font-mono" data-i18n="testi.t2_role">Property Developer &amp; Agency Partner</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="p-8 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#EAB308]">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                COMMERCIAL FILM
+              </span>
+            </div>
+            <p class="text-[#F5F5F7] text-sm sm:text-base leading-relaxed italic mb-6" data-i18n="testi.t3_quote">
+              "A drone pilot who truly understands cinematic language rather than just flying. The 10-Bit D-Log M files were exceptionally clean and effortless to grade in our post-production suite."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#262629]/60 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] font-bold font-mono text-sm">
+              CD
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="testi.t3_author">Creative Director</h4>
+              <p class="text-xs text-[#9CA3AF] font-mono" data-i18n="testi.t3_role">Visual Motion Studio</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="p-8 rounded-xl bg-[#141416] border border-[#262629] hover:border-[#EAB308]/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#EAB308]">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+              <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-[#0A0A0B] border border-[#262629] text-[#9CA3AF]">
+                CAMPUS &amp; INSTITUTIONAL
+              </span>
+            </div>
+            <p class="text-[#F5F5F7] text-sm sm:text-base leading-relaxed italic mb-6" data-i18n="testi.t4_quote">
+              "Highly professional, strictly compliant with airspace safety rules, and the PKN STAN Campus Skies aerial footage was breathtaking and widely celebrated."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#262629]/60 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#0A0A0B] border border-[#262629] flex items-center justify-center text-[#EAB308] font-bold font-mono text-sm">
+              PR
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="testi.t4_author">Public Relations &amp; Media Crew</h4>
+              <p class="text-xs text-[#9CA3AF] font-mono" data-i18n="testi.t4_role">Campus Skies Production</p>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -876,23 +1402,23 @@
       <!-- Contact Info -->
       <div class="lg:col-span-5">
         <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="contact.badge">
-          KONTAK &amp; BOOKING
+          COLLABORATION
         </p>
-        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-4" data-i18n="contact.title">Mari Wujudkan Proyek Visual Anda</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-4" data-i18n="contact.title">Let's Bring Your Aerial Vision to Life</h2>
         <p class="text-[#9CA3AF] text-sm mb-8 leading-relaxed" data-i18n="contact.desc">
-          Punya rencana syuting film, promosi properti, dokumentasi event, atau kebutuhan visual udara khusus? Hubungi saya untuk diskusi penawaran dan jadwal terbang.
+          Planning a film shoot, property showcase, event coverage, or bespoke aerial project? Contact me to discuss rates and flight scheduling.
         </p>
 
         <!-- Direct Social / Messaging Buttons -->
         <div class="space-y-4">
-          <a href="https://wa.me/6281381453598?text=Halo%20saya%20tertarik%20dengan%20jasa%20drone%20Anda" target="_blank" class="p-4 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] border border-[#262629] hover:border-[#EAB308]/50 flex items-center justify-between transition-all group">
+          <a href="https://wa.me/6281381453598?text=Halo%20Bobien%20Martien,%20saya%20tertarik%20dengan%20jasa%20drone%20AeroScope" target="_blank" class="p-4 rounded-lg bg-[#141416] hover:bg-[#1C1C1F] border border-[#262629] hover:border-[#EAB308]/50 flex items-center justify-between transition-all group">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                 <i data-lucide="message-circle" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-[#F5F5F7] group-hover:text-emerald-300" data-i18n="contact.wa_label">WhatsApp Langsung</h4>
-                <p class="text-xs text-[#9CA3AF]" data-i18n="contact.wa_sub">+62 813-8145-3598 (Respon Cepat)</p>
+                <h4 class="text-sm font-bold text-[#F5F5F7] group-hover:text-emerald-300" data-i18n="contact.wa_label">Direct WhatsApp</h4>
+                <p class="text-xs text-[#9CA3AF]" data-i18n="contact.wa_sub">+62 813-8145-3598 (Fast Response)</p>
               </div>
             </div>
             <i data-lucide="arrow-right" class="w-4 h-4 text-[#9CA3AF] group-hover:translate-x-1 group-hover:text-[#EAB308] transition-all"></i>
@@ -904,7 +1430,7 @@
                 <i data-lucide="mail" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="contact.email_label">Email Resmi</h4>
+                <h4 class="text-sm font-bold text-[#F5F5F7]" data-i18n="contact.email_label">Official Email</h4>
                 <p class="text-xs text-[#9CA3AF]">bobienfly@gmail.com</p>
               </div>
             </div>
@@ -925,7 +1451,7 @@
                 <p class="text-xs text-[#9CA3AF]">@bobienmartien</p>
               </div>
             </div>
-            <a href="https://instagram.com/bobienmartien" target="_blank" class="text-xs font-semibold text-pink-400 hover:underline" data-i18n="contact.ig_follow">Ikuti &rarr;</a>
+            <a href="https://instagram.com/bobienmartien" target="_blank" class="text-xs font-semibold text-pink-400 hover:underline" data-i18n="contact.ig_follow">Follow &rarr;</a>
           </div>
         </div>
       </div>
@@ -933,40 +1459,40 @@
       <!-- Contact Form -->
       <div class="lg:col-span-7">
         <form id="contact-form" class="bg-[#141416] p-8 rounded-xl border border-[#262629] space-y-5 shadow-2xl">
-          <h3 class="text-xl font-bold font-heading text-[#F5F5F7]" data-i18n="contact.form_title">Kirim Pesan Inquiry</h3>
+          <h3 class="text-xl font-bold font-heading text-[#F5F5F7]" data-i18n="contact.form_title">Send Project Inquiry</h3>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.name_label">NAMA LENGKAP</label>
-              <input type="text" id="contact-name" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40">
+              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.name_label">FULL NAME</label>
+              <input type="text" id="contact-name" required placeholder="Your Full Name" data-i18n-placeholder="contact.name_placeholder" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40">
             </div>
 
             <div>
-              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.email_label_field">EMAIL ATAU NO HP</label>
-              <input type="text" id="contact-email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40">
+              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.email_label_field">EMAIL OR PHONE NUMBER</label>
+              <input type="text" id="contact-email" required placeholder="email@domain.com or WhatsApp number" data-i18n-placeholder="contact.email_placeholder" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.service_label">JENIS KEBUTUHAN LAYANAN</label>
+            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.service_label">SERVICE REQUIRED</label>
             <select id="contact-service" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7]">
-              <option value="Aerial Cinematography">Aerial Cinematography (Video 4K / 5K)</option>
-              <option value="Drone Photography">Fotografi Udara Resolusi Tinggi / High-Res Aerial Photo</option>
-              <option value="FPV Action Shoot">FPV Action / Olahraga Ekstrem</option>
-              <option value="Real Estate Video">Dokumentasi Properti &amp; Real Estate</option>
-              <option value="Event Documentation">Liputan Acara &amp; Konser Outdoor</option>
-              <option value="Company Profile">Video &amp; Foto Profil Perusahaan (Company Profile)</option>
+              <option value="Aerial Cinematography" data-i18n="contact.srv_opt_cinema">Aerial Cinematography (4K / 5K Video)</option>
+              <option value="Drone Photography" data-i18n="contact.srv_opt_photo">High-Resolution Aerial Photography</option>
+              <option value="FPV Action Shoot" data-i18n="contact.srv_opt_fpv">FPV Action &amp; Extreme Sports</option>
+              <option value="Real Estate Video" data-i18n="contact.srv_opt_property">Real Estate &amp; Architecture Showcase</option>
+              <option value="Event Documentation" data-i18n="contact.srv_opt_event">Event &amp; Festival Coverage</option>
+              <option value="Company Profile" data-i18n="contact.srv_opt_corp">Corporate Profile &amp; Industrial Facilities</option>
             </select>
           </div>
 
           <div>
             <label class="block text-xs font-mono text-[#9CA3AF] mb-2 flex items-center justify-between" for="contact-drone">
-              <span data-i18n="contact.drone_label">PILIH ARMADA DRONE SESUAI PROYEK ANDA</span>
-              <span class="text-[10px] font-sans font-normal text-[#9CA3AF] bg-[#0A0A0B] px-2 py-0.5 rounded border border-[#262629]" data-i18n="contact.drone_badge">Rekomendasi Pilot</span>
+              <span data-i18n="contact.drone_label">CHOOSE DRONE FLEET FOR YOUR PROJECT</span>
+              <span class="text-[10px] font-sans font-normal text-[#9CA3AF] bg-[#0A0A0B] px-2 py-0.5 rounded border border-[#262629]" data-i18n="contact.drone_badge">Pilot Recommendation</span>
             </label>
             <div class="relative">
               <select id="contact-drone" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] appearance-none transition-all duration-300 cursor-pointer">
-                <option value="" data-i18n="contact.drone_opt_default">-- Konsultasikan Rekomendasi Armada Pilot --</option>
+                <option value="" data-i18n="contact.drone_opt_default">-- Consult for Pilot Recommendation --</option>
                 <option value="DJI Mavic 4 Pro" data-i18n="contact.drone_opt_mavic4">DJI Mavic 4 Pro (Cinema Class • 8K/4K HDR)</option>
                 <option value="DJI Mavic 3 Pro" data-i18n="contact.drone_opt_mavic3">DJI Mavic 3 Pro (Commercial Cinema • Triple Cam)</option>
                 <option value="DJI Air 3S" data-i18n="contact.drone_opt_air3s">DJI Air 3S (All-Rounder • Nightscape LiDAR)</option>
@@ -981,13 +1507,13 @@
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.msg_label">DETAIL PROYEK &amp; LOKASI</label>
-            <textarea id="contact-message" rows="4" required placeholder="Ceritakan tentang rencana lokasi, tanggal pengambilan gambar, dan harapan visual Anda..." class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40"></textarea>
+            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.msg_label">PROJECT DETAILS &amp; LOCATION</label>
+            <textarea id="contact-message" rows="4" required placeholder="Tell me about your location, shooting dates, and visual expectations..." data-i18n-placeholder="contact.msg_placeholder" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] placeholder-[#9CA3AF]/40"></textarea>
           </div>
 
           <button type="submit" class="w-full py-3.5 rounded-lg bg-[#EAB308] hover:bg-[#FACC15] text-[#0A0A0B] font-bold text-sm tracking-wide uppercase transition-all shadow-lg hover:shadow-[#EAB308]/20 flex items-center justify-center gap-2 cursor-pointer">
             <i data-lucide="send" class="w-4 h-4"></i>
-            <span data-i18n="contact.submit_btn">Kirim Pesan ke WhatsApp</span>
+            <span data-i18n="contact.submit_btn">Send Message via WhatsApp</span>
           </button>
         </form>
       </div>
@@ -1004,8 +1530,16 @@
         <span data-i18n="footer.copyright">Copyright &copy; 2026 <strong>AeroScope</strong> All Rights Reserved Powered By <a href="https://www.instagram.com/bobienmartien/" target="_blank" rel="noopener noreferrer" class="text-[#F5F5F7] hover:text-[#EAB308] hover:underline underline-offset-2 transition-colors">Bobien Martien</a></span>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px]">
-        <a href="#beranda" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="footer.top">Kembali ke Atas &uarr;</a>
+      <div class="flex flex-wrap items-center justify-center gap-5 font-mono text-[11px]">
+        <a href="#showreel" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.showreel">Cinema</a>
+        <a href="#galeri" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.portfolio">Portfolio</a>
+        <a href="#packages" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.packages">Packages</a>
+        <a href="#gear" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.gear">Fleet</a>
+        <a href="#workflow" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.workflow">Workflow</a>
+        <a href="#testimoni" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.testimonials">Testimonials</a>
+        <a href="#tentang" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.about">Pilot</a>
+        <a href="#kontak" class="text-[#9CA3AF] hover:text-[#F5F5F7] transition-colors" data-i18n="nav.contact">Inquiry</a>
+        <a href="#beranda" class="text-[#EAB308] hover:text-[#FACC15] transition-colors" data-i18n="footer.top">Back to Top &uarr;</a>
       </div>
 
     </div>
@@ -1157,10 +1691,26 @@
     </div>
   </div>
 
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a 
+    href="https://wa.me/6281381453598?text=Halo%20Bobien%20Martien,%20saya%20tertarik%20konsultasi%20layanan%20aerial%20AeroScope" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    aria-label="Chat with Pilot Bobien Martien on WhatsApp"
+    class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs sm:text-sm shadow-2xl hover:shadow-emerald-500/30 border border-emerald-400/30 transition-all duration-300 hover:scale-105 group"
+  >
+    <div class="relative flex items-center justify-center">
+      <i data-lucide="message-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-300 rounded-full animate-ping"></span>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full"></span>
+    </div>
+    <span class="font-sans font-semibold tracking-wide" data-i18n="contact.float_wa">Chat with Pilot</span>
+  </a>
+
   <!-- Application Scripts -->
-  <script src="site-config.js?v=1795204000"></script>
-  <script src="supabase.js?v=1795204000"></script>
-  <script src="app.js?v=1795204000"></script>
+  <script src="site-config.js?v=1795212000"></script>
+  <script src="supabase.js?v=1795212000"></script>
+  <script src="app.js?v=1795212000"></script>
   <script>
     if (window.lucide) {
       window.lucide.createIcons();

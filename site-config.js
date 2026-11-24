@@ -221,7 +221,7 @@ const DEFAULT_SITE_CONFIG = {
     avatarUrl: "assets/images/pilot-bobien-martien.jpg?v=2",
     title: "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial.",
     p1: 'Saya adalah seorang <strong class="text-white">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.',
-    p2: 'Dengan pengalaman lebih dari <strong class="text-white">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.',
+    p2: 'Dengan pengalaman lebih dari <strong class="text-white">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata—mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.',
     p3: 'Fokus utama di lapangan diarahkan pada <strong class="text-white">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.',
     p4: 'Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.'
   },
@@ -561,8 +561,9 @@ function applySiteConfigToDOM(config) {
   if (config.about) {
     const isEn = window.AeroI18n ? (window.AeroI18n.getCurrentLanguage() === 'en') : false;
     const isDefaultTitle = !config.about.title || 
-      config.about.title === "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial." ||
-      config.about.title === "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.";
+      config.about.title.includes("Perspektif Udara Presisi") ||
+      config.about.title.includes("Melihat Perspektif") ||
+      config.about.title.includes("Precision Aerial Perspectives");
 
     const pilotName = document.querySelector("#tentang h3");
     if (pilotName && config.about.pilotName) pilotName.textContent = config.about.pilotName;
@@ -586,13 +587,18 @@ function applySiteConfigToDOM(config) {
       }
     }
 
+    // Helper detectors for default bio paragraphs
+    const isDefaultBio1 = (txt) => !txt || txt.includes("Remote Pilot") || txt.includes("SIDOPI GO") || txt.includes("Saya adalah") || txt.includes("I am a");
+    const isDefaultBio2 = (txt) => !txt || txt.includes("450") || txt.includes("jam terbang") || txt.includes("flight hours");
+    const isDefaultBio3 = (txt) => !txt || txt.includes("Fokus utama") || txt.includes("pergerakan kamera") || txt.includes("gimbal motion");
+    const isDefaultBio4 = (txt) => !txt || txt.includes("Setiap penerbangan") || txt.includes("standar keselamatan") || txt.includes("safety checklists");
+
     // Dynamic Bio Paragraphs (p1, p2, p3, p4)
     const p1El = document.querySelector('#tentang [data-i18n="about.p1"]');
     if (p1El) {
-      const isDefaultP1 = !config.about.p1 || config.about.p1 === DEFAULT_SITE_CONFIG.about.p1;
-      if (isEn && isDefaultP1 && window.AeroI18n?.translations?.en?.["about.p1"]) {
+      if (isEn && isDefaultBio1(config.about.p1) && window.AeroI18n?.translations?.en?.["about.p1"]) {
         p1El.innerHTML = window.AeroI18n.translations.en["about.p1"];
-      } else if (!isEn && isDefaultP1 && window.AeroI18n?.translations?.id?.["about.p1"]) {
+      } else if (!isEn && isDefaultBio1(config.about.p1) && window.AeroI18n?.translations?.id?.["about.p1"]) {
         p1El.innerHTML = window.AeroI18n.translations.id["about.p1"];
       } else if (config.about.p1) {
         p1El.innerHTML = config.about.p1;
@@ -601,10 +607,9 @@ function applySiteConfigToDOM(config) {
 
     const p2El = document.querySelector('#tentang [data-i18n="about.p2"]');
     if (p2El) {
-      const isDefaultP2 = !config.about.p2 || config.about.p2 === DEFAULT_SITE_CONFIG.about.p2;
-      if (isEn && isDefaultP2 && window.AeroI18n?.translations?.en?.["about.p2"]) {
+      if (isEn && isDefaultBio2(config.about.p2) && window.AeroI18n?.translations?.en?.["about.p2"]) {
         p2El.innerHTML = window.AeroI18n.translations.en["about.p2"];
-      } else if (!isEn && isDefaultP2 && window.AeroI18n?.translations?.id?.["about.p2"]) {
+      } else if (!isEn && isDefaultBio2(config.about.p2) && window.AeroI18n?.translations?.id?.["about.p2"]) {
         p2El.innerHTML = window.AeroI18n.translations.id["about.p2"];
       } else if (config.about.p2) {
         p2El.innerHTML = config.about.p2;
@@ -613,10 +618,9 @@ function applySiteConfigToDOM(config) {
 
     const p3El = document.querySelector('#tentang [data-i18n="about.p3"]');
     if (p3El) {
-      const isDefaultP3 = !config.about.p3 || config.about.p3 === DEFAULT_SITE_CONFIG.about.p3;
-      if (isEn && isDefaultP3 && window.AeroI18n?.translations?.en?.["about.p3"]) {
+      if (isEn && isDefaultBio3(config.about.p3) && window.AeroI18n?.translations?.en?.["about.p3"]) {
         p3El.innerHTML = window.AeroI18n.translations.en["about.p3"];
-      } else if (!isEn && isDefaultP3 && window.AeroI18n?.translations?.id?.["about.p3"]) {
+      } else if (!isEn && isDefaultBio3(config.about.p3) && window.AeroI18n?.translations?.id?.["about.p3"]) {
         p3El.innerHTML = window.AeroI18n.translations.id["about.p3"];
       } else if (config.about.p3) {
         p3El.innerHTML = config.about.p3;
@@ -625,10 +629,9 @@ function applySiteConfigToDOM(config) {
 
     const p4El = document.querySelector('#tentang [data-i18n="about.p4"]');
     if (p4El) {
-      const isDefaultP4 = !config.about.p4 || config.about.p4 === DEFAULT_SITE_CONFIG.about.p4;
-      if (isEn && isDefaultP4 && window.AeroI18n?.translations?.en?.["about.p4"]) {
+      if (isEn && isDefaultBio4(config.about.p4) && window.AeroI18n?.translations?.en?.["about.p4"]) {
         p4El.innerHTML = window.AeroI18n.translations.en["about.p4"];
-      } else if (!isEn && isDefaultP4 && window.AeroI18n?.translations?.id?.["about.p4"]) {
+      } else if (!isEn && isDefaultBio4(config.about.p4) && window.AeroI18n?.translations?.id?.["about.p4"]) {
         p4El.innerHTML = window.AeroI18n.translations.id["about.p4"];
       } else if (config.about.p4) {
         p4El.innerHTML = config.about.p4;
