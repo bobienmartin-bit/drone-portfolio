@@ -428,13 +428,34 @@
               <h3 class="text-base font-bold text-white flex items-center gap-2">
                 <i data-lucide="image" class="w-4 h-4 text-purple-400"></i> Background Hero (Latar Belakang Beranda)
               </h3>
-              <p class="text-xs text-slate-400">Atur URL gambar ambient latar belakang hero. Gambar akan ditampilkan redup dengan gradasi gelap agar teks tetap terbaca tajam.</p>
+              <p class="text-xs text-slate-400">Atur gambar ambient latar belakang hero. Gambar ditampilkan redup dengan gradasi gelap agar teks tetap terbaca tajam.</p>
             </div>
 
-            <div class="space-y-3">
-              <div>
-                <label class="block text-xs font-mono text-slate-300 mb-1.5">URL GAMBAR BACKGROUND</label>
-                <input type="text" id="cfg-hero-bg-url" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-400 text-xs text-white focus:outline-none font-mono">
+            <div class="flex flex-col sm:flex-row items-center gap-6 p-5 rounded-2xl bg-slate-950 border border-slate-800">
+              <!-- Background Preview -->
+              <div class="relative w-full sm:w-56 h-32 rounded-xl overflow-hidden bg-slate-900 border border-purple-500/30 shrink-0 shadow-lg group">
+                <img id="hero-bg-preview" src="assets/images/hero-bg-balloons.jpg?v=2" alt="Hero Background Preview" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                  <span class="text-[10px] font-mono text-white bg-black/70 px-2 py-1 rounded">Foto Hero Aktif</span>
+                </div>
+              </div>
+
+              <!-- Upload / URL Inputs -->
+              <div class="flex-1 space-y-3 w-full">
+                <div>
+                  <label class="block text-xs font-mono text-slate-300 mb-1.5">URL ATAU PATH FOTO BACKGROUND</label>
+                  <input type="text" id="cfg-hero-bg-url" placeholder="assets/images/hero-bg-balloons.jpg?v=2" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 focus:border-purple-400 text-xs text-white focus:outline-none font-mono" onchange="updateHeroBgPreview(this.value)">
+                </div>
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <input type="file" id="hero-bg-file" accept="image/*" class="hidden" onchange="handleHeroBgUpload(event)">
+                  <button type="button" onclick="document.getElementById('hero-bg-file').click()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-purple-600/20">
+                    <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                    <span>+ Upload Foto Baru</span>
+                  </button>
+                  <button type="button" onclick="resetHeroBgToDefault()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white text-xs transition-colors">
+                    Kembalikan Foto Balon Udara
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -949,8 +970,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="site-config.js?v=1795201000"></script>
-  <script src="supabase.js?v=1795201000"></script>
-  <script src="admin.js?v=1795201000"></script>
+  <script src="site-config.js?v=1795204000"></script>
+  <script src="supabase.js?v=1795204000"></script>
+  <script src="admin.js?v=1795204000"></script>
 </body>
 </html>

@@ -330,8 +330,51 @@ function populateHeroForm() {
   if (cred2El) cred2El.value = creds[1]?.text || "450+ Operational Flight Hours";
   if (cred3El) cred3El.value = creds[2]?.text || "Nationwide Mission Ready";
 
-  if (bgUrlEl) bgUrlEl.value = hero.bgImageUrl || "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85";
+  const defaultBg = "assets/images/hero-bg-balloons.jpg?v=2";
+  const currentBg = (!hero.bgImageUrl || hero.bgImageUrl.includes("unsplash.com")) ? defaultBg : hero.bgImageUrl;
+  if (bgUrlEl) bgUrlEl.value = currentBg;
+  updateHeroBgPreview(currentBg);
 }
+
+function updateHeroBgPreview(url) {
+  const preview = document.getElementById("hero-bg-preview");
+  if (preview && url) {
+    preview.src = url;
+  }
+}
+
+function handleHeroBgUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const rawDataUrl = evt.target.result;
+    compressImageToWebp(rawDataUrl, 1920, 1080, 0.85, function(optimizedDataUrl) {
+      const urlInput = document.getElementById("cfg-hero-bg-url");
+      if (urlInput) urlInput.value = optimizedDataUrl;
+      updateHeroBgPreview(optimizedDataUrl);
+      if (!currentConfig.hero) currentConfig.hero = {};
+      currentConfig.hero.bgImageUrl = optimizedDataUrl;
+      showToast("Foto background hero berhasil diunggah! Klik Simpan Perubahan.");
+    });
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetHeroBgToDefault() {
+  const defaultBg = "assets/images/hero-bg-balloons.jpg?v=2";
+  const urlInput = document.getElementById("cfg-hero-bg-url");
+  if (urlInput) urlInput.value = defaultBg;
+  updateHeroBgPreview(defaultBg);
+  if (!currentConfig.hero) currentConfig.hero = {};
+  currentConfig.hero.bgImageUrl = defaultBg;
+  showToast("Foto background hero dikembalikan ke default balon udara!");
+}
+
+window.updateHeroBgPreview = updateHeroBgPreview;
+window.handleHeroBgUpload = handleHeroBgUpload;
+window.resetHeroBgToDefault = resetHeroBgToDefault;
 
 function escapeAttr(str) {
   if (str === null || str === undefined) return "";
@@ -1482,9 +1525,8 @@ async function saveGithubTokenAndTest() {
   try {
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}?t=${Date.now()}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github.v3+json",
-        "Cache-Control": "no-cache"
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
       }
     });
 
@@ -1537,9 +1579,24 @@ async function saveGithubTokenAndTest() {
       }
     }
   } catch (err) {
+    if (badge) {
+      badge.textContent = "Gagal Terhubung (Network/CORS)";
+      badge.className = "px-2 py-0.5 rounded-full text-[10px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
+    }
     if (msgEl) {
-      msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-rose-950/80 border border-rose-500/40 text-rose-300";
-      msgEl.textContent = "Gagal menghubungi API GitHub: " + err.message;
+      msgEl.className = "p-3.5 rounded-xl text-xs font-mono bg-rose-950/80 border border-rose-500/40 text-rose-300 leading-relaxed";
+      const isFailedFetch = err.message && err.message.toLowerCase().includes("fetch");
+      if (isFailedFetch) {
+        msgEl.innerHTML = `❌ <strong>Gagal Menghubungi API GitHub (Failed to fetch)</strong><br>` +
+          `Permintaan ke <code>api.github.com</code> diblokir oleh browser atau ekstensi Anda.<br><br>` +
+          `👉 <strong>Langkah Pemecahan:</strong><br>` +
+          `1. Jika Anda memakai <strong>Brave Browser</strong>: klik ikon singa (Brave Shields) di bilah alamat lalu <strong>matikan Shields</strong> untuk situs ini.<br>` +
+          `2. Jika Anda memasang ekstensi <strong>Ad-Blocker</strong> (misal uBlock Origin / AdGuard / Privacy Badger): nonaktifkan pada tab admin ini.<br>` +
+          `3. Pastikan tidak ada VPN yang memblokir akses ke domain <code>api.github.com</code>.<br>` +
+          `4. Setelah itu klik kembali tombol <strong>Simpan Token &amp; Hubungkan</strong>.`;
+      } else {
+        msgEl.textContent = "Gagal menghubungi API GitHub: " + err.message;
+      }
     }
   }
 }
@@ -1620,10 +1677,8 @@ async function pushConfigToGithub(token, configData, isRetry = false) {
   try {
     const getRes = await fetch(getUrl, {
       headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github.v3+json",
-        "Cache-Control": "no-cache",
-        Pragma: "no-cache"
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
       }
     });
 
@@ -1650,7 +1705,7 @@ async function pushConfigToGithub(token, configData, isRetry = false) {
     const putRes = await fetch(putUrl, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `token ${token}`,
         Accept: "application/vnd.github.v3+json",
         "Content-Type": "application/json"
       },
@@ -1676,7 +1731,11 @@ async function pushConfigToGithub(token, configData, isRetry = false) {
     try { putErr = await putRes.json(); } catch(e) {}
     return { success: false, status: putRes.status, message: putErr.message || "Failed to commit file to GitHub" };
   } catch (e) {
-    return { success: false, status: 0, message: e.message };
+    const isFetchErr = e.message && e.message.toLowerCase().includes("fetch");
+    const errMsg = isFetchErr
+      ? "Koneksi ke API GitHub diblokir browser atau ad-blocker (Failed to fetch). Nonaktifkan Brave Shields / ad-blocker lalu coba lagi."
+      : e.message;
+    return { success: false, status: 0, message: errMsg };
   }
 }
 

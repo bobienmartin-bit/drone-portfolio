@@ -16,7 +16,7 @@ const DEFAULT_SITE_CONFIG = {
       { text: "450+ Operational Flight Hours" },
       { text: "Nationwide Mission Ready" }
     ],
-    bgImageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85"
+    bgImageUrl: "assets/images/hero-bg-balloons.jpg?v=2"
   },
   featuredReel: [
     {
@@ -264,7 +264,7 @@ function getSiteConfig() {
         if (!Array.isArray(parsed.hero.credentials) || parsed.hero.credentials.length < 3) {
           parsed.hero.credentials = JSON.parse(JSON.stringify(DEFAULT_SITE_CONFIG.hero.credentials));
         }
-        if (!parsed.hero.bgImageUrl) {
+        if (!parsed.hero.bgImageUrl || parsed.hero.bgImageUrl.includes("unsplash.com")) {
           parsed.hero.bgImageUrl = DEFAULT_SITE_CONFIG.hero.bgImageUrl;
         }
       }
