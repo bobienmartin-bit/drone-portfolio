@@ -3,50 +3,20 @@
     "badge": "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
     "title": "Visual Udara Sinematik dari Perspektif Terbaik.",
     "subtitle": "Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.",
-    "stats": [
+    "btnShowreel": "Watch 4K Showreel",
+    "btnGallery": "Explore Portfolio",
+    "credentials": [
       {
-        "id": "stat_legal",
-        "label": "LEGALITAS",
-        "value": "RESMI",
-        "sub": "SIDOPI GO & DKPPU",
-        "icon": "award"
+        "text": "Certified Pilot SIDOPI GO & DKPPU"
       },
       {
-        "id": "stat_res",
-        "label": "RESOLUSI",
-        "value": "5.1K / 4K",
-        "sub": "ProRes & D-Log M",
-        "icon": "video"
+        "text": "450+ Operational Flight Hours"
       },
       {
-        "id": "stat_range",
-        "label": "JANGKAUAN",
-        "value": "NASIONAL",
-        "sub": "Siap Tugas Luar Kota",
-        "icon": "map-pin"
-      },
-      {
-        "id": "stat_turnaround",
-        "label": "WAKTU PROSES",
-        "value": "24 JAM",
-        "sub": "File Mentah & Edit",
-        "icon": "clock"
-      },
-      {
-        "id": "stat_signal",
-        "label": "JARAK KONTROL",
-        "value": "15 KM",
-        "sub": "Transmisi Stabil HD",
-        "icon": "radio"
-      },
-      {
-        "id": "stat_1795085211926",
-        "label": "PRESTASI / SERTIFIKASI",
-        "value": "JUARA",
-        "sub": "Konten Kreatif & Aerial",
-        "icon": "zap"
+        "text": "Nationwide Mission Ready"
       }
-    ]
+    ],
+    "bgImageUrl": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85"
   },
   "featuredReel": [
     {

@@ -347,6 +347,11 @@ function setLanguage(lang) {
   if (typeof window.renderGallery === "function") {
     window.renderGallery();
   }
+
+  // 5. Re-apply site config overrides if present
+  if (window.AeroSiteConfig && typeof window.AeroSiteConfig.applySiteConfigToDOM === "function") {
+    window.AeroSiteConfig.applySiteConfigToDOM();
+  }
 }
 
 function toggleLanguage() {

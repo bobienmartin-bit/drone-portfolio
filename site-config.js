@@ -9,57 +9,14 @@ const DEFAULT_SITE_CONFIG = {
     badge: "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY",
     title: "Visual Udara Sinematik dari Perspektif Terbaik.",
     subtitle: "Jasa aerial cinematography dan fotografi drone beresolusi tinggi hingga 5.1K. Didukung pilot bersertifikat resmi dan armada lengkap untuk produksi komersial, properti, hingga dokumentasi acara.",
-    btnShowreel: "Tonton Showreel 4K",
-    btnGallery: "Jelajahi Galeri",
+    btnShowreel: "Watch 4K Showreel",
+    btnGallery: "Explore Portfolio",
     credentials: [
-      { text: "Pilot Tersertifikasi SIDOPI GO & DKPPU" },
-      { text: "450+ Jam Terbang Operasional" },
-      { text: "Siap Penugasan Seluruh Indonesia" }
+      { text: "Certified Pilot SIDOPI GO & DKPPU" },
+      { text: "450+ Operational Flight Hours" },
+      { text: "Nationwide Mission Ready" }
     ],
-    stats: [
-      {
-        id: "stat_legal",
-        label: "LEGALITAS",
-        value: "RESMI",
-        sub: "SIDOPI GO & DKPPU",
-        icon: "award"
-      },
-      {
-        id: "stat_res",
-        label: "RESOLUSI",
-        value: "5.1K / 4K",
-        sub: "ProRes & D-Log M",
-        icon: "video"
-      },
-      {
-        id: "stat_range",
-        label: "JANGKAUAN",
-        value: "NASIONAL",
-        sub: "Siap Tugas Luar Kota",
-        icon: "map-pin"
-      },
-      {
-        id: "stat_turnaround",
-        label: "WAKTU PROSES",
-        value: "24 JAM",
-        sub: "File Mentah & Edit",
-        icon: "clock"
-      },
-      {
-        id: "stat_signal",
-        label: "JARAK KONTROL",
-        value: "15 KM",
-        sub: "Transmisi Stabil HD",
-        icon: "radio"
-      },
-      {
-        id: "stat_1795085211926",
-        label: "PRESTASI / SERTIFIKASI",
-        value: "JUARA",
-        sub: "Konten Kreatif & Aerial",
-        icon: "zap"
-      }
-    ]
+    bgImageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85"
   },
   featuredReel: [
     {
@@ -296,10 +253,19 @@ function getSiteConfig() {
           parsed.hero.subtitle = DEFAULT_SITE_CONFIG.hero.subtitle;
         }
       }
-      // Auto-migrate hero stats if missing or outdated count
+      // Auto-migrate hero CTA buttons & credentials if missing
       if (parsed && parsed.hero) {
-        if (!Array.isArray(parsed.hero.stats) || parsed.hero.stats.length < 6) {
-          parsed.hero.stats = JSON.parse(JSON.stringify(DEFAULT_SITE_CONFIG.hero.stats));
+        if (!parsed.hero.btnShowreel) {
+          parsed.hero.btnShowreel = DEFAULT_SITE_CONFIG.hero.btnShowreel;
+        }
+        if (!parsed.hero.btnGallery) {
+          parsed.hero.btnGallery = DEFAULT_SITE_CONFIG.hero.btnGallery;
+        }
+        if (!Array.isArray(parsed.hero.credentials) || parsed.hero.credentials.length < 3) {
+          parsed.hero.credentials = JSON.parse(JSON.stringify(DEFAULT_SITE_CONFIG.hero.credentials));
+        }
+        if (!parsed.hero.bgImageUrl) {
+          parsed.hero.bgImageUrl = DEFAULT_SITE_CONFIG.hero.bgImageUrl;
         }
       }
       // Auto-migrate avatar to official Bobien Martien photo
@@ -444,37 +410,62 @@ function applySiteConfigToDOM(config) {
       }
     }
 
-    // Dynamic Hero Stats (HUD Telemetry)
-    const statsContainer = document.getElementById("hero-stats-container");
-    if (statsContainer && Array.isArray(config.hero.stats) && config.hero.stats.length > 0) {
-      const count = config.hero.stats.length;
-      let gridCols = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5";
-      if (count === 1) gridCols = "grid-cols-1 max-w-sm";
-      else if (count === 2) gridCols = "grid-cols-2 max-w-xl";
-      else if (count === 3) gridCols = "grid-cols-2 sm:grid-cols-3 max-w-3xl";
-      else if (count === 4) gridCols = "grid-cols-2 sm:grid-cols-4 max-w-4xl";
-      else if (count === 5) gridCols = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-5xl";
-      else if (count >= 6) gridCols = `grid-cols-2 sm:grid-cols-3 lg:grid-cols-${Math.min(count, 6)} max-w-6xl`;
+    // Dynamic Hero CTA Buttons
+    if (config.hero.btnShowreel) {
+      const isDefaultShowreel = config.hero.btnShowreel === "Watch 4K Showreel" || config.hero.btnShowreel === "Tonton Showreel 4K";
+      const btnShowreelEl = document.querySelector("#beranda [data-i18n='hero.btn_showreel']");
+      if (btnShowreelEl) {
+        if (isEn && isDefaultShowreel && window.AeroI18n?.translations?.en) {
+          btnShowreelEl.textContent = window.AeroI18n.translations.en["hero.btn_showreel"];
+        } else if (!isEn && isDefaultShowreel && window.AeroI18n?.translations?.id) {
+          btnShowreelEl.textContent = window.AeroI18n.translations.id["hero.btn_showreel"];
+        } else {
+          btnShowreelEl.textContent = config.hero.btnShowreel;
+        }
+      }
+    }
+    if (config.hero.btnGallery) {
+      const isDefaultGallery = config.hero.btnGallery === "Explore Portfolio" || config.hero.btnGallery === "Jelajahi Galeri";
+      const btnGalleryEl = document.querySelector("#beranda [data-i18n='hero.btn_gallery']");
+      if (btnGalleryEl) {
+        if (isEn && isDefaultGallery && window.AeroI18n?.translations?.en) {
+          btnGalleryEl.textContent = window.AeroI18n.translations.en["hero.btn_gallery"];
+        } else if (!isEn && isDefaultGallery && window.AeroI18n?.translations?.id) {
+          btnGalleryEl.textContent = window.AeroI18n.translations.id["hero.btn_gallery"];
+        } else {
+          btnGalleryEl.textContent = config.hero.btnGallery;
+        }
+      }
+    }
 
-      statsContainer.className = `mt-16 grid ${gridCols} gap-3.5 mx-auto`;
+    // Dynamic Practitioner Credentials (3 items)
+    if (Array.isArray(config.hero.credentials)) {
+      const credKeys = ["hero.cred_license", "hero.cred_hours", "hero.cred_nationwide"];
+      const credSelectors = [
+        "#beranda [data-i18n='hero.cred_license']",
+        "#beranda [data-i18n='hero.cred_hours']",
+        "#beranda [data-i18n='hero.cred_nationwide']"
+      ];
+      config.hero.credentials.forEach((cred, idx) => {
+        if (cred && cred.text && credSelectors[idx]) {
+          const el = document.querySelector(credSelectors[idx]);
+          if (el) {
+            const key = credKeys[idx];
+            const isDefault = cred.text === window.AeroI18n?.translations?.id?.[key] || cred.text === window.AeroI18n?.translations?.en?.[key];
+            if (isDefault && window.AeroI18n?.translations?.[isEn ? 'en' : 'id']?.[key]) {
+              el.textContent = window.AeroI18n.translations[isEn ? 'en' : 'id'][key];
+            } else {
+              el.textContent = cred.text;
+            }
+          }
+        }
+      });
+    }
 
-      const defaultIcons = ["award", "video", "map-pin", "clock", "radio", "zap", "shield", "activity"];
-      statsContainer.innerHTML = config.hero.stats.map((stat, idx) => {
-        const isOddLast = (idx === count - 1 && count % 2 !== 0 && count > 1);
-        const iconName = stat.icon || defaultIcons[idx % defaultIcons.length] || "bar-chart-2";
-        return `
-          <div class="glass-panel p-4 rounded-xl border border-[#262629] bg-[#141416]/90 crosshair-corner text-left ${isOddLast ? 'col-span-2 sm:col-span-1' : ''}">
-            <div class="text-xs font-mono text-[#EAB308] flex items-center gap-1.5 mb-1">
-              <i data-lucide="${iconName}" class="w-3.5 h-3.5 text-[#EAB308]"></i>
-              <span>${escapeHtml(stat.label || 'STAT')}</span>
-            </div>
-            <div class="text-xl sm:text-2xl font-bold font-mono text-[#F5F5F7]">${escapeHtml(stat.value || '')}</div>
-            <p class="text-[11px] text-[#9CA3AF] truncate">${escapeHtml(stat.sub || '')}</p>
-          </div>
-        `;
-      }).join("");
-
-      if (window.lucide) window.lucide.createIcons();
+    // Dynamic Hero Background Image
+    if (config.hero.bgImageUrl) {
+      const heroBgImg = document.querySelector("#beranda img");
+      if (heroBgImg) heroBgImg.src = config.hero.bgImageUrl;
     }
   }
 

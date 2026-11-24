@@ -355,25 +355,87 @@
             </div>
           </div>
 
-          <!-- Stats HUD Telemetry with Add / Delete -->
+          <!-- Tombol Aksi Hero (Call to Action) -->
           <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
-              <div>
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                  <i data-lucide="bar-chart-2" class="w-4 h-4 text-cyan-400"></i> Indikator Telemetri HUD (Hero)
-                </h3>
-                <p class="text-xs text-slate-400">Atur kartu indikator spesifikasi di halaman utama. Anda bisa menambah atau menghapus indikator sesuai keinginan.</p>
-              </div>
-
-              <!-- Requested Button: + Tambah Indikator -->
-              <button type="button" onclick="addHeroStatItem()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center gap-2 shrink-0 cursor-pointer shadow-lg shadow-cyan-500/20 transition-all">
-                <i data-lucide="plus" class="w-4 h-4 stroke-[3]"></i>
-                <span>+ Tambah Indikator</span>
-              </button>
+            <div class="pb-3 border-b border-slate-800">
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-amber-400"></i> Tombol Aksi Hero (CTA)
+              </h3>
+              <p class="text-xs text-slate-400">Atur label teks untuk 2 tombol utama di bawah subjudul beranda.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5" id="hero-stats-form-grid">
-              <!-- Dynamically populated by admin.js with Delete button on each card -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-amber-300 mb-1.5 flex items-center gap-1.5">
+                  <i data-lucide="play-circle" class="w-3.5 h-3.5"></i> TOMBOL SHOWREEL (UTAMA / KUNING)
+                </label>
+                <input type="text" id="cfg-hero-btn-showreel" placeholder="Watch 4K Showreel" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none">
+                <p class="text-[11px] text-slate-500 mt-1">Membuka popup modal video reel 4K resolusi tinggi.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5 flex items-center gap-1.5">
+                  <i data-lucide="grid" class="w-3.5 h-3.5"></i> TOMBOL PORTOFOLIO (SEKUNDER / OUTLINE)
+                </label>
+                <input type="text" id="cfg-hero-btn-gallery" placeholder="Explore Portfolio" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none">
+                <p class="text-[11px] text-slate-500 mt-1">Scroll langsung ke grid galeri foto & video.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strip Kredensial & Legalitas Pilot (3 Poin) -->
+          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <div class="pb-3 border-b border-slate-800">
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Strip Kredensial & Legalitas Pilot (3 Poin Verifikasi)
+              </h3>
+              <p class="text-xs text-slate-400">3 poin verifikasi sertifikasi, jam terbang, dan kesiapan penugasan yang tampil rapi berjejer di bawah tombol hero halaman depan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
+                  <span>✓</span>
+                  <span>KREDENSIAL #1 (LISENSI)</span>
+                </div>
+                <input type="text" id="cfg-hero-cred-1" placeholder="Certified Pilot SIDOPI GO & DKPPU" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-400 text-xs text-white focus:outline-none">
+                <p class="text-[11px] text-slate-500">Legalitas resmi sertifikasi pilot drone.</p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
+                  <span>✓</span>
+                  <span>KREDENSIAL #2 (JAM TERBANG)</span>
+                </div>
+                <input type="text" id="cfg-hero-cred-2" placeholder="450+ Operational Flight Hours" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-400 text-xs text-white focus:outline-none">
+                <p class="text-[11px] text-slate-500">Total pengalaman jam terbang lapangan.</p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
+                  <span>✓</span>
+                  <span>KREDENSIAL #3 (MOBILITAS)</span>
+                </div>
+                <input type="text" id="cfg-hero-cred-3" placeholder="Nationwide Mission Ready" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-400 text-xs text-white focus:outline-none">
+                <p class="text-[11px] text-slate-500">Kesiapan misi luar kota / nasional.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Background Image -->
+          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <div class="pb-3 border-b border-slate-800">
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="image" class="w-4 h-4 text-purple-400"></i> Background Hero (Latar Belakang Beranda)
+              </h3>
+              <p class="text-xs text-slate-400">Atur URL gambar ambient latar belakang hero. Gambar akan ditampilkan redup dengan gradasi gelap agar teks tetap terbaca tajam.</p>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1.5">URL GAMBAR BACKGROUND</label>
+                <input type="text" id="cfg-hero-bg-url" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-400 text-xs text-white focus:outline-none font-mono">
+              </div>
             </div>
           </div>
         </section>
@@ -877,8 +939,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="site-config.js?v=1795195000"></script>
-  <script src="supabase.js?v=1795195000"></script>
-  <script src="admin.js?v=1795195000"></script>
+  <script src="site-config.js?v=1795199000"></script>
+  <script src="supabase.js?v=1795199000"></script>
+  <script src="admin.js?v=1795199000"></script>
 </body>
 </html>

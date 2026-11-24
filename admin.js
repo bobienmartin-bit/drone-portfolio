@@ -311,12 +311,26 @@ function populateHeroForm() {
   const badgeEl = document.getElementById("cfg-hero-badge");
   const titleEl = document.getElementById("cfg-hero-title");
   const subEl = document.getElementById("cfg-hero-subtitle");
+  const btnShowreelEl = document.getElementById("cfg-hero-btn-showreel");
+  const btnGalleryEl = document.getElementById("cfg-hero-btn-gallery");
+  const cred1El = document.getElementById("cfg-hero-cred-1");
+  const cred2El = document.getElementById("cfg-hero-cred-2");
+  const cred3El = document.getElementById("cfg-hero-cred-3");
+  const bgUrlEl = document.getElementById("cfg-hero-bg-url");
 
-  if (badgeEl) badgeEl.value = hero.badge || "";
-  if (titleEl) titleEl.value = hero.title || "";
+  if (badgeEl) badgeEl.value = hero.badge || "AERIAL CINEMATOGRAPHY & DRONE PHOTOGRAPHY";
+  if (titleEl) titleEl.value = hero.title || "Visual Udara Sinematik dari Perspektif Terbaik.";
   if (subEl) subEl.value = hero.subtitle || "";
 
-  renderHeroStatsForm();
+  if (btnShowreelEl) btnShowreelEl.value = hero.btnShowreel || "Watch 4K Showreel";
+  if (btnGalleryEl) btnGalleryEl.value = hero.btnGallery || "Explore Portfolio";
+
+  const creds = Array.isArray(hero.credentials) ? hero.credentials : [];
+  if (cred1El) cred1El.value = creds[0]?.text || "Certified Pilot SIDOPI GO & DKPPU";
+  if (cred2El) cred2El.value = creds[1]?.text || "450+ Operational Flight Hours";
+  if (cred3El) cred3El.value = creds[2]?.text || "Nationwide Mission Ready";
+
+  if (bgUrlEl) bgUrlEl.value = hero.bgImageUrl || "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=2000&q=85";
 }
 
 function escapeAttr(str) {
@@ -330,100 +344,19 @@ function escapeAttr(str) {
 }
 
 function renderHeroStatsForm() {
-  const statsContainer = document.getElementById("hero-stats-form-grid");
-  if (!statsContainer) return;
-  if (!currentConfig.hero) currentConfig.hero = {};
-  if (!Array.isArray(currentConfig.hero.stats)) {
-    currentConfig.hero.stats = [
-      { id: "stat_legal", label: "LEGALITAS", value: "RESMI", sub: "SIDOPI GO & DKPPU", icon: "award" },
-      { id: "stat_res", label: "RESOLUSI", value: "5.1K / 4K", sub: "ProRes & D-Log M", icon: "video" },
-      { id: "stat_range", label: "JANGKAUAN", value: "NASIONAL", sub: "Siap Tugas Luar Kota", icon: "map-pin" },
-      { id: "stat_turnaround", label: "WAKTU PROSES", value: "24 JAM", sub: "File Mentah & Edit", icon: "clock" },
-      { id: "stat_signal", label: "JARAK KONTROL", value: "15 KM", sub: "Transmisi Stabil HD", icon: "radio" }
-    ];
-  }
-
-  const defaultIcons = ["award", "video", "map-pin", "clock", "radio", "zap", "shield", "activity"];
-  const stats = currentConfig.hero.stats;
-  statsContainer.innerHTML = stats.map((st, i) => {
-    const iconName = st.icon || defaultIcons[i % defaultIcons.length] || "bar-chart-2";
-    return `
-      <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3 relative group hover:border-slate-700 transition-all">
-        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
-          <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="${iconName}" class="w-3.5 h-3.5 text-cyan-400"></i>
-            STAT #${i+1}
-          </span>
-          <button type="button" onclick="deleteHeroStatItem(${i})" class="px-2 py-1 rounded-lg text-rose-400 hover:text-white hover:bg-rose-500/20 text-[10px] font-mono flex items-center gap-1 border border-rose-500/30 transition-all cursor-pointer shadow-sm" title="Hapus indikator ini">
-            <i data-lucide="trash-2" class="w-3 h-3"></i>
-            <span>Hapus</span>
-          </button>
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono text-slate-400 mb-1">LABEL ATAS</label>
-          <input type="text" id="stat-label-${i}" value="${escapeAttr(st.label || '')}" oninput="syncCurrentHeroStatsInputs()" placeholder="Misal: LEGALITAS" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-white">
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono text-slate-400 mb-1">NILAI UTAMA</label>
-          <input type="text" id="stat-val-${i}" value="${escapeAttr(st.value || '')}" oninput="syncCurrentHeroStatsInputs()" placeholder="Misal: 5.1K / 4K" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-white font-mono font-bold">
-        </div>
-        <div>
-          <label class="block text-[10px] font-mono text-slate-400 mb-1">KETERANGAN BAWAH</label>
-          <input type="text" id="stat-sub-${i}" value="${escapeAttr(st.sub || '')}" oninput="syncCurrentHeroStatsInputs()" placeholder="Misal: ProRes & D-Log M" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-cyan-400 text-xs text-slate-300">
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  if (window.lucide) window.lucide.createIcons();
+  // Obsolete HUD telemetry replaced by CTA buttons and 3 credentials
 }
 
 function syncCurrentHeroStatsInputs() {
-  if (!currentConfig.hero || !Array.isArray(currentConfig.hero.stats)) return;
-  for (let i = 0; i < currentConfig.hero.stats.length; i++) {
-    const l = document.getElementById(`stat-label-${i}`);
-    const v = document.getElementById(`stat-val-${i}`);
-    const s = document.getElementById(`stat-sub-${i}`);
-    if (l) currentConfig.hero.stats[i].label = l.value;
-    if (v) currentConfig.hero.stats[i].value = v.value;
-    if (s) currentConfig.hero.stats[i].sub = s.value;
-  }
+  // Obsolete HUD telemetry replaced by CTA buttons and 3 credentials
 }
 
 function addHeroStatItem() {
-  syncCurrentHeroStatsInputs();
-  if (!currentConfig.hero) currentConfig.hero = {};
-  if (!Array.isArray(currentConfig.hero.stats)) currentConfig.hero.stats = [];
-  
-  const defaultIcons = ["award", "video", "map-pin", "clock", "radio", "zap", "shield", "activity", "check-circle"];
-  const iconChoice = defaultIcons[currentConfig.hero.stats.length % defaultIcons.length];
-  const newNum = currentConfig.hero.stats.length + 1;
-  
-  currentConfig.hero.stats.push({
-    id: "stat_" + Date.now(),
-    label: `INDIKATOR #${newNum}`,
-    value: "100%",
-    sub: "Keterangan Baru",
-    icon: iconChoice
-  });
-
-  renderHeroStatsForm();
-  showToast("Indikator telemetri baru berhasil ditambahkan! Silakan atur nilainya lalu klik Simpan Perubahan.");
+  // Obsolete HUD telemetry replaced by CTA buttons and 3 credentials
 }
 
 function deleteHeroStatItem(index) {
-  syncCurrentHeroStatsInputs();
-  if (!currentConfig.hero || !Array.isArray(currentConfig.hero.stats)) return;
-  
-  if (currentConfig.hero.stats.length <= 1) {
-    showToast("Minimal harus memiliki 1 indikator telemetri di halaman utama.");
-    return;
-  }
-
-  const statLabel = currentConfig.hero.stats[index]?.label || `Stat #${index + 1}`;
-  currentConfig.hero.stats.splice(index, 1);
-  renderHeroStatsForm();
-  showToast(`Indikator "${statLabel}" berhasil dihapus.`);
+  // Obsolete HUD telemetry replaced by CTA buttons and 3 credentials
 }
 
 window.addHeroStatItem = addHeroStatItem;
@@ -903,14 +836,25 @@ function saveAllSettings() {
   const heroBadge = document.getElementById("cfg-hero-badge");
   const heroTitle = document.getElementById("cfg-hero-title");
   const heroSub = document.getElementById("cfg-hero-subtitle");
-
-  syncCurrentHeroStatsInputs();
+  const heroBtnShowreel = document.getElementById("cfg-hero-btn-showreel");
+  const heroBtnGallery = document.getElementById("cfg-hero-btn-gallery");
+  const heroCred1 = document.getElementById("cfg-hero-cred-1");
+  const heroCred2 = document.getElementById("cfg-hero-cred-2");
+  const heroCred3 = document.getElementById("cfg-hero-cred-3");
+  const heroBgUrl = document.getElementById("cfg-hero-bg-url");
 
   currentConfig.hero = {
     badge: heroBadge ? heroBadge.value : "",
     title: heroTitle ? heroTitle.value : "",
     subtitle: heroSub ? heroSub.value : "",
-    stats: (currentConfig.hero && Array.isArray(currentConfig.hero.stats)) ? currentConfig.hero.stats : []
+    btnShowreel: heroBtnShowreel ? heroBtnShowreel.value : "Watch 4K Showreel",
+    btnGallery: heroBtnGallery ? heroBtnGallery.value : "Explore Portfolio",
+    credentials: [
+      { text: heroCred1 ? heroCred1.value : "Certified Pilot SIDOPI GO & DKPPU" },
+      { text: heroCred2 ? heroCred2.value : "450+ Operational Flight Hours" },
+      { text: heroCred3 ? heroCred3.value : "Nationwide Mission Ready" }
+    ],
+    bgImageUrl: heroBgUrl ? heroBgUrl.value : ""
   };
 
   // 2. Gather Reel (3 Slots)
