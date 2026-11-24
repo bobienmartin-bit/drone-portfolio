@@ -1082,10 +1082,25 @@ function setupEventListeners() {
     uploadForm.addEventListener("submit", handleUploadSubmit);
   }
 
-  // Contact Form
+  // Contact Form & Dynamic Package Sync
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     contactForm.addEventListener("submit", handleContactSubmit);
+  }
+
+  const pkgSelect = document.getElementById("contact-package");
+  const srvSelect = document.getElementById("contact-service");
+  if (pkgSelect && srvSelect) {
+    pkgSelect.addEventListener("change", (e) => {
+      const val = (e.target.value || "").toLowerCase();
+      if (!val) return;
+      if (val.includes("cinema")) srvSelect.value = "Aerial Cinematography";
+      else if (val.includes("photo")) srvSelect.value = "Drone Photography";
+      else if (val.includes("fpv")) srvSelect.value = "FPV Action Shoot";
+      else if (val.includes("estate") || val.includes("property")) srvSelect.value = "Real Estate Video";
+      else if (val.includes("event") || val.includes("festival")) srvSelect.value = "Event Documentation";
+      else if (val.includes("corporate") || val.includes("industrial")) srvSelect.value = "Company Profile";
+    });
   }
 
   // Mobile menu toggle
@@ -1157,10 +1172,22 @@ window.selectDroneForBooking = function(droneName) {
 // Function to select commercial package for quotation & scroll smoothly to contact form
 window.selectPackageForQuote = function(packageName, droneHint) {
   const contactSection = document.getElementById("kontak");
+  const packageSelect = document.getElementById("contact-package");
   const serviceSelect = document.getElementById("contact-service");
   const droneSelect = document.getElementById("contact-drone");
   const msgInput = document.getElementById("contact-message");
   const nameInput = document.getElementById("contact-name");
+
+  if (packageSelect && packageName) {
+    const pkgLower = packageName.toLowerCase();
+    for (let i = 0; i < packageSelect.options.length; i++) {
+      const optVal = (packageSelect.options[i].value || "").toLowerCase();
+      if (optVal && (optVal.includes(pkgLower) || pkgLower.includes(optVal))) {
+        packageSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
 
   if (serviceSelect && packageName) {
     const pkgLower = packageName.toLowerCase();
@@ -1219,7 +1246,9 @@ function handleContactSubmit(e) {
   e.preventDefault();
   const name = document.getElementById("contact-name").value.trim();
   const email = document.getElementById("contact-email").value.trim();
-  const service = document.getElementById("contact-service").value;
+  const pkgEl = document.getElementById("contact-package");
+  const pkgVal = pkgEl ? pkgEl.value.trim() : "";
+  const service = document.getElementById("contact-service") ? document.getElementById("contact-service").value : "";
   const droneEl = document.getElementById("contact-drone");
   const drone = droneEl ? droneEl.value.trim() : "";
   const message = document.getElementById("contact-message").value.trim();
@@ -1240,7 +1269,12 @@ function handleContactSubmit(e) {
   let body = isEn
     ? `Hello Bobien, I am *${name}* (${email}). I would like to discuss an aerial drone project:\n\n`
     : `Halo Mas Bobien, saya *${name}* (${email}). Ingin mendiskusikan rencana proyek drone:\n\n`;
-  body += isEn ? `• Service: ${service}\n` : `• Layanan: ${service}\n`;
+  if (pkgVal) {
+    body += isEn ? `• Commercial Package: ${pkgVal}\n` : `• Paket Komersial: ${pkgVal}\n`;
+  }
+  if (service) {
+    body += isEn ? `• Service Type: ${service}\n` : `• Kategori Layanan: ${service}\n`;
+  }
   if (drone) {
     body += isEn ? `• Drone Fleet: ${drone}\n` : `• Pilihan Armada: ${drone}\n`;
   } else {

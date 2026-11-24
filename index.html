@@ -49,10 +49,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Internationalization (ID/EN) Script -->
-  <script src="i18n.js?v=1795212000"></script>
+  <script src="i18n.js?v=1795221000"></script>
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=1795212000">
+  <link rel="stylesheet" href="styles.css?v=1795221000">
 </head>
 <body class="bg-[#0A0A0B] text-[#F5F5F7] font-sans selection:bg-[#EAB308] selection:text-[#0A0A0B]">
 
@@ -428,15 +428,15 @@
   <section id="packages" class="py-24 lg:py-32 bg-[#0A0A0B] border-t border-[#262629] relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Section Header -->
-      <div class="max-w-3xl mb-16">
+      <!-- Section Header (Centered) -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
         <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="pkg.badge">
           COMMERCIAL PACKAGES
         </p>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#F5F5F7] tracking-tight mb-4" data-i18n="pkg.title">
           Commercial Aerial Cinematography Packages
         </h2>
-        <p class="text-sm sm:text-base text-[#9CA3AF] leading-relaxed" data-i18n="pkg.subtitle">
+        <p class="text-sm sm:text-base text-[#9CA3AF] leading-relaxed max-w-2xl mx-auto" data-i18n="pkg.subtitle">
           Engineered for advertising agencies, film production houses, property developers, and corporate clients. All operations executed directly by Certified Pilots under strict airspace safety compliance.
         </p>
       </div>
@@ -1256,15 +1256,15 @@
   <section id="testimoni" class="py-24 lg:py-32 border-t border-[#262629] bg-[#0A0A0B]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Section Header -->
-      <div class="max-w-3xl mb-16">
+      <!-- Section Header (Centered) -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
         <p class="text-xs font-mono tracking-widest text-[#EAB308] uppercase mb-2 font-semibold" data-i18n="testi.badge">
           CLIENT TESTIMONIALS
         </p>
         <h2 class="text-3xl sm:text-4xl font-bold font-heading text-[#F5F5F7] mb-4" data-i18n="testi.title">
           Trusted by Event Organizers &amp; Production Teams
         </h2>
-        <p class="text-[#9CA3AF] text-sm sm:text-base leading-relaxed" data-i18n="testi.subtitle">
+        <p class="text-[#9CA3AF] text-sm sm:text-base leading-relaxed max-w-2xl mx-auto" data-i18n="testi.subtitle">
           Real feedback from brands, event organizers, and corporate partners who have experienced our aerial cinematography.
         </p>
       </div>
@@ -1473,35 +1473,68 @@
             </div>
           </div>
 
+          <!-- Dropdown Baru: Paket Jasa Komersial -->
           <div>
-            <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.service_label">SERVICE REQUIRED</label>
-            <select id="contact-service" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7]">
-              <option value="Aerial Cinematography" data-i18n="contact.srv_opt_cinema">Aerial Cinematography (4K / 5K Video)</option>
-              <option value="Drone Photography" data-i18n="contact.srv_opt_photo">High-Resolution Aerial Photography</option>
-              <option value="FPV Action Shoot" data-i18n="contact.srv_opt_fpv">FPV Action &amp; Extreme Sports</option>
-              <option value="Real Estate Video" data-i18n="contact.srv_opt_property">Real Estate &amp; Architecture Showcase</option>
-              <option value="Event Documentation" data-i18n="contact.srv_opt_event">Event &amp; Festival Coverage</option>
-              <option value="Company Profile" data-i18n="contact.srv_opt_corp">Corporate Profile &amp; Industrial Facilities</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-mono text-[#9CA3AF] mb-2 flex items-center justify-between" for="contact-drone">
-              <span data-i18n="contact.drone_label">CHOOSE DRONE FLEET FOR YOUR PROJECT</span>
-              <span class="text-[10px] font-sans font-normal text-[#9CA3AF] bg-[#0A0A0B] px-2 py-0.5 rounded border border-[#262629]" data-i18n="contact.drone_badge">Pilot Recommendation</span>
+            <label class="block text-xs font-mono text-[#9CA3AF] mb-2 flex items-center justify-between" for="contact-package">
+              <span data-i18n="contact.package_label">PILIH PAKET JASA KOMERSIAL</span>
+              <span class="text-[10px] font-sans font-normal text-[#EAB308] bg-[#0A0A0B] px-2 py-0.5 rounded border border-[#262629]" data-i18n="contact.package_badge">6 Paket Pilihan</span>
             </label>
             <div class="relative">
-              <select id="contact-drone" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] appearance-none transition-all duration-300 cursor-pointer">
-                <option value="" data-i18n="contact.drone_opt_default">-- Consult for Pilot Recommendation --</option>
-                <option value="DJI Mavic 4 Pro" data-i18n="contact.drone_opt_mavic4">DJI Mavic 4 Pro (Cinema Class • 8K/4K HDR)</option>
-                <option value="DJI Mavic 3 Pro" data-i18n="contact.drone_opt_mavic3">DJI Mavic 3 Pro (Commercial Cinema • Triple Cam)</option>
-                <option value="DJI Air 3S" data-i18n="contact.drone_opt_air3s">DJI Air 3S (All-Rounder • Nightscape LiDAR)</option>
-                <option value="DJI Avata 2" data-i18n="contact.drone_opt_avata2">DJI Avata 2 (Immersive FPV Cinema)</option>
-                <option value="DJI Mini 4 Pro" data-i18n="contact.drone_opt_mini4">DJI Mini 4 Pro (Social Reels • Sub-249g Vertical)</option>
-                <option value="DJI Neo 2" data-i18n="contact.drone_opt_neo2">DJI Neo 2 (Indoor &amp; Vlog • AI Palm Takeoff)</option>
+              <select id="contact-package" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] appearance-none transition-all duration-300 cursor-pointer">
+                <option value="" data-i18n="contact.pkg_opt_default">-- Konsultasikan / Pilih Paket Jasa Komersial --</option>
+                <option value="Aerial Photography Package" data-i18n="contact.pkg_opt_1">Aerial Photography Package (High-Res Stills • 48MP RAW)</option>
+                <option value="Aerial Cinematography Package" data-i18n="contact.pkg_opt_2">Aerial Cinematography Package (Cinema Flagship • 5.1K / 4K Master)</option>
+                <option value="FPV Cinematic Package" data-i18n="contact.pkg_opt_3">FPV Cinematic Package (One-Push ACRO • Ultra-Wide 155°)</option>
+                <option value="Real Estate & Property Showcase" data-i18n="contact.pkg_opt_4">Real Estate & Property Showcase (Landscape 4K + 9:16 Reels)</option>
+                <option value="Corporate & Industrial Documentation" data-i18n="contact.pkg_opt_5">Corporate & Industrial Documentation (K3 Standards & Monitoring)</option>
+                <option value="Event & Festival Coverage" data-i18n="contact.pkg_opt_6">Event & Festival Coverage (Dynamic Crowd & 24h Highlight)</option>
+                <option value="Custom / Produksi Khusus" data-i18n="contact.pkg_opt_custom">Custom / Produksi Khusus (Konsultasi Kebutuhan Anda)</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#9CA3AF]">
                 <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jenis Kebutuhan Layanan & Pilihan Armada Drone (2 Columns) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Jenis Kebutuhan Layanan -->
+            <div>
+              <label class="block text-xs font-mono text-[#9CA3AF] mb-2" data-i18n="contact.service_label">JENIS KEBUTUHAN LAYANAN</label>
+              <div class="relative">
+                <select id="contact-service" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] appearance-none transition-all duration-300 cursor-pointer">
+                  <option value="Aerial Cinematography" data-i18n="contact.srv_opt_cinema">Aerial Cinematography (4K / 5K Video)</option>
+                  <option value="Drone Photography" data-i18n="contact.srv_opt_photo">High-Resolution Aerial Photography</option>
+                  <option value="FPV Action Shoot" data-i18n="contact.srv_opt_fpv">FPV Action &amp; Extreme Sports</option>
+                  <option value="Real Estate Video" data-i18n="contact.srv_opt_property">Real Estate &amp; Architecture Showcase</option>
+                  <option value="Event Documentation" data-i18n="contact.srv_opt_event">Event &amp; Festival Coverage</option>
+                  <option value="Company Profile" data-i18n="contact.srv_opt_corp">Corporate Profile &amp; Industrial Facilities</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#9CA3AF]">
+                  <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pilihan Armada Drone Sesuai Proyek -->
+            <div>
+              <label class="block text-xs font-mono text-[#9CA3AF] mb-2 flex items-center justify-between" for="contact-drone">
+                <span data-i18n="contact.drone_label">PILIH ARMADA DRONE</span>
+                <span class="text-[10px] font-sans font-normal text-[#9CA3AF] bg-[#0A0A0B] px-2 py-0.5 rounded border border-[#262629]" data-i18n="contact.drone_badge">Pilot Recommendation</span>
+              </label>
+              <div class="relative">
+                <select id="contact-drone" class="w-full px-4 py-3 rounded-lg bg-[#0A0A0B] border border-[#262629] focus:border-[#EAB308] focus:outline-none focus:ring-1 focus:ring-[#EAB308] text-sm text-[#F5F5F7] appearance-none transition-all duration-300 cursor-pointer">
+                  <option value="" data-i18n="contact.drone_opt_default">-- Rekomendasi Armada Pilot --</option>
+                  <option value="DJI Mavic 4 Pro" data-i18n="contact.drone_opt_mavic4">DJI Mavic 4 Pro (Cinema Class • 8K/4K HDR)</option>
+                  <option value="DJI Mavic 3 Pro" data-i18n="contact.drone_opt_mavic3">DJI Mavic 3 Pro (Commercial Cinema • Triple Cam)</option>
+                  <option value="DJI Air 3S" data-i18n="contact.drone_opt_air3s">DJI Air 3S (All-Rounder • Nightscape LiDAR)</option>
+                  <option value="DJI Avata 2" data-i18n="contact.drone_opt_avata2">DJI Avata 2 (Immersive FPV Cinema)</option>
+                  <option value="DJI Mini 4 Pro" data-i18n="contact.drone_opt_mini4">DJI Mini 4 Pro (Social Reels • Sub-249g Vertical)</option>
+                  <option value="DJI Neo 2" data-i18n="contact.drone_opt_neo2">DJI Neo 2 (Indoor &amp; Vlog • AI Palm Takeoff)</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#9CA3AF]">
+                  <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </div>
               </div>
             </div>
           </div>
@@ -1708,9 +1741,9 @@
   </a>
 
   <!-- Application Scripts -->
-  <script src="site-config.js?v=1795220000"></script>
-  <script src="supabase.js?v=1795220000"></script>
-  <script src="app.js?v=1795220000"></script>
+  <script src="site-config.js?v=1795221000"></script>
+  <script src="supabase.js?v=1795221000"></script>
+  <script src="app.js?v=1795221000"></script>
   <script>
     if (window.lucide) {
       window.lucide.createIcons();
