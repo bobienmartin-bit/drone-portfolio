@@ -505,6 +505,21 @@ const DEFAULT_DRONE_IMAGES = [
   "assets/images/drone-neo-2.jpg?v=2"
 ];
 
+const DEFAULT_FIELD_DOCS = [
+  {
+    imageUrl: "assets/images/hero-bg-balloons.jpg",
+    title: "Wonosobo Airspace Ops"
+  },
+  {
+    imageUrl: "assets/images/landscape-ciater-aerial.jpg",
+    title: "Subang Highland Flight"
+  },
+  {
+    imageUrl: "assets/images/embung-retensi-topdown.jpg",
+    title: "Top-Down Infrastructure"
+  }
+];
+
 function populateGearForm() {
   const gearList = currentConfig.gear || (window.AeroSiteConfig ? window.AeroSiteConfig.DEFAULT_SITE_CONFIG.gear : []);
   const container = document.getElementById("gear-form-grid");
@@ -801,6 +816,22 @@ function populateAboutForm() {
   if (fLblEl) fLblEl.value = st.fleetLabel || "Fleet Units";
   if (cValEl) cValEl.value = st.cities || "18+";
   if (cLblEl) cLblEl.value = st.citiesLabel || "Cities Flown";
+
+  // Populate Field Documentation Photos (3 items)
+  const defaultFieldDocs = window.AeroSiteConfig?.DEFAULT_SITE_CONFIG?.about?.fieldDocs || DEFAULT_FIELD_DOCS;
+  const currentDocs = (Array.isArray(ab.fieldDocs) && ab.fieldDocs.length === 3)
+    ? ab.fieldDocs
+    : defaultFieldDocs;
+
+  for (let i = 0; i < 3; i++) {
+    const docItem = currentDocs[i] || defaultFieldDocs[i];
+    const previewEl = document.getElementById(`about-doc-preview-${i}`);
+    const imgInp = document.getElementById(`cfg-about-doc-img-${i}`);
+    const titleInp = document.getElementById(`cfg-about-doc-title-${i}`);
+    if (previewEl && docItem.imageUrl) previewEl.src = docItem.imageUrl;
+    if (imgInp && docItem.imageUrl) imgInp.value = docItem.imageUrl;
+    if (titleInp && docItem.title) titleInp.value = docItem.title;
+  }
 }
 
 // TAB PACKAGES (6)
@@ -997,6 +1028,139 @@ function resetPilotAvatarToDefault() {
   showToast("Foto profil pilot dikembalikan ke default & tersimpan.");
 }
 
+// ========================================================
+// Field Documentation Photos Handlers (3 Items)
+// ========================================================
+function handleFieldDocUpload(e, index) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Harap pilih file gambar (JPG, PNG, WEBP).");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const img = new Image();
+    img.onload = function() {
+      const maxDim = 1200;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.85);
+
+      const urlInput = document.getElementById(`cfg-about-doc-img-${index}`);
+      if (urlInput) urlInput.value = "(Foto lokal tersimpan)";
+
+      updateFieldDocPreview(index, optimizedDataUrl);
+
+      // AUTO-SAVE IMMEDIATELY to currentConfig and localStorage
+      if (!currentConfig.about) currentConfig.about = {};
+      if (!Array.isArray(currentConfig.about.fieldDocs) || currentConfig.about.fieldDocs.length < 3) {
+        currentConfig.about.fieldDocs = JSON.parse(JSON.stringify(DEFAULT_FIELD_DOCS));
+      }
+      currentConfig.about.fieldDocs[index].imageUrl = optimizedDataUrl;
+
+      const titleInput = document.getElementById(`cfg-about-doc-title-${index}`);
+      if (titleInput && titleInput.value) {
+        currentConfig.about.fieldDocs[index].title = titleInput.value;
+      }
+
+      if (window.AeroSiteConfig) {
+        window.AeroSiteConfig.saveSiteConfig(currentConfig);
+      }
+
+      const statusEl = document.getElementById(`about-doc-status-${index}`);
+      if (statusEl) {
+        statusEl.classList.remove("hidden");
+        statusEl.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Foto #${index + 1} berhasil diupload &amp; aktif!</span>`;
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      showToast(`Foto dokumentasi #${index + 1} berhasil diupload & langsung aktif!`);
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleFieldDocUrlChange(index, newUrl) {
+  if (!newUrl || newUrl === "(Foto lokal tersimpan)") return;
+  updateFieldDocPreview(index, newUrl);
+
+  if (!currentConfig.about) currentConfig.about = {};
+  if (!Array.isArray(currentConfig.about.fieldDocs) || currentConfig.about.fieldDocs.length < 3) {
+    currentConfig.about.fieldDocs = JSON.parse(JSON.stringify(DEFAULT_FIELD_DOCS));
+  }
+  currentConfig.about.fieldDocs[index].imageUrl = newUrl;
+
+  const titleInput = document.getElementById(`cfg-about-doc-title-${index}`);
+  if (titleInput && titleInput.value) {
+    currentConfig.about.fieldDocs[index].title = titleInput.value;
+  }
+
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
+  showToast(`URL Foto #${index + 1} berhasil diperbarui & disimpan!`);
+}
+
+function updateFieldDocPreview(index, url) {
+  const preview = document.getElementById(`about-doc-preview-${index}`);
+  if (preview && url) {
+    preview.src = url;
+  }
+}
+
+function resetFieldDocToDefault(index) {
+  const defaultItem = DEFAULT_FIELD_DOCS[index] || DEFAULT_FIELD_DOCS[0];
+  const urlInput = document.getElementById(`cfg-about-doc-img-${index}`);
+  const titleInput = document.getElementById(`cfg-about-doc-title-${index}`);
+
+  if (urlInput) urlInput.value = defaultItem.imageUrl;
+  if (titleInput) titleInput.value = defaultItem.title;
+  updateFieldDocPreview(index, defaultItem.imageUrl);
+
+  if (!currentConfig.about) currentConfig.about = {};
+  if (!Array.isArray(currentConfig.about.fieldDocs) || currentConfig.about.fieldDocs.length < 3) {
+    currentConfig.about.fieldDocs = JSON.parse(JSON.stringify(DEFAULT_FIELD_DOCS));
+  }
+  currentConfig.about.fieldDocs[index] = { ...defaultItem };
+
+  if (window.AeroSiteConfig) {
+    window.AeroSiteConfig.saveSiteConfig(currentConfig);
+  }
+
+  const statusEl = document.getElementById(`about-doc-status-${index}`);
+  if (statusEl) {
+    statusEl.classList.remove("hidden");
+    statusEl.innerHTML = `<i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-cyan-400"></i>
+      <span>Reset ke foto bawaan!</span>`;
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  showToast(`Foto dokumentasi #${index + 1} dikembalikan ke default.`);
+}
+
 // TAB CONTACT
 function populateContactForm() {
   const ct = currentConfig.contact || {};
@@ -1154,7 +1318,21 @@ function saveAllSettings() {
       fleetLabel: fLblEl ? fLblEl.value : "Fleet Units",
       cities: cValEl ? cValEl.value : "18+",
       citiesLabel: cLblEl ? cLblEl.value : "Cities Flown"
-    }
+    },
+    fieldDocs: [
+      {
+        imageUrl: document.getElementById("cfg-about-doc-img-0")?.value || (currentConfig.about?.fieldDocs?.[0]?.imageUrl) || DEFAULT_FIELD_DOCS[0].imageUrl,
+        title: document.getElementById("cfg-about-doc-title-0")?.value || (currentConfig.about?.fieldDocs?.[0]?.title) || DEFAULT_FIELD_DOCS[0].title
+      },
+      {
+        imageUrl: document.getElementById("cfg-about-doc-img-1")?.value || (currentConfig.about?.fieldDocs?.[1]?.imageUrl) || DEFAULT_FIELD_DOCS[1].imageUrl,
+        title: document.getElementById("cfg-about-doc-title-1")?.value || (currentConfig.about?.fieldDocs?.[1]?.title) || DEFAULT_FIELD_DOCS[1].title
+      },
+      {
+        imageUrl: document.getElementById("cfg-about-doc-img-2")?.value || (currentConfig.about?.fieldDocs?.[2]?.imageUrl) || DEFAULT_FIELD_DOCS[2].imageUrl,
+        title: document.getElementById("cfg-about-doc-title-2")?.value || (currentConfig.about?.fieldDocs?.[2]?.title) || DEFAULT_FIELD_DOCS[2].title
+      }
+    ]
   };
 
   // 6. Gather Packages (6)
@@ -1961,3 +2139,6 @@ window.triggerPermanentSave = triggerPermanentSave;
 window.pushConfigToGithub = pushConfigToGithub;
 window.populatePackagesForm = populatePackagesForm;
 window.populateTestimonialsForm = populateTestimonialsForm;
+window.handleFieldDocUpload = handleFieldDocUpload;
+window.handleFieldDocUrlChange = handleFieldDocUrlChange;
+window.resetFieldDocToDefault = resetFieldDocToDefault;

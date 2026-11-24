@@ -243,7 +243,21 @@ const DEFAULT_SITE_CONFIG = {
       fleetLabel: "Fleet Units",
       cities: "18+",
       citiesLabel: "Cities Flown"
-    }
+    },
+    fieldDocs: [
+      {
+        imageUrl: "assets/images/hero-bg-balloons.jpg",
+        title: "Wonosobo Airspace Ops"
+      },
+      {
+        imageUrl: "assets/images/landscape-ciater-aerial.jpg",
+        title: "Subang Highland Flight"
+      },
+      {
+        imageUrl: "assets/images/embung-retensi-topdown.jpg",
+        title: "Top-Down Infrastructure"
+      }
+    ]
   },
   testimonials: [
     {
@@ -803,6 +817,16 @@ function applySiteConfigToDOM(config) {
       if (cVal && st.cities) cVal.textContent = st.cities;
       const cLbl = document.getElementById("about-stat-cities-lbl");
       if (cLbl && st.citiesLabel) cLbl.textContent = st.citiesLabel;
+    }
+
+    // Field Documentation Photos (3 Items)
+    if (Array.isArray(config.about.fieldDocs)) {
+      config.about.fieldDocs.forEach((doc, idx) => {
+        const imgEl = document.getElementById(`about-doc-img-${idx}`);
+        if (imgEl && doc.imageUrl) imgEl.src = doc.imageUrl;
+        const titleEl = document.getElementById(`about-doc-title-${idx}`);
+        if (titleEl && doc.title) titleEl.textContent = doc.title;
+      });
     }
   }
 
