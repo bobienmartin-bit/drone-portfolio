@@ -684,20 +684,34 @@ function populateAboutForm() {
   const titleEl = document.getElementById("cfg-about-title");
   const p1El = document.getElementById("cfg-about-p1");
   const p2El = document.getElementById("cfg-about-p2");
+  const p3El = document.getElementById("cfg-about-p3");
+  const p4El = document.getElementById("cfg-about-p4");
 
-  if (nameEl) nameEl.value = ab.pilotName || "";
-  if (roleEl) roleEl.value = ab.pilotRole || "";
+  if (nameEl) nameEl.value = ab.pilotName || "Bobien Martien";
+  if (roleEl) roleEl.value = ab.pilotRole || "Aerial Cinematographer & Remote Pilot";
   if (avatarEl) {
-    avatarEl.value = ab.avatarUrl || "";
-    updatePilotAvatarPreview(ab.avatarUrl);
+    avatarEl.value = ab.avatarUrl || "assets/images/pilot-bobien-martien.jpg?v=2";
+    updatePilotAvatarPreview(ab.avatarUrl || "assets/images/pilot-bobien-martien.jpg?v=2");
   }
   if (avatarUrlEl) {
     const isData = ab.avatarUrl && ab.avatarUrl.startsWith("data:");
-    avatarUrlEl.value = isData ? "(Foto lokal tersimpan)" : (ab.avatarUrl || "");
+    avatarUrlEl.value = isData ? "(Foto lokal tersimpan)" : (ab.avatarUrl || "assets/images/pilot-bobien-martien.jpg?v=2");
   }
-  if (titleEl) titleEl.value = ab.title || "";
-  if (p1El) p1El.value = ab.p1 || "";
-  if (p2El) p2El.value = ab.p2 || "";
+
+  const defaultTitle = "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial.";
+  if (titleEl) {
+    titleEl.value = (!ab.title || ab.title.includes("Melihat Perspektif yang Tidak Pernah Terjangkau")) ? defaultTitle : ab.title;
+  }
+  const defAbout = window.AeroSiteConfig?.DEFAULT_SITE_CONFIG?.about || {};
+  if (p1El) p1El.value = ab.p1 || defAbout.p1 || 'Saya adalah seorang <strong class="text-white">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.';
+
+  let p2Val = ab.p2 || defAbout.p2 || "";
+  if (!p2Val || p2Val.includes("\n\nFokus utama")) {
+    p2Val = defAbout.p2 || 'Dengan pengalaman lebih dari <strong class="text-white">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.';
+  }
+  if (p2El) p2El.value = p2Val;
+  if (p3El) p3El.value = ab.p3 || defAbout.p3 || 'Fokus utama di lapangan diarahkan pada <strong class="text-white">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.';
+  if (p4El) p4El.value = ab.p4 || defAbout.p4 || 'Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.';
 }
 
 // Pilot Photo Upload & Preview Engine
@@ -919,15 +933,19 @@ function saveAllSettings() {
   const aTitle = document.getElementById("cfg-about-title");
   const aP1 = document.getElementById("cfg-about-p1");
   const aP2 = document.getElementById("cfg-about-p2");
+  const aP3 = document.getElementById("cfg-about-p3");
+  const aP4 = document.getElementById("cfg-about-p4");
 
   currentConfig.about = {
     ...currentConfig.about,
-    pilotName: aName ? aName.value : "",
-    pilotRole: aRole ? aRole.value : "",
-    avatarUrl: aAvatar ? aAvatar.value : "",
-    title: aTitle ? aTitle.value : "",
+    pilotName: aName ? aName.value : "Bobien Martien",
+    pilotRole: aRole ? aRole.value : "Aerial Cinematographer & Remote Pilot",
+    avatarUrl: aAvatar ? aAvatar.value : "assets/images/pilot-bobien-martien.jpg?v=2",
+    title: aTitle ? aTitle.value : "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial.",
     p1: aP1 ? aP1.value : "",
-    p2: aP2 ? aP2.value : ""
+    p2: aP2 ? aP2.value : "",
+    p3: aP3 ? aP3.value : "",
+    p4: aP4 ? aP4.value : ""
   };
 
   // 6. Gather Contact

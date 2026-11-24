@@ -219,11 +219,11 @@ const DEFAULT_SITE_CONFIG = {
     regBody: "SIDOPI GO & DGCA DKPPU",
     regSub: "Kementerian Perhubungan RI",
     avatarUrl: "assets/images/pilot-bobien-martien.jpg?v=2",
-    title: "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.",
-    p1: "Saya adalah seorang <strong class=\"text-white\">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.",
-    p2: "Dengan pengalaman terbang lebih dari <strong class=\"text-white\">450 jam terbang operasional</strong>di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.\n\nFokus utama di lapangan diarahkan pada  <strong class=\"text-white\"> pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>\n\nSetiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.",
-    p3: "Saya menggabungkan keterampilan pilot, ketelitian dalam pengambilan gambar, serta pemahaman teknis penerbangan untuk menghasilkan karya visual yang memiliki nilai estetika, komposisi kuat, dan standar produksi berkualitas.",
-    p4: "Dalam setiap proyek, saya mengutamakan <strong class=\"text-white\">keselamatan penerbangan, kepatuhan terhadap regulasi, dan kualitas hasil visual</strong> sebagai bagian dari komitmen profesional."
+    title: "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial.",
+    p1: 'Saya adalah seorang <strong class="text-white">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.',
+    p2: 'Dengan pengalaman lebih dari <strong class="text-white">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.',
+    p3: 'Fokus utama di lapangan diarahkan pada <strong class="text-white">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.',
+    p4: 'Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.'
   },
   contact: {
     whatsapp: "+62 813-8145-3598",
@@ -268,14 +268,25 @@ function getSiteConfig() {
           parsed.hero.bgImageUrl = DEFAULT_SITE_CONFIG.hero.bgImageUrl;
         }
       }
-      // Auto-migrate avatar to official Bobien Martien photo
+      // Auto-migrate avatar & text to official Bobien Martien frontpage info
       if (parsed && parsed.about) {
         if (!parsed.about.avatarUrl || parsed.about.avatarUrl.includes("photo-1516035069371") || parsed.about.avatarUrl === "assets/images/pilot-profile.jpg") {
           parsed.about.avatarUrl = DEFAULT_SITE_CONFIG.about.avatarUrl;
         }
-        if (parsed.about.p1 && parsed.about.p1.includes("Certified Remote Pilot dan Aerial Visual Creator")) {
+        if (!parsed.about.title || parsed.about.title.includes("Melihat Perspektif yang Tidak Pernah Terjangkau")) {
+          parsed.about.title = DEFAULT_SITE_CONFIG.about.title;
+        }
+        if (!parsed.about.p1 || parsed.about.p1.includes("Certified Remote Pilot dan Aerial Visual Creator")) {
           parsed.about.p1 = DEFAULT_SITE_CONFIG.about.p1;
+        }
+        if (!parsed.about.p2 || parsed.about.p2.includes("\n\nFokus utama")) {
           parsed.about.p2 = DEFAULT_SITE_CONFIG.about.p2;
+        }
+        if (!parsed.about.p3 || parsed.about.p3.includes("Saya menggabungkan keterampilan")) {
+          parsed.about.p3 = DEFAULT_SITE_CONFIG.about.p3;
+        }
+        if (!parsed.about.p4 || parsed.about.p4.includes("Dalam setiap proyek")) {
+          parsed.about.p4 = DEFAULT_SITE_CONFIG.about.p4;
         }
       }
       // Auto-migrate drone fleet images & tags to official local assets if using legacy or unsplash URLs
@@ -548,6 +559,11 @@ function applySiteConfigToDOM(config) {
 
   // 4. Pilot Profile
   if (config.about) {
+    const isEn = window.AeroI18n ? (window.AeroI18n.getCurrentLanguage() === 'en') : false;
+    const isDefaultTitle = !config.about.title || 
+      config.about.title === "Perspektif Udara Presisi untuk Standar Produksi Layar Lebar & Komersial." ||
+      config.about.title === "Melihat Perspektif yang Tidak Pernah Terjangkau dari Daratan.";
+
     const pilotName = document.querySelector("#tentang h3");
     if (pilotName && config.about.pilotName) pilotName.textContent = config.about.pilotName;
 
@@ -560,7 +576,64 @@ function applySiteConfigToDOM(config) {
     }
 
     const pilotTitle = document.querySelector("#tentang h2");
-    if (pilotTitle && config.about.title) pilotTitle.textContent = config.about.title;
+    if (pilotTitle) {
+      if (isEn && isDefaultTitle && window.AeroI18n?.translations?.en?.["about.title"]) {
+        pilotTitle.textContent = window.AeroI18n.translations.en["about.title"];
+      } else if (!isEn && isDefaultTitle && window.AeroI18n?.translations?.id?.["about.title"]) {
+        pilotTitle.textContent = window.AeroI18n.translations.id["about.title"];
+      } else if (config.about.title) {
+        pilotTitle.textContent = config.about.title;
+      }
+    }
+
+    // Dynamic Bio Paragraphs (p1, p2, p3, p4)
+    const p1El = document.querySelector('#tentang [data-i18n="about.p1"]');
+    if (p1El) {
+      const isDefaultP1 = !config.about.p1 || config.about.p1 === DEFAULT_SITE_CONFIG.about.p1;
+      if (isEn && isDefaultP1 && window.AeroI18n?.translations?.en?.["about.p1"]) {
+        p1El.innerHTML = window.AeroI18n.translations.en["about.p1"];
+      } else if (!isEn && isDefaultP1 && window.AeroI18n?.translations?.id?.["about.p1"]) {
+        p1El.innerHTML = window.AeroI18n.translations.id["about.p1"];
+      } else if (config.about.p1) {
+        p1El.innerHTML = config.about.p1;
+      }
+    }
+
+    const p2El = document.querySelector('#tentang [data-i18n="about.p2"]');
+    if (p2El) {
+      const isDefaultP2 = !config.about.p2 || config.about.p2 === DEFAULT_SITE_CONFIG.about.p2;
+      if (isEn && isDefaultP2 && window.AeroI18n?.translations?.en?.["about.p2"]) {
+        p2El.innerHTML = window.AeroI18n.translations.en["about.p2"];
+      } else if (!isEn && isDefaultP2 && window.AeroI18n?.translations?.id?.["about.p2"]) {
+        p2El.innerHTML = window.AeroI18n.translations.id["about.p2"];
+      } else if (config.about.p2) {
+        p2El.innerHTML = config.about.p2;
+      }
+    }
+
+    const p3El = document.querySelector('#tentang [data-i18n="about.p3"]');
+    if (p3El) {
+      const isDefaultP3 = !config.about.p3 || config.about.p3 === DEFAULT_SITE_CONFIG.about.p3;
+      if (isEn && isDefaultP3 && window.AeroI18n?.translations?.en?.["about.p3"]) {
+        p3El.innerHTML = window.AeroI18n.translations.en["about.p3"];
+      } else if (!isEn && isDefaultP3 && window.AeroI18n?.translations?.id?.["about.p3"]) {
+        p3El.innerHTML = window.AeroI18n.translations.id["about.p3"];
+      } else if (config.about.p3) {
+        p3El.innerHTML = config.about.p3;
+      }
+    }
+
+    const p4El = document.querySelector('#tentang [data-i18n="about.p4"]');
+    if (p4El) {
+      const isDefaultP4 = !config.about.p4 || config.about.p4 === DEFAULT_SITE_CONFIG.about.p4;
+      if (isEn && isDefaultP4 && window.AeroI18n?.translations?.en?.["about.p4"]) {
+        p4El.innerHTML = window.AeroI18n.translations.en["about.p4"];
+      } else if (!isEn && isDefaultP4 && window.AeroI18n?.translations?.id?.["about.p4"]) {
+        p4El.innerHTML = window.AeroI18n.translations.id["about.p4"];
+      } else if (config.about.p4) {
+        p4El.innerHTML = config.about.p4;
+      }
+    }
   }
 
   // 5. Gear / Armada Drone Fleet Cards
