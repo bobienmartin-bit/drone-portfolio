@@ -186,9 +186,19 @@
             <span>Layanan Jasa Drone (4)</span>
           </button>
 
+          <button onclick="switchTab('packages')" id="nav-tab-packages" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="package" class="w-4 h-4 text-amber-400"></i>
+            <span>Paket Komersial (6)</span>
+          </button>
+
           <button onclick="switchTab('about')" id="nav-tab-about" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
             <i data-lucide="user" class="w-4 h-4 text-pink-400"></i>
             <span>Profil Pilot &amp; Lisensi</span>
+          </button>
+
+          <button onclick="switchTab('testimonials')" id="nav-tab-testimonials" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
+            <i data-lucide="message-square-quote" class="w-4 h-4 text-yellow-400"></i>
+            <span>Testimoni Klien (4)</span>
           </button>
 
           <button onclick="switchTab('contact')" id="nav-tab-contact" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900 transition-all text-left">
@@ -309,7 +319,23 @@
                 <i data-lucide="user" class="w-5 h-5"></i>
               </div>
               <h3 class="text-sm font-bold text-white group-hover:text-pink-300">Profil Pilot &amp; Lisensi</h3>
-              <p class="text-xs text-slate-400 mt-1">Ubah nama, sertifikasi SIDOPI, jam terbang, dan bio pilot.</p>
+              <p class="text-xs text-slate-400 mt-1">Ubah nama, legalitas SIDOPI GO &amp; DKPPU, jam terbang, dan bio pilot.</p>
+            </div>
+
+            <div onclick="switchTab('packages')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+                <i data-lucide="package" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-amber-300">Paket Komersial (6)</h3>
+              <p class="text-xs text-slate-400 mt-1">Atur 6 paket jasa (Photography, Cinematography, FPV, Real Estate, dll).</p>
+            </div>
+
+            <div onclick="switchTab('testimonials')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-yellow-500/50 transition-all cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-3">
+                <i data-lucide="message-square-quote" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-yellow-300">Testimoni Klien (4)</h3>
+              <p class="text-xs text-slate-400 mt-1">Ubah 4 ulasan klien, identitas pengulas, kategori badge, dan inisial.</p>
             </div>
 
             <div onclick="switchTab('contact')" class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 transition-all cursor-pointer group">
@@ -648,6 +674,128 @@
               <label class="block text-xs font-mono text-slate-300 mb-1.5">BIO PARAGRAF 4 (KESELAMATAN &amp; KEPATUHAN REGULASI)</label>
               <textarea id="cfg-about-p4" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-xs text-white focus:outline-none font-mono"></textarea>
             </div>
+
+            <!-- LEGALITAS & REGISTRASI LISENSI RESMI CARD -->
+            <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-4">
+              <div class="flex items-center gap-2 pb-2 border-b border-slate-800 text-amber-400">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                <h4 class="text-xs font-mono font-bold tracking-wider uppercase text-white">Legalitas &amp; Registrasi Resmi Terverifikasi</h4>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">JUDUL KARTU LEGALITAS</label>
+                  <input type="text" id="cfg-about-cert-card-title" placeholder="LEGALITAS &amp; REGISTRASI RESMI TERVERIFIKASI" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">SUBJUDUL PENERBIT REGULASI</label>
+                  <input type="text" id="cfg-about-cert-card-sub" placeholder="Kementerian Perhubungan Republik Indonesia (DGCA)" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">LABEL REGISTRASI SIDOPI GO</label>
+                  <input type="text" id="cfg-about-cert-sidopi-label" placeholder="REGISTRASI SIDOPI GO" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">NOMOR ID SIDOPI GO (DISAMARKAN/MASKED)</label>
+                  <input type="text" id="cfg-about-cert-sidopi-val" placeholder="ID: PILOT-••••-2024" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none font-mono">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">LABEL SERTIFIKASI DKPPU</label>
+                  <input type="text" id="cfg-about-cert-dkppu-label" placeholder="DKPPU CERTIFICATION" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">NOMOR SERTIFIKAT CASR PART 107 (MASKED)</label>
+                  <input type="text" id="cfg-about-cert-dkppu-val" placeholder="CASR PART 107 • #DKPPU-••••-89" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none font-mono">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">LABEL STANDAR OPERASIONAL</label>
+                  <input type="text" id="cfg-about-cert-log-label" placeholder="OPERATIONAL FLIGHT LOG" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">STATUS JAM TERBANG &amp; REKOR SAFETY</label>
+                  <input type="text" id="cfg-about-cert-log-val" placeholder="450+ Hours • Zero Incident Record" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-400 text-xs text-white focus:outline-none font-mono">
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 INDIKATOR TELEMETRI PROFIL PILOT CARD -->
+            <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-4">
+              <div class="flex items-center gap-2 pb-2 border-b border-slate-800 text-cyan-400">
+                <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                <h4 class="text-xs font-mono font-bold tracking-wider uppercase text-white">4 Indikator Telemetri Profil Pilot</h4>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                  <label class="block text-[10px] font-mono text-slate-400">JAM TERBANG (STAT #1)</label>
+                  <input type="text" id="cfg-about-stat-hours-val" placeholder="450+" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-bold font-mono text-white focus:border-cyan-400 focus:outline-none">
+                  <input type="text" id="cfg-about-stat-hours-lbl" placeholder="Flight Hours" class="w-full px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-[10px] text-slate-400 focus:border-cyan-400 focus:outline-none">
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                  <label class="block text-[10px] font-mono text-slate-400">SAFETY RECORD (STAT #2)</label>
+                  <input type="text" id="cfg-about-stat-safety-val" placeholder="100%" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-bold font-mono text-emerald-400 focus:border-cyan-400 focus:outline-none">
+                  <input type="text" id="cfg-about-stat-safety-lbl" placeholder="Zero Incident" class="w-full px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-[10px] text-slate-400 focus:border-cyan-400 focus:outline-none">
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                  <label class="block text-[10px] font-mono text-slate-400">JUMLAH ARMADA (STAT #3)</label>
+                  <input type="text" id="cfg-about-stat-fleet-val" placeholder="6+" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-bold font-mono text-amber-400 focus:border-cyan-400 focus:outline-none">
+                  <input type="text" id="cfg-about-stat-fleet-lbl" placeholder="Fleet Units" class="w-full px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-[10px] text-slate-400 focus:border-cyan-400 focus:outline-none">
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                  <label class="block text-[10px] font-mono text-slate-400">KOTA OPERASIONAL (STAT #4)</label>
+                  <input type="text" id="cfg-about-stat-cities-val" placeholder="18+" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-bold font-mono text-white focus:border-cyan-400 focus:outline-none">
+                  <input type="text" id="cfg-about-stat-cities-lbl" placeholder="Cities Flown" class="w-full px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-[10px] text-slate-400 focus:border-cyan-400 focus:outline-none">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB: PAKET KOMERSIAL (6) -->
+        <!-- ============================================== -->
+        <section id="pane-packages" class="tab-pane hidden space-y-6">
+          <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="package" class="w-4 h-4 text-amber-400"></i> 6 Paket Jasa Komersial Drone
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Ubah badge, nama paket, deskripsi layanan, dan 3 poin deliverable utama pada kartu layanan komersial.</p>
+            </div>
+
+            <div id="packages-form-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- Populated by admin.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB: TESTIMONI KLIEN (4) -->
+        <!-- ============================================== -->
+        <section id="pane-testimonials" class="tab-pane hidden space-y-6">
+          <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="message-square-quote" class="w-4 h-4 text-yellow-400"></i> 4 Testimoni Klien &amp; Social Proof
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Atur kutipan ulasan klien, nama penyelenggara, peran/event, kategori badge, dan inisial avatar yang tampil di halaman utama.</p>
+            </div>
+
+            <div id="testimonials-form-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- Populated by admin.js -->
+            </div>
           </div>
         </section>
 
@@ -970,8 +1118,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="site-config.js?v=1795204000"></script>
-  <script src="supabase.js?v=1795204000"></script>
-  <script src="admin.js?v=1795204000"></script>
+  <script src="site-config.js?v=1795218000"></script>
+  <script src="supabase.js?v=1795218000"></script>
+  <script src="admin.js?v=1795218000"></script>
 </body>
 </html>

@@ -223,8 +223,130 @@
     "p1": "Saya adalah seorang <strong class=\"text-white\">Remote Pilot Bersertifikasi Resmi Kementerian Perhubungan (DKPPU & SIDOPI GO)</strong> yang berdedikasi pada sinematografi udara dan pengambilan visual udara presisi tinggi.",
     "p2": "Dengan pengalaman lebih dari <strong class=\"text-white\">450 jam terbang operasional</strong> di berbagai wilayah Indonesia, saya terbiasa menghadapi tantangan medan nyata mulai dari dinamika angin pesisir, lanskap alam terbuka, hingga penerbangan presisi di kawasan urban padat.",
     "p3": "Fokus utama di lapangan diarahkan pada <strong class=\"text-white\">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.",
-    "p4": "Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda."
+    "p4": "Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.",
+    "credentials": {
+      "cardTitle": "LEGALITAS & REGISTRASI RESMI TERVERIFIKASI",
+      "cardSub": "Kementerian Perhubungan Republik Indonesia (DGCA)",
+      "sidopiLabel": "REGISTRASI SIDOPI GO",
+      "sidopiVal": "ID: PILOT-••••-2024",
+      "dkppuLabel": "SERTIFIKASI PILOT DKPPU",
+      "dkppuVal": "CASR PART 107 • #DKPPU-••••-89",
+      "logLabel": "STANDAR OPERASIONAL",
+      "logVal": "450+ Jam Terbang • Zero Incident"
+    },
+    "stats": {
+      "hours": "450+",
+      "hoursLabel": "Flight Hours",
+      "safety": "100%",
+      "safetyLabel": "Zero Incident",
+      "fleet": "6+",
+      "fleetLabel": "Fleet Units",
+      "cities": "18+",
+      "citiesLabel": "Cities Flown"
+    }
   },
+  "testimonials": [
+    {
+      "id": "t1",
+      "badge": "EVENT COVERAGE",
+      "quote": "Bobien mengeksekusi liputan aerial ultah ke-12 KCP Galuh Mas dengan sangat teliti. Pergerakan kameranya halus, perizinan dan SOP keselamatannya sangat rapi, dan video highlight-nya luar biasa memukau penonton.",
+      "author": "Event Management Team",
+      "role": "Wonderful 12th KCP Galuh Mas Organizer",
+      "initials": "KC"
+    },
+    {
+      "id": "t2",
+      "badge": "1ST PLACE WINNER",
+      "quote": "Kualitas rekaman Hasselblad dan pemahaman Bobien mengenai sudut arsitektur sangat membantu visualisasi New Cluster Groove. Hasil videonya berhasil menjadi juara 1 kompetisi aerial.",
+      "author": "Commercial Marketing Lead",
+      "role": "Property Developer & Agency Partner",
+      "initials": "ML"
+    },
+    {
+      "id": "t3",
+      "badge": "COMMERCIAL FILM",
+      "quote": "Pilot drone yang benar-benar paham estetika sinematografi, bukan sekadar terbang. File 10-Bit D-Log M yang diserahkan sangat rapi dan dinamis untuk color grading di studio kami.",
+      "author": "Creative Director",
+      "role": "Visual Motion Studio",
+      "initials": "CD"
+    },
+    {
+      "id": "t4",
+      "badge": "CAMPUS & INSTITUTIONAL",
+      "quote": "Sangat profesional, taat izin keselamatan zona terbang, dan hasil aerial PKN STAN Campus Skies spektakuler dan viral di media sosial kampus.",
+      "author": "Public Relations & Media Crew",
+      "role": "Campus Skies Production",
+      "initials": "PR"
+    }
+  ],
+  "packages": [
+    {
+      "id": "pkg-1",
+      "badge": "HIGH-RES STILLS",
+      "title": "Aerial Photography Package",
+      "desc": "High-resolution 48MP RAW aerial photography tailored for architectural showcases, masterplans, billboards, and high-definition marketing campaigns.",
+      "deliverables": [
+        "48MP RAW High-Resolution Photos",
+        "Wide-Angle & Panoramic Landscape Coverage",
+        "Professional Retouching & Commercial Color Science"
+      ]
+    },
+    {
+      "id": "pkg-2",
+      "badge": "5.1K / 4K MASTER",
+      "title": "Aerial Cinematography Package",
+      "desc": "Commercial film and cinema-grade advertising utilizing Hasselblad optical sensors, 5.1K/4K UHD, and 10-Bit D-Log M high dynamic range color profiles.",
+      "deliverables": [
+        "Master Video 5.1K / 4K UHD (60/120fps)",
+        "10-Bit D-Log M High Dynamic Range Color",
+        "Multi-Battery Sorties & Cinematic Gimbal Sequences"
+      ]
+    },
+    {
+      "id": "pkg-3",
+      "badge": "ONE-PUSH ACRO",
+      "title": "FPV Cinematic Package",
+      "desc": "Dynamic high-speed visuals, building and cliff dives, automotive chase sequences, and controlled indoor fly-throughs with enclosed propeller units.",
+      "deliverables": [
+        "4K/60fps HDR 155° Ultra-Wide FOV",
+        "One-Push ACRO Maneuvers & RockSteady 3.0+",
+        "Confined Space & Indoor Safety Protocol"
+      ]
+    },
+    {
+      "id": "pkg-4",
+      "badge": "ARCHITECTURE & REELS",
+      "title": "Real Estate & Property Showcase",
+      "desc": "Comprehensive property showcases combining 4K landscape master footage and 9:16 vertical reels to maximize buyer engagement and viral social reach.",
+      "deliverables": [
+        "Master 4K + Vertical 9:16 Reels Format",
+        "Surrounding Facility & Access Highlights",
+        "Golden Hour & Sunset Lighting Sessions"
+      ]
+    },
+    {
+      "id": "pkg-5",
+      "badge": "ENTERPRISE & K3",
+      "title": "Corporate & Industrial Documentation",
+      "desc": "High-elevation industrial monitoring, corporate company profiles, factory inspections, and periodic construction tracking conducted under strict PPE/K3 standards.",
+      "deliverables": [
+        "High-Elevation Facility & Factory Monitoring",
+        "Periodic Infrastructure Progress Tracking",
+        "Full SIDOPI GO & DGCA Airspace Clearance"
+      ]
+    },
+    {
+      "id": "pkg-6",
+      "badge": "CROWD PERSPECTIVE",
+      "title": "Event & Festival Coverage",
+      "desc": "Breathtaking aerial views capturing the full magnitude of outdoor festivals, music concerts, sporting events, and cultural celebrations with certified crowd safety.",
+      "deliverables": [
+        "Dynamic High-Altitude Crowd Perspectives",
+        "60s Social Media Highlight Reel within 24h",
+        "Safety-First Operations & Standby Crew"
+      ]
+    }
+  ],
   "contact": {
     "whatsapp": "+62 813-8145-3598",
     "whatsappClean": "6281381453598",

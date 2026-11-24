@@ -224,7 +224,9 @@ const TAB_TITLES = {
   gallery: { label: "Galeri Karya (Foto & Video)", icon: "image" },
   gear: { label: "Armada Drone (6)", icon: "cpu" },
   services: { label: "Layanan Jasa Drone (4)", icon: "briefcase" },
+  packages: { label: "Paket Komersial (6)", icon: "package" },
   about: { label: "Profil Pilot & Lisensi", icon: "user" },
+  testimonials: { label: "Testimoni Klien (4)", icon: "message-square-quote" },
   contact: { label: "Kontak & WhatsApp", icon: "phone" },
   backup: { label: "Cloud & Backup JSON", icon: "database" },
   security: { label: "Keamanan & Ganti PIN", icon: "shield-check" }
@@ -270,7 +272,9 @@ async function initDashboard() {
   populateReelForm();
   populateGearForm();
   populateServicesForm();
+  populatePackagesForm();
   populateAboutForm();
+  populateTestimonialsForm();
   populateContactForm();
   populateGithubTokenForm();
   switchTab(currentActiveTab);
@@ -296,7 +300,9 @@ async function initDashboard() {
         populateReelForm();
         populateGearForm();
         populateServicesForm();
+        populatePackagesForm();
         populateAboutForm();
+        populateTestimonialsForm();
         populateContactForm();
       }
     } catch (err) {
@@ -755,6 +761,129 @@ function populateAboutForm() {
   if (p2El) p2El.value = p2Val;
   if (p3El) p3El.value = ab.p3 || defAbout.p3 || 'Fokus utama di lapangan diarahkan pada <strong class="text-white">pergerakan kamera yang halus dan terukur, akurasi profil warna 10-Bit D-Log M untuk kemudahan color grading, serta standar ketat keselamatan terbang</strong>.';
   if (p4El) p4El.value = ab.p4 || defAbout.p4 || 'Setiap penerbangan didukung prosedur standar keselamatan pra-terbang, manajemen baterai terukur, dan kepatuhan izin wilayah udara untuk memastikan kelancaran produksi tim kreatif Anda.';
+
+  // Populate Legalitas & Registrasi Lisensi (SIDOPI GO & DKPPU)
+  const cr = ab.credentials || defAbout.credentials || {};
+  const cTitleEl = document.getElementById("cfg-about-cert-card-title");
+  const cSubEl = document.getElementById("cfg-about-cert-card-sub");
+  const sidopiLblEl = document.getElementById("cfg-about-cert-sidopi-label");
+  const sidopiValEl = document.getElementById("cfg-about-cert-sidopi-val");
+  const dkppuLblEl = document.getElementById("cfg-about-cert-dkppu-label");
+  const dkppuValEl = document.getElementById("cfg-about-cert-dkppu-val");
+  const logLblEl = document.getElementById("cfg-about-cert-log-label");
+  const logValEl = document.getElementById("cfg-about-cert-log-val");
+
+  if (cTitleEl) cTitleEl.value = cr.cardTitle || "LEGALITAS & REGISTRASI RESMI TERVERIFIKASI";
+  if (cSubEl) cSubEl.value = cr.cardSub || "Kementerian Perhubungan Republik Indonesia (DGCA)";
+  if (sidopiLblEl) sidopiLblEl.value = cr.sidopiLabel || "REGISTRASI SIDOPI GO";
+  if (sidopiValEl) sidopiValEl.value = cr.sidopiVal || "ID: PILOT-••••-2024";
+  if (dkppuLblEl) dkppuLblEl.value = cr.dkppuLabel || "SERTIFIKASI PILOT DKPPU";
+  if (dkppuValEl) dkppuValEl.value = cr.dkppuVal || "CASR PART 107 • #DKPPU-••••-89";
+  if (logLblEl) logLblEl.value = cr.logLabel || "STANDAR OPERASIONAL";
+  if (logValEl) logValEl.value = cr.logVal || "450+ Jam Terbang • Zero Incident";
+
+  // Populate 4 Telemetri Stats
+  const st = ab.stats || defAbout.stats || {};
+  const hValEl = document.getElementById("cfg-about-stat-hours-val");
+  const hLblEl = document.getElementById("cfg-about-stat-hours-lbl");
+  const sValEl = document.getElementById("cfg-about-stat-safety-val");
+  const sLblEl = document.getElementById("cfg-about-stat-safety-lbl");
+  const fValEl = document.getElementById("cfg-about-stat-fleet-val");
+  const fLblEl = document.getElementById("cfg-about-stat-fleet-lbl");
+  const cValEl = document.getElementById("cfg-about-stat-cities-val");
+  const cLblEl = document.getElementById("cfg-about-stat-cities-lbl");
+
+  if (hValEl) hValEl.value = st.hours || "450+";
+  if (hLblEl) hLblEl.value = st.hoursLabel || "Flight Hours";
+  if (sValEl) sValEl.value = st.safety || "100%";
+  if (sLblEl) sLblEl.value = st.safetyLabel || "Zero Incident";
+  if (fValEl) fValEl.value = st.fleet || "6+";
+  if (fLblEl) fLblEl.value = st.fleetLabel || "Fleet Units";
+  if (cValEl) cValEl.value = st.cities || "18+";
+  if (cLblEl) cLblEl.value = st.citiesLabel || "Cities Flown";
+}
+
+// TAB PACKAGES (6)
+function populatePackagesForm() {
+  const container = document.getElementById("packages-form-grid");
+  if (!container) return;
+
+  const pkgList = (currentConfig.packages && currentConfig.packages.length) 
+    ? currentConfig.packages 
+    : (window.AeroSiteConfig?.DEFAULT_SITE_CONFIG?.packages || []);
+
+  container.innerHTML = pkgList.map((p, i) => `
+    <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5">
+      <div class="flex items-center justify-between">
+        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          PAKET #${i + 1}
+        </span>
+        <input type="text" id="pkg-tag-${i}" value="${p.badge || ''}" placeholder="BADGE" class="w-36 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-mono text-amber-300 text-right focus:border-amber-400 focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-mono text-slate-400 mb-1">NAMA PAKET</label>
+        <input type="text" id="pkg-title-${i}" value="${p.title || ''}" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-white focus:border-amber-400 focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-mono text-slate-400 mb-1">DESKRIPSI PAKET</label>
+        <textarea id="pkg-desc-${i}" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 focus:border-amber-400 focus:outline-none leading-relaxed">${p.desc || ''}</textarea>
+      </div>
+
+      <div class="pt-2 border-t border-slate-800/80 space-y-2">
+        <label class="block text-[10px] font-mono text-slate-400">3 POIN DELIVERABLE / FITUR UTAMA:</label>
+        <input type="text" id="pkg-d1-${i}" value="${(p.deliverables && p.deliverables[0]) || ''}" placeholder="Deliverable 1" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-200 focus:border-amber-400 focus:outline-none">
+        <input type="text" id="pkg-d2-${i}" value="${(p.deliverables && p.deliverables[1]) || ''}" placeholder="Deliverable 2" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-200 focus:border-amber-400 focus:outline-none">
+        <input type="text" id="pkg-d3-${i}" value="${(p.deliverables && p.deliverables[2]) || ''}" placeholder="Deliverable 3" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-200 focus:border-amber-400 focus:outline-none">
+      </div>
+    </div>
+  `).join("");
+}
+
+// TAB TESTIMONIALS (4)
+function populateTestimonialsForm() {
+  const container = document.getElementById("testimonials-form-grid");
+  if (!container) return;
+
+  const testiList = (currentConfig.testimonials && currentConfig.testimonials.length) 
+    ? currentConfig.testimonials 
+    : (window.AeroSiteConfig?.DEFAULT_SITE_CONFIG?.testimonials || []);
+
+  container.innerHTML = testiList.map((t, i) => `
+    <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5">
+      <div class="flex items-center justify-between">
+        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+          TESTIMONI #${i + 1}
+        </span>
+        <div class="flex items-center gap-2">
+          <label class="text-[10px] font-mono text-slate-400">BADGE:</label>
+          <input type="text" id="testi-badge-inp-${i}" value="${t.badge || ''}" placeholder="Kategori" class="w-36 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-mono text-yellow-300 text-right focus:border-yellow-400 focus:outline-none">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-mono text-slate-400 mb-1">KUTIPAN ULASAN KLIEN (QUOTE)</label>
+        <textarea id="testi-quote-inp-${i}" rows="3" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:border-yellow-400 focus:outline-none italic leading-relaxed">${t.quote || ''}</textarea>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
+        <div class="sm:col-span-5">
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">NAMA KLIEN / TIM</label>
+          <input type="text" id="testi-author-inp-${i}" value="${t.author || ''}" placeholder="Nama Klien" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white focus:border-yellow-400 focus:outline-none font-bold">
+        </div>
+        <div class="sm:col-span-5">
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">PERAN / EVENT / PERUSAHAAN</label>
+          <input type="text" id="testi-role-inp-${i}" value="${t.role || ''}" placeholder="Peran Klien" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 focus:border-yellow-400 focus:outline-none">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-[10px] font-mono text-slate-400 mb-1">INISIAL</label>
+          <input type="text" id="testi-initials-inp-${i}" value="${t.initials || ''}" placeholder="KC" maxlength="3" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-center text-yellow-300 font-mono font-bold focus:border-yellow-400 focus:outline-none uppercase">
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
 }
 
 // Pilot Photo Upload & Preview Engine
@@ -979,6 +1108,24 @@ function saveAllSettings() {
   const aP3 = document.getElementById("cfg-about-p3");
   const aP4 = document.getElementById("cfg-about-p4");
 
+  const cTitleEl = document.getElementById("cfg-about-cert-card-title");
+  const cSubEl = document.getElementById("cfg-about-cert-card-sub");
+  const sidopiLblEl = document.getElementById("cfg-about-cert-sidopi-label");
+  const sidopiValEl = document.getElementById("cfg-about-cert-sidopi-val");
+  const dkppuLblEl = document.getElementById("cfg-about-cert-dkppu-label");
+  const dkppuValEl = document.getElementById("cfg-about-cert-dkppu-val");
+  const logLblEl = document.getElementById("cfg-about-cert-log-label");
+  const logValEl = document.getElementById("cfg-about-cert-log-val");
+
+  const hValEl = document.getElementById("cfg-about-stat-hours-val");
+  const hLblEl = document.getElementById("cfg-about-stat-hours-lbl");
+  const sValEl = document.getElementById("cfg-about-stat-safety-val");
+  const sLblEl = document.getElementById("cfg-about-stat-safety-lbl");
+  const fValEl = document.getElementById("cfg-about-stat-fleet-val");
+  const fLblEl = document.getElementById("cfg-about-stat-fleet-lbl");
+  const cValEl = document.getElementById("cfg-about-stat-cities-val");
+  const cLblEl = document.getElementById("cfg-about-stat-cities-lbl");
+
   currentConfig.about = {
     ...currentConfig.about,
     pilotName: aName ? aName.value : "Bobien Martien",
@@ -988,10 +1135,72 @@ function saveAllSettings() {
     p1: aP1 ? aP1.value : "",
     p2: aP2 ? aP2.value : "",
     p3: aP3 ? aP3.value : "",
-    p4: aP4 ? aP4.value : ""
+    p4: aP4 ? aP4.value : "",
+    credentials: {
+      cardTitle: cTitleEl ? cTitleEl.value : "LEGALITAS & REGISTRASI RESMI TERVERIFIKASI",
+      cardSub: cSubEl ? cSubEl.value : "Kementerian Perhubungan Republik Indonesia (DGCA)",
+      sidopiLabel: sidopiLblEl ? sidopiLblEl.value : "REGISTRASI SIDOPI GO",
+      sidopiVal: sidopiValEl ? sidopiValEl.value : "ID: PILOT-••••-2024",
+      dkppuLabel: dkppuLblEl ? dkppuLblEl.value : "SERTIFIKASI PILOT DKPPU",
+      dkppuVal: dkppuValEl ? dkppuValEl.value : "CASR PART 107 • #DKPPU-••••-89",
+      logLabel: logLblEl ? logLblEl.value : "STANDAR OPERASIONAL",
+      logVal: logValEl ? logValEl.value : "450+ Jam Terbang • Zero Incident"
+    },
+    stats: {
+      hours: hValEl ? hValEl.value : "450+",
+      hoursLabel: hLblEl ? hLblEl.value : "Flight Hours",
+      safety: sValEl ? sValEl.value : "100%",
+      safetyLabel: sLblEl ? sLblEl.value : "Zero Incident",
+      fleet: fValEl ? fValEl.value : "6+",
+      fleetLabel: fLblEl ? fLblEl.value : "Fleet Units",
+      cities: cValEl ? cValEl.value : "18+",
+      citiesLabel: cLblEl ? cLblEl.value : "Cities Flown"
+    }
   };
 
-  // 6. Gather Contact
+  // 6. Gather Packages (6)
+  const existingPkgs = (currentConfig.packages && currentConfig.packages.length) 
+    ? [...currentConfig.packages] 
+    : (window.AeroSiteConfig?.DEFAULT_SITE_CONFIG?.packages ? [...window.AeroSiteConfig.DEFAULT_SITE_CONFIG.packages] : []);
+  for (let i = 0; i < existingPkgs.length; i++) {
+    const pTag = document.getElementById(`pkg-tag-${i}`);
+    const pTitle = document.getElementById(`pkg-title-${i}`);
+    const pDesc = document.getElementById(`pkg-desc-${i}`);
+    const pd1 = document.getElementById(`pkg-d1-${i}`);
+    const pd2 = document.getElementById(`pkg-d2-${i}`);
+    const pd3 = document.getElementById(`pkg-d3-${i}`);
+
+    if (pTag) existingPkgs[i].badge = pTag.value;
+    if (pTitle) existingPkgs[i].title = pTitle.value;
+    if (pDesc) existingPkgs[i].desc = pDesc.value;
+    existingPkgs[i].deliverables = [
+      pd1 ? pd1.value : (existingPkgs[i].deliverables?.[0] || ""),
+      pd2 ? pd2.value : (existingPkgs[i].deliverables?.[1] || ""),
+      pd3 ? pd3.value : (existingPkgs[i].deliverables?.[2] || "")
+    ];
+  }
+  currentConfig.packages = existingPkgs;
+
+  // 7. Gather Testimonials (4)
+  const existingTestis = (currentConfig.testimonials && currentConfig.testimonials.length) 
+    ? [...currentConfig.testimonials] 
+    : (window.AeroSiteConfig?.DEFAULT_SITE_CONFIG?.testimonials ? [...window.AeroSiteConfig.DEFAULT_SITE_CONFIG.testimonials] : []);
+  for (let i = 0; i < existingTestis.length; i++) {
+    const tBadge = document.getElementById(`testi-badge-inp-${i}`);
+    const tQuote = document.getElementById(`testi-quote-inp-${i}`);
+    const tAuthor = document.getElementById(`testi-author-inp-${i}`);
+    const tRole = document.getElementById(`testi-role-inp-${i}`);
+    const tInitials = document.getElementById(`testi-initials-inp-${i}`);
+
+    if (tBadge) existingTestis[i].badge = tBadge.value;
+    if (tQuote) existingTestis[i].quote = tQuote.value;
+    if (tAuthor) existingTestis[i].author = tAuthor.value;
+    if (tRole) existingTestis[i].role = tRole.value;
+    if (tInitials) existingTestis[i].initials = tInitials.value;
+  }
+  currentConfig.testimonials = existingTestis;
+
+  // 8. Gather Contact
   const cWa = document.getElementById("cfg-contact-wa");
   const cWaClean = document.getElementById("cfg-contact-wa-clean");
   const cWaText = document.getElementById("cfg-contact-wa-text");
@@ -1751,3 +1960,5 @@ window.toggleGithubTokenVisibility = toggleGithubTokenVisibility;
 window.saveGithubTokenAndTest = saveGithubTokenAndTest;
 window.triggerPermanentSave = triggerPermanentSave;
 window.pushConfigToGithub = pushConfigToGithub;
+window.populatePackagesForm = populatePackagesForm;
+window.populateTestimonialsForm = populateTestimonialsForm;
