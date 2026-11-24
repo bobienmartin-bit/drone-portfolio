@@ -325,6 +325,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupEventListeners();
   updateMediaCounters();
   initFeaturedVideoAutoplay();
+  initTestimonialsCarousel();
   
   // Re-run lucide icons if available
   if (window.lucide) {
@@ -1168,6 +1169,117 @@ window.selectDroneForBooking = function(droneName) {
     showToast(`Armada ${droneName} dipilih. Silakan lengkapi formulir inquiry proyek Anda.`, "info");
   }
 };
+
+// ========================================================
+// Testimonials 1-Row Smooth Carousel Engine
+// ========================================================
+function initTestimonialsCarousel() {
+  const track = document.getElementById("testi-carousel-track");
+  const prevBtn = document.getElementById("testi-prev-btn");
+  const nextBtn = document.getElementById("testi-next-btn");
+  const dotsContainer = document.getElementById("testi-dots-container");
+  if (!track) return;
+
+  const cards = track.querySelectorAll(".snap-start");
+  if (!cards || cards.length === 0) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  const totalCards = cards.length;
+
+  function updateDots(idx) {
+    if (!dotsContainer) return;
+    const dots = dotsContainer.querySelectorAll("button");
+    dots.forEach((dot, i) => {
+      if (i === idx) {
+        dot.className = "w-7 h-2 rounded-full bg-[#EAB308] transition-all duration-300 cursor-pointer";
+      } else {
+        dot.className = "w-2 h-2 rounded-full bg-[#262629] hover:bg-[#9CA3AF] transition-all duration-300 cursor-pointer";
+      }
+    });
+  }
+
+  function scrollToCard(index) {
+    if (index < 0) index = totalCards - 1;
+    if (index >= totalCards) index = 0;
+    currentIndex = index;
+
+    const targetCard = cards[currentIndex];
+    if (targetCard) {
+      const scrollPos = targetCard.offsetLeft - track.offsetLeft;
+      track.scrollTo({ left: scrollPos, behavior: "smooth" });
+    }
+    updateDots(currentIndex);
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoTimer = setInterval(() => {
+      let nextIndex = currentIndex + 1;
+      if (nextIndex >= totalCards) nextIndex = 0;
+      scrollToCard(nextIndex);
+    }, 4500);
+  }
+
+  function stopAutoPlay() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      scrollToCard(currentIndex - 1);
+      startAutoPlay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      scrollToCard(currentIndex + 1);
+      startAutoPlay();
+    });
+  }
+
+  if (dotsContainer) {
+    const dots = dotsContainer.querySelectorAll("button");
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        scrollToCard(i);
+        startAutoPlay();
+      });
+    });
+  }
+
+  // Update dots on manual scroll / swipe
+  let scrollTimeout = null;
+  track.addEventListener("scroll", () => {
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const currentScroll = track.scrollLeft;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      cards.forEach((card, i) => {
+        const diff = Math.abs((card.offsetLeft - track.offsetLeft) - currentScroll);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      });
+      if (closestIdx !== currentIndex) {
+        currentIndex = closestIdx;
+        updateDots(currentIndex);
+      }
+    }, 60);
+  }, { passive: true });
+
+  // Hover to pause, leave to resume
+  track.addEventListener("mouseenter", stopAutoPlay);
+  track.addEventListener("mouseleave", startAutoPlay);
+
+  startAutoPlay();
+}
 
 // Function to select commercial package for quotation & scroll smoothly to contact form
 window.selectPackageForQuote = function(packageName, droneHint) {

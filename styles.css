@@ -142,3 +142,12 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .gallery-card:hover img, .gallery-card:hover video {
   transform: scale(1.05);
 }
+
+/* Hide scrollbar for clean horizontal carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
